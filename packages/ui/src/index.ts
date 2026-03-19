@@ -1,2 +1,5 @@
 export { cn } from './utils'
-export { Button, type ButtonProps } from './button'
+export { Button, type ButtonProps, buttonVariants } from './button'
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from './card'
+export { Switch } from './switch'
+export { Badge, type BadgeProps, badgeVariants } from './badge'
