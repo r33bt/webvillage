@@ -1,0 +1,7 @@
+{
+  "name": "@webvillage/mobile",
+  "version": "0.0.1",
+  "private": true,
+  "description": "WebVillage mobile app — Phase 3 (post-launch). Expo/React Native.",
+  "scripts": {}
+}

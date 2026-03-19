@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@webvillage/ui": ["../../packages/ui/src"],
+      "@webvillage/config": ["../../packages/config/src"],
+      "@webvillage/db": ["../../packages/db/src"],
+      "@webvillage/auth": ["../../packages/auth/src"],
+      "@webvillage/email": ["../../packages/email/src"],
+      "@webvillage/validation": ["../../packages/validation/src"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
