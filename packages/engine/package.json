@@ -1,0 +1,30 @@
+{
+  "name": "@webvillage/engine",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./components": "./src/components/index.ts",
+    "./schemas": "./src/schemas/index.ts",
+    "./queries": "./src/queries/index.ts",
+    "./config": "./src/config/index.ts"
+  },
+  "peerDependencies": {
+    "next": ">=14.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "dependencies": {
+    "@marsidev/react-turnstile": "^0.5.0",
+    "@portabletext/react": "^6.0.0",
+    "@sanity/client": "^6.15.0",
+    "@sanity/image-url": "^1.0.2",
+    "@types/react": "^18.3.0",
+    "lucide-react": "^0.365.0",
+    "next-sanity": "^9.0.0",
+    "sanity": "^3.88.0",
+    "zod": "^3.22.0"
+  }
+}
