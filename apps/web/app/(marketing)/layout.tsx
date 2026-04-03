@@ -4,11 +4,11 @@ import { Footer } from '@/components/marketing/Footer'
 
 export const metadata: Metadata = {
   title: {
-    default: 'WebVillage — Stop paying for 5 tools. Start with one.',
+    default: 'WebVillage — Member directories, done for you',
     template: '%s | WebVillage',
   },
   description:
-    'Website, bookings, link-in-bio, custom domain, and email — all in one platform. Starting at $9/mo.',
+    'WebVillage powers member directories for associations, chambers of commerce, and industry bodies. Done-for-you managed service + self-serve embed for any website.',
 }
 
 export default function MarketingLayout({

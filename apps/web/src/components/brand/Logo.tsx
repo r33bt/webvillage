@@ -1,13 +1,18 @@
 /**
- * WebVillage lettermark logo — "W" on indigo-purple gradient.
- * Usage: <Logo className="h-8 w-8" />
+ * WebVillage lettermark logo — "W" with network nodes on Deep Teal.
+ * Usage: <Logo className="h-8 w-8" /> or <Logo variant="light" /> on dark backgrounds
  */
 
 interface LogoProps {
   className?: string
+  variant?: 'default' | 'light'
 }
 
-export function Logo({ className = 'h-8 w-8' }: LogoProps) {
+export function Logo({ className = 'h-8 w-8', variant = 'default' }: LogoProps) {
+  const bgColor = variant === 'light' ? '#FFFFFF' : '#0F766E'
+  const strokeColor = variant === 'light' ? '#0F766E' : '#FFFFFF'
+  const dotColor = '#D97706' // Warm Amber — network nodes
+
   return (
     <svg
       viewBox="0 0 48 48"
@@ -16,21 +21,20 @@ export function Logo({ className = 'h-8 w-8' }: LogoProps) {
       className={className}
       aria-label="WebVillage"
     >
-      <defs>
-        <linearGradient id="wv-gradient" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#4f46e5" />
-          <stop offset="1" stopColor="#7e22ce" />
-        </linearGradient>
-      </defs>
-      <rect width="48" height="48" rx="12" fill="url(#wv-gradient)" />
+      <rect width="48" height="48" rx="12" fill={bgColor} />
+      {/* W lettermark */}
       <path
-        d="M12 14L18 34L24 20L30 34L36 14"
-        stroke="white"
-        strokeWidth="3"
+        d="M10 13L16 35L24 19L32 35L38 13"
+        stroke={strokeColor}
+        strokeWidth="3.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
       />
+      {/* Network node dots — amber accent */}
+      <circle cx="10" cy="13" r="2.5" fill={dotColor} />
+      <circle cx="38" cy="13" r="2.5" fill={dotColor} />
+      <circle cx="24" cy="19" r="2.5" fill={dotColor} />
     </svg>
   )
 }

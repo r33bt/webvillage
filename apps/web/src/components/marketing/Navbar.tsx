@@ -1,70 +1,79 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
+import { Logo } from '@/components/brand/Logo'
 
 const navLinks = [
-  { href: '/features', label: 'Features' },
-  { href: '/templates', label: 'Templates' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/blog', label: 'Blog' },
+  { href: '#how-it-works', label: 'How it works' },
+  { href: '#pricing', label: 'Pricing' },
+  { href: '#embed', label: 'WordPress & Embed' },
 ]
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-white shadow-sm' : 'bg-transparent'
+      }`}
+    >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white">
-              <span className="text-xl font-bold text-blue-600">W</span>
-            </div>
-            <span className="text-xl font-bold text-white">WebVillage</span>
+          <Link href="/" className="flex items-center gap-2.5">
+            <Logo
+              className="h-9 w-9"
+              variant={scrolled ? 'default' : 'light'}
+            />
+            <span
+              className={`text-lg font-bold transition-colors ${
+                scrolled ? 'text-[#1C2B28]' : 'text-white'
+              }`}
+            >
+              WebVillage
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
-                className="font-medium text-white/80 transition-colors hover:text-white"
+                className={`font-medium transition-colors ${
+                  scrolled
+                    ? 'text-[#6B7C79] hover:text-[#1C2B28]'
+                    : 'text-white/80 hover:text-white'
+                }`}
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
-            <Link
-              href="/founding-members"
-              className="inline-flex items-center gap-1.5 rounded-full bg-yellow-400 px-3 py-1.5 text-sm font-bold text-blue-900 transition-colors hover:bg-yellow-300"
-            >
-              <span>⭐</span>
-              Founding Member
-            </Link>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden items-center gap-4 md:flex">
-            <Link
-              href="/login"
-              className="font-medium text-white/90 transition-colors hover:text-white"
+          {/* CTA */}
+          <div className="hidden md:flex">
+            <a
+              href="mailto:hello@webvillage.com"
+              className="rounded-lg bg-[#D97706] px-5 py-2.5 font-semibold text-white transition-colors hover:bg-[#B45309]"
             >
-              Log in
-            </Link>
-            <Link
-              href="/signup"
-              className="rounded-lg bg-white px-5 py-2.5 font-semibold text-blue-600 transition-colors hover:bg-gray-100"
-            >
-              Start Free
-            </Link>
+              Book a demo →
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="p-2 text-white md:hidden"
+            className={`p-2 md:hidden ${scrolled ? 'text-[#1C2B28]' : 'text-white'}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -78,40 +87,27 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="rounded-lg bg-white/10 p-4 backdrop-blur-lg md:hidden">
-            <div className="flex flex-col gap-3">
+          <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-xl md:hidden">
+            <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
-                <Link
+                <a
                   key={link.href}
                   href={link.href}
-                  className="rounded-lg px-4 py-2 font-medium text-white transition-colors hover:bg-white/10"
+                  className="rounded-lg px-4 py-3 font-medium text-[#1C2B28] transition-colors hover:bg-[#F0FAF9]"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
-                </Link>
+                </a>
               ))}
-              <Link
-                href="/founding-members"
-                className="rounded-lg px-4 py-2 font-medium text-yellow-400 transition-colors hover:bg-white/10"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                ⭐ Founding Member
-              </Link>
-              <hr className="border-white/20" />
-              <Link
-                href="/login"
-                className="rounded-lg px-4 py-2 font-medium text-white transition-colors hover:bg-white/10"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Log in
-              </Link>
-              <Link
-                href="/signup"
-                className="rounded-lg bg-white px-4 py-2 text-center font-semibold text-blue-600 transition-colors hover:bg-gray-100"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Start Free
-              </Link>
+              <div className="mt-2 pt-2 border-t border-gray-100">
+                <a
+                  href="mailto:hello@webvillage.com"
+                  className="block rounded-lg bg-[#D97706] px-4 py-3 text-center font-semibold text-white transition-colors hover:bg-[#B45309]"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Book a demo →
+                </a>
+              </div>
             </div>
           </div>
         )}
