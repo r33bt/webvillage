@@ -33,8 +33,8 @@ export const SITES: Record<string, SiteConfig> = {
   'findtraining': {
     id: 'findtraining',
     name: 'FindTraining',
-    domain: 'findtraining.com.my',
-    email: 'hello@findtraining.com.my',
+    domain: 'findtraining.com',
+    email: 'hello@findtraining.com',
     type: 'directory',
     theme: {
       primaryColor: '#0F6FEC',
