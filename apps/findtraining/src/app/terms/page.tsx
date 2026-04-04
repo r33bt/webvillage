@@ -48,7 +48,7 @@ export default function TermsPage() {
           <p>These terms are governed by the laws of Malaysia. Disputes shall be subject to the jurisdiction of Malaysian courts.</p>
 
           <h2>9. Contact</h2>
-          <p>Terms queries: <a href="mailto:hello@findtraining.com.my">hello@findtraining.com.my</a></p>
+          <p>Terms queries: <a href="mailto:hello@findtraining.com">hello@findtraining.com</a></p>
         </div>
       </div>
     </div>

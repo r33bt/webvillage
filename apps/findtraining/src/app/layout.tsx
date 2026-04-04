@@ -105,7 +105,7 @@ export default function RootLayout({
           <footer className="border-t border-gray-100 bg-gray-50 mt-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-                <p>© {new Date().getFullYear()} FindTraining.com.my</p>
+                <p>© {new Date().getFullYear()} FindTraining.com</p>
                 <div className="flex items-center gap-6">
                   <Link href="/privacy" className="hover:text-gray-700 transition-colors">
                     Privacy

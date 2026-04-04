@@ -37,8 +37,8 @@ export default async function ClaimPage({ params }: Props) {
           <p className="text-gray-600 text-sm leading-relaxed mb-6">
             The listing for <span className="font-semibold">{provider.name}</span> has already been claimed.
             If you believe this is an error, contact{' '}
-            <a href="mailto:hello@findtraining.com.my" className="underline" style={{ color: '#0F6FEC' }}>
-              hello@findtraining.com.my
+            <a href="mailto:hello@findtraining.com" className="underline" style={{ color: '#0F6FEC' }}>
+              hello@findtraining.com
             </a>.
           </p>
           <Link href={`/providers/${provider.slug}`} className="text-sm font-medium" style={{ color: '#0F6FEC' }}>

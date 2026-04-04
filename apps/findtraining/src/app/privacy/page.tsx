@@ -41,16 +41,16 @@ export default function PrivacyPage() {
 
           <h2>3. Your Rights (PDPA 2010)</h2>
           <p>Under Malaysia&apos;s Personal Data Protection Act 2010, you have the right to: access your data, correct inaccurate data, withdraw consent, and request removal of your listing.</p>
-          <p>To exercise these rights, email <a href="mailto:hello@findtraining.com.my">hello@findtraining.com.my</a>. We will respond within 14 working days.</p>
+          <p>To exercise these rights, email <a href="mailto:hello@findtraining.com">hello@findtraining.com</a>. We will respond within 14 working days.</p>
 
           <h2>4. Opt-Out for Providers</h2>
-          <p>Any provider wishing to be removed from our directory may email <a href="mailto:hello@findtraining.com.my">hello@findtraining.com.my</a> with &quot;Opt-Out Request&quot; in the subject line. We will remove the listing within 5 working days.</p>
+          <p>Any provider wishing to be removed from our directory may email <a href="mailto:hello@findtraining.com">hello@findtraining.com</a> with &quot;Opt-Out Request&quot; in the subject line. We will remove the listing within 5 working days.</p>
 
           <h2>5. Cookies</h2>
           <p>We use only functional cookies required for site operation. No advertising or tracking cookies are set.</p>
 
           <h2>6. Contact</h2>
-          <p>Data queries: <a href="mailto:hello@findtraining.com.my">hello@findtraining.com.my</a></p>
+          <p>Data queries: <a href="mailto:hello@findtraining.com">hello@findtraining.com</a></p>
         </div>
       </div>
     </div>

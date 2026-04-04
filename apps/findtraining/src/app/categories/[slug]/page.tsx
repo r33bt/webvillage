@@ -66,8 +66,33 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     return `/categories/${slug}${s ? '?' + s : ''}`
   }
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://findtraining.com' },
+      { '@type': 'ListItem', position: 2, name: 'Categories', item: 'https://findtraining.com/categories' },
+      { '@type': 'ListItem', position: 3, name: category.name },
+    ],
+  }
+
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${category.name} Training Providers in Malaysia`,
+    numberOfItems: total,
+    itemListElement: providers.slice(0, 10).map((provider: FtProviderWithCategories, i: number) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://findtraining.com/providers/${provider.slug}`,
+      name: provider.name,
+    })),
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       {/* Breadcrumb */}
       <nav className="text-xs text-gray-500 mb-6" aria-label="Breadcrumb">
         <ol className="flex items-center gap-1.5">

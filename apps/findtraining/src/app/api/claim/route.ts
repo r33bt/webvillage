@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error:
-            'This listing has already been claimed. If you believe this is an error, contact hello@findtraining.com.my.',
+            'This listing has already been claimed. If you believe this is an error, contact hello@findtraining.com.',
         },
         { status: 409 }
       )
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error:
-            'There is already a pending claim for this listing. If this is yours, contact hello@findtraining.com.my.',
+            'There is already a pending claim for this listing. If this is yours, contact hello@findtraining.com.',
         },
         { status: 409 }
       )
