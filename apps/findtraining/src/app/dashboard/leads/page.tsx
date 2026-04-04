@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { Inbox, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Metadata } from 'next'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
-import { getContactClicksByProvider } from '@webvillage/engine/adapters/supabase'
+import { getContactClicksByProvider } from '@webvillage/engine/adapters/findtraining'
 
 export const metadata: Metadata = {
   title: 'Leads | FindTraining Dashboard',

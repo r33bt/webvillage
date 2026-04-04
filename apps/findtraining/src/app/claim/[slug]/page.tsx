@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { GraduationCap, ShieldCheck, Clock, Mail } from 'lucide-react'
-import { getProviderBySlug } from '@webvillage/engine/adapters/supabase'
+import { getProviderBySlug } from '@webvillage/engine/adapters/findtraining'
 import { ClaimForm } from './ClaimForm'
 
 interface Props {

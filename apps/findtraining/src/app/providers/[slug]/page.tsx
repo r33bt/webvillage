@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight, CheckCircle2, MapPin, Sparkles, CheckCircle } from 'lucide-react'
-import { getProviderBySlug, getCoursesByProvider } from '@webvillage/engine/adapters/supabase'
+import { getProviderBySlug, getCoursesByProvider } from '@webvillage/engine/adapters/findtraining'
 import type { FtCourse } from '@webvillage/engine/types/ft'
 import { ContactLinks } from './ContactLinks'
 
@@ -277,12 +277,21 @@ export default async function ProviderPage({ params }: Props) {
               </div>
             )}
 
-            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 text-center">
-              <p className="text-xs text-gray-500 mb-2">Is this your listing?</p>
-              <Link href={`/claim/${provider.slug}`} className="inline-flex items-center gap-1 text-sm font-medium text-[#0F6FEC] hover:underline">
-                Claim & manage it <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-              </Link>
-            </div>
+            {!provider.claimed && (
+              <div className="rounded-xl border-2 border-[#0F6FEC] bg-blue-50 p-5">
+                <p className="text-sm font-semibold text-gray-900 mb-1">Is this your company?</p>
+                <p className="text-xs text-gray-600 leading-relaxed mb-3">
+                  Claim this listing to add your contact details, courses, and logo — then get found by HR managers searching FindTraining.
+                </p>
+                <Link
+                  href={`/claim/${provider.slug}`}
+                  className="inline-flex items-center gap-1.5 w-full justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: '#0F6FEC' }}
+                >
+                  Claim this listing <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                </Link>
+              </div>
+            )}
           </aside>
         </div>
       </div>

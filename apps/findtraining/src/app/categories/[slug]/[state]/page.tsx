@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { SearchX, MapPin, ArrowLeft } from 'lucide-react'
-import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/adapters/supabase'
+import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/adapters/findtraining'
 import { ProviderCard } from '@/components/ProviderCard'
 
 // ---------------------------------------------------------------------------

@@ -59,9 +59,22 @@ export function ClaimForm({ providerId, providerName }: ClaimFormProps) {
           </svg>
         </div>
         <h3 className="text-base font-semibold text-gray-900 mb-2">Claim submitted</h3>
-        <p className="text-sm text-gray-600 max-w-xs mx-auto">
+        <p className="text-sm text-gray-600 max-w-xs mx-auto mb-6">
           We will send a verification email within 24 hours. Expect a response within 1–2 business days.
         </p>
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-left max-w-xs mx-auto">
+          <p className="text-sm font-semibold text-amber-800 mb-1">While you wait — join as a Founding Member</p>
+          <p className="text-xs text-amber-700 leading-relaxed mb-3">
+            Lock in RM&nbsp;100/mo for 3 months (vs RM&nbsp;300 after launch) and get immediate access to your provider dashboard.
+          </p>
+          <a
+            href="/founding"
+            className="inline-flex items-center gap-1 text-xs font-semibold px-4 py-2 rounded-lg text-white transition-opacity hover:opacity-90"
+            style={{ backgroundColor: '#0F6FEC' }}
+          >
+            Join as Founding Member →
+          </a>
+        </div>
       </div>
     )
   }

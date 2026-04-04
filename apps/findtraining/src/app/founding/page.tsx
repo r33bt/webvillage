@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
-import { Star, Award, TrendingDown } from 'lucide-react'
-import { getFoundingMemberCount } from '@webvillage/engine/adapters/supabase'
+import { Star, Award, TrendingDown, CheckCircle2, GraduationCap, BookOpen, Inbox } from 'lucide-react'
+import { getFoundingMemberCount } from '@webvillage/engine/adapters/findtraining'
 import { FoundingFormCard, FaqSection } from './FoundingForm'
 
 // Force dynamic so slot count reflects real submissions, not a stale build snapshot
@@ -31,11 +31,36 @@ const BENEFITS = [
   },
 ]
 
+const DASHBOARD_FEATURES = [
+  {
+    icon: GraduationCap,
+    label: 'Provider profile editor',
+    detail: 'Logo, company description, HRDF number, contact details — all editable from day one.',
+  },
+  {
+    icon: BookOpen,
+    label: 'Course listings (up to 5)',
+    detail: 'Add your training programmes with titles, duration, delivery method, and HRDF claimable flag.',
+  },
+  {
+    icon: Inbox,
+    label: 'Leads inbox',
+    detail: 'Receive enquiries directly from HR managers browsing FindTraining.',
+  },
+  {
+    icon: Star,
+    label: 'Founding Member badge on your public profile',
+    detail: 'Visible to every HR manager who views your listing.',
+  },
+]
+
 export default async function FoundingPage() {
   const { taken: foundingCount, total: TOTAL_SLOTS } = await getFoundingMemberCount().catch(
     () => ({ taken: 0, total: 30 })
   )
   const isFull = foundingCount >= TOTAL_SLOTS
+  const slotsLeft = TOTAL_SLOTS - foundingCount
+  const pctFilled = Math.round((foundingCount / TOTAL_SLOTS) * 100)
 
   return (
     <>
@@ -53,12 +78,35 @@ export default async function FoundingPage() {
             We&apos;re building Malaysia&apos;s cleanest HRDF training directory. Founding members get top placement,
             a founding badge, and RM&nbsp;100/mo for 3 months — locked in before the price goes up.
           </p>
+
+          {!isFull && (
+            <div className="mt-8 max-w-sm mx-auto">
+              <div className="flex items-center justify-between text-xs font-medium mb-2">
+                <span className="text-white/80">{foundingCount} of {TOTAL_SLOTS} slots claimed</span>
+                <span className="text-white font-semibold">{slotsLeft} remaining</span>
+              </div>
+              <div className="w-full bg-white/20 rounded-full h-2">
+                <div
+                  className="h-2 rounded-full bg-white transition-all"
+                  style={{ width: `${pctFilled}%` }}
+                  role="progressbar"
+                  aria-valuenow={foundingCount}
+                  aria-valuemin={0}
+                  aria-valuemax={TOTAL_SLOTS}
+                  aria-label={`${foundingCount} of ${TOTAL_SLOTS} founding slots claimed`}
+                />
+              </div>
+              {foundingCount === 0 && (
+                <p className="text-blue-200 text-xs mt-2 text-center">Be the first founding member in your category.</p>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
       <section className="py-14 px-4 bg-gray-50">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">What founding members get</h2>
+          <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">Why join as a Founding Member?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {BENEFITS.map(({ icon: Icon, title, description }) => (
               <div key={title} className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
@@ -73,7 +121,38 @@ export default async function FoundingPage() {
         </div>
       </section>
 
+      {/* Dashboard features — what they get RIGHT NOW */}
       <section className="py-14 px-4">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Your provider dashboard is ready today</h2>
+            <p className="text-gray-500 text-sm">Founding members get immediate access to the full provider dashboard. No waiting for launch.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {DASHBOARD_FEATURES.map(({ icon: Icon, label, detail }) => (
+              <div key={label} className="flex items-start gap-4 bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+                <div className="flex-shrink-0 flex items-center justify-center w-9 h-9 rounded-lg" style={{ backgroundColor: '#0F6FEC1A' }}>
+                  <Icon className="w-4 h-4" style={{ color: '#0F6FEC' }} aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900 mb-0.5">{label}</p>
+                  <p className="text-xs text-gray-500 leading-relaxed">{detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 flex items-start gap-3">
+            <CheckCircle2 className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+            <p className="text-sm text-amber-800 leading-relaxed">
+              <span className="font-semibold">No payment until we confirm your slot.</span>{' '}
+              Reserve now, pay only after we personally review and approve your application.
+              Full refund within 7 days of your first payment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 px-4 bg-gray-50">
         <div className="max-w-md mx-auto">
           {isFull ? (
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 text-center">

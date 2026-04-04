@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { searchProviders, getAllCategories } from '@webvillage/engine/adapters/supabase'
+import { searchProviders, getAllCategories } from '@webvillage/engine/adapters/findtraining'
 import type { FtProviderWithCategories, FtCategory } from '@webvillage/engine/types/ft'
 
 function cleanName(name: string): string {

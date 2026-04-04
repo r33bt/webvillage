@@ -4,9 +4,9 @@ import type { Metadata } from 'next'
 import { sendMagicLink } from './actions'
 
 export const metadata: Metadata = {
-  title: 'Log In | FindTraining',
+  title: 'Provider Login | FindTraining.com',
   description: 'Log in to your FindTraining provider dashboard.',
-  robots: { index: false },
+  robots: { index: false, follow: false },
 }
 
 interface PageProps {

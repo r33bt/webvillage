@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, GraduationCap } from 'lucide-react'
+import { PoweredByWebVillage } from '@/components/PoweredByWebVillage'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -130,6 +131,9 @@ export default function RootLayout({
                     HRDF / HRD Corp Registered
                   </span>
                 </div>
+              </div>
+              <div className="mt-4 pt-4 border-t border-gray-100 flex justify-center">
+                <PoweredByWebVillage />
               </div>
             </div>
           </footer>

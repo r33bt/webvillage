@@ -5,7 +5,7 @@ import {
   Smile, BookOpen, Scale, Wrench, UtensilsCrossed, Stethoscope,
   Factory, HeartPulse, ArrowRight,
 } from 'lucide-react'
-import { getAllCategories } from '@webvillage/engine/adapters/supabase'
+import { getAllCategories } from '@webvillage/engine/adapters/findtraining'
 import type { FtCategory } from '@webvillage/engine/types/ft'
 
 export const metadata: Metadata = {

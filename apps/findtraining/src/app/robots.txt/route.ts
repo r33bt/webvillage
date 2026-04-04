@@ -4,6 +4,9 @@ export async function GET() {
   const body = `User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /auth/
+Disallow: /dashboard/
+Disallow: /login
 Disallow: /claim/
 
 Sitemap: https://findtraining.com/sitemap.xml`

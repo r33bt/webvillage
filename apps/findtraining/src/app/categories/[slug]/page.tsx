@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/adapters/supabase'
+import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/adapters/findtraining'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
 
 function cleanName(name: string): string {
