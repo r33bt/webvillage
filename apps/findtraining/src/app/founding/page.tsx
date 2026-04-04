@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { Star, Award, TrendingDown } from 'lucide-react'
-import { createClient } from '@supabase/supabase-js'
+import { getFoundingMemberCount } from '@webvillage/engine/adapters/supabase'
 import { FoundingFormCard, FaqSection } from './FoundingForm'
 
 // Force dynamic so slot count reflects real submissions, not a stale build snapshot
@@ -11,23 +11,6 @@ export const metadata: Metadata = {
   description: "Be first on Malaysia's HRDF training directory. 30 founding slots at RM 100/mo for 3 months — top placement, founding badge, and early access.",
   alternates: { canonical: 'https://findtraining.com/founding' },
   robots: { index: false },
-}
-
-async function getFoundingCount(): Promise<number> {
-  try {
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!,
-      { auth: { persistSession: false } }
-    )
-    const { count, error } = await supabase
-      .from('ft_founding_members')
-      .select('id', { count: 'exact', head: true })
-    if (error) return 0
-    return count ?? 0
-  } catch {
-    return 0
-  }
 }
 
 const BENEFITS = [
@@ -48,16 +31,20 @@ const BENEFITS = [
   },
 ]
 
-const TOTAL_SLOTS = 30
-
 export default async function FoundingPage() {
-  const foundingCount = await getFoundingCount()
+  const { taken: foundingCount, total: TOTAL_SLOTS } = await getFoundingMemberCount().catch(
+    () => ({ taken: 0, total: 30 })
+  )
+  const isFull = foundingCount >= TOTAL_SLOTS
+
   return (
     <>
       <section style={{ backgroundColor: '#0F6FEC' }} className="py-16 sm:py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-wide uppercase">
-            Limited — {TOTAL_SLOTS} founding slots
+            {isFull
+              ? 'Founding programme is full'
+              : `Limited — ${TOTAL_SLOTS} founding slots`}
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
             Be First on FindTraining.<br className="hidden sm:block" /> Get Listed Before We Launch.
@@ -88,7 +75,46 @@ export default async function FoundingPage() {
 
       <section className="py-14 px-4">
         <div className="max-w-md mx-auto">
-          <FoundingFormCard foundingCount={foundingCount} totalSlots={TOTAL_SLOTS} />
+          {isFull ? (
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 text-center">
+              <div
+                className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
+                style={{ backgroundColor: '#F590001A' }}
+              >
+                <svg
+                  className="w-7 h-7"
+                  style={{ color: '#F59000' }}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v3m0 3h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                Founding programme is full
+              </h3>
+              <p className="text-sm text-gray-600 mb-6">
+                All {TOTAL_SLOTS} founding slots have been claimed. Join the waitlist and
+                we&apos;ll notify you when a spot opens or when Starter listings launch.
+              </p>
+              <a
+                href="mailto:hello@findtraining.com?subject=FindTraining%20Waitlist"
+                className="inline-block px-6 py-3 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                style={{ backgroundColor: '#0F6FEC' }}
+              >
+                Join Waitlist
+              </a>
+            </div>
+          ) : (
+            <FoundingFormCard foundingCount={foundingCount} totalSlots={TOTAL_SLOTS} />
+          )}
         </div>
       </section>
 

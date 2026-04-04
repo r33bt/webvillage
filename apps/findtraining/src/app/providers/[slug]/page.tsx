@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight, CheckCircle2, MapPin, Sparkles, CheckCircle } from 'lucide-react'
-import { getProviderBySlug } from '@webvillage/engine/adapters/supabase'
+import { getProviderBySlug, getCoursesByProvider } from '@webvillage/engine/adapters/supabase'
+import type { FtCourse } from '@webvillage/engine/types/ft'
 import { ContactLinks } from './ContactLinks'
 
 interface Props {
@@ -43,12 +44,46 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+const DELIVERY_LABELS: Record<string, string> = {
+  'in-person': 'In-Person',
+  virtual: 'Virtual',
+  'e-learning': 'E-Learning',
+  hybrid: 'Hybrid',
+}
+
+const DELIVERY_COLORS: Record<string, string> = {
+  'in-person': 'bg-blue-50 text-blue-700',
+  virtual: 'bg-purple-50 text-purple-700',
+  'e-learning': 'bg-teal-50 text-teal-700',
+  hybrid: 'bg-orange-50 text-orange-700',
+}
+
+function formatPriceRange(course: FtCourse): string {
+  const currency = course.currency_code ?? 'MYR'
+  if (course.price_min !== null && course.price_max !== null) {
+    if (course.price_min === course.price_max) {
+      return `${currency} ${Number(course.price_min).toLocaleString()}`
+    }
+    return `${currency} ${Number(course.price_min).toLocaleString()} – ${Number(course.price_max).toLocaleString()}`
+  }
+  if (course.price_min !== null) return `From ${currency} ${Number(course.price_min).toLocaleString()}`
+  if (course.price_max !== null) return `Up to ${currency} ${Number(course.price_max).toLocaleString()}`
+  return 'Price on request'
+}
+
 export default async function ProviderPage({ params }: Props) {
   const { slug } = await params
   const provider = await getProviderBySlug(slug)
 
   if (!provider || provider.profile_status === 'removed' || provider.profile_status === 'opted_out') {
     notFound()
+  }
+
+  let courses: FtCourse[] = []
+  try {
+    courses = await getCoursesByProvider(provider.id)
+  } catch {
+    courses = []
   }
 
   const showContactInfo = PAID_TIERS.has(provider.tier) && provider.claimed
@@ -158,6 +193,41 @@ export default async function ProviderPage({ params }: Props) {
                     <span key={method} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full capitalize">
                       {method}
                     </span>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Training Programmes */}
+            {courses.length > 0 && (
+              <section className="bg-white border border-gray-200 rounded-xl p-6">
+                <h2 className="text-base font-semibold text-gray-900 mb-4">Training Programmes</h2>
+                <div className="space-y-4">
+                  {courses.map((course) => (
+                    <div key={course.id} className="border border-gray-100 rounded-lg p-4 hover:border-gray-200 transition-colors">
+                      <div className="flex flex-wrap items-start gap-2 mb-2">
+                        <h3 className="text-sm font-semibold text-gray-900 flex-1 min-w-0">{course.title}</h3>
+                        {course.delivery_method && (
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium flex-shrink-0 ${DELIVERY_COLORS[course.delivery_method] ?? 'bg-gray-100 text-gray-700'}`}>
+                            {DELIVERY_LABELS[course.delivery_method] ?? course.delivery_method}
+                          </span>
+                        )}
+                        {course.hrdf_claimable && (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#00C48C]/10 text-[#00C48C] flex-shrink-0">
+                            HRDF Claimable
+                          </span>
+                        )}
+                      </div>
+                      {course.description && (
+                        <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-2">{course.description}</p>
+                      )}
+                      <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
+                        {course.duration_days !== null && (
+                          <span>{course.duration_days} {course.duration_days === 1 ? 'day' : 'days'}</span>
+                        )}
+                        <span className="font-medium text-gray-700">{formatPriceRange(course)}</span>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </section>

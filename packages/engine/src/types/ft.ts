@@ -67,6 +67,26 @@ export interface FtFoundingMember {
   updated_at: string
 }
 
+export type DeliveryMethodCourse = 'in-person' | 'virtual' | 'e-learning' | 'hybrid'
+
+export interface FtCourse {
+  id: string
+  provider_id: string
+  category_id: string | null
+  title: string
+  slug: string
+  description: string | null
+  delivery_method: DeliveryMethodCourse | null
+  duration_days: number | null
+  price_min: number | null
+  price_max: number | null
+  currency_code: string
+  hrdf_claimable: boolean
+  active: boolean
+  created_at: string
+  updated_at: string
+}
+
 export interface SearchFilters {
   category?: string
   state?: string

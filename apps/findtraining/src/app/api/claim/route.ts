@@ -20,6 +20,7 @@ function isValidEmail(email: string): boolean {
 async function sendClaimNotification(data: {
   provider_name: string
   provider_id: string
+  provider_slug: string
   name: string
   email: string
   phone?: string
@@ -34,13 +35,17 @@ async function sendClaimNotification(data: {
       text: [
         'New provider claim submitted via /claim',
         '',
-        `Provider: ${data.provider_name}`,
-        `ID:       ${data.provider_id}`,
-        `Claimant: ${data.name}`,
-        `Email:    ${data.email}`,
-        `Phone:    ${data.phone ?? '—'}`,
+        `Provider:     ${data.provider_name}`,
+        `Provider ID:  ${data.provider_id}`,
+        `Profile page: https://findtraining.com/providers/${data.provider_slug}`,
         '',
-        'Log in to Supabase to review: ft_claims (status=pending)',
+        `Claimant:     ${data.name}`,
+        `Email:        ${data.email}`,
+        `Phone:        ${data.phone ?? '—'}`,
+        '',
+        'ACTION REQUIRED: Review and approve or reject the claim.',
+        'Supabase → ft_claims → filter status = pending',
+        `https://supabase.com/dashboard/project/hzqbsixlintiairmabbg/editor?filter=ft_claims`,
       ].join('\n'),
     })
   } catch (err) {
@@ -74,7 +79,7 @@ export async function POST(request: NextRequest) {
 
     const { data: provider, error: providerError } = await supabase
       .from('ft_providers')
-      .select('id, profile_status, name')
+      .select('id, profile_status, name, slug')
       .eq('id', provider_id.trim())
       .maybeSingle()
 
@@ -148,6 +153,7 @@ export async function POST(request: NextRequest) {
     sendClaimNotification({
       provider_name: provider.name,
       provider_id: provider_id.trim(),
+      provider_slug: provider.slug,
       name: name.trim(),
       email: normalizedEmail,
       phone: phone?.trim(),

@@ -10,6 +10,7 @@ import { cookies } from 'next/headers'
 import type {
   FtProvider,
   FtCategory,
+  FtCourse,
   FtProviderWithCategories,
   SearchFilters,
 } from '../types/ft'
@@ -230,6 +231,97 @@ export async function getProviderStats(): Promise<{
   ).sort()
 
   return { total: total ?? 0, withEmail: withEmail ?? 0, states }
+}
+
+// ---------------------------------------------------------------------------
+// Course queries
+// ---------------------------------------------------------------------------
+
+export async function getCoursesByProvider(providerId: string): Promise<FtCourse[]> {
+  const supabase = await createFtClient()
+
+  const { data, error } = await supabase
+    .from('ft_courses')
+    .select('*')
+    .eq('provider_id', providerId)
+    .eq('active', true)
+    .order('created_at', { ascending: true })
+
+  if (error) throw new Error(`getCoursesByProvider: ${error.message}`)
+
+  return (data ?? []) as FtCourse[]
+}
+
+// ---------------------------------------------------------------------------
+// Contact click queries (dashboard/leads)
+// ---------------------------------------------------------------------------
+
+export interface ContactClick {
+  id: string
+  provider_id: string
+  click_type: string
+  clicked_at: string
+  visitor_page: string | null
+  country_code: string | null
+}
+
+/**
+ * Fetch contact clicks for a given provider (used in /dashboard/leads).
+ * Caller must ensure providerId belongs to the authenticated user.
+ * Accepts any Supabase SSR client instance (anon key, service key, etc).
+ */
+export async function getContactClicksByProvider(
+  supabaseClient: ReturnType<typeof createServerClient>,
+  providerId: string,
+  { page = 1, pageSize = 20 }: { page?: number; pageSize?: number } = {}
+): Promise<{ clicks: ContactClick[]; total: number }> {
+  const from = (page - 1) * pageSize
+  const to = from + pageSize - 1
+
+  const { data, error, count } = await supabaseClient
+    .from('ft_contact_clicks')
+    .select('id, provider_id, click_type, clicked_at, visitor_page, country_code', {
+      count: 'exact',
+    })
+    .eq('provider_id', providerId)
+    .order('clicked_at', { ascending: false })
+    .range(from, to)
+
+  if (error) throw new Error(`getContactClicksByProvider: ${error.message}`)
+
+  return {
+    clicks: (data ?? []) as ContactClick[],
+    total: count ?? 0,
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Founding member helpers
+// ---------------------------------------------------------------------------
+
+const FOUNDING_TOTAL_SLOTS = 30
+
+/**
+ * Returns the number of taken founding slots and the total available.
+ * Counts rows where status IN ('active', 'prospect', 'contacted', 'interested', 'paid', 'onboarded').
+ * Used by /founding page to display dynamic slot counter.
+ */
+export async function getFoundingMemberCount(
+  supabaseClient?: Awaited<ReturnType<typeof createFtClient>>
+): Promise<{ taken: number; total: number }> {
+  const client = supabaseClient ?? (await createFtClient())
+
+  const { count, error } = await client
+    .from('ft_founding_members')
+    .select('id', { count: 'exact', head: true })
+    .in('status', ['active', 'prospect', 'contacted', 'interested', 'paid', 'onboarded'])
+
+  if (error) {
+    console.error('[getFoundingMemberCount] error:', error.message)
+    return { taken: 0, total: FOUNDING_TOTAL_SLOTS }
+  }
+
+  return { taken: count ?? 0, total: FOUNDING_TOTAL_SLOTS }
 }
 
 // ---------------------------------------------------------------------------
