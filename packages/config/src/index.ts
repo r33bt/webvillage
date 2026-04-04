@@ -13,4 +13,12 @@ export {
   type BillingInterval,
   type AddOn,
 } from './plans'
-export { TIERS, type Tier } from './tiers'
+export {
+  SELF_SERVE_TIERS,
+  MANAGED_TIERS,
+  type SelfServeTier,
+  type ManagedTier,
+  type TierId,
+  type SelfServeTierId,
+  type ManagedTierId,
+} from './tiers'
