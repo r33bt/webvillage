@@ -16,8 +16,9 @@ const organizationSchema = {
   '@type': 'Organization',
   name: 'WebVillage',
   url: 'https://webvillage.com',
+  logo: 'https://webvillage.com/favicon.ico',
   description:
-    'Global managed directory network — done-for-you member directories for associations, chambers of commerce, and industry bodies.',
+    'Global managed directory network — done-for-you member directories for associations, chambers of commerce, and industry bodies worldwide.',
   foundingDate: '2025',
   serviceType: 'Managed Directory Service',
   areaServed: 'Worldwide',
@@ -26,6 +27,7 @@ const organizationSchema = {
     contactType: 'sales',
     email: 'hello@webvillage.com',
   },
+  sameAs: [],
 }
 
 export default function RootLayout({

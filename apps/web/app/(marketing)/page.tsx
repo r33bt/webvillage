@@ -1,6 +1,7 @@
 import { Check } from 'lucide-react'
+import { JsonLd } from '@/components/JsonLd'
 
-const CONTACT_EMAIL = 'mailto:hello@webvillage.com'
+const CONTACT_EMAIL = '/contact'
 const CALCOM_URL = process.env.NEXT_PUBLIC_CALCOM_URL
 const bookDemoHref = CALCOM_URL ?? CONTACT_EMAIL
 
@@ -109,11 +110,56 @@ const managedFeatures = {
   enterprise: ['Unlimited listings', 'Custom data pipeline', 'Full SEO programme', 'Daily operations', 'White-label option', 'SLA + dedicated manager'],
 }
 
+// ─── Structured Data ─────────────────────────────────────────────────────────
+
+const softwareApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'WebVillage',
+  applicationCategory: 'BusinessApplication',
+  description:
+    'Managed member directory service for associations, chambers of commerce, and industry bodies. Done-for-you directory network with SEO, search, and claim flows built in.',
+  url: 'https://webvillage.com',
+  offers: [
+    {
+      '@type': 'Offer',
+      name: 'Starter Managed Directory',
+      price: '299.00',
+      priceCurrency: 'USD',
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: '299.00',
+        priceCurrency: 'USD',
+        unitText: 'monthly',
+      },
+    },
+    {
+      '@type': 'Offer',
+      name: 'Professional Managed Directory',
+      price: '599.00',
+      priceCurrency: 'USD',
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: '599.00',
+        priceCurrency: 'USD',
+        unitText: 'monthly',
+      },
+    },
+  ],
+  provider: {
+    '@type': 'Organization',
+    name: 'WebVillage',
+    url: 'https://webvillage.com',
+  },
+}
+
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
+    <>
+      <JsonLd data={softwareApplicationSchema} />
+      <div className="min-h-screen bg-white">
 
       {/* ── Section 1: Hero ─────────────────────────────────────────────── */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#0C1A18]">
@@ -662,5 +708,6 @@ export default function HomePage() {
       </section>
 
     </div>
+    </>
   )
 }

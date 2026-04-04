@@ -63,12 +63,12 @@ export function Navbar() {
 
           {/* CTA */}
           <div className="hidden md:flex">
-            <a
-              href="mailto:hello@webvillage.com"
+            <Link
+              href="/contact"
               className="rounded-lg bg-[#D97706] px-5 py-2.5 font-semibold text-white transition-colors hover:bg-[#B45309]"
             >
               Book a demo →
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -100,13 +100,13 @@ export function Navbar() {
                 </a>
               ))}
               <div className="mt-2 pt-2 border-t border-gray-100">
-                <a
-                  href="mailto:hello@webvillage.com"
+                <Link
+                  href="/contact"
                   className="block rounded-lg bg-[#D97706] px-4 py-3 text-center font-semibold text-white transition-colors hover:bg-[#B45309]"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Book a demo →
-                </a>
+                </Link>
               </div>
             </div>
           </div>
