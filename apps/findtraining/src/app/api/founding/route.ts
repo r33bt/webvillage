@@ -1,0 +1,85 @@
+// POST /api/founding
+// Saves a founding member prospect to ft_founding_members.
+// Duplicate emails return 200 with success message — don't leak existence.
+
+import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
+
+function getServiceClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    { auth: { persistSession: false } }
+  )
+}
+
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json()
+
+    const { company_name, name, email, phone } = body as {
+      company_name?: string
+      name?: string
+      email?: string
+      phone?: string
+    }
+
+    if (!company_name || typeof company_name !== 'string' || company_name.trim().length === 0) {
+      return NextResponse.json({ error: 'Company name is required.' }, { status: 400 })
+    }
+    if (!name || typeof name !== 'string' || name.trim().length === 0) {
+      return NextResponse.json({ error: 'Your name is required.' }, { status: 400 })
+    }
+    if (!email || typeof email !== 'string' || !isValidEmail(email.trim())) {
+      return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 })
+    }
+
+    const normalizedEmail = email.trim().toLowerCase()
+    const supabase = getServiceClient()
+
+    const { data: existing } = await supabase
+      .from('ft_founding_members')
+      .select('id')
+      .eq('email', normalizedEmail)
+      .maybeSingle()
+
+    if (existing) {
+      return NextResponse.json(
+        { success: true, message: 'We have your details and will be in touch shortly.' },
+        { status: 200 }
+      )
+    }
+
+    const { error } = await supabase.from('ft_founding_members').insert({
+      email: normalizedEmail,
+      company_name: company_name.trim(),
+      name: name.trim(),
+      phone: phone?.trim() ?? null,
+      status: 'prospect',
+      source: 'founding_page',
+    })
+
+    if (error) {
+      if (error.code === '23505') {
+        return NextResponse.json({ success: true }, { status: 200 })
+      }
+      console.error('[founding] insert error:', error.message)
+      return NextResponse.json(
+        { error: 'Something went wrong. Please try again.' },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json({ success: true }, { status: 200 })
+  } catch (err) {
+    console.error('[founding] unexpected error:', err)
+    return NextResponse.json(
+      { error: 'Something went wrong. Please try again.' },
+      { status: 500 }
+    )
+  }
+}
