@@ -92,12 +92,6 @@ importers:
 
   apps/web:
     dependencies:
-      '@supabase/ssr':
-        specifier: ^0.5.0
-        version: 0.5.2(@supabase/supabase-js@2.99.2)
-      '@supabase/supabase-js':
-        specifier: ^2.49.0
-        version: 2.99.2
       '@webvillage/auth':
         specifier: workspace:*
         version: link:../../packages/auth
@@ -110,9 +104,6 @@ importers:
       '@webvillage/email':
         specifier: workspace:*
         version: link:../../packages/email
-      '@webvillage/engine':
-        specifier: workspace:*
-        version: link:../../packages/engine
       '@webvillage/ui':
         specifier: workspace:*
         version: link:../../packages/ui
