@@ -1,110 +1,128 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
 import {
-  Palette,
-  Globe,
-  Zap,
-  Shield,
-  BarChart3,
-  Mail,
-  Search,
-  Smartphone,
-  Clock,
+  Building2,
   Users,
-  CreditCard,
-  Headphones,
+  Search,
+  Mail,
+  Globe,
+  Network,
+  Database,
+  ArrowRight,
+  Check,
+  Smartphone,
+  Code2,
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Features',
+  title: 'Features — Done-For-You Directory Network',
   description:
-    'Discover all the powerful features that make WebVillage the best choice for creating professional websites. Templates, custom domains, SEO tools, and more.',
+    'WebVillage builds, migrates, and maintains your member directory. Professional design, SEO from day one, email hosting, and a cross-directory network — all managed for you.',
 }
 
-const features = [
+const coreFeatures = [
   {
-    icon: Palette,
-    title: 'Beautiful Templates',
+    icon: Database,
+    category: 'Done-For-You Service',
+    title: 'Data Migration Included',
     description:
-      '20+ professionally designed templates for portfolios, businesses, blogs, and more. Customize colors, fonts, and layouts to match your brand.',
-    category: 'Design',
+      'We import your existing member data from spreadsheets, WordPress plugins, old CMS exports, or any other source. No manual re-entry. No data loss.',
+  },
+  {
+    icon: Building2,
+    category: 'Done-For-You Service',
+    title: 'Professional Design',
+    description:
+      'Your directory built on the WebVillage design system with your brand colours and logo applied. Looks polished from day one — no design agency needed.',
   },
   {
     icon: Globe,
-    title: 'Custom Domains',
+    category: 'Done-For-You Service',
+    title: 'SEO Setup Day One',
     description:
-      'Connect your own domain or register a new one directly through WebVillage. Free SSL certificates included with every site.',
-    category: 'Hosting',
-  },
-  {
-    icon: Zap,
-    title: 'Lightning Fast',
-    description:
-      'Built on modern infrastructure with global CDN. Your site loads in milliseconds, anywhere in the world.',
-    category: 'Performance',
-  },
-  {
-    icon: Shield,
-    title: 'Secure by Default',
-    description:
-      'Free SSL/HTTPS, DDoS protection, and automatic backups. Enterprise-grade security for every website.',
-    category: 'Security',
-  },
-  {
-    icon: Search,
-    title: 'SEO Optimized',
-    description:
-      'Built-in SEO tools help your site rank higher. Meta tags, sitemaps, and structured data are handled automatically.',
-    category: 'Marketing',
+      'robots.txt, sitemap.xml, canonical tags, and JSON-LD structured data per listing — all configured at launch. Your directory is discoverable from the moment it goes live.',
   },
   {
     icon: Smartphone,
-    title: 'Mobile Responsive',
+    category: 'Directory Engine',
+    title: 'Mobile-First Search & Filter',
     description:
-      'Every template looks perfect on any device. Automatic responsive design ensures a great experience for all visitors.',
-    category: 'Design',
-  },
-  {
-    icon: BarChart3,
-    title: 'Analytics Dashboard',
-    description:
-      'Track visitors, page views, and engagement. Understand your audience with built-in analytics.',
-    category: 'Marketing',
-  },
-  {
-    icon: Mail,
-    title: 'Professional Email',
-    description:
-      'Get email addresses at your domain (you@yoursite.com). Professional email hosting included with Pro plans.',
-    category: 'Communication',
-  },
-  {
-    icon: Clock,
-    title: '99.9% Uptime',
-    description:
-      'Your site is always online. We guarantee 99.9% uptime with automatic failover and redundancy.',
-    category: 'Hosting',
+      'Members find who they are looking for on any device. Fast full-text search, category filters, and location filtering that actually work — not a broken WordPress plugin.',
   },
   {
     icon: Users,
-    title: 'Team Collaboration',
+    category: 'Directory Engine',
+    title: 'Member Self-Service',
     description:
-      'Invite team members to help manage your site. Role-based permissions keep everyone productive.',
-    category: 'Management',
+      'Members can claim and update their own listing. No more quarterly emails asking the admin to fix outdated entries. Directory stays fresh automatically.',
   },
   {
-    icon: CreditCard,
-    title: 'E-commerce Ready',
+    icon: Network,
+    category: 'Network Effects',
+    title: 'Cross-Directory Network',
     description:
-      'Accept payments with Stripe integration. Sell products, services, or subscriptions directly from your site.',
-    category: 'Business',
+      'Every directory on the WebVillage network is connected. Your members appear in the meta-directory at webvillage.com, and each node strengthens the SEO of all others.',
   },
   {
-    icon: Headphones,
-    title: '24/7 Support',
+    icon: Mail,
+    category: 'Email Hosting',
+    title: 'Professional Email Included',
     description:
-      'Get help when you need it. Our support team is available around the clock via chat and email.',
-    category: 'Support',
+      'Managed tiers include email hosting. Starter gets 3 MXroute mailboxes (webmail + IMAP). Professional and above gets full Google Workspace — Gmail, Calendar, Drive, and Meet.',
+  },
+  {
+    icon: Search,
+    category: 'Directory Engine',
+    title: 'Category & Location Pages',
+    description:
+      'Auto-generated pages for every category, location, and combination. Each page is SEO-optimised and links the network together — turning your directory into a content asset.',
+  },
+]
+
+const deploymentScenarios = [
+  {
+    label: 'Scenario A',
+    title: 'Full Turnkey',
+    description:
+      'WV registers your domain and handles everything end-to-end. Ideal for new directories with no existing web presence.',
+  },
+  {
+    label: 'Scenario B',
+    title: 'Existing Domain',
+    description:
+      'You own the domain. Delegate DNS to WV (recommended) and we manage all records, SSL, and renewals going forward.',
+  },
+  {
+    label: 'Scenario C',
+    title: 'Subdomain Deploy',
+    description:
+      "Add a single CNAME record and go live in hours. No NS change required — perfect if your IT team can't or won't touch the root domain.",
+  },
+  {
+    label: 'Scenario D',
+    title: 'Manual DNS',
+    description:
+      'WV provides the exact DNS records. Your IT team adds them. We handle everything else. Works with any registrar or DNS provider.',
+  },
+]
+
+const howItWorks = [
+  {
+    step: '01',
+    title: 'Migrate',
+    description:
+      'Send us your member list — spreadsheet, WordPress export, or old CMS dump. We clean, structure, and import every record. No data loss, no manual re-entry.',
+  },
+  {
+    step: '02',
+    title: 'Deploy',
+    description:
+      'We build and configure your directory: design system applied, DNS pointed, SEO wired, email hosting live. You review and approve before anything goes public.',
+  },
+  {
+    step: '03',
+    title: 'Maintain',
+    description:
+      'We handle updates, security, and hosting. Your members self-update their listings. You get a directory that stays current without draining your team.',
   },
 ]
 
@@ -112,47 +130,46 @@ export default function FeaturesPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-indigo-600 to-purple-700 px-4 pb-20 pt-32">
+      <section className="bg-gradient-to-br from-indigo-600 to-purple-700 px-4 pb-20 pt-32">
         <div className="mx-auto max-w-4xl text-center">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-indigo-100">
+            <Network className="h-4 w-4" />
+            Done-for-you directory network
+          </div>
           <h1 className="mb-6 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
-            Everything you need to build a great website
+            Your member directory,
+            <br />
+            done for you
           </h1>
           <p className="mx-auto mb-8 max-w-2xl text-xl text-indigo-100">
-            Powerful features, simple interface. Create professional websites
-            without writing a single line of code.
+            We build, migrate, and maintain your directory. You focus on serving
+            members — not fixing broken plugins or chasing outdated entries.
           </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Link
-              href="/signup"
-              className="rounded-lg bg-white px-8 py-4 text-lg font-semibold text-indigo-600 transition-colors hover:bg-gray-100"
-            >
-              Start Free
-            </Link>
-            <Link
-              href="/templates"
-              className="rounded-lg border-2 border-white px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-white/10"
-            >
-              View Templates
-            </Link>
-          </div>
+          <a
+            href="mailto:hello@webvillage.com"
+            className="inline-flex items-center gap-2 rounded-lg bg-white px-8 py-4 text-lg font-semibold text-indigo-600 transition-colors hover:bg-gray-100"
+          >
+            Book a demo
+            <ArrowRight className="h-5 w-5" />
+          </a>
         </div>
       </section>
 
-      {/* Features Grid */}
+      {/* Feature Cards Grid */}
       <section className="bg-white px-4 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
-              Built for creators, designers, and businesses
+              Everything your directory needs — built in
             </h2>
             <p className="mx-auto max-w-2xl text-xl text-gray-600">
-              Every feature you need to create, launch, and grow your online
-              presence.
+              No plugins to wrangle, no developers to hire, no quarterly
+              maintenance invoices. It&apos;s all included.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature, index) => (
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {coreFeatures.map((feature, index) => (
               <div
                 key={index}
                 className="rounded-xl bg-gray-50 p-6 transition-shadow hover:shadow-lg"
@@ -163,10 +180,129 @@ export default function FeaturesPage() {
                 <span className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
                   {feature.category}
                 </span>
-                <h3 className="mt-2 mb-3 text-xl font-bold text-gray-900">
+                <h3 className="mb-3 mt-2 text-lg font-bold text-gray-900">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <p className="text-sm text-gray-600">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="bg-gray-50 px-4 py-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+              How it works
+            </h2>
+            <p className="mx-auto max-w-xl text-xl text-gray-600">
+              Three steps from &ldquo;our directory is a mess&rdquo; to &ldquo;our directory runs
+              itself.&rdquo;
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {howItWorks.map((step) => (
+              <div key={step.step} className="relative">
+                <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 text-xl font-bold text-white">
+                  {step.step}
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-gray-900">
+                  {step.title}
+                </h3>
+                <p className="text-gray-600">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Deployment Scenarios */}
+      <section className="bg-white px-4 py-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+              Works with your existing setup
+            </h2>
+            <p className="mx-auto max-w-xl text-xl text-gray-600">
+              Whether you own a domain, need a subdomain, or want us to handle
+              everything — there&apos;s a deployment path for you.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {deploymentScenarios.map((scenario) => (
+              <div
+                key={scenario.label}
+                className="rounded-xl border border-gray-200 p-6"
+              >
+                <div className="mb-3 flex items-center gap-3">
+                  <span className="rounded-md bg-indigo-100 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-indigo-600">
+                    {scenario.label}
+                  </span>
+                  <h3 className="text-lg font-bold text-gray-900">
+                    {scenario.title}
+                  </h3>
+                </div>
+                <p className="text-gray-600">{scenario.description}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Coming Soon callout */}
+          <div className="mt-10 rounded-xl bg-indigo-50 border border-indigo-100 p-6">
+            <div className="flex items-start gap-4">
+              <Code2 className="mt-1 h-6 w-6 flex-shrink-0 text-indigo-500" />
+              <div>
+                <p className="font-semibold text-gray-900">
+                  Self-serve embed coming soon
+                </p>
+                <p className="mt-1 text-sm text-gray-600">
+                  A{' '}
+                  <code className="rounded bg-indigo-100 px-1.5 py-0.5 font-mono text-xs text-indigo-700">
+                    {'<webvillage-directory>'}
+                  </code>{' '}
+                  web component that works on any platform, plus a WordPress
+                  plugin. Free tier includes 50 listings on{' '}
+                  <span className="font-medium">webvillage.com/d/[slug]</span>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What's Included Checklist */}
+      <section className="bg-gray-50 px-4 py-20">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+              What&apos;s included in every managed directory
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {[
+              'Data migration from any source',
+              'Professional branded design',
+              'Mobile-first search and filters',
+              'Member self-service listing management',
+              'SEO: sitemap, robots.txt, JSON-LD per listing',
+              'Category pages + location pages auto-generated',
+              'Email hosting (MXroute or Google Workspace)',
+              'DNS management and SSL certificates',
+              'Onboarding call + handover documentation',
+              '"Powered by WebVillage" network badge',
+              'Listing in webvillage.com meta-directory',
+              'Cross-directory SEO network effects',
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3">
+                <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-indigo-600">
+                  <Check className="h-3 w-3 text-white" />
+                </div>
+                <span className="text-gray-700">{item}</span>
               </div>
             ))}
           </div>
@@ -177,17 +313,29 @@ export default function FeaturesPage() {
       <section className="bg-gray-900 px-4 py-20">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">
-            Ready to get started?
+            Ready to modernise your directory?
           </h2>
           <p className="mb-8 text-xl text-gray-400">
-            Create your website in minutes. No credit card required.
+            Associations, chambers, and professional bodies across the network
+            replaced broken WordPress plugins with a managed directory that
+            actually works.
           </p>
-          <Link
-            href="/signup"
-            className="inline-block rounded-lg bg-indigo-600 px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-indigo-700"
+          <a
+            href="mailto:hello@webvillage.com"
+            className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-indigo-700"
           >
-            Start Building Free
-          </Link>
+            Book a demo
+            <ArrowRight className="h-5 w-5" />
+          </a>
+          <p className="mt-4 text-sm text-gray-500">
+            Or email us directly at{' '}
+            <a
+              href="mailto:hello@webvillage.com"
+              className="text-indigo-400 hover:text-indigo-300"
+            >
+              hello@webvillage.com
+            </a>
+          </p>
         </div>
       </section>
     </div>

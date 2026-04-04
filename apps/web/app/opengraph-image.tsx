@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'WebVillage — Stop paying for 5 tools. Start with one.'
+export const alt = 'WebVillage — Member directories, done for you.'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -40,7 +40,7 @@ export default function OGImage() {
             textAlign: 'center',
           }}
         >
-          Stop paying for 5 tools. Start with one.
+          Member directories, done for you.
         </div>
       </div>
     ),
