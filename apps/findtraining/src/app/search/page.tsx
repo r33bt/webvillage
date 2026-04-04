@@ -4,6 +4,7 @@ import type { FtProviderWithCategories, FtCategory } from '@webvillage/engine/ty
 
 export const metadata = {
   title: 'Search Training Providers | FindTraining Malaysia',
+  robots: { index: false },
 }
 
 export default async function SearchPage({

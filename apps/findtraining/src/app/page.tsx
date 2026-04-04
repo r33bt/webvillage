@@ -9,8 +9,25 @@ export default async function HomePage() {
     getProviderStats(),
   ])
 
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'FindTraining.com',
+    url: 'https://findtraining.com',
+    description: 'Find HRDF-registered training providers in Malaysia',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://findtraining.com/search?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+  }
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
       {/* Hero */}
       <section className="bg-brand-dark text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">

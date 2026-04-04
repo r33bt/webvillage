@@ -33,8 +33,26 @@ const CATEGORY_ICONS: Record<string, React.ElementType> = {
 export default async function CategoriesPage() {
   const categories = await getAllCategories()
 
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Training Categories',
+    description: 'Browse HRDF training providers by category',
+    numberOfItems: categories.length,
+    itemListElement: categories.map((cat: FtCategory, index: number) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: cat.name,
+      url: `https://findtraining.com/categories/${cat.slug}`,
+    })),
+  }
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
       <header className="mb-10">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Training Categories</h1>
         <p className="text-gray-600 text-base">
