@@ -84,6 +84,12 @@ export default function RootLayout({
                   >
                     For Providers
                   </Link>
+                  <Link
+                    href="/about"
+                    className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+                  >
+                    About
+                  </Link>
                 </nav>
 
                 {/* CTA */}
@@ -108,6 +114,12 @@ export default function RootLayout({
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
                 <p>© {new Date().getFullYear()} FindTraining.com</p>
                 <div className="flex items-center gap-6">
+                  <Link href="/about" className="hover:text-gray-700 transition-colors">
+                    About
+                  </Link>
+                  <Link href="/contact" className="hover:text-gray-700 transition-colors">
+                    Contact
+                  </Link>
                   <Link href="/privacy" className="hover:text-gray-700 transition-colors">
                     Privacy
                   </Link>

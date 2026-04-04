@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | FindTraining Malaysia',
-  description: 'How FindTraining.com.my collects, uses, and protects data. Compliant with PDPA Malaysia 2010.',
+  description: 'How FindTraining.com collects, uses, and protects data. Compliant with PDPA Malaysia 2010.',
   alternates: { canonical: 'https://findtraining.com/privacy' },
 }
 
@@ -24,7 +24,7 @@ export default function PrivacyPage() {
 
         <div className="prose prose-gray prose-sm sm:prose-base max-w-none">
           <h2>1. Who We Are</h2>
-          <p>FindTraining.com.my is a directory of HRDF-registered training providers in Malaysia. Our purpose is to make it easier for employers and individuals to find, compare, and contact accredited training providers.</p>
+          <p>FindTraining.com is a directory of HRDF-registered training providers in Malaysia. Our purpose is to make it easier for employers and individuals to find, compare, and contact accredited training providers.</p>
 
           <h2>2. Data We Hold</h2>
           <h3>2.1 Training Provider Listings</h3>
