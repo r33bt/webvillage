@@ -1,200 +1,162 @@
-'use client'
-
-import { useState } from 'react'
 import Link from 'next/link'
-import { Button } from '@webvillage/ui'
+import {
+  Globe,
+  Building2,
+  Scale,
+  Factory,
+  CheckCircle,
+  ArrowRight,
+} from 'lucide-react'
 
-const categories = ['All', 'Personal', 'Business', 'Portfolio', 'Creator', 'Blog']
+export const metadata = {
+  title: 'Use Cases — WebVillage',
+  description:
+    'See how WebVillage powers member directories for chambers of commerce, trade associations, professional bodies, and industry organisations.',
+}
 
-const templates = [
+// ─── Data ───────────────────────────────────────────────────────────────────
+
+const useCases = [
   {
-    id: 'minimalist',
-    name: 'Minimalist',
-    category: 'Personal',
-    description: 'Clean, professional portfolio with a focus on content',
-    color: 'from-slate-100 to-slate-200',
+    icon: Globe,
+    title: 'Chamber of Commerce',
+    tagline: 'Turn your chamber directory into a cross-border B2B discovery engine.',
+    description:
+      'Bilateral chambers exist to connect businesses across borders — but most directories are static PDFs or outdated WordPress plugins. WebVillage makes every member discoverable across all chamber nodes globally.',
+    features: [
+      'Member self-update portal',
+      'Cross-border search across chamber network',
+      'Sector and industry filtering',
+      'Glue Up / CRM sync',
+    ],
   },
   {
-    id: 'consultant',
-    name: 'Consultant',
-    category: 'Business',
-    description: 'Perfect for coaches, consultants, and service providers',
-    color: 'from-blue-100 to-blue-200',
+    icon: Building2,
+    title: 'Trade Association',
+    tagline: 'Give members the visibility they joined for.',
+    description:
+      'Members pay dues expecting to be found by buyers and partners. A buried spreadsheet directory doesn\'t deliver. WebVillage gives every member a searchable, SEO-optimised listing.',
+    features: [
+      'Category taxonomy with unlimited depth',
+      'Claim and verify flow for members',
+      'SEO-optimised page per listing',
+      'Search, filter, and sort',
+    ],
   },
   {
-    id: 'startup',
-    name: 'Startup',
-    category: 'Business',
-    description: 'Modern SaaS landing page with pricing and features',
-    color: 'from-indigo-100 to-indigo-200',
+    icon: Scale,
+    title: 'Professional Body',
+    tagline: 'Help the public find verified professionals.',
+    description:
+      'Law societies, medical boards, and accounting bodies need to serve the public as much as their members. WebVillage displays credentials, verification badges, and areas of practice — so the right professional is always easy to find.',
+    features: [
+      'Credential and licence display',
+      'Verification badges',
+      'Area of practice filtering',
+      'Public-facing search with trust signals',
+    ],
   },
   {
-    id: 'creative',
-    name: 'Creative',
-    category: 'Portfolio',
-    description: 'Bold design for artists, photographers, and designers',
-    color: 'from-purple-100 to-purple-200',
-  },
-  {
-    id: 'local-business',
-    name: 'Local Business',
-    category: 'Business',
-    description: 'Great for shops, restaurants, and local services',
-    color: 'from-green-100 to-green-200',
-  },
-  {
-    id: 'link-in-bio',
-    name: 'Link in Bio',
-    category: 'Creator',
-    description: 'Perfect for social creators — replace Linktree',
-    color: 'from-pink-100 to-pink-200',
-  },
-  {
-    id: 'freelancer',
-    name: 'Freelancer',
-    category: 'Portfolio',
-    description: 'Showcase your work and attract new clients',
-    color: 'from-amber-100 to-amber-200',
-  },
-  {
-    id: 'blogger',
-    name: 'Blogger',
-    category: 'Blog',
-    description: 'Beautiful blog layout with reading-focused design',
-    color: 'from-rose-100 to-rose-200',
-  },
-  {
-    id: 'photographer',
-    name: 'Photographer',
-    category: 'Portfolio',
-    description: 'Gallery-focused template for visual portfolios',
-    color: 'from-cyan-100 to-cyan-200',
-  },
-  {
-    id: 'restaurant',
-    name: 'Restaurant',
-    category: 'Business',
-    description: 'Menu display, booking, and contact info',
-    color: 'from-orange-100 to-orange-200',
-  },
-  {
-    id: 'personal-brand',
-    name: 'Personal Brand',
-    category: 'Personal',
-    description: 'Build your personal brand with a modern layout',
-    color: 'from-teal-100 to-teal-200',
-  },
-  {
-    id: 'podcast',
-    name: 'Podcast',
-    category: 'Creator',
-    description: 'Showcase episodes, guests, and subscribe links',
-    color: 'from-violet-100 to-violet-200',
+    icon: Factory,
+    title: 'Industry Body',
+    tagline: 'Connect buyers and suppliers in your industry.',
+    description:
+      'Industry bodies sit on a goldmine of supplier data but rarely make it easy to search. WebVillage turns your membership list into a procurement tool — complete with product catalogues and featured placement.',
+    features: [
+      'Product and service catalogue per listing',
+      'RFQ workflow (Phase 2)',
+      'Featured and sponsored listing slots',
+      'Industry-specific category filters',
+    ],
   },
 ]
 
-export default function TemplatesPage() {
-  const [activeCategory, setActiveCategory] = useState('All')
+// ─── Page ───────────────────────────────────────────────────────────────────
 
-  const filteredTemplates =
-    activeCategory === 'All'
-      ? templates
-      : templates.filter((t) => t.category === activeCategory)
-
+export default function UseCasesPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#0A0A0A]">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-indigo-600 to-purple-700 px-4 pb-16 pt-32">
+      <section className="px-4 pb-16 pt-32">
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl">
-            Start with a template
+            Directories for every organisation type
           </h1>
-          <p className="mx-auto max-w-2xl text-lg text-indigo-100">
-            Choose from 20+ professionally designed templates. Customize
-            everything to match your brand.
+          <p className="mx-auto max-w-2xl text-lg text-neutral-400">
+            See how WebVillage powers different kinds of member directories —
+            from bilateral chambers to professional bodies and industry
+            associations.
           </p>
         </div>
       </section>
 
-      {/* Category Filter */}
-      <section className="border-b border-gray-200 bg-white px-4 py-4">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-2">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                activeCategory === category
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* Templates Grid */}
-      <section className="bg-gray-50 px-4 py-12">
+      {/* Use Case Grid */}
+      <section className="px-4 pb-20">
         <div className="mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredTemplates.map((template) => (
-              <div
-                key={template.id}
-                className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-lg"
-              >
-                {/* Template Preview Placeholder */}
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            {useCases.map((useCase) => {
+              const Icon = useCase.icon
+              return (
                 <div
-                  className={`aspect-[4/3] bg-gradient-to-br ${template.color} flex items-center justify-center`}
+                  key={useCase.title}
+                  className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-8 transition-colors hover:border-neutral-700"
                 >
-                  <span className="text-sm font-medium text-gray-500">
-                    {template.name} Preview
-                  </span>
-                </div>
+                  {/* Icon + Title */}
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-500/10">
+                      <Icon className="h-5 w-5 text-teal-400" />
+                    </div>
+                    <h2 className="text-xl font-semibold text-white">
+                      {useCase.title}
+                    </h2>
+                  </div>
 
-                {/* Template Info */}
-                <div className="p-4">
-                  <div className="mb-2 flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {template.name}
-                    </h3>
-                    <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">
-                      {template.category}
-                    </span>
-                  </div>
-                  <p className="mb-4 text-sm text-gray-500">
-                    {template.description}
+                  {/* Tagline */}
+                  <p className="mb-3 text-base font-medium text-amber-400">
+                    {useCase.tagline}
                   </p>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="flex-1">
-                      Preview
-                    </Button>
-                    <Link href="/signup" className="flex-1">
-                      <Button size="sm" className="w-full">
-                        Use Template
-                      </Button>
-                    </Link>
-                  </div>
+
+                  {/* Description */}
+                  <p className="mb-6 text-sm leading-relaxed text-neutral-400">
+                    {useCase.description}
+                  </p>
+
+                  {/* Features */}
+                  <ul className="space-y-2">
+                    {useCase.features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-2 text-sm text-neutral-300"
+                      >
+                        <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-teal-400" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-white px-4 py-16">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="mb-4 text-3xl font-bold text-gray-900">
-            Can&apos;t find what you need?
+      <section className="border-t border-neutral-800 px-4 py-20">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="mb-4 text-3xl font-bold text-white">
+            Don&apos;t see your organisation type?
           </h2>
-          <p className="mb-8 text-lg text-gray-600">
-            All templates are fully customizable. Pick any template and make it
-            your own with custom colors, fonts, and content.
+          <p className="mb-8 text-lg text-neutral-400">
+            WebVillage works for any membership organisation that needs a
+            searchable, maintained directory. Let&apos;s talk about your use
+            case.
           </p>
-          <Link href="/signup">
-            <Button size="lg">Start Building Free</Button>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-6 py-3 text-base font-semibold text-black transition-colors hover:bg-amber-400"
+          >
+            Book a discovery call
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>

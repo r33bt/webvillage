@@ -65,6 +65,12 @@ const cooperativesListings = [
   { name: 'Koperasi Wanita Selangor', category: 'Women\'s Development', location: 'Selangor', members: '3,100' },
 ]
 
+const productPreviewProviders = [
+  { name: 'Acme Safety Training', category: 'Safety & Compliance', location: 'Kuala Lumpur', rating: '4.8', reviews: 124, color: 'bg-red-500/20 text-red-400' },
+  { name: 'TechBridge Academy', category: 'IT & Software', location: 'Penang', rating: '4.6', reviews: 89, color: 'bg-blue-500/20 text-blue-400' },
+  { name: 'Green Skills Institute', category: 'Environmental', location: 'Johor Bahru', rating: '4.9', reviews: 67, color: 'bg-emerald-500/20 text-emerald-400' },
+]
+
 const features = [
   {
     icon: '🗂',
@@ -255,6 +261,173 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── Product Preview Section ──────────────────────────────────── */}
+      <section className="bg-[#0C1A18] py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <h2 className="mb-4 text-center text-3xl font-bold text-white sm:text-4xl">
+            What your directory looks like
+          </h2>
+          <p className="mx-auto mb-14 max-w-xl text-center text-[#A8C4C0]">
+            A searchable, fast, mobile-friendly directory your members will actually use.
+          </p>
+
+          {/* Browser frame — Directory listing view */}
+          <div className="rounded-xl border border-white/10 bg-[#111] overflow-hidden shadow-2xl">
+            {/* Browser chrome */}
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+                <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+                <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+              </div>
+              <div className="ml-3 flex-1 rounded-md bg-white/10 px-3 py-1.5 text-xs text-white/40">
+                findtraining.my/providers
+              </div>
+            </div>
+
+            {/* Mock directory content */}
+            <div className="p-6 sm:p-8">
+              {/* Search bar */}
+              <div className="flex flex-col gap-3 mb-8 sm:flex-row">
+                <div className="flex-1 rounded-lg bg-white/[0.07] border border-white/10 px-4 py-3 text-white/30 text-sm">
+                  Search training providers, courses, locations...
+                </div>
+                <div className="flex gap-2">
+                  <div className="rounded-lg bg-white/[0.07] border border-white/10 px-4 py-3 text-white/30 text-sm">
+                    All Categories ▾
+                  </div>
+                  <div className="rounded-lg bg-[#0F766E] px-6 py-3 text-white font-semibold text-sm cursor-default">
+                    Search
+                  </div>
+                </div>
+              </div>
+
+              {/* Results count */}
+              <p className="text-xs text-white/30 mb-4">
+                Showing <span className="text-white/60 font-medium">3</span> of <span className="text-white/60 font-medium">1,247</span> providers
+              </p>
+
+              {/* Provider cards grid */}
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {productPreviewProviders.map((provider) => (
+                  <div
+                    key={provider.name}
+                    className="rounded-xl border border-white/10 bg-white/[0.04] p-5 hover:border-white/20 transition-colors"
+                  >
+                    {/* Category badge */}
+                    <span className={`inline-block rounded-full px-2.5 py-1 text-xs font-medium mb-3 ${provider.color}`}>
+                      {provider.category}
+                    </span>
+                    <h4 className="text-base font-semibold text-white mb-2">
+                      {provider.name}
+                    </h4>
+                    <div className="flex items-center gap-1.5 text-xs text-white/40 mb-3">
+                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      {provider.location}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1">
+                        <span className="text-[#D97706] text-sm">★</span>
+                        <span className="text-sm font-medium text-white/70">{provider.rating}</span>
+                        <span className="text-xs text-white/30">({provider.reviews})</span>
+                      </div>
+                      <span className="text-xs font-medium text-[#0F766E] cursor-default">
+                        View details →
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Detail view — smaller, offset */}
+          <div className="mt-10 mx-auto max-w-2xl">
+            <div className="rounded-xl border border-white/10 bg-[#111] overflow-hidden shadow-2xl">
+              {/* Browser chrome */}
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+                  <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+                  <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+                </div>
+                <div className="ml-3 flex-1 rounded-md bg-white/10 px-3 py-1.5 text-xs text-white/40">
+                  findtraining.my/providers/acme-safety-training
+                </div>
+              </div>
+
+              {/* Mock detail content */}
+              <div className="p-6 sm:p-8">
+                <div className="flex flex-col gap-6 sm:flex-row">
+                  {/* Left: info */}
+                  <div className="flex-1">
+                    <span className="inline-block rounded-full bg-red-500/20 px-2.5 py-1 text-xs font-medium text-red-400 mb-3">
+                      Safety & Compliance
+                    </span>
+                    <h4 className="text-xl font-bold text-white mb-2">Acme Safety Training</h4>
+                    <div className="flex items-center gap-1 mb-4">
+                      <span className="text-[#D97706]">★★★★★</span>
+                      <span className="text-sm text-white/50 ml-1">4.8 (124 reviews)</span>
+                    </div>
+                    <div className="space-y-2 text-sm text-white/40">
+                      <div className="flex items-center gap-2">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Kuala Lumpur, Malaysia
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        info@acmesafety.com.my
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        +60 3-1234 5678
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right: services box */}
+                  <div className="sm:w-48 rounded-lg bg-white/[0.04] border border-white/10 p-4">
+                    <p className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-3">Services</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['OSHA', 'DOSH', 'First Aid', 'Fire Safety', 'ISO 45001'].map((tag) => (
+                        <span key={tag} className="rounded-md bg-white/10 px-2 py-1 text-xs text-white/50">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-white/10">
+                      <p className="text-xs text-white/40">HRDF Claimable</p>
+                      <p className="text-sm font-semibold text-[#D97706]">RM 1,200/day</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-center mt-10">
+            <a
+              href="https://findtraining-webvillage.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0F766E] hover:text-[#5EEAD4] transition-colors"
+            >
+              Explore the live FindTraining directory ↗
+            </a>
+          </p>
         </div>
       </section>
 
