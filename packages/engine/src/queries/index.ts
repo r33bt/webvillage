@@ -1,32 +1,4 @@
-export {
-  client,
-  sanityWriteClient,
-  fetchBusinessListings,
-  fetchBusinessBySlug,
-  fetchSoftwareListings,
-  fetchSoftwareBySlug,
-  fetchTopRatedListings,
-  fetchAllListings,
-  fetchCategories,
-  fetchCategoryBySlug,
-  fetchAllCategories,
-  fetchRelatedItems,
-  fetchReviews,
-  getAverageRating,
-  fetchProviders,
-  fetchProviderBySlug,
-  fetchRelatedProviders,
-  fetchServices,
-  fetchServiceBySlug,
-  fetchRelatedServices,
-  fetchSiteSettings,
-  getContentTypeConfig,
-  detectSiteType,
-  fetchHomepageSettings,
-  fetchArticles,
-  fetchArticleBySlug,
-  fetchEvents,
-  fetchEventBySlug,
-  fetchTeamMembers,
-  fetchTeamMemberBySlug,
-} from './sanity'
+// Sanity query functions have been moved out of the engine package.
+// For Sanity-backed sites, import directly from '@sanity/client' or
+// the site-specific Sanity setup.
+export {}

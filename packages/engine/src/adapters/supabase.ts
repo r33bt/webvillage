@@ -5,8 +5,7 @@
 // Usage (in any Next.js app or API route):
 //   import { createWvClient, getDirectory, searchListings } from '@webvillage/engine/adapters/supabase'
 
-import { createClient, type SupabaseClient } from '@supabase/supabase-js'
-import type { Database } from '@webvillage/db'
+import { createClient } from '@supabase/supabase-js'
 import type {
   WvDirectory,
   WvCategory,
@@ -26,26 +25,26 @@ import { WV_PAGE_SIZE, WV_MAX_PAGE_SIZE, WV_LISTING_TIER_ORDER } from '../types/
  * Creates an anonymous Supabase client using env vars.
  * For server-side use — never expose the service key client to the browser.
  */
-export function createWvClient(): SupabaseClient<Database> {
+export function createWvClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   if (!url || !key) {
     throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY')
   }
-  return createClient<Database>(url, key)
+  return createClient(url, key)
 }
 
 /**
  * Creates a service-role Supabase client (bypasses RLS).
  * Use ONLY in server-side API routes that have already verified auth.
  */
-export function createWvServiceClient(): SupabaseClient<Database> {
+export function createWvServiceClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!url || !key) {
     throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
   }
-  return createClient<Database>(url, key, {
+  return createClient(url, key, {
     auth: { autoRefreshToken: false, persistSession: false },
   })
 }

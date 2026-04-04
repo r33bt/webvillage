@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { JsonLd } from '@/components/JsonLd'
 import {
   Building2,
   Users,
@@ -12,6 +13,27 @@ import {
   Smartphone,
   Code2,
 } from 'lucide-react'
+
+const softwareApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'WebVillage Directory Engine',
+  applicationCategory: 'BusinessApplication',
+  description:
+    'Managed member directory platform for associations, chambers of commerce, and industry bodies. Includes migration, SEO, search/filter, and cross-network discovery.',
+  operatingSystem: 'Web',
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'USD',
+    price: '299',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: '299',
+      priceCurrency: 'USD',
+      unitText: 'MONTH',
+    },
+  },
+}
 
 export const metadata: Metadata = {
   title: 'Features — Done-For-You Directory Network',
@@ -129,6 +151,7 @@ const howItWorks = [
 export default function FeaturesPage() {
   return (
     <div className="min-h-screen">
+      <JsonLd data={softwareApplicationSchema} />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-indigo-600 to-purple-700 px-4 pb-20 pt-32">
         <div className="mx-auto max-w-4xl text-center">

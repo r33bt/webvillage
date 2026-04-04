@@ -1,5 +1,9 @@
 import { Check } from 'lucide-react'
 
+const CONTACT_EMAIL = 'mailto:hello@webvillage.com'
+const CALCOM_URL = process.env.NEXT_PUBLIC_CALCOM_URL
+const bookDemoHref = CALCOM_URL ?? CONTACT_EMAIL
+
 // ─── Data ───────────────────────────────────────────────────────────────────
 
 const painPoints = [
@@ -137,7 +141,7 @@ export default function HomePage() {
 
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
-              href="mailto:hello@webvillage.com"
+              href={bookDemoHref}
               className="inline-flex items-center rounded-xl bg-[#D97706] px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-[#B45309]"
             >
               Book a 30-min demo →
@@ -207,6 +211,22 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Stats strip ─────────────────────────────────────────────────── */}
+      <div className="border-y border-[#E2ECEB] bg-white py-6">
+        <div className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-6 px-6 sm:flex-row sm:gap-12">
+          {[
+            { value: '2', label: 'directories live & growing' },
+            { value: '90K+', label: 'listings indexed' },
+            { value: '100%', label: 'managed — zero admin for you' },
+          ].map(({ value, label }) => (
+            <div key={label} className="text-center">
+              <p className="text-2xl font-bold text-[#0F766E]">{value}</p>
+              <p className="text-sm text-[#6B7C79]">{label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* ── Section 4: Live Proof ───────────────────────────────────────── */}
       <section id="live-proof" className="bg-[#0C1A18] py-20 sm:py-28">
@@ -452,7 +472,7 @@ export default function HomePage() {
                   ))}
                 </ul>
                 <a
-                  href="mailto:hello@webvillage.com"
+                  href={bookDemoHref}
                   className="block rounded-lg border border-[#D97706] py-2.5 text-center text-sm font-semibold text-[#D97706] transition-colors hover:bg-amber-50"
                 >
                   Book a demo
@@ -481,7 +501,7 @@ export default function HomePage() {
                   ))}
                 </ul>
                 <a
-                  href="mailto:hello@webvillage.com"
+                  href={bookDemoHref}
                   className="block rounded-lg bg-[#D97706] py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-[#B45309]"
                 >
                   Book a demo
@@ -630,7 +650,7 @@ export default function HomePage() {
             you exactly what migration looks like for your organisation.
           </p>
           <a
-            href="mailto:hello@webvillage.com"
+            href={bookDemoHref}
             className="inline-flex items-center rounded-xl bg-[#D97706] px-10 py-4 text-lg font-semibold text-white transition-colors hover:bg-[#B45309]"
           >
             Book a 30-min demo →
