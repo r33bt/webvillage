@@ -46,6 +46,9 @@ export async function generateStaticParams(): Promise<{ slug: string; state: str
     'soft-skills',
     'compliance-legal',
     'technical-skills',
+    'hospitality-tourism',
+    'healthcare',
+    'manufacturing',
   ]
 
   const params: { slug: string; state: string }[] = []

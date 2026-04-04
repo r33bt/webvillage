@@ -5,8 +5,8 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'FindTraining.com.my — Find HRDF Training Providers in Malaysia',
-    template: '%s | FindTraining.com.my',
+    default: 'FindTraining.com — Find HRDF Training Providers in Malaysia',
+    template: '%s | FindTraining.com',
   },
   description:
     "Browse Malaysia's most complete directory of HRDF-registered training providers. Find courses by category, state, or delivery method.",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: 'FindTraining',
   },
   alternates: {
-    canonical: 'https://findtraining.com.my',
+    canonical: 'https://findtraining.com',
   },
   other: {
     'theme-color': '#0F6FEC',
