@@ -9,7 +9,9 @@
     "./components": "./src/components/index.ts",
     "./schemas": "./src/schemas/index.ts",
     "./queries": "./src/queries/index.ts",
-    "./config": "./src/config/index.ts"
+    "./config": "./src/config/index.ts",
+    "./adapters/supabase": "./src/adapters/supabase.ts",
+    "./types/ft": "./src/types/ft.ts"
   },
   "peerDependencies": {
     "next": ">=14.0.0",
@@ -17,6 +19,7 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.5.0",
     "@marsidev/react-turnstile": "^0.5.0",
     "@portabletext/react": "^6.0.0",
     "@sanity/client": "^6.15.0",
