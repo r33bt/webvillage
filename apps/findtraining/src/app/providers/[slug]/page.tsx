@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `${catLabel ?? 'HRDF-registered training provider'}${provider.state ? ` in ${provider.state}` : ''}. Find courses and contact details.`,
       images: [{ url: '/og-image.png', width: 1200, height: 630 }],
     },
-    alternates: { canonical: `https://findtraining.com.my/providers/${slug}` },
+    alternates: { canonical: `https://findtraining.com/providers/${slug}` },
   }
 }
 

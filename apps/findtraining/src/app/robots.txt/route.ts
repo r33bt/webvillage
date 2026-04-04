@@ -6,7 +6,7 @@ Allow: /
 Disallow: /api/
 Disallow: /claim/
 
-Sitemap: https://findtraining.com.my/sitemap.xml`
+Sitemap: https://findtraining.com/sitemap.xml`
 
   return new NextResponse(body, {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },

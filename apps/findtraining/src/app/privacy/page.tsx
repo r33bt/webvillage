@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Privacy Policy | FindTraining Malaysia',
   description: 'How FindTraining.com.my collects, uses, and protects data. Compliant with PDPA Malaysia 2010.',
-  alternates: { canonical: 'https://findtraining.com.my/privacy' },
+  alternates: { canonical: 'https://findtraining.com/privacy' },
 }
 
 export default function PrivacyPage() {

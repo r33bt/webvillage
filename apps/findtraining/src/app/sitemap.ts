@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 import { createClient } from '@supabase/supabase-js'
 
-const BASE_URL = 'https://findtraining.com.my'
+const BASE_URL = 'https://findtraining.com'
 
 function getServiceClient() {
   return createClient(

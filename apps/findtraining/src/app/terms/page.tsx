@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Terms of Service | FindTraining Malaysia',
   description: "Terms of Service for FindTraining.com.my — Malaysia's HRDF training provider directory.",
-  alternates: { canonical: 'https://findtraining.com.my/terms' },
+  alternates: { canonical: 'https://findtraining.com/terms' },
 }
 
 export default function TermsPage() {

@@ -11,7 +11,7 @@ import type { FtCategory } from '@webvillage/engine/types/ft'
 export const metadata: Metadata = {
   title: 'Training Categories — HRDF Claimable Courses Malaysia',
   description: 'Browse all HRDF-registered training categories in Malaysia — IT, Leadership, Safety, Finance, HR and more.',
-  alternates: { canonical: 'https://findtraining.com.my/categories' },
+  alternates: { canonical: 'https://findtraining.com/categories' },
 }
 
 const CATEGORY_ICONS: Record<string, React.ElementType> = {

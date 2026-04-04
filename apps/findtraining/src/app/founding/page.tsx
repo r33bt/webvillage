@@ -5,7 +5,7 @@ import { FoundingFormCard, FaqSection } from './FoundingForm'
 export const metadata: Metadata = {
   title: 'Founding Member — List Your Company | FindTraining',
   description: "Be first on Malaysia's HRDF training directory. 30 founding slots at RM 100/mo for 3 months — top placement, founding badge, and early access.",
-  alternates: { canonical: 'https://findtraining.com.my/founding' },
+  alternates: { canonical: 'https://findtraining.com/founding' },
 }
 
 const BENEFITS = [

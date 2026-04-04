@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${category.name} Training Providers Malaysia | HRDF Claimable`,
     description: `Browse HRDF-registered ${category.name} training providers in Malaysia. All courses HRDF levy claimable.`,
-    alternates: { canonical: `https://findtraining.com.my/categories/${slug}` },
+    alternates: { canonical: `https://findtraining.com/categories/${slug}` },
   }
 }
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props) {
     title: `Claim ${provider.name} | FindTraining`,
     description: `Claim and manage the FindTraining listing for ${provider.name}.`,
     robots: { index: false },
-    alternates: { canonical: `https://findtraining.com.my/claim/${slug}` },
+    alternates: { canonical: `https://findtraining.com/claim/${slug}` },
   }
 }
 

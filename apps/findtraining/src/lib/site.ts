@@ -4,7 +4,7 @@ export const siteConfig = {
   id: SITE_ID,
   name: 'FindTraining',
   description: 'Find the best corporate training providers in Malaysia',
-  url: 'https://findtraining.com.my',
+  url: 'https://findtraining.com',
   brand: {
     blue: '#0F6FEC',
     teal: '#00C48C',
