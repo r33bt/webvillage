@@ -1,12 +1,12 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { GraduationCap, LayoutDashboard, BookOpen, Inbox, CreditCard, LogOut } from 'lucide-react'
+import { GraduationCap, LayoutDashboard, BookOpen, Inbox, CreditCard, LogOut, BarChart2 } from 'lucide-react'
 import type { Metadata } from 'next'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {
   title: 'Dashboard | FindTraining',
-  robots: { index: false },
+  robots: { index: false, follow: false },
 }
 
 const NAV_ITEMS = [
@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { href: '/dashboard/profile', label: 'Profile', icon: GraduationCap },
   { href: '/dashboard/courses', label: 'Courses', icon: BookOpen },
   { href: '/dashboard/leads', label: 'Leads', icon: Inbox },
+  { href: '/dashboard/analytics', label: 'Analytics', icon: BarChart2 },
   { href: '/dashboard/billing', label: 'Billing', icon: CreditCard },
 ]
 

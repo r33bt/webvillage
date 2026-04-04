@@ -202,7 +202,7 @@ export default async function DashboardPage() {
       {/* ── Quick stats — placeholders ───────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         {[
-          { label: 'Profile views', value: '—', note: 'Analytics coming soon' },
+          { label: 'Profile views', value: '—', note: 'View analytics →' },
           { label: 'Course listings', value: '0', note: 'No courses added yet' },
           { label: 'New leads', value: '0', note: 'No leads yet' },
         ].map(({ label, value, note }) => (

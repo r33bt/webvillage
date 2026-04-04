@@ -93,6 +93,7 @@ export interface SearchFilters {
   delivery?: string
   query?: string
   page?: number
+  country_code?: string
 }
 
 export const PAGE_SIZE = 24
@@ -103,4 +104,20 @@ export const TIER_ORDER: Record<string, number> = {
   founding: 3,
   starter: 2,
   free: 1,
+}
+
+// ── Claims ────────────────────────────────────────────────────────────────────
+
+export type ClaimStatus = 'pending' | 'approved' | 'rejected'
+
+export interface FtClaim {
+  id: string
+  provider_id: string
+  email: string
+  status: ClaimStatus
+  verification_method: string | null
+  notes: string | null
+  created_at: string
+  // Joined from ft_providers
+  provider_name?: string | null
 }

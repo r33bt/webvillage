@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { searchProviders } from '@webvillage/engine/adapters/supabase'
+import { searchProviders, getDistinctCountries } from '@webvillage/engine/adapters/findtraining'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
 
 // Strip Firecrawl markdown formatting from names: **Name**\\\nDescription → Name
@@ -9,15 +9,24 @@ function cleanName(name: string): string {
   return m ? m[1].trim() : name
 }
 
+const COUNTRY_OPTIONS: Record<string, { label: string; flag: string }> = {
+  MY: { label: 'Malaysia', flag: '🇲🇾' },
+  SG: { label: 'Singapore', flag: '🇸🇬' },
+  GB: { label: 'United Kingdom', flag: '🇬🇧' },
+  AU: { label: 'Australia', flag: '🇦🇺' },
+  US: { label: 'United States', flag: '🇺🇸' },
+  ZZ: { label: 'International', flag: '🌍' },
+}
+
 export const metadata: Metadata = {
-  title: 'HRDF Training Providers Malaysia | Browse 3,767+ Providers',
-  description: "Browse Malaysia's most complete directory of 3,767+ HRDF-registered training providers. Filter by category, state, or delivery method.",
+  title: 'HRDF Training Providers Malaysia | Browse All Providers',
+  description: "Browse Malaysia's most complete directory of HRDF-registered training providers. Filter by category, state, country, or delivery method.",
   alternates: {
     canonical: 'https://findtraining.com/providers',
   },
   openGraph: {
-    title: 'HRDF Training Providers Malaysia | Browse 3,767+ Providers',
-    description: "Browse Malaysia's most complete directory of 3,767+ HRDF-registered training providers. Filter by category, state, or delivery method.",
+    title: 'HRDF Training Providers Malaysia | Browse All Providers',
+    description: "Browse Malaysia's most complete directory of HRDF-registered training providers. Filter by category, state, country, or delivery method.",
     url: 'https://findtraining.com/providers',
     siteName: 'FindTraining Malaysia',
     type: 'website',
@@ -27,16 +36,20 @@ export const metadata: Metadata = {
 export default async function ProvidersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string; state?: string; delivery?: string }>
+  searchParams: Promise<{ page?: string; state?: string; delivery?: string; country?: string }>
 }) {
   const params = await searchParams
   const page = Number(params.page ?? 1)
 
-  const { providers, total } = await searchProviders({
-    page,
-    state: params.state,
-    delivery: params.delivery,
-  })
+  const [{ providers, total }, availableCountries] = await Promise.all([
+    searchProviders({
+      page,
+      state: params.state,
+      delivery: params.delivery,
+      country_code: params.country,
+    }),
+    getDistinctCountries(),
+  ])
 
   const totalPages = Math.ceil(total / 24)
 
@@ -66,6 +79,29 @@ export default async function ProvidersPage({
     },
   }
 
+  // Build pagination URL preserving all active filters
+  function paginationHref(p: number) {
+    const qs = new URLSearchParams()
+    if (p > 1) qs.set('page', String(p))
+    if (params.state) qs.set('state', params.state)
+    if (params.delivery) qs.set('delivery', params.delivery)
+    if (params.country) qs.set('country', params.country)
+    const str = qs.toString()
+    return `/providers${str ? `?${str}` : ''}`
+  }
+
+  // Build country filter URL
+  function countryHref(code: string | null) {
+    const qs = new URLSearchParams()
+    if (params.state) qs.set('state', params.state)
+    if (params.delivery) qs.set('delivery', params.delivery)
+    if (code) qs.set('country', code)
+    const str = qs.toString()
+    return `/providers${str ? `?${str}` : ''}`
+  }
+
+  const activeCountry = params.country ?? null
+
   return (
     <main className="max-w-6xl mx-auto px-4 py-12">
       <script
@@ -76,6 +112,42 @@ export default async function ProvidersPage({
       <p className="text-gray-500 mb-8">
         {total.toLocaleString()} HRDF-registered and certified corporate training organisations in Malaysia.
       </p>
+
+      {/* Country filter */}
+      {availableCountries.length > 1 && (
+        <div className="mb-6">
+          <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Country</p>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href={countryHref(null)}
+              className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${
+                activeCountry === null
+                  ? 'bg-[#0F6FEC] text-white border-[#0F6FEC]'
+                  : 'bg-white text-gray-700 border-gray-200 hover:border-[#0F6FEC]'
+              }`}
+            >
+              All Countries
+            </Link>
+            {availableCountries.map((code) => {
+              const opt = COUNTRY_OPTIONS[code]
+              if (!opt) return null
+              return (
+                <Link
+                  key={code}
+                  href={countryHref(code)}
+                  className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${
+                    activeCountry === code
+                      ? 'bg-[#0F6FEC] text-white border-[#0F6FEC]'
+                      : 'bg-white text-gray-700 border-gray-200 hover:border-[#0F6FEC]'
+                  }`}
+                >
+                  {opt.flag} {opt.label}
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
       {providers.length > 0 ? (
         <>
@@ -90,8 +162,15 @@ export default async function ProvidersPage({
                   {provider.logo_url && (
                     <img src={provider.logo_url} alt="" className="w-12 h-12 rounded object-contain flex-shrink-0" />
                   )}
-                  <div className="min-w-0">
-                    <h2 className="font-semibold text-gray-900 truncate text-sm">{cleanName(provider.name)}</h2>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-1">
+                      <h2 className="font-semibold text-gray-900 truncate text-sm">{cleanName(provider.name)}</h2>
+                      {provider.country_code && provider.country_code !== 'MY' && COUNTRY_OPTIONS[provider.country_code] && (
+                        <span className="text-xs text-gray-500 flex-shrink-0 whitespace-nowrap">
+                          {COUNTRY_OPTIONS[provider.country_code].flag} {provider.country_code}
+                        </span>
+                      )}
+                    </div>
                     {provider.state && (
                       <p className="text-xs text-gray-500 mt-0.5">{provider.state}</p>
                     )}
@@ -117,7 +196,7 @@ export default async function ProvidersPage({
           {totalPages > 1 && (
             <div className="flex gap-2 justify-center">
               {page > 1 && (
-                <Link href={`/providers?page=${page - 1}`} className="px-4 py-2 border rounded-lg text-sm hover:bg-gray-50">
+                <Link href={paginationHref(page - 1)} className="px-4 py-2 border rounded-lg text-sm hover:bg-gray-50">
                   ← Previous
                 </Link>
               )}
@@ -125,7 +204,7 @@ export default async function ProvidersPage({
                 Page {page} of {totalPages}
               </span>
               {page < totalPages && (
-                <Link href={`/providers?page=${page + 1}`} className="px-4 py-2 border rounded-lg text-sm hover:bg-gray-50">
+                <Link href={paginationHref(page + 1)} className="px-4 py-2 border rounded-lg text-sm hover:bg-gray-50">
                   Next →
                 </Link>
               )}

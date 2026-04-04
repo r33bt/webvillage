@@ -1,6 +1,15 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getAllCategories, getFeaturedProviders, getProviderStats } from '@webvillage/engine/adapters/supabase'
+import { getAllCategories, getFeaturedProviders, getProviderStats } from '@webvillage/engine/adapters/findtraining'
 import type { FtCategory, FtProvider } from '@webvillage/engine/types/ft'
+
+export const metadata: Metadata = {
+  description:
+    'Find HRDF-registered training providers in Malaysia. Search 5,690+ providers by category and state. Calculate your HRD Corp levy and find levy-claimable training courses.',
+  alternates: {
+    canonical: 'https://findtraining.com',
+  },
+}
 
 export default async function HomePage() {
   const [categories, featured, stats] = await Promise.all([
@@ -22,11 +31,62 @@ export default async function HomePage() {
     },
   }
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is HRD Corp and the HRDF levy?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: "HRD Corp (formerly HRDF) is Malaysia's Human Resources Development Corporation. Malaysian employers in covered sectors pay a monthly levy of 1% of their employees' wages into the HRD Corp fund. This fund can be claimed back to pay for HRDF-registered training and development programmes.",
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I find HRDF-registered training providers?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'You can search FindTraining.com by category, state, or keyword to find all HRD Corp registered training providers in Malaysia. Every listing is cross-referenced against the official HRD Corp registry.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Are all providers on FindTraining.com HRDF-registered?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'All Malaysian providers on FindTraining.com are sourced from the official HRD Corp registry. International providers (Singapore, UK, Australia) are listed for reference and may not be eligible for Malaysian HRDF levy claims.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I claim my HRD Corp levy for training?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: "Log in to eTRiS (HRD Corp's portal), select your training provider and course, and submit a claim before the training starts. Your provider will need to confirm the booking. Claims must be submitted before the course begins — retrospective claims are not accepted.",
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I list my training company on FindTraining.com?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. If your company is registered with HRD Corp, you are already listed. You can claim your profile to add contact details, courses, and a company description. Visit our founding member page to learn about early access pricing.',
+        },
+      },
+    ],
+  }
+
   return (
     <main>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       {/* Hero */}
       <section className="bg-brand-dark text-white py-20 px-4">

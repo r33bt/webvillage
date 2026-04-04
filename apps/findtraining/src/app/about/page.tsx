@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Database, MapPin, ShieldCheck } from 'lucide-react'
+import { getProviderStats } from '@webvillage/engine/adapters/findtraining'
 
 export const metadata: Metadata = {
   title: 'About FindTraining — Malaysia\'s HRDF Training Directory',
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://findtraining.com/about' },
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const stats = await getProviderStats()
+
   return (
     <div className="py-12 px-4">
       <div className="max-w-3xl mx-auto">
@@ -48,7 +51,7 @@ export default function AboutPage() {
           <div className="rounded-xl border border-gray-100 bg-gray-50 p-5">
             <div className="flex items-center gap-2 mb-1">
               <Database className="w-4 h-4 text-[#0F6FEC]" aria-hidden="true" />
-              <span className="text-2xl font-bold text-gray-900">3,767+</span>
+              <span className="text-2xl font-bold text-gray-900">{stats.total.toLocaleString()}+</span>
             </div>
             <p className="text-sm text-gray-500">HRDF-registered providers</p>
           </div>

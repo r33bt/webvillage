@@ -13,11 +13,20 @@ const TIER_LABELS: Record<string, { label: string; className: string } | undefin
   starter: { label: 'Starter', className: 'bg-gray-100 text-gray-700' },
 }
 
+const COUNTRY_FLAGS: Record<string, string> = {
+  SG: '🇸🇬',
+  GB: '🇬🇧',
+  AU: '🇦🇺',
+  US: '🇺🇸',
+  ZZ: '🌍',
+}
+
 export function ProviderCard({ provider }: ProviderCardProps) {
-  const { name, slug, state, region, hrdf_status, tier, featured, category_names } = provider
+  const { name, slug, state, region, hrdf_status, tier, featured, category_names, country_code } = provider
   const tierBadge = TIER_LABELS[tier]
   const displayCategories = (category_names ?? []).slice(0, 3)
   const isHrdf = hrdf_status === 'registered'
+  const countryFlag = country_code && country_code !== 'MY' ? COUNTRY_FLAGS[country_code] : null
 
   return (
     <article className="flex flex-col bg-white border border-gray-200 rounded-xl p-5 hover:border-[#0F6FEC] hover:shadow-md transition-all duration-150">
@@ -26,14 +35,21 @@ export function ProviderCard({ provider }: ProviderCardProps) {
         <h3 className="font-semibold text-gray-900 text-sm leading-snug line-clamp-2 flex-1">
           {name}
         </h3>
-        {featured && (
-          <span title="Featured">
-            <Star
-              className="w-4 h-4 text-amber-400 fill-amber-400 flex-shrink-0 mt-0.5"
-              aria-label="Featured provider"
-            />
-          </span>
-        )}
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          {countryFlag && (
+            <span className="text-xs text-gray-500 whitespace-nowrap" title={country_code}>
+              {countryFlag} {country_code}
+            </span>
+          )}
+          {featured && (
+            <span title="Featured">
+              <Star
+                className="w-4 h-4 text-amber-400 fill-amber-400"
+                aria-label="Featured provider"
+              />
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Badges */}
