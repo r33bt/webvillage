@@ -11,6 +11,7 @@
     "./queries": "./src/queries/index.ts",
     "./config": "./src/config/index.ts",
     "./adapters/supabase": "./src/adapters/supabase.ts",
+    "./adapters/findtraining": "./src/adapters/findtraining.ts",
     "./types/ft": "./src/types/ft.ts"
   },
   "peerDependencies": {
@@ -19,6 +20,7 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.0",
     "@supabase/ssr": "^0.5.0",
     "@marsidev/react-turnstile": "^0.5.0",
     "@portabletext/react": "^6.0.0",
