@@ -4,6 +4,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { Resend } from 'resend'
 
 function getServiceClient() {
   return createClient(
@@ -15,6 +16,35 @@ function getServiceClient() {
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+async function sendFoundingNotification(data: {
+  company_name: string
+  name: string
+  email: string
+  phone?: string
+}) {
+  if (!process.env.RESEND_API_KEY) return
+  const resend = new Resend(process.env.RESEND_API_KEY)
+  try {
+    await resend.emails.send({
+      from: 'FindTraining <notifications@findtraining.com>',
+      to: 'hello@findtraining.com',
+      subject: `New Founding Member Interest — ${data.company_name}`,
+      text: [
+        'New founding member inquiry received via /founding',
+        '',
+        `Company: ${data.company_name}`,
+        `Name:    ${data.name}`,
+        `Email:   ${data.email}`,
+        `Phone:   ${data.phone ?? '—'}`,
+        '',
+        'Log in to Supabase to view: ft_founding_members',
+      ].join('\n'),
+    })
+  } catch (err) {
+    console.error('[founding] resend error:', err)
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -73,6 +103,14 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       )
     }
+
+    // Fire-and-forget notification — do not await, does not block response
+    sendFoundingNotification({
+      company_name: company_name.trim(),
+      name: name.trim(),
+      email: normalizedEmail,
+      phone: phone?.trim(),
+    })
 
     return NextResponse.json({ success: true }, { status: 200 })
   } catch (err) {

@@ -3,6 +3,12 @@ import type { Metadata } from 'next'
 import { searchProviders } from '@webvillage/engine/adapters/supabase'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
 
+// Strip Firecrawl markdown formatting from names: **Name**\\\nDescription → Name
+function cleanName(name: string): string {
+  const m = name.match(/^\*\*(.*?)\*\*/)
+  return m ? m[1].trim() : name
+}
+
 export const metadata: Metadata = {
   title: 'HRDF Training Providers Malaysia | Browse 3,767+ Providers',
   description: "Browse Malaysia's most complete directory of 3,767+ HRDF-registered training providers. Filter by category, state, or delivery method.",
@@ -85,7 +91,7 @@ export default async function ProvidersPage({
                     <img src={provider.logo_url} alt="" className="w-12 h-12 rounded object-contain flex-shrink-0" />
                   )}
                   <div className="min-w-0">
-                    <h2 className="font-semibold text-gray-900 truncate text-sm">{provider.name}</h2>
+                    <h2 className="font-semibold text-gray-900 truncate text-sm">{cleanName(provider.name)}</h2>
                     {provider.state && (
                       <p className="text-xs text-gray-500 mt-0.5">{provider.state}</p>
                     )}

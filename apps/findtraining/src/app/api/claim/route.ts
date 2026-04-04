@@ -3,6 +3,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { Resend } from 'resend'
 
 function getServiceClient() {
   return createClient(
@@ -14,6 +15,37 @@ function getServiceClient() {
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+async function sendClaimNotification(data: {
+  provider_name: string
+  provider_id: string
+  name: string
+  email: string
+  phone?: string
+}) {
+  if (!process.env.RESEND_API_KEY) return
+  const resend = new Resend(process.env.RESEND_API_KEY)
+  try {
+    await resend.emails.send({
+      from: 'FindTraining <notifications@findtraining.com>',
+      to: 'hello@findtraining.com',
+      subject: `New Claim — ${data.provider_name}`,
+      text: [
+        'New provider claim submitted via /claim',
+        '',
+        `Provider: ${data.provider_name}`,
+        `ID:       ${data.provider_id}`,
+        `Claimant: ${data.name}`,
+        `Email:    ${data.email}`,
+        `Phone:    ${data.phone ?? '—'}`,
+        '',
+        'Log in to Supabase to review: ft_claims (status=pending)',
+      ].join('\n'),
+    })
+  } catch (err) {
+    console.error('[claim] resend error:', err)
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -111,6 +143,15 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       )
     }
+
+    // Fire-and-forget notification — do not await, does not block response
+    sendClaimNotification({
+      provider_name: provider.name,
+      provider_id: provider_id.trim(),
+      name: name.trim(),
+      email: normalizedEmail,
+      phone: phone?.trim(),
+    })
 
     return NextResponse.json({ success: true }, { status: 200 })
   } catch (err) {

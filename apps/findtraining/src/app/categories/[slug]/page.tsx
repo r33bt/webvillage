@@ -4,6 +4,11 @@ import { notFound } from 'next/navigation'
 import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/adapters/supabase'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
 
+function cleanName(name: string): string {
+  const m = name.match(/^\*\*(.*?)\*\*/)
+  return m ? m[1].trim() : name
+}
+
 interface Props {
   params: Promise<{ slug: string }>
   searchParams: Promise<{ state?: string; delivery?: string; page?: string }>
@@ -90,7 +95,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       '@type': 'ListItem',
       position: i + 1,
       url: `https://findtraining.com/providers/${provider.slug}`,
-      name: provider.name,
+      name: cleanName(provider.name),
     })),
   }
 
@@ -163,7 +168,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                         <img src={provider.logo_url} alt="" className="w-12 h-12 rounded object-contain flex-shrink-0" />
                       )}
                       <div>
-                        <h2 className="font-semibold text-gray-900">{provider.name}</h2>
+                        <h2 className="font-semibold text-gray-900">{cleanName(provider.name)}</h2>
                         {provider.state && <p className="text-sm text-gray-500">{provider.state}</p>}
                       </div>
                     </div>

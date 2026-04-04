@@ -2,6 +2,11 @@ import Link from 'next/link'
 import { searchProviders, getAllCategories } from '@webvillage/engine/adapters/supabase'
 import type { FtProviderWithCategories, FtCategory } from '@webvillage/engine/types/ft'
 
+function cleanName(name: string): string {
+  const m = name.match(/^\*\*(.*?)\*\*/)
+  return m ? m[1].trim() : name
+}
+
 export const metadata = {
   title: 'Search Training Providers | FindTraining Malaysia',
   robots: { index: false },
@@ -92,7 +97,7 @@ export default async function SearchPage({
                       <img src={provider.logo_url} alt="" className="w-10 h-10 rounded object-contain flex-shrink-0" />
                     )}
                     <div>
-                      <h2 className="font-semibold text-gray-900 text-sm">{provider.name}</h2>
+                      <h2 className="font-semibold text-gray-900 text-sm">{cleanName(provider.name)}</h2>
                       <p className="text-xs text-gray-500">{provider.state}</p>
                     </div>
                     {provider.hrdf_status === 'registered' && (
