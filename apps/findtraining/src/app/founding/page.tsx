@@ -1,11 +1,33 @@
 import { Metadata } from 'next'
 import { Star, Award, TrendingDown } from 'lucide-react'
+import { createClient } from '@supabase/supabase-js'
 import { FoundingFormCard, FaqSection } from './FoundingForm'
+
+// Force dynamic so slot count reflects real submissions, not a stale build snapshot
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Founding Member — List Your Company | FindTraining',
   description: "Be first on Malaysia's HRDF training directory. 30 founding slots at RM 100/mo for 3 months — top placement, founding badge, and early access.",
   alternates: { canonical: 'https://findtraining.com/founding' },
+  robots: { index: false },
+}
+
+async function getFoundingCount(): Promise<number> {
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      { auth: { persistSession: false } }
+    )
+    const { count, error } = await supabase
+      .from('ft_founding_members')
+      .select('id', { count: 'exact', head: true })
+    if (error) return 0
+    return count ?? 0
+  } catch {
+    return 0
+  }
 }
 
 const BENEFITS = [
@@ -26,10 +48,10 @@ const BENEFITS = [
   },
 ]
 
-const FOUNDING_COUNT = 0
 const TOTAL_SLOTS = 30
 
-export default function FoundingPage() {
+export default async function FoundingPage() {
+  const foundingCount = await getFoundingCount()
   return (
     <>
       <section style={{ backgroundColor: '#0F6FEC' }} className="py-16 sm:py-20 px-4">
@@ -66,7 +88,7 @@ export default function FoundingPage() {
 
       <section className="py-14 px-4">
         <div className="max-w-md mx-auto">
-          <FoundingFormCard foundingCount={FOUNDING_COUNT} totalSlots={TOTAL_SLOTS} />
+          <FoundingFormCard foundingCount={foundingCount} totalSlots={TOTAL_SLOTS} />
         </div>
       </section>
 

@@ -31,6 +31,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${category.name} Training Providers Malaysia | HRDF Claimable`,
     description: `Browse HRDF-registered ${category.name} training providers in Malaysia. All courses HRDF levy claimable.`,
     alternates: { canonical: `https://findtraining.com/categories/${slug}` },
+    openGraph: {
+      title: `${category.name} Training Providers Malaysia | HRDF Claimable`,
+      description: `Browse HRDF-registered ${category.name} training providers in Malaysia. All courses HRDF levy claimable.`,
+      images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+    },
   }
 }
 

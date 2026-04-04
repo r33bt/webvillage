@@ -4,6 +4,7 @@ import { ArrowRight, GraduationCap } from 'lucide-react'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://findtraining.com'),
   title: {
     default: 'FindTraining.com — Find HRDF Training Providers in Malaysia',
     template: '%s | FindTraining.com',

@@ -55,6 +55,16 @@ export default async function ProviderPage({ params }: Props) {
   const tierBadge = TIER_BADGES[provider.tier] ?? TIER_BADGES.free
   const isVerified = provider.profile_status === 'claimed' || provider.profile_status === 'active'
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://findtraining.com' },
+      { '@type': 'ListItem', position: 2, name: 'Providers', item: 'https://findtraining.com/providers' },
+      { '@type': 'ListItem', position: 3, name: provider.name },
+    ],
+  }
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -70,6 +80,7 @@ export default async function ProviderPage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}

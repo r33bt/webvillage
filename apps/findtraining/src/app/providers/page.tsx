@@ -1,10 +1,21 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { searchProviders } from '@webvillage/engine/adapters/supabase'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
 
-export const metadata = {
-  title: 'Training Providers | FindTraining Malaysia',
-  description: 'Browse all corporate training providers in Malaysia. HRDF-claimable courses and certifications.',
+export const metadata: Metadata = {
+  title: 'HRDF Training Providers Malaysia | Browse 3,767+ Providers',
+  description: "Browse Malaysia's most complete directory of 3,767+ HRDF-registered training providers. Filter by category, state, or delivery method.",
+  alternates: {
+    canonical: 'https://findtraining.com/providers',
+  },
+  openGraph: {
+    title: 'HRDF Training Providers Malaysia | Browse 3,767+ Providers',
+    description: "Browse Malaysia's most complete directory of 3,767+ HRDF-registered training providers. Filter by category, state, or delivery method.",
+    url: 'https://findtraining.com/providers',
+    siteName: 'FindTraining Malaysia',
+    type: 'website',
+  },
 }
 
 export default async function ProvidersPage({
@@ -23,8 +34,38 @@ export default async function ProvidersPage({
 
   const totalPages = Math.ceil(total / 24)
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'HRDF Training Providers Malaysia',
+    description: "Malaysia's most complete directory of HRDF-registered training providers.",
+    url: 'https://findtraining.com/providers',
+    numberOfItems: total,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://findtraining.com',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Training Providers',
+          item: 'https://findtraining.com/providers',
+        },
+      ],
+    },
+  }
+
   return (
     <main className="max-w-6xl mx-auto px-4 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <h1 className="text-3xl font-bold text-gray-900 mb-2">Training Providers</h1>
       <p className="text-gray-500 mb-8">
         {total.toLocaleString()} HRDF-registered and certified corporate training organisations in Malaysia.

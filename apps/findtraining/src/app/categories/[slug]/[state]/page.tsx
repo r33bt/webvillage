@@ -110,6 +110,18 @@ export default async function CategoryStatePage({ params }: PageProps) {
 
   if (!category) notFound()
 
+  // JSON-LD — BreadcrumbList schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://findtraining.com' },
+      { '@type': 'ListItem', position: 2, name: 'Categories', item: 'https://findtraining.com/categories' },
+      { '@type': 'ListItem', position: 3, name: category.name, item: `https://findtraining.com/categories/${slug}` },
+      { '@type': 'ListItem', position: 4, name: stateName },
+    ],
+  }
+
   // JSON-LD — ItemList schema
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -142,6 +154,10 @@ export default async function CategoryStatePage({ params }: PageProps) {
   return (
     <>
       {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
