@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/adapters/findtraining'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
+import { categoryDescriptions } from '@/lib/category-descriptions'
 
 function cleanName(name: string): string {
   const m = name.match(/^\*\*(.*?)\*\*/)
@@ -120,6 +121,35 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           {total.toLocaleString()} HRDF-registered {category.name.toLowerCase()} providers in Malaysia.
         </p>
       </header>
+
+      {categoryDescriptions[slug] && (
+        <div className="mb-8 bg-blue-50 border border-blue-100 rounded-xl p-6">
+          {categoryDescriptions[slug].headline !== `${category.name} Training Providers` && (
+            <p className="text-sm font-semibold text-[#0F6FEC] mb-2 uppercase tracking-wide">
+              {categoryDescriptions[slug].headline}
+            </p>
+          )}
+          <p className="text-gray-700 text-sm leading-relaxed mb-4">
+            {categoryDescriptions[slug].intro}
+          </p>
+          <ul className="space-y-1 mb-4">
+            {categoryDescriptions[slug].keyPoints.map((point, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                <span className="mt-0.5 text-[#0F6FEC] flex-shrink-0">•</span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+          {categoryDescriptions[slug].learnMoreSlug && (
+            <Link
+              href={`/resources/${categoryDescriptions[slug].learnMoreSlug}`}
+              className="text-sm font-medium text-[#0F6FEC] hover:underline"
+            >
+              Read our guide →
+            </Link>
+          )}
+        </div>
+      )}
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Sidebar */}

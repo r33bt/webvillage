@@ -36,6 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/terms`, changeFrequency: 'yearly', priority: 0.3, lastModified: new Date() },
     { url: `${BASE_URL}/tools`, changeFrequency: 'monthly', priority: 0.7, lastModified: new Date() },
     { url: `${BASE_URL}/tools/hrdf-calculator`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date() },
+    { url: `${BASE_URL}/tools/hrdf-eligibility`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date() },
     { url: `${BASE_URL}/resources`, changeFrequency: 'weekly', priority: 0.7, lastModified: new Date() },
     { url: `${BASE_URL}/resources/what-is-hrd-corp-levy`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date() },
     { url: `${BASE_URL}/resources/how-to-find-hrdf-training-provider`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date() },

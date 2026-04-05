@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Calculator, ArrowRight } from 'lucide-react'
+import { Calculator, ArrowRight, CheckCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Free HRD Corp Tools — FindTraining.com',
@@ -85,6 +85,28 @@ export default function ToolsPage() {
           </div>
           <div className="flex items-center gap-1 text-xs font-medium text-[#0F6FEC]">
             Open calculator
+            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+          </div>
+        </Link>
+
+        <Link
+          href="/tools/hrdf-eligibility"
+          className="flex flex-col gap-4 p-6 bg-white border border-gray-200 rounded-xl hover:border-[#0F6FEC] hover:shadow-md transition-all group"
+        >
+          <div className="w-11 h-11 flex items-center justify-center rounded-lg bg-green-50 group-hover:bg-green-100 transition-colors flex-shrink-0">
+            <CheckCircle className="w-5 h-5 text-green-600" aria-hidden="true" />
+          </div>
+          <div className="flex-1">
+            <h2 className="text-sm font-semibold text-gray-900 group-hover:text-[#0F6FEC] leading-snug mb-1">
+              HRDF Eligibility Checker
+            </h2>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Find out if your company must pay the HRD Corp levy and how much your annual
+              training budget will be.
+            </p>
+          </div>
+          <div className="flex items-center gap-1 text-xs font-medium text-[#0F6FEC]">
+            Check eligibility
             <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
           </div>
         </Link>

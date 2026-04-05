@@ -4,8 +4,9 @@ import { getAllCategories, getFeaturedProviders, getProviderStats } from '@webvi
 import type { FtCategory, FtProvider } from '@webvillage/engine/types/ft'
 
 export const metadata: Metadata = {
+  title: 'Find HRDF-Registered Training Providers in Malaysia',
   description:
-    'Find HRDF-registered training providers in Malaysia. Search 5,690+ providers by category and state. Calculate your HRD Corp levy and find levy-claimable training courses.',
+    'Find HRDF-registered training providers in Malaysia. Search thousands of providers by category and state. Calculate your HRD Corp levy and find levy-claimable training courses.',
   alternates: {
     canonical: 'https://findtraining.com',
   },
@@ -137,6 +138,68 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* How It Works */}
+      <section className="py-16 px-4 bg-gray-50">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold text-gray-900 mb-10 text-center">How It Works</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="flex flex-col items-center text-center">
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg mb-4 flex-shrink-0"
+                style={{ backgroundColor: '#0F6FEC' }}
+              >
+                1
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Search Providers</h3>
+              <p className="text-sm text-gray-600">
+                Find HRDF-registered providers that match your training needs by category, state, or keyword.
+              </p>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg mb-4 flex-shrink-0"
+                style={{ backgroundColor: '#0F6FEC' }}
+              >
+                2
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Review Profiles</h3>
+              <p className="text-sm text-gray-600">
+                See contact details, courses offered, delivery methods, and HRDF registration status.
+              </p>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg mb-4 flex-shrink-0"
+                style={{ backgroundColor: '#0F6FEC' }}
+              >
+                3
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Claim Your Levy</h3>
+              <p className="text-sm text-gray-600">
+                Submit your HRD Corp grant application on eTRiS before training starts and recover your levy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HRDF Resources Teaser */}
+      <section className="py-12 px-4 bg-white border-b border-gray-100">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-xl font-bold text-gray-900 mb-2">New to HRDF? Start here.</h2>
+          <p className="text-gray-600 mb-4 text-sm">
+            Learn how the HRD Corp levy works, how to submit a claim on eTRiS, and what training is eligible.
+          </p>
+          <Link
+            href="/resources"
+            className="inline-block text-sm font-semibold text-white px-6 py-2.5 rounded-lg transition-colors"
+            style={{ backgroundColor: '#0F6FEC' }}
+          >
+            Browse HRDF Guides &amp; Resources →
+          </Link>
+        </div>
+      </section>
+
       {/* Featured Providers */}
       {featured.length > 0 && (
         <section className="py-16 px-4 bg-gray-50">
@@ -193,6 +256,29 @@ export default async function HomePage() {
           >
             Become a Founding Member
           </Link>
+        </div>
+      </section>
+
+      {/* Trust Signals */}
+      <section className="py-14 px-4 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+            <div>
+              <p className="text-3xl font-bold text-gray-900 mb-1">5,750+</p>
+              <p className="font-semibold text-gray-700 mb-1">Training Providers</p>
+              <p className="text-sm text-gray-500">Malaysia&apos;s most complete HRDF directory</p>
+            </div>
+            <div>
+              <p className="text-3xl font-bold text-gray-900 mb-1">13</p>
+              <p className="font-semibold text-gray-700 mb-1">Training Categories</p>
+              <p className="text-sm text-gray-500">From IT to soft skills, sales to compliance</p>
+            </div>
+            <div>
+              <p className="text-3xl font-bold text-gray-900 mb-1">16</p>
+              <p className="font-semibold text-gray-700 mb-1">States Covered</p>
+              <p className="text-sm text-gray-500">Providers across all Malaysian states and territories</p>
+            </div>
+          </div>
         </div>
       </section>
     </main>

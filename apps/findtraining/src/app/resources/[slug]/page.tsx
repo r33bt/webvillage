@@ -104,6 +104,26 @@ const ctaLinks: Record<string, { href: string; label: string }> = {
     href: '/categories/it-training',
     label: 'Find IT training providers in Malaysia',
   },
+  'how-to-submit-hrdf-claim-etris': {
+    href: '/providers',
+    label: 'Find HRDF-registered training providers',
+  },
+  'hrdf-approved-soft-skills-training-malaysia': {
+    href: '/categories/soft-skills',
+    label: 'Browse soft skills training providers',
+  },
+  'sales-training-providers-malaysia': {
+    href: '/categories/sales-marketing',
+    label: 'Find sales training providers in Malaysia',
+  },
+  'hrdf-levy-vs-hrd-corp-explained': {
+    href: '/providers',
+    label: 'Browse all HRD Corp registered providers',
+  },
+  'training-budget-planning-malaysia': {
+    href: '/tools/hrdf-calculator',
+    label: 'Calculate your HRDF levy amount',
+  },
 }
 
 export default function ArticlePage({ params }: Props) {
