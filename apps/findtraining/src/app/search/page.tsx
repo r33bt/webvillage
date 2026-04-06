@@ -32,7 +32,7 @@ export default async function SearchPage({
   const { providers, total } = result
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold text-gray-900 mb-6">
         {q ? `Results for "${q}"` : 'Search Training Providers'}
       </h1>
@@ -124,6 +124,6 @@ export default async function SearchPage({
           )}
         </div>
       </div>
-    </main>
+    </div>
   )
 }
