@@ -4,7 +4,7 @@ import { ArrowRight, Clock, BookOpen } from 'lucide-react'
 import { articles } from '@/lib/resources'
 
 export const metadata: Metadata = {
-  title: 'Resources — HRDF & HRD Corp Training Guides | FindTraining.com',
+  title: 'Resources — HRDF & HRD Corp Training Guides',
   description:
     'Guides, calculators, and insights for HR managers and training buyers in Malaysia. Everything you need to know about HRDF levy, HRD Corp, and finding the right training providers.',
   alternates: { canonical: 'https://findtraining.com/resources' },

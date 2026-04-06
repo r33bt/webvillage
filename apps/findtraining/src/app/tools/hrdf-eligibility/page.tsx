@@ -3,7 +3,7 @@ import Link from 'next/link'
 import HRDFEligibilityChecker from './HRDFEligibilityChecker'
 
 export const metadata: Metadata = {
-  title: 'HRDF Eligibility Checker — Are You Required to Pay the HRD Corp Levy? | FindTraining.com',
+  title: 'HRDF Eligibility Checker — Are You Required to Pay the HRD Corp Levy?',
   description:
     'Find out if your company must pay the HRD Corp (HRDF) levy and calculate your monthly and annual levy amount.',
   alternates: { canonical: 'https://findtraining.com/tools/hrdf-eligibility' },

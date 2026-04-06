@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, GraduationCap } from 'lucide-react'
 import { PoweredByWebVillage } from '@/components/PoweredByWebVillage'
+import { MobileMenu } from '@/components/MobileMenu'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -93,15 +94,18 @@ export default function RootLayout({
                   </Link>
                 </nav>
 
-                {/* CTA */}
+                {/* CTA (desktop) */}
                 <Link
                   href="/founding"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                  className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
                   style={{ backgroundColor: '#00C48C', outlineColor: '#00C48C' }}
                 >
                   List Your Company
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </Link>
+
+                {/* Mobile hamburger */}
+                <MobileMenu />
               </div>
             </div>
           </header>

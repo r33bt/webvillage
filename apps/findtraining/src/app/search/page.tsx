@@ -8,7 +8,7 @@ function cleanName(name: string): string {
 }
 
 export const metadata = {
-  title: 'Search Training Providers | FindTraining Malaysia',
+  title: 'Search Training Providers in Malaysia',
   robots: { index: false },
 }
 

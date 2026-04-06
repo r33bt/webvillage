@@ -80,7 +80,7 @@ export default async function HomePage() {
   }
 
   return (
-    <main>
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
@@ -264,7 +264,7 @@ export default async function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
             <div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">5,750+</p>
+              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.total.toLocaleString()}+</p>
               <p className="font-semibold text-gray-700 mb-1">Training Providers</p>
               <p className="text-sm text-gray-500">Malaysia&apos;s most complete HRDF directory</p>
             </div>
@@ -281,6 +281,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-    </main>
+    </>
   )
 }

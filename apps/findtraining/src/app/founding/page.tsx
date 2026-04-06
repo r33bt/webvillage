@@ -7,7 +7,7 @@ import { FoundingFormCard, FaqSection } from './FoundingForm'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Founding Member — List Your Company | FindTraining',
+  title: 'Founding Member — List Your Training Company',
   description: "Be first on Malaysia's HRDF training directory. Founding slots at RM 100/mo locked for life — vs RM 300/mo when we launch publicly.",
   alternates: { canonical: 'https://findtraining.com/founding' },
   robots: { index: false },

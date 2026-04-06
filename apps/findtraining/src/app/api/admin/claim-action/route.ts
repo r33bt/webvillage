@@ -49,7 +49,7 @@ async function sendApprovalEmail(email: string, providerName: string): Promise<v
         `Great news — your claim for ${providerName} on FindTraining has been approved.`,
         '',
         'You can now log in to manage your listing:',
-        'https://findtraining-webvillage.vercel.app/login',
+        `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://findtraining.com'}/login`,
         '',
         'If you have any questions, reply to this email and we will help.',
         '',

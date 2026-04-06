@@ -3,7 +3,7 @@ import Link from 'next/link'
 import HRDFCalculator from './HRDFCalculator'
 
 export const metadata: Metadata = {
-  title: 'HRDF Levy Calculator 2026 — Calculate Your HRD Corp Contribution | FindTraining.com',
+  title: 'HRDF Levy Calculator 2026 — Calculate Your HRD Corp Contribution',
   description:
     'Free HRD Corp levy calculator for Malaysian employers. Enter your headcount and salary to calculate your monthly HRDF levy obligation and annual training budget.',
   alternates: { canonical: 'https://findtraining.com/tools/hrdf-calculator' },
