@@ -47,6 +47,42 @@ async function sendFoundingNotification(data: {
   }
 }
 
+async function sendFoundingConfirmation(data: {
+  company_name: string
+  name: string
+  email: string
+}) {
+  if (!process.env.RESEND_API_KEY) return
+  const resend = new Resend(process.env.RESEND_API_KEY)
+  try {
+    await resend.emails.send({
+      from: 'FindTraining <hello@findtraining.com>',
+      to: data.email,
+      subject: `Your founding slot is reserved — ${data.company_name}`,
+      text: [
+        `Hi ${data.name},`,
+        '',
+        `Thank you for reserving a founding member slot for ${data.company_name} on FindTraining.`,
+        '',
+        "Here's what happens next:",
+        '',
+        '1. We will personally review your application within 48 hours.',
+        '2. Once confirmed, we will send you a payment link for RM 100/mo.',
+        '3. No payment is taken until we confirm your slot.',
+        '',
+        'Your founding rate of RM 100/mo is locked for life — it will never increase.',
+        '',
+        'If you have any questions in the meantime, reply to this email.',
+        '',
+        'The FindTraining Team',
+        'https://findtraining.com',
+      ].join('\n'),
+    })
+  } catch (err) {
+    console.error('[founding] provider confirmation email error:', err)
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -104,12 +140,17 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Fire-and-forget notification — do not await, does not block response
+    // Fire-and-forget — do not await, does not block response
     sendFoundingNotification({
       company_name: company_name.trim(),
       name: name.trim(),
       email: normalizedEmail,
       phone: phone?.trim(),
+    })
+    sendFoundingConfirmation({
+      company_name: company_name.trim(),
+      name: name.trim(),
+      email: normalizedEmail,
     })
 
     return NextResponse.json({ success: true }, { status: 200 })

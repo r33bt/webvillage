@@ -107,7 +107,7 @@ export function FoundingFormCard({ foundingCount, totalSlots }: { foundingCount:
       <div className="text-center mb-6">
         <p className="text-sm font-semibold text-amber-600 mb-1">{slotsLeft} of {totalSlots} founding slots remaining</p>
         <h2 className="text-xl font-bold text-gray-900">Reserve Your Founding Slot</h2>
-        <p className="text-sm text-gray-500 mt-1">RM 100/mo for 3 months — no payment until confirmed</p>
+        <p className="text-sm text-gray-500 mt-1">RM 100/mo locked for life — no payment until confirmed</p>
       </div>
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
         <div>

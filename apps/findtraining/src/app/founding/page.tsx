@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 }
 
 const SPECIFIC_BENEFITS = [
-  'Profile visible to 5,750+ HR managers and employers searching for HRDF training',
+  'Profile visible on Malaysia\'s most complete HRDF training directory — the first place HR managers search',
   'Direct contact button on your listing — leads come straight to you',
   'Add up to 5 courses or services with full details',
   'Dashboard with real-time lead notifications by email',
@@ -178,7 +178,7 @@ export default async function FoundingPage() {
               </ul>
             </div>
           </div>
-          <p className="text-center text-xs text-gray-400 mt-4">Founding price is permanent — it does not increase after the 3-month intro period.</p>
+          <p className="text-center text-xs text-gray-400 mt-4">Founding price is permanent — RM 100/mo locked for life, never increases regardless of when you joined.</p>
         </div>
       </section>
 
