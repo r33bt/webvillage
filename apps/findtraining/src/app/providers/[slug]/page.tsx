@@ -270,12 +270,6 @@ export default async function ProviderPage({ params }: Props) {
               )}
             </div>
 
-            {provider.regulatory_body_id && (
-              <div className="bg-white border border-gray-200 rounded-xl p-5">
-                <h2 className="text-sm font-semibold text-gray-700 mb-1">HRDF Registration No.</h2>
-                <p className="text-sm font-mono text-gray-600">{provider.regulatory_body_id}</p>
-              </div>
-            )}
 
             {!provider.claimed && (
               <div className="rounded-xl border-2 border-[#0F6FEC] bg-blue-50 p-5">

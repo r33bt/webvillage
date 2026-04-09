@@ -186,7 +186,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         <div className="flex-1">
           {providers.length > 0 ? (
             <>
-              <div className="grid gap-4 mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
                 {providers.map((provider: FtProviderWithCategories) => (
                   <Link
                     key={provider.id}
