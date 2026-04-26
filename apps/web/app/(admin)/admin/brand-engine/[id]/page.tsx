@@ -72,7 +72,15 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
       <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6">
         <div className="mb-4 flex items-baseline justify-between">
           <h2 className="text-lg font-bold text-[#1C2B28]">Voice profile</h2>
-          {vp && <span className="text-xs text-[#6B7C79]">v{vp.version} · {vp.intake_method}</span>}
+          <div className="flex items-center gap-3 text-xs">
+            {vp && <span className="text-[#6B7C79]">v{vp.version} · {vp.intake_method}</span>}
+            <Link
+              href={`/admin/brand-engine/${id}/voice`}
+              className="rounded-lg bg-[#0F766E] px-3 py-1.5 font-semibold text-white transition-colors hover:bg-[#0d655d]"
+            >
+              {vp ? 'Edit' : 'Create'} voice profile &rarr;
+            </Link>
+          </div>
         </div>
 
         {vp ? (
@@ -91,7 +99,7 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
           </dl>
         ) : (
           <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
-            No voice profile yet. Onboarding intake (Phase B) creates this row.
+            No voice profile yet. Click "Create voice profile" above to fill the intake form.
           </div>
         )}
       </section>
@@ -118,17 +126,21 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
       </section>
 
       <section className="rounded-xl border border-slate-200 bg-slate-50 p-6">
-        <h2 className="mb-2 text-lg font-bold text-[#1C2B28]">Coming in Phase B / C</h2>
-        <ul className="grid gap-2 text-sm text-[#6B7C79] sm:grid-cols-2">
-          <li>· Onboarding intake wizard (5-step)</li>
-          <li>· Voice profile editor with version history</li>
-          <li>· Brand assets uploads (logo, palette, fonts, photos)</li>
-          <li>· Templates library</li>
-          <li>· Draft generation against this voice profile</li>
-          <li>· 5-pillar score history + brand health</li>
-          <li>· Stripe billing + Stripe Connect</li>
-          <li>· Outreach sequences</li>
-        </ul>
+        <h2 className="mb-3 text-lg font-bold text-[#1C2B28]">Roadmap</h2>
+        <div className="grid gap-2 text-sm sm:grid-cols-2">
+          <p className="text-emerald-700">&#10003; Tenancy + voice substrate schema (Phase A)</p>
+          <p className="text-emerald-700">&#10003; Content + planning + audit schema (Phase B)</p>
+          <p className="text-emerald-700">&#10003; Voice profile editor (this page)</p>
+          <p className="text-emerald-700">&#10003; Banned-phrases canon (58 phrases)</p>
+          <p className="text-[#6B7C79]">&middot; Brand assets uploads (Supabase Storage)</p>
+          <p className="text-[#6B7C79]">&middot; Templates library + WV defaults seed</p>
+          <p className="text-[#6B7C79]">&middot; Draft generation against voice profile</p>
+          <p className="text-[#6B7C79]">&middot; 5-pillar scoring (Claude Haiku 4.5)</p>
+          <p className="text-[#6B7C79]">&middot; Brand health monthly view</p>
+          <p className="text-[#6B7C79]">&middot; Stripe billing + Connect</p>
+          <p className="text-[#6B7C79]">&middot; Outreach sequences</p>
+          <p className="text-[#6B7C79]">&middot; Cluster planner + slot assignments</p>
+        </div>
       </section>
     </div>
   )

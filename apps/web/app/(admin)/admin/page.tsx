@@ -11,9 +11,19 @@ export default function AdminIndexPage() {
           href="/admin/brand-engine"
           className="block rounded-xl border border-slate-200 bg-white p-6 transition-colors hover:border-[#0F766E]"
         >
-          <h2 className="mb-2 font-bold text-[#1C2B28]">Brand Engine</h2>
+          <h2 className="mb-2 font-bold text-[#1C2B28]">Brand Engine &middot; Clients</h2>
           <p className="text-sm text-[#6B7C79]">
-            Per-client substrate — voice profiles, banned phrases, brand assets, draft history.
+            Per-client substrate. Voice profiles, banned phrases, brand assets, draft history.
+          </p>
+        </Link>
+
+        <Link
+          href="/admin/banned-phrases"
+          className="block rounded-xl border border-slate-200 bg-white p-6 transition-colors hover:border-[#0F766E]"
+        >
+          <h2 className="mb-2 font-bold text-[#1C2B28]">Banned-phrase canon</h2>
+          <p className="text-sm text-[#6B7C79]">
+            Global anti-slop baseline applied to every draft. 58 phrases, 5 categories.
           </p>
         </Link>
       </div>

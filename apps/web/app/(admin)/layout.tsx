@@ -19,7 +19,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <span className="text-xs uppercase tracking-wider text-[#6B7C79]">Internal</span>
           </div>
           <nav className="flex items-center gap-5 text-sm font-medium text-[#6B7C79]">
-            <Link href="/admin/brand-engine" className="hover:text-[#1C2B28]">Brand Engine</Link>
+            <Link href="/admin/brand-engine" className="hover:text-[#1C2B28]">Clients</Link>
+            <Link href="/admin/banned-phrases" className="hover:text-[#1C2B28]">Banned phrases</Link>
             <Link href="/" className="hover:text-[#1C2B28]">&larr; Public site</Link>
           </nav>
         </div>
