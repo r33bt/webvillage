@@ -20,6 +20,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
           <nav className="flex items-center gap-5 text-sm font-medium text-[#6B7C79]">
             <Link href="/admin/brand-engine" className="hover:text-[#1C2B28]">Clients</Link>
+            <Link href="/admin/templates-canon" className="hover:text-[#1C2B28]">Templates canon</Link>
             <Link href="/admin/banned-phrases" className="hover:text-[#1C2B28]">Banned phrases</Link>
             <Link href="/" className="hover:text-[#1C2B28]">&larr; Public site</Link>
           </nav>
