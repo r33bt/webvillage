@@ -15,6 +15,12 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  async redirects() {
+    return [
+      { source: '/pricing', destination: '/directories/pricing', permanent: true },
+      { source: '/features', destination: '/directories#features', permanent: true },
+    ]
+  },
 }
 
 module.exports = nextConfig
