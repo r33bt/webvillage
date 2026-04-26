@@ -120,6 +120,29 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
       </section>
 
       <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6">
+        <div className="mb-4 flex items-baseline justify-between">
+          <h2 className="text-lg font-bold text-[#1C2B28]">Drafts</h2>
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/admin/brand-engine/${id}/drafts/new`}
+              className="rounded-lg bg-[#0F766E] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#0d655d]"
+            >
+              + New draft
+            </Link>
+            <Link
+              href={`/admin/brand-engine/${id}/drafts`}
+              className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-[#1C2B28] hover:bg-slate-50"
+            >
+              View all &rarr;
+            </Link>
+          </div>
+        </div>
+        <p className="text-sm text-[#6B7C79]">
+          Voice-aware AI drafts with 5-pillar scoring + per-phrase banned-phrase enforcement. Sonnet 4.6 generates, Haiku 4.5 scores.
+        </p>
+      </section>
+
+      <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6">
         <h2 className="mb-4 text-lg font-bold text-[#1C2B28]">
           Per-client banned phrases <span className="text-sm font-normal text-[#6B7C79]">({bannedPhrases?.length ?? 0})</span>
         </h2>
@@ -148,9 +171,9 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
           <p className="text-emerald-700">&#10003; Voice profile editor (this page)</p>
           <p className="text-emerald-700">&#10003; Banned-phrases canon (58 phrases)</p>
           <p className="text-emerald-700">&#10003; Templates library (15 WV canon + 6 V22 overrides)</p>
+          <p className="text-emerald-700">&#10003; Draft generation API (Sonnet 4.6) + 5-pillar scoring (Haiku 4.5)</p>
+          <p className="text-emerald-700">&#10003; Drafts UI (list + detail + new + regen + status overrides)</p>
           <p className="text-[#6B7C79]">&middot; Brand assets uploads (Supabase Storage)</p>
-          <p className="text-[#6B7C79]">&middot; Draft generation against voice profile</p>
-          <p className="text-[#6B7C79]">&middot; 5-pillar scoring (Claude Haiku 4.5)</p>
           <p className="text-[#6B7C79]">&middot; Brand health monthly view</p>
           <p className="text-[#6B7C79]">&middot; Stripe billing + Connect</p>
           <p className="text-[#6B7C79]">&middot; Outreach sequences</p>
