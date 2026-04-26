@@ -12,7 +12,8 @@ const navLinks = [
   { href: '/careers', label: 'Careers' },
 ]
 
-const ctaHref = getCalUrl() ?? '/contact'
+const baseCal = getCalUrl()
+const ctaHref = baseCal ? `${baseCal}?source=nav` : '/contact?source=nav'
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
