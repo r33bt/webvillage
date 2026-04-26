@@ -4,11 +4,11 @@ import { Footer } from '@/components/marketing/Footer'
 
 export const metadata: Metadata = {
   title: {
-    default: 'WebVillage — Member directories, done for you',
+    default: 'WebVillage — AI agents + expert village for digital work at scale',
     template: '%s | WebVillage',
   },
   description:
-    'WebVillage powers member directories for associations, chambers of commerce, and industry bodies. Done-for-you managed service + self-serve embed for any website.',
+    'WebVillage is a hybrid AI + expert platform. AI agents handle volume — content, SEO, code, ops, monitoring. A vetted village of subject-matter experts handles work that needs taste. Six layers, fourteen verticals.',
 }
 
 export default function MarketingLayout({

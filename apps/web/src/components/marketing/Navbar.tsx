@@ -4,12 +4,15 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { Logo } from '@/components/brand/Logo'
+import { getCalUrl } from '@/lib/env'
 
 const navLinks = [
-  { href: '#how-it-works', label: 'How it works' },
-  { href: '#pricing', label: 'Pricing' },
-  { href: '#embed', label: 'WordPress & Embed' },
+  { href: '/platform', label: 'Platform' },
+  { href: '/directories', label: 'Directories' },
+  { href: '/careers', label: 'Careers' },
 ]
+
+const ctaHref = getCalUrl() ?? '/contact'
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -47,7 +50,7 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className={`font-medium transition-colors ${
@@ -57,17 +60,17 @@ export function Navbar() {
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
           {/* CTA */}
           <div className="hidden md:flex">
             <Link
-              href="/contact"
+              href={ctaHref}
               className="rounded-lg bg-[#D97706] px-5 py-2.5 font-semibold text-white transition-colors hover:bg-[#B45309]"
             >
-              Book a demo →
+              Talk to us →
             </Link>
           </div>
 
@@ -101,11 +104,11 @@ export function Navbar() {
               ))}
               <div className="mt-2 pt-2 border-t border-gray-100">
                 <Link
-                  href="/contact"
+                  href={ctaHref}
                   className="block rounded-lg bg-[#D97706] px-4 py-3 text-center font-semibold text-white transition-colors hover:bg-[#B45309]"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Book a demo →
+                  Talk to us →
                 </Link>
               </div>
             </div>

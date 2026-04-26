@@ -1,886 +1,399 @@
-import { Check } from 'lucide-react'
+import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
+import { getCalUrl } from '@/lib/env'
 
-const CONTACT_EMAIL = '/contact'
-const CALCOM_URL = process.env.NEXT_PUBLIC_CALCOM_URL
-const bookDemoHref = CALCOM_URL ?? CONTACT_EMAIL
+const calUrl = getCalUrl()
+const heroCta = calUrl ? `${calUrl}?source=hero` : '/contact?source=hero'
+const wedgeCta = calUrl ? `${calUrl}?source=wedge` : '/contact?source=wedge'
+const directoryCta = calUrl ? `${calUrl}?source=directory` : '/contact?source=directory'
+const footerCta = calUrl ? `${calUrl}?source=footer` : '/contact?source=footer'
 
-// ─── Data ───────────────────────────────────────────────────────────────────
+// ── Section 2: 6 layers (the moat) ──────────────────────────────────────────
 
-const painPoints = [
+const LAYERS = [
   {
-    icon: '📋',
-    quote:
-      '"Our member directory is basically a spreadsheet we copied into a WordPress plugin. Half the entries are three years out of date."',
-    attribution: '— Chamber of commerce executive',
+    num: 1,
+    name: 'Site engine',
+    blurb: 'Shared Next.js packages, design system, deploy pipeline. Every vertical ships on the same engine.',
   },
   {
-    icon: '📱',
-    quote:
-      '"Members can\'t find anyone on their phone. The filters don\'t work, half the links are broken, and we haven\'t had budget to fix it."',
-    attribution: '— Trade association operations director',
+    num: 2,
+    name: 'AI agents',
+    blurb: 'Content generation, SEO audit, code, ops, monitoring. Agents do the volume work.',
   },
   {
-    icon: '🔧',
-    quote:
-      '"We pay a developer every quarter just to keep the directory plugin from breaking. It\'s not a feature — it\'s a liability."',
-    attribution: '— Industry body administrator',
-  },
-]
-
-const howItWorksSteps = [
-  {
-    number: '01',
-    title: 'Migrate',
-    body: 'We take your existing member data — spreadsheet, old CMS, or WordPress plugin — and build your new directory. No data entry on your end.',
-    sub: 'Your spreadsheet → our hands',
+    num: 3,
+    name: 'Workflow systems',
+    blurb: 'Routing between AI and humans. Output passes through quality gates before it ships.',
   },
   {
-    number: '02',
-    title: 'Embed',
-    body: 'Two lines of code on your existing website. Or use your new webvillage.com/d/[slug] page. Either way, it\'s live in days, not months.',
-    sub: 'Works on any platform',
+    num: 4,
+    name: 'Expert village',
+    blurb: 'Vetted subject-matter experts organised by vertical. Humans do the judgment work.',
   },
   {
-    number: '03',
-    title: 'Grow',
-    body: 'We handle new listing requests, updates, SEO content, and ongoing maintenance. Your members get found. You get time back.',
-    sub: 'Zero ongoing admin',
+    num: 5,
+    name: 'Network',
+    blurb: 'Cross-vertical discovery. Each new vertical strengthens the others.',
+  },
+  {
+    num: 6,
+    name: 'Operating discipline',
+    blurb: 'Specs, registries, audit cadences, kill criteria. The rules of how things ship.',
   },
 ]
 
-// Realistic mock listings for FindTraining
-const findTrainingListings = [
-  { name: 'Apex Training Sdn Bhd', category: 'Leadership & Management', location: 'Kuala Lumpur', price: 'RM 1,200/day', hrdf: true },
-  { name: 'TechSkills Academy', category: 'IT & Digital', location: 'Petaling Jaya', price: 'RM 850/day', hrdf: true },
-  { name: 'ProComm Institute', category: 'Communication', location: 'Penang', price: 'RM 950/day', hrdf: true },
-  { name: 'SafeWork Malaysia', category: 'Safety & Compliance', location: 'Johor Bahru', price: 'RM 780/day', hrdf: true },
-]
+// ── Section 3: V0 Editorial capability tiles ────────────────────────────────
 
-// Realistic mock listings for Cooperatives
-const cooperativesListings = [
-  { name: 'Koperasi Tenaga Nasional', category: 'Energy Sector', location: 'Kuala Lumpur', members: '12,400' },
-  { name: 'Koperasi Guru Malaysia', category: 'Education', location: 'National', members: '86,200' },
-  { name: 'Koperasi Pekerja Felda', category: 'Agriculture', location: 'Pahang', members: '8,900' },
-  { name: 'Koperasi Wanita Selangor', category: 'Women\'s Development', location: 'Selangor', members: '3,100' },
-]
-
-const productPreviewProviders = [
-  { name: 'Acme Safety Training', category: 'Safety & Compliance', location: 'Kuala Lumpur', rating: '4.8', reviews: 124, color: 'bg-red-500/20 text-red-400' },
-  { name: 'TechBridge Academy', category: 'IT & Software', location: 'Penang', rating: '4.6', reviews: 89, color: 'bg-blue-500/20 text-blue-400' },
-  { name: 'Green Skills Institute', category: 'Environmental', location: 'Johor Bahru', rating: '4.9', reviews: 67, color: 'bg-emerald-500/20 text-emerald-400' },
-]
-
-const features = [
+const V0_CAPABILITIES = [
   {
-    icon: '🗂',
-    title: 'Fully Managed',
-    body: 'We maintain your directory. New listings, updates, and fixes — handled by us, not your team.',
+    title: 'Content creation',
+    blurb:
+      'YMYL articles, persona-led editorial, video, image — fact-checked, 5-pillar scored, never AI-shipped-untouched.',
   },
   {
-    icon: '🔍',
-    title: 'SEO-Ready',
-    body: 'Every listing is structured data. Google indexes your members individually, driving organic discovery.',
+    title: 'Publishing',
+    blurb:
+      'Calendar + multi-platform scheduling. Hand-off mode (you post) or connected (we post for you).',
   },
   {
-    icon: '📱',
-    title: 'Mobile-First',
-    body: 'Looks great on every device. Fast load times, no plugin maintenance, no WordPress updates.',
+    title: 'Brand monitoring',
+    blurb:
+      'Curated weekly insight reports — mentions, sentiment, share of voice, competitor moves. Human judgment, not commodity dashboards.',
   },
   {
-    icon: '🔌',
-    title: 'Embed Anywhere',
-    body: 'Two lines of code. Works on WordPress, Wix, Squarespace, Webflow, or plain HTML.',
-  },
-  {
-    icon: '📊',
-    title: 'Analytics',
-    body: 'See which listings get the most views and clicks. Understand your member engagement.',
-  },
-  {
-    icon: '🌐',
-    title: 'Network Effect',
-    body: 'Your listings appear on webvillage.com too — the cross-directory search hub growing every month.',
+    title: 'Social media management',
+    blurb:
+      "1-hour response SLA on inbound. AI-suggested replies, human-approved. The pain Hootsuite and Sprout don't solve.",
   },
 ]
 
-const selfServeFeatures = {
-  free: ['50 listings', 'webvillage.com/d/[slug]', 'WebVillage branded', 'Basic search & filters'],
-  pro: ['Unlimited listings', 'Custom domain', 'Custom styling & colours', 'Multi-category support', 'Analytics dashboard'],
-  business: ['Everything in Pro', 'Multiple directories', 'API access', 'Priority support', 'Remove WV branding'],
-}
+// ── Section 4: Verticals (live proof) ───────────────────────────────────────
 
-const managedFeatures = {
-  starter: ['Up to 500 listings', 'Data migration from existing source', 'Basic SEO setup', 'Monthly update cycle', 'Email support'],
-  professional: ['Up to 2,000 listings', 'Full data migration', 'SEO content (category pages)', 'Weekly update cycle', 'Dedicated account manager'],
-  enterprise: ['Unlimited listings', 'Custom data pipeline', 'Full SEO programme', 'Daily operations', 'White-label option', 'SLA + dedicated manager'],
-}
+const VERTICALS = [
+  {
+    name: 'MathsTutor.com',
+    domain: 'mathstutor.com',
+    blurb: 'IGCSE math AI tutor. Live with paying subscribers.',
+  },
+  {
+    name: 'WineTravelGuides.com',
+    domain: 'winetravelguides.com',
+    blurb: 'Wine travel publishing. Live with organic traffic.',
+  },
+  {
+    name: 'Money.com.my',
+    domain: 'money.com.my',
+    blurb: 'Malaysian personal finance education. Live, persona-led editorial.',
+  },
+  {
+    name: 'NerdSmith',
+    domain: 'nerdsmith.com',
+    blurb: 'AI builder content + cohort. Live founding cohort.',
+  },
+  {
+    name: 'TWELL',
+    domain: 'tinkerwell.com / hackjam.com',
+    blurb: 'MY/SG startup ecosystem OS. Live infrastructure, 5,000+ startups seeded.',
+  },
+  {
+    name: 'FindTraining.com',
+    domain: 'findtraining.com',
+    blurb: 'Malaysia HRDF training providers. Live on the engine.',
+  },
+]
 
-// ─── Structured Data ─────────────────────────────────────────────────────────
+// ── Metadata ────────────────────────────────────────────────────────────────
 
-const softwareApplicationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'WebVillage',
-  applicationCategory: 'BusinessApplication',
+export const metadata = {
+  title: 'WebVillage — AI agents + expert village for digital work at scale',
   description:
-    'Managed member directory service for associations, chambers of commerce, and industry bodies. Done-for-you directory network with SEO, search, and claim flows built in.',
+    'AI agents handle volume. A vetted village of subject-matter experts handles the work that needs taste. Six layers, fourteen verticals.',
+}
+
+const homepageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'WebVillage',
   url: 'https://webvillage.com',
-  offers: [
-    {
-      '@type': 'Offer',
-      name: 'Starter Managed Directory',
-      price: '299.00',
-      priceCurrency: 'USD',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: '299.00',
-        priceCurrency: 'USD',
-        unitText: 'monthly',
-      },
-    },
-    {
-      '@type': 'Offer',
-      name: 'Professional Managed Directory',
-      price: '599.00',
-      priceCurrency: 'USD',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: '599.00',
-        priceCurrency: 'USD',
-        unitText: 'monthly',
-      },
-    },
-  ],
-  provider: {
-    '@type': 'Organization',
-    name: 'WebVillage',
-    url: 'https://webvillage.com',
+  description:
+    'Hybrid AI + expert platform for digital work at scale. Content, SEO, code, design, ops — at scale, with judgment.',
+  potentialAction: {
+    '@type': 'ContactAction',
+    target: 'https://webvillage.com/contact',
   },
 }
 
-// ─── Page ────────────────────────────────────────────────────────────────────
+// ── Page ────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
   return (
-    <>
-      <JsonLd data={softwareApplicationSchema} />
-      <div className="min-h-screen bg-white">
+    <div className="bg-white">
+      <JsonLd data={homepageSchema} />
 
-      {/* ── Section 1: Hero ─────────────────────────────────────────────── */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#0C1A18]">
-        {/* Subtle teal radial glow */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          aria-hidden="true"
-          style={{
-            background:
-              'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(15,118,110,0.35) 0%, transparent 70%)',
-          }}
-        />
-
-        <div className="relative mx-auto max-w-4xl px-6 py-32 text-center lg:px-8">
-          <h1 className="mb-6 text-5xl font-bold leading-tight text-white sm:text-6xl md:text-7xl">
-            Your members deserve a directory
-            <br className="hidden sm:block" />
-            <span className="text-[#0F766E]"> that actually works.</span>
+      {/* Section 1 — Hero */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0F766E] via-[#0F766E] to-[#0C1A18] pb-24 pt-36 text-white">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <h1 className="mb-6 max-w-4xl text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+            AI agents + expert village for digital work at scale.
           </h1>
-
-          <p className="mx-auto mb-10 max-w-2xl text-lg text-[#A8C4C0] sm:text-xl">
-            Most association websites run a directory that&apos;s five years out of date,
-            impossible to search, and breaks on mobile. We fix that — and maintain it for you.
+          <p className="mb-3 max-w-3xl text-xl text-white/90 sm:text-2xl">
+            Content, SEO, code, design, ops — at scale, with judgment.
+          </p>
+          <p className="mb-10 max-w-3xl text-lg text-white/70">
+            AI agents handle volume. A vetted village of subject-matter experts handles the work that needs taste.
           </p>
 
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href={bookDemoHref}
-              className="inline-flex items-center rounded-xl bg-[#D97706] px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-[#B45309]"
+          <div className="flex flex-wrap items-center gap-6">
+            <Link
+              href={heroCta}
+              className="inline-flex items-center gap-2 rounded-lg bg-[#D97706] px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#B45309]"
             >
-              Book a 30-min demo →
-            </a>
-            <a
-              href="#live-proof"
-              className="inline-flex items-center rounded-xl border border-white/20 px-8 py-4 text-lg font-medium text-white/80 transition-colors hover:border-white/40 hover:text-white"
-            >
-              See a live example ↓
+              Talk to us about your brand
+              <span aria-hidden>&rarr;</span>
+            </Link>
+            <a href="#how-it-works" className="text-sm font-medium text-white/80 underline-offset-4 hover:text-white hover:underline">
+              See how it works
             </a>
           </div>
         </div>
       </section>
 
-      {/* ── Section 2: Pain Recognition ─────────────────────────────────── */}
-      <section className="bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="mb-14 text-center text-3xl font-bold text-[#1C2B28] sm:text-4xl">
-            Sound familiar?
+      {/* Section 2 — The 6 layers (the moat) */}
+      <section className="border-b border-slate-200 py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-4 max-w-3xl text-3xl font-bold text-[#1C2B28] sm:text-4xl">
+            The platform is six layers deep.
           </h2>
+          <p className="mb-12 max-w-3xl text-lg text-[#6B7C79]">
+            Most platforms have one or two of these. Fiverr and Upwork are humans-only. Replit and Lovable are AI-only. WebVillage is built on all six — that's the scale, that's the moat.
+          </p>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            {painPoints.map((point) => (
-              <div
-                key={point.icon}
-                className="rounded-2xl border border-[#E2ECEB] bg-white p-8 shadow-sm"
-              >
-                <div className="mb-5 text-3xl">{point.icon}</div>
-                <p className="mb-4 text-base italic leading-relaxed text-[#1C2B28]">
-                  {point.quote}
-                </p>
-                <p className="text-sm text-[#6B7C79]">{point.attribution}</p>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {LAYERS.map((layer) => (
+              <div key={layer.num} className="rounded-xl border border-slate-200 bg-white p-6">
+                <div className="mb-3 flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#F0FAF9] font-bold text-[#0F766E]">
+                    {layer.num}
+                  </span>
+                  <h3 className="text-lg font-bold text-[#1C2B28]">{layer.name}</h3>
+                </div>
+                <p className="text-[#6B7C79]">{layer.blurb}</p>
               </div>
             ))}
           </div>
+
+          <p className="mt-10 max-w-3xl text-sm italic text-[#6B7C79]">
+            Layers 1, 2, and 6 are production today. Layers 3, 4, and 5 are forming.{' '}
+            <Link href="/platform" className="text-[#0F766E] underline-offset-2 hover:underline">
+              See the full architecture &rarr;
+            </Link>
+          </p>
         </div>
       </section>
 
-      {/* ── Section 3: How It Works ─────────────────────────────────────── */}
-      <section id="how-it-works" className="bg-[#F0FAF9] py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="mb-4 text-center text-3xl font-bold text-[#1C2B28] sm:text-4xl">
-            Three steps. Zero spreadsheets.
-          </h2>
-          <p className="mx-auto mb-16 max-w-xl text-center text-[#6B7C79]">
-            From outdated directory to live, searchable, managed — in days.
+      {/* Section 3 — V0 WebVillage Editorial */}
+      <section className="bg-[#F0FAF9] py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#0F766E]">
+            Vertical 0 — WebVillage Editorial
           </p>
+          <h2 className="mb-6 max-w-3xl text-3xl font-bold text-[#1C2B28] sm:text-4xl">
+            Content marketing and brand management, methodology-first.
+          </h2>
+          <div className="mb-12 max-w-3xl space-y-4 text-lg text-[#1C2B28]">
+            <p>
+              AI content has become commodity. Anyone can produce it; almost no point publishing it. We use AI as leverage but keep real humans accountable for every piece of work that ships — articles, video, images, social, brand monitoring.
+            </p>
+            <p>
+              Built by humans, AI-leveraged, never shipped untouched. Brand-grade output, retainer pricing, named editor on every piece.
+            </p>
+          </div>
 
-          <div className="grid gap-10 md:grid-cols-3">
-            {howItWorksSteps.map((step, i) => (
-              <div key={step.number} className="relative">
-                {/* Connector line — desktop only */}
-                {i < howItWorksSteps.length - 1 && (
-                  <div
-                    className="absolute top-8 left-full hidden w-10 border-t-2 border-dashed border-[#0F766E]/30 md:block"
-                    aria-hidden="true"
-                  />
-                )}
-                <div className="mb-4 text-6xl font-bold text-[#0F766E]/10 leading-none">
-                  {step.number}
-                </div>
-                <h3 className="mb-3 text-2xl font-bold text-[#1C2B28]">{step.title}</h3>
-                <p className="mb-3 text-[#6B7C79] leading-relaxed">{step.body}</p>
-                <p className="text-sm font-medium text-[#0F766E]">{step.sub}</p>
+          <div className="mb-10 grid gap-5 sm:grid-cols-2">
+            {V0_CAPABILITIES.map((cap) => (
+              <div key={cap.title} className="rounded-xl bg-white p-6">
+                <h3 className="mb-3 text-lg font-bold text-[#1C2B28]">{cap.title}</h3>
+                <p className="text-[#6B7C79]">{cap.blurb}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ── Product Preview Section ──────────────────────────────────── */}
-      <section className="bg-[#0C1A18] py-20 sm:py-28">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <h2 className="mb-4 text-center text-3xl font-bold text-white sm:text-4xl">
-            What your directory looks like
-          </h2>
-          <p className="mx-auto mb-14 max-w-xl text-center text-[#A8C4C0]">
-            A searchable, fast, mobile-friendly directory your members will actually use.
+          <div className="mb-10 rounded-xl border-2 border-[#0F766E]/30 bg-white p-8">
+            <h3 className="mb-3 text-xl font-bold text-[#0F766E]">WebVillage Brand Engine</h3>
+            <p className="text-[#1C2B28]">
+              We train your brand into the platform — visual style, voice, editorial standards, your reviewer panel. Months of brand training compound. Switching off WebVillage doesn't lose ChatGPT — it loses <em>your</em> brand-trained AI and <em>your</em> curated experts.
+            </p>
+          </div>
+
+          <p className="mb-8 text-sm text-[#6B7C79]">
+            Retainer pricing from $750/mo to $20K+. No self-serve tier — production economics don't pencil there.
           </p>
 
-          {/* Browser frame — Directory listing view */}
-          <div className="rounded-xl border border-white/10 bg-[#111] overflow-hidden shadow-2xl">
-            {/* Browser chrome */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-                <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-                <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-              </div>
-              <div className="ml-3 flex-1 rounded-md bg-white/10 px-3 py-1.5 text-xs text-white/40">
-                findtraining.my/providers
-              </div>
-            </div>
-
-            {/* Mock directory content */}
-            <div className="p-6 sm:p-8">
-              {/* Search bar */}
-              <div className="flex flex-col gap-3 mb-8 sm:flex-row">
-                <div className="flex-1 rounded-lg bg-white/[0.07] border border-white/10 px-4 py-3 text-white/30 text-sm">
-                  Search training providers, courses, locations...
-                </div>
-                <div className="flex gap-2">
-                  <div className="rounded-lg bg-white/[0.07] border border-white/10 px-4 py-3 text-white/30 text-sm">
-                    All Categories ▾
-                  </div>
-                  <div className="rounded-lg bg-[#0F766E] px-6 py-3 text-white font-semibold text-sm cursor-default">
-                    Search
-                  </div>
-                </div>
-              </div>
-
-              {/* Results count */}
-              <p className="text-xs text-white/30 mb-4">
-                Showing <span className="text-white/60 font-medium">3</span> of <span className="text-white/60 font-medium">1,247</span> providers
-              </p>
-
-              {/* Provider cards grid */}
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {productPreviewProviders.map((provider) => (
-                  <div
-                    key={provider.name}
-                    className="rounded-xl border border-white/10 bg-white/[0.04] p-5 hover:border-white/20 transition-colors"
-                  >
-                    {/* Category badge */}
-                    <span className={`inline-block rounded-full px-2.5 py-1 text-xs font-medium mb-3 ${provider.color}`}>
-                      {provider.category}
-                    </span>
-                    <h4 className="text-base font-semibold text-white mb-2">
-                      {provider.name}
-                    </h4>
-                    <div className="flex items-center gap-1.5 text-xs text-white/40 mb-3">
-                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      {provider.location}
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        <span className="text-[#D97706] text-sm">★</span>
-                        <span className="text-sm font-medium text-white/70">{provider.rating}</span>
-                        <span className="text-xs text-white/30">({provider.reviews})</span>
-                      </div>
-                      <span className="text-xs font-medium text-[#0F766E] cursor-default">
-                        View details →
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Detail view — smaller, offset */}
-          <div className="mt-10 mx-auto max-w-2xl">
-            <div className="rounded-xl border border-white/10 bg-[#111] overflow-hidden shadow-2xl">
-              {/* Browser chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-                  <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-                  <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-                </div>
-                <div className="ml-3 flex-1 rounded-md bg-white/10 px-3 py-1.5 text-xs text-white/40">
-                  findtraining.my/providers/acme-safety-training
-                </div>
-              </div>
-
-              {/* Mock detail content */}
-              <div className="p-6 sm:p-8">
-                <div className="flex flex-col gap-6 sm:flex-row">
-                  {/* Left: info */}
-                  <div className="flex-1">
-                    <span className="inline-block rounded-full bg-red-500/20 px-2.5 py-1 text-xs font-medium text-red-400 mb-3">
-                      Safety & Compliance
-                    </span>
-                    <h4 className="text-xl font-bold text-white mb-2">Acme Safety Training</h4>
-                    <div className="flex items-center gap-1 mb-4">
-                      <span className="text-[#D97706]">★★★★★</span>
-                      <span className="text-sm text-white/50 ml-1">4.8 (124 reviews)</span>
-                    </div>
-                    <div className="space-y-2 text-sm text-white/40">
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        Kuala Lumpur, Malaysia
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                        info@acmesafety.com.my
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                        +60 3-1234 5678
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right: services box */}
-                  <div className="sm:w-48 rounded-lg bg-white/[0.04] border border-white/10 p-4">
-                    <p className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-3">Services</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {['OSHA', 'DOSH', 'First Aid', 'Fire Safety', 'ISO 45001'].map((tag) => (
-                        <span key={tag} className="rounded-md bg-white/10 px-2 py-1 text-xs text-white/50">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="mt-4 pt-3 border-t border-white/10">
-                      <p className="text-xs text-white/40">HRDF Claimable</p>
-                      <p className="text-sm font-semibold text-[#D97706]">RM 1,200/day</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <p className="text-center mt-10">
-            <a
-              href="https://findtraining-webvillage.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0F766E] hover:text-[#5EEAD4] transition-colors"
-            >
-              Explore the live FindTraining directory ↗
-            </a>
-          </p>
-        </div>
-      </section>
-
-      {/* ── Stats strip ─────────────────────────────────────────────────── */}
-      <div className="border-y border-[#E2ECEB] bg-white py-6">
-        <div className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-6 px-6 sm:flex-row sm:gap-12">
-          {[
-            { value: '2', label: 'directories live & growing' },
-            { value: '90K+', label: 'listings indexed' },
-            { value: '100%', label: 'managed — zero admin for you' },
-          ].map(({ value, label }) => (
-            <div key={label} className="text-center">
-              <p className="text-2xl font-bold text-[#0F766E]">{value}</p>
-              <p className="text-sm text-[#6B7C79]">{label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Section 4: Live Proof ───────────────────────────────────────── */}
-      <section id="live-proof" className="bg-[#0C1A18] py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="mb-4 text-center text-3xl font-bold text-white sm:text-4xl">
-            See it in action
-          </h2>
-          <p className="mx-auto mb-14 max-w-xl text-center text-[#A8C4C0]">
-            Two live WebVillage directories — real data, real organisations.
-          </p>
-
-          <div className="grid gap-8 lg:grid-cols-2">
-            {/* FindTraining */}
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-              <div className="mb-5 flex items-center justify-between">
-                <div>
-                  <h3 className="text-xl font-bold text-white">FindTraining.my</h3>
-                  <p className="text-sm text-[#A8C4C0]">HRDF-accredited training providers</p>
-                </div>
-                <span className="rounded-full bg-[#0F766E]/30 px-3 py-1 text-xs font-medium text-[#5EEAD4]">
-                  Live
-                </span>
-              </div>
-
-              <div className="space-y-3">
-                {findTrainingListings.map((listing) => (
-                  <div
-                    key={listing.name}
-                    className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3"
-                  >
-                    <div>
-                      <p className="text-sm font-medium text-white">{listing.name}</p>
-                      <p className="text-xs text-[#6B7C79]">
-                        {listing.category} · {listing.location}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs font-medium text-[#D97706]">{listing.price}</p>
-                      {listing.hrdf && (
-                        <p className="text-xs text-[#6B7C79]">HRDF claimable</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-5">
-                <a
-                  href="https://findtraining.my"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0F766E] hover:text-[#5EEAD4] transition-colors"
-                >
-                  Visit FindTraining.my ↗
-                </a>
-              </div>
-            </div>
-
-            {/* Cooperatives */}
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-              <div className="mb-5 flex items-center justify-between">
-                <div>
-                  <h3 className="text-xl font-bold text-white">Cooperatives.my</h3>
-                  <p className="text-sm text-[#A8C4C0]">Malaysian cooperative societies</p>
-                </div>
-                <span className="rounded-full bg-[#0F766E]/30 px-3 py-1 text-xs font-medium text-[#5EEAD4]">
-                  Live
-                </span>
-              </div>
-
-              <div className="space-y-3">
-                {cooperativesListings.map((listing) => (
-                  <div
-                    key={listing.name}
-                    className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3"
-                  >
-                    <div>
-                      <p className="text-sm font-medium text-white">{listing.name}</p>
-                      <p className="text-xs text-[#6B7C79]">
-                        {listing.category} · {listing.location}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs font-medium text-[#D97706]">{listing.members}</p>
-                      <p className="text-xs text-[#6B7C79]">members</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-5">
-                <a
-                  href="https://cooperatives.my"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0F766E] hover:text-[#5EEAD4] transition-colors"
-                >
-                  Visit Cooperatives.my ↗
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Section 5: Features ─────────────────────────────────────────── */}
-      <section className="bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="mb-4 text-center text-3xl font-bold text-[#1C2B28] sm:text-4xl">
-            Everything your directory needs.
-          </h2>
-          <p className="mx-auto mb-14 max-w-xl text-center text-[#6B7C79]">
-            Nothing it doesn&apos;t.
-          </p>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="rounded-2xl bg-[#F0FAF9] p-7"
-              >
-                <div className="mb-4 text-3xl">{feature.icon}</div>
-                <h3 className="mb-2 text-lg font-semibold text-[#1C2B28]">{feature.title}</h3>
-                <p className="text-sm leading-relaxed text-[#6B7C79]">{feature.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Section 6: Pricing ──────────────────────────────────────────── */}
-      <section id="pricing" className="bg-[#F8FAF9] py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="mb-4 text-center text-3xl font-bold text-[#1C2B28] sm:text-4xl">
-            Simple, transparent pricing
-          </h2>
-          <p className="mx-auto mb-14 max-w-xl text-center text-[#6B7C79]">
-            Self-serve if you want control. Managed if you want it done for you.
-          </p>
-
-          {/* Self-serve */}
-          <div className="mb-8">
-            <h3 className="mb-6 text-center text-sm font-semibold uppercase tracking-widest text-[#6B7C79]">
-              Self-Serve — Add a directory to your existing site
-            </h3>
-            <div className="grid gap-6 md:grid-cols-3">
-              {/* Free */}
-              <div className="rounded-2xl border border-[#E2ECEB] bg-white p-8">
-                <h4 className="mb-1 text-lg font-semibold text-[#1C2B28]">Free</h4>
-                <div className="mb-4">
-                  <span className="text-4xl font-bold text-[#1C2B28]">$0</span>
-                  <span className="text-[#6B7C79]">/mo</span>
-                </div>
-                <p className="mb-6 text-sm text-[#6B7C79]">Get started, no commitment</p>
-                <ul className="mb-8 space-y-3">
-                  {selfServeFeatures.free.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-[#1C2B28]">
-                      <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#0F766E]" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="mailto:hello@webvillage.com"
-                  className="block rounded-lg border border-[#0F766E] py-2.5 text-center text-sm font-semibold text-[#0F766E] transition-colors hover:bg-[#F0FAF9]"
-                >
-                  Get started
-                </a>
-              </div>
-
-              {/* Pro */}
-              <div className="rounded-2xl border-2 border-[#0F766E] bg-white p-8">
-                <h4 className="mb-1 text-lg font-semibold text-[#1C2B28]">Pro</h4>
-                <div className="mb-4">
-                  <span className="text-4xl font-bold text-[#1C2B28]">$29</span>
-                  <span className="text-[#6B7C79]">/mo</span>
-                </div>
-                <p className="mb-6 text-sm text-[#6B7C79]">Unlimited listings, your domain</p>
-                <ul className="mb-8 space-y-3">
-                  {selfServeFeatures.pro.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-[#1C2B28]">
-                      <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#0F766E]" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="mailto:hello@webvillage.com"
-                  className="block rounded-lg bg-[#0F766E] py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-[#0D6259]"
-                >
-                  Get started
-                </a>
-              </div>
-
-              {/* Business */}
-              <div className="rounded-2xl border border-[#E2ECEB] bg-white p-8">
-                <h4 className="mb-1 text-lg font-semibold text-[#1C2B28]">Business</h4>
-                <div className="mb-4">
-                  <span className="text-4xl font-bold text-[#1C2B28]">$79</span>
-                  <span className="text-[#6B7C79]">/mo</span>
-                </div>
-                <p className="mb-6 text-sm text-[#6B7C79]">Multi-directory, API, analytics</p>
-                <ul className="mb-8 space-y-3">
-                  {selfServeFeatures.business.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-[#1C2B28]">
-                      <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#0F766E]" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="mailto:hello@webvillage.com"
-                  className="block rounded-lg border border-[#0F766E] py-2.5 text-center text-sm font-semibold text-[#0F766E] transition-colors hover:bg-[#F0FAF9]"
-                >
-                  Get started
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Managed */}
-          <div className="mt-14">
-            <h3 className="mb-6 text-center text-sm font-semibold uppercase tracking-widest text-[#6B7C79]">
-              Managed Service — We build it, fill it, and maintain it for you
-            </h3>
-            <div className="grid gap-6 md:grid-cols-3">
-              {/* Starter */}
-              <div className="rounded-2xl border border-[#E2ECEB] bg-white p-8">
-                <h4 className="mb-1 text-lg font-semibold text-[#1C2B28]">Starter</h4>
-                <div className="mb-1">
-                  <span className="text-3xl font-bold text-[#1C2B28]">$2,500</span>
-                  <span className="text-sm text-[#6B7C79]"> setup</span>
-                </div>
-                <div className="mb-4 text-xl font-semibold text-[#1C2B28]">
-                  + $299<span className="text-sm font-normal text-[#6B7C79]">/mo</span>
-                </div>
-                <ul className="mb-8 space-y-3">
-                  {managedFeatures.starter.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-[#1C2B28]">
-                      <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#D97706]" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href={bookDemoHref}
-                  className="block rounded-lg border border-[#D97706] py-2.5 text-center text-sm font-semibold text-[#D97706] transition-colors hover:bg-amber-50"
-                >
-                  Book a demo
-                </a>
-              </div>
-
-              {/* Professional */}
-              <div className="relative rounded-2xl border-2 border-[#D97706] bg-white p-8">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#D97706] px-3 py-1 text-xs font-semibold text-white">
-                  Most popular
-                </div>
-                <h4 className="mb-1 text-lg font-semibold text-[#1C2B28]">Professional</h4>
-                <div className="mb-1">
-                  <span className="text-3xl font-bold text-[#1C2B28]">$5,000</span>
-                  <span className="text-sm text-[#6B7C79]"> setup</span>
-                </div>
-                <div className="mb-4 text-xl font-semibold text-[#1C2B28]">
-                  + $599<span className="text-sm font-normal text-[#6B7C79]">/mo</span>
-                </div>
-                <ul className="mb-8 space-y-3">
-                  {managedFeatures.professional.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-[#1C2B28]">
-                      <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#D97706]" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href={bookDemoHref}
-                  className="block rounded-lg bg-[#D97706] py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-[#B45309]"
-                >
-                  Book a demo
-                </a>
-              </div>
-
-              {/* Enterprise */}
-              <div className="rounded-2xl border border-[#E2ECEB] bg-white p-8">
-                <h4 className="mb-1 text-lg font-semibold text-[#1C2B28]">Enterprise</h4>
-                <div className="mb-4">
-                  <span className="text-3xl font-bold text-[#1C2B28]">Custom</span>
-                </div>
-                <p className="mb-4 text-sm text-[#6B7C79]">For large associations, federations, and agencies</p>
-                <ul className="mb-8 space-y-3">
-                  {managedFeatures.enterprise.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-[#1C2B28]">
-                      <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#D97706]" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="mailto:hello@webvillage.com"
-                  className="block rounded-lg border border-[#D97706] py-2.5 text-center text-sm font-semibold text-[#D97706] transition-colors hover:bg-amber-50"
-                >
-                  Contact us
-                </a>
-              </div>
-            </div>
-
-            {/* Founding member callout */}
-            <div className="mt-8 rounded-xl border border-[#D97706]/30 bg-amber-50 p-6 text-center">
-              <p className="text-sm text-[#1C2B28]">
-                <span className="font-semibold">Are you one of our first 5 clients?</span>{' '}
-                Ask about Founding Member pricing — 40% off your setup fee, monthly rate locked for life.{' '}
-                <a href="mailto:hello@webvillage.com" className="font-semibold text-[#D97706] hover:text-[#B45309]">
-                  Get in touch →
-                </a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Section 7: Embed / Plugin ────────────────────────────────────── */}
-      <section id="embed" className="bg-[#0C1A18] py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
-            {/* Left: Code block */}
-            <div>
-              <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">
-                Embed on any website.
-                <br />
-                <span className="text-[#0F766E]">In two lines.</span>
-              </h2>
-              <p className="mb-8 text-[#A8C4C0]">
-                Works on WordPress, Wix, Squarespace, Webflow, or plain HTML.
-                No coding skills required.
-              </p>
-
-              <div className="rounded-xl bg-[#0A1210] border border-white/10 p-6 font-mono text-sm">
-                <p className="mb-1 text-[#6B7C79]">{'<!-- Step 1: load once in <head> -->'}</p>
-                <p className="mb-4">
-                  <span className="text-[#5EEAD4]">{'<script'}</span>{' '}
-                  <span className="text-[#D97706]">src</span>
-                  <span className="text-white">{'="'}</span>
-                  <span className="text-[#A8C4C0]">{'cdn.webvillage.com/embed/v1.js'}</span>
-                  <span className="text-white">{'"'}</span>{' '}
-                  <span className="text-[#D97706]">defer</span>
-                  <span className="text-[#5EEAD4]">{'>'}</span>
-                  <span className="text-[#5EEAD4]">{'</script>'}</span>
-                </p>
-                <p className="mb-1 text-[#6B7C79]">{'<!-- Step 2: place anywhere -->'}</p>
-                <p>
-                  <span className="text-[#5EEAD4]">{'<webvillage-directory'}</span>
-                </p>
-                <p className="ml-4">
-                  <span className="text-[#D97706]">id</span>
-                  <span className="text-white">{'="'}</span>
-                  <span className="text-[#A8C4C0]">your-directory-slug</span>
-                  <span className="text-white">{'"'}</span>
-                </p>
-                <p className="ml-4">
-                  <span className="text-[#D97706]">theme</span>
-                  <span className="text-white">{'="'}</span>
-                  <span className="text-[#A8C4C0]">light</span>
-                  <span className="text-white">{'"'}</span>
-                </p>
-                <p className="ml-4">
-                  <span className="text-[#D97706]">show-search</span>
-                  <span className="text-white">{'="'}</span>
-                  <span className="text-[#A8C4C0]">true</span>
-                  <span className="text-white">{'"'}</span>
-                  <span className="text-[#5EEAD4]">{'>'}</span>
-                </p>
-                <p>
-                  <span className="text-[#5EEAD4]">{'</webvillage-directory>'}</span>
-                </p>
-              </div>
-            </div>
-
-            {/* Right: Benefits */}
-            <div className="space-y-6">
-              {[
-                {
-                  title: 'Works on any platform',
-                  body: 'WordPress, Squarespace, Wix, Webflow, plain HTML — the embed works everywhere. No plugin conflicts, no framework lock-in.',
-                },
-                {
-                  title: 'Data stays on WebVillage',
-                  body: "Nothing is installed on your server. Your directory is hosted and CDN-cached by us. You get the embed code; we handle the infrastructure.",
-                },
-                {
-                  title: 'Update from your dashboard',
-                  body: 'Make changes in the WebVillage dashboard — they appear on your embedded directory instantly. No redeploys, no developer required.',
-                },
-                {
-                  title: 'WordPress plugin coming soon',
-                  body: 'A native WordPress plugin (zero DB footprint, Gutenberg block + shortcode) is in development. Add your email for early access.',
-                },
-              ].map((item) => (
-                <div key={item.title} className="flex gap-4">
-                  <div className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]">
-                    <Check className="h-3 w-3 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-white">{item.title}</p>
-                    <p className="mt-1 text-sm text-[#A8C4C0]">{item.body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Section 8: Final CTA ─────────────────────────────────────────── */}
-      <section className="bg-[#0F766E] py-20 sm:py-28">
-        <div className="mx-auto max-w-2xl px-6 text-center lg:px-8">
-          <h2 className="mb-5 text-3xl font-bold text-white sm:text-4xl md:text-5xl">
-            Ready to give your members a directory
-            they&apos;ll actually use?
-          </h2>
-          <p className="mx-auto mb-10 max-w-lg text-lg text-[#CCEDEA]">
-            Book a free 30-minute call. We&apos;ll show you a live demo and tell
-            you exactly what migration looks like for your organisation.
-          </p>
-          <a
-            href={bookDemoHref}
-            className="inline-flex items-center rounded-xl bg-[#D97706] px-10 py-4 text-lg font-semibold text-white transition-colors hover:bg-[#B45309]"
+          <Link
+            href={wedgeCta}
+            className="inline-flex items-center gap-2 rounded-lg bg-[#D97706] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#B45309]"
           >
-            Book a 30-min demo →
-          </a>
-          <p className="mt-5 text-sm text-[#CCEDEA]/70">
-            No commitment. No sales pressure.
+            Talk to us about your brand
+            <span aria-hidden>&rarr;</span>
+          </Link>
+        </div>
+      </section>
+
+      {/* Section 4 — Verticals (live proof) */}
+      <section id="verticals" className="border-b border-slate-200 py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-4 max-w-3xl text-3xl font-bold text-[#1C2B28] sm:text-4xl">
+            Already operating across six verticals.
+          </h2>
+          <p className="mb-12 max-w-3xl text-lg text-[#6B7C79]">
+            The methodology is being tested in production across education, travel, finance, B2B directories, and developer communities. Each vertical is a sub-village operated on the WebVillage engine.
+          </p>
+
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {VERTICALS.map((v) => (
+              <article key={v.name} className="rounded-xl border border-slate-200 bg-white p-6">
+                <h3 className="mb-1 text-lg font-bold text-[#1C2B28]">{v.name}</h3>
+                <p className="mb-3 font-mono text-xs text-[#0F766E]">{v.domain}</p>
+                <p className="text-sm text-[#6B7C79]">{v.blurb}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-8 space-y-1 text-sm text-[#6B7C79]">
+            <p>
+              Eight more verticals scaffolded — tutoring, takaful literacy, halal supplier directories, developer talent, and others.{' '}
+              <Link href="/platform" className="text-[#0F766E] underline-offset-2 hover:underline">
+                See the full inventory &rarr;
+              </Link>
+            </p>
+            <p className="italic">
+              Operator slots open across all verticals — we're hiring.{' '}
+              <Link href="/careers" className="text-[#0F766E] underline-offset-2 hover:underline">
+                See open roles &rarr;
+              </Link>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5 — Vertical 1 Member Directories */}
+      <section className="bg-slate-50 py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#0F766E]">
+            Vertical 1 — Member Directories
+          </p>
+          <h2 className="mb-6 max-w-3xl text-3xl font-bold text-[#1C2B28] sm:text-4xl">
+            Member directories for chambers, associations, and industry bodies.
+          </h2>
+
+          <div className="grid gap-10 lg:grid-cols-2">
+            <div>
+              <p className="mb-6 text-lg text-[#1C2B28]">
+                Done-for-you directory service for chambers, associations, and industry bodies. Cross-border B2B discovery — your members get found beyond your membership. Network effect built in.
+              </p>
+              <ul className="space-y-3 text-[#1C2B28]">
+                {[
+                  'Done-for-you setup, hosting, email',
+                  'Cross-border discovery across the WebVillage network',
+                  'Member self-service claim flow',
+                  'Pricing: $2,500–$10K setup + $299–$999/mo',
+                ].map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span aria-hidden className="text-[#0F766E]">&#10003;</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-2xl bg-white p-8 shadow-sm">
+              <h3 className="mb-3 text-xl font-bold text-[#1C2B28]">Run a chamber or association?</h3>
+              <p className="mb-6 text-[#6B7C79]">
+                30-min demo with your branding mockup. We show you what your directory looks like in the network.
+              </p>
+              <div className="space-y-3">
+                <Link
+                  href={directoryCta}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#D97706] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#B45309]"
+                >
+                  Book a directory demo
+                  <span aria-hidden>&rarr;</span>
+                </Link>
+                <Link
+                  href="/directories/pricing"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-6 py-3 font-semibold text-[#1C2B28] transition-colors hover:bg-slate-50"
+                >
+                  See full directory pricing
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 6 — Methodology */}
+      <section id="how-it-works" className="border-b border-slate-200 py-24">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-12 text-3xl font-bold text-[#1C2B28] sm:text-4xl">How the work flows.</h2>
+
+          <div className="space-y-8">
+            <div>
+              <h3 className="mb-2 text-xl font-bold text-[#0F766E]">AI does the volume.</h3>
+              <p className="text-lg text-[#1C2B28]">
+                Content drafts, SEO audits, code scaffolds, monitoring, image generation, structured-data work — all run by agents on the platform. They never ship to public surfaces without a human pass.
+              </p>
+            </div>
+            <div>
+              <h3 className="mb-2 text-xl font-bold text-[#0F766E]">Experts do the judgment.</h3>
+              <p className="text-lg text-[#1C2B28]">
+                Editorial review, technical accuracy, customer conversations, judgment calls on what's worth shipping — handled by the village. Subject-matter experts are vetted, scoped to a vertical, paid per output or on retainer.
+              </p>
+            </div>
+            <div>
+              <h3 className="mb-2 text-xl font-bold text-[#0F766E]">The engine + discipline make it ship.</h3>
+              <p className="text-lg text-[#1C2B28]">
+                Shared Next.js packages, deploy pipeline, registries, audit cadences. Every vertical ships on the same rails. Quality is enforced by the workflow, not by founder bandwidth.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 7 — Origin */}
+      <section className="py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-6 text-3xl font-bold text-[#1C2B28]">Built on 10+ years of premium .com operations.</h2>
+          <p className="text-lg text-[#6B7C79]">
+            The methodology was built operating a premium .com portfolio on WordPress with content marketing and SEO over a decade. AI agents in 2024–26 made it productizable.
           </p>
         </div>
       </section>
 
+      {/* Section 8 — Final CTA */}
+      <section className="border-t border-slate-200 bg-gradient-to-b from-white to-[#F0FAF9] py-24">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="mb-6 text-3xl font-bold text-[#1C2B28] sm:text-4xl">Ready to talk?</h2>
+          <p className="mb-10 text-lg text-[#6B7C79]">
+            Whatever you're bringing — a brand to grow, a directory to run, an agency to partner with, or a question that doesn't fit a form — start here.
+          </p>
+
+          <Link
+            href={footerCta}
+            className="inline-flex items-center gap-2 rounded-lg bg-[#D97706] px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-[#B45309]"
+          >
+            Talk to us
+            <span aria-hidden>&rarr;</span>
+          </Link>
+
+          <p className="mt-8 text-sm text-[#6B7C79]">
+            <span aria-hidden>·</span>{' '}
+            <Link href="/careers" className="text-[#0F766E] underline-offset-2 hover:underline">
+              Operator? See open roles &rarr;
+            </Link>
+          </p>
+        </div>
+      </section>
     </div>
-    </>
   )
 }

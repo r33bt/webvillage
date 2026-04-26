@@ -18,9 +18,8 @@ const organizationSchema = {
   url: 'https://webvillage.com',
   logo: 'https://webvillage.com/favicon.ico',
   description:
-    'Global managed directory network — done-for-you member directories for associations, chambers of commerce, and industry bodies worldwide.',
+    'AI agents and an expert village for digital work at scale. Content, SEO, code, design, ops — AI handles volume, vetted experts handle judgment.',
   foundingDate: '2025',
-  serviceType: 'Managed Directory Service',
   areaServed: 'Worldwide',
   contactPoint: {
     '@type': 'ContactPoint',
