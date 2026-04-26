@@ -1,0 +1,165 @@
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import { createSupabaseServiceClient } from '@/lib/supabase'
+
+export const dynamic = 'force-dynamic'
+
+interface VoiceProfile {
+  id: string
+  version: number
+  intake_method: string
+  source_url: string | null
+  audience: string | null
+  one_word_tone: string | null
+  never_sound_like: string[] | null
+  register: string | null
+  do_list: string[] | null
+  dont_list: string[] | null
+  reading_grade_target: number | null
+  signature_phrases: string[] | null
+  forbidden_register: string[] | null
+  quality_tier: string
+  established_at: string
+  last_refined_at: string | null
+}
+
+export default async function ClientDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const supabase = createSupabaseServiceClient()
+
+  const [{ data: client }, { data: profile }, { data: bannedPhrases }] = await Promise.all([
+    supabase.from('wv_be_clients').select('*').eq('id', id).is('deleted_at', null).single(),
+    supabase.from('wv_be_voice_profiles').select('*').eq('client_id', id).single(),
+    supabase.from('wv_be_client_banned_phrases').select('*').eq('client_id', id).is('deleted_at', null),
+  ])
+
+  if (!client) {
+    notFound()
+  }
+
+  const vp = profile as VoiceProfile | null
+
+  return (
+    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+      <Link href="/admin/brand-engine" className="mb-4 inline-block text-sm text-[#0F766E] hover:underline">
+        &larr; All clients
+      </Link>
+
+      <h1 className="mb-1 text-3xl font-bold text-[#1C2B28]">{client.display_name}</h1>
+      <p className="mb-1 text-[#6B7C79]">{client.legal_entity_name ?? '—'}</p>
+      <p className="mb-8 font-mono text-xs text-[#6B7C79]">{client.id}</p>
+
+      <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6">
+        <h2 className="mb-4 text-lg font-bold text-[#1C2B28]">Account</h2>
+        <dl className="grid gap-4 sm:grid-cols-2">
+          <Field label="Tier" value={client.current_tier} />
+          <Field label="Lifecycle" value={client.lifecycle_stage ?? '—'} />
+          <Field label="Industry" value={client.industry ?? '—'} />
+          <Field label="Vertical origin" value={client.vertical_origin ?? '—'} />
+          <Field label="Primary domain" value={client.primary_domain ?? '—'} />
+          <Field
+            label="Brand Engine intake"
+            value={client.brand_engine_intake_completed_at ? new Date(client.brand_engine_intake_completed_at).toISOString().slice(0, 10) : 'pending'}
+          />
+          <Field label="Outreach add-on" value={client.outreach_addon_active ? 'Active' : 'Off'} />
+          <Field
+            label="Trial ends"
+            value={client.trial_ends_at ? new Date(client.trial_ends_at).toISOString().slice(0, 10) : '—'}
+          />
+        </dl>
+      </section>
+
+      <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6">
+        <div className="mb-4 flex items-baseline justify-between">
+          <h2 className="text-lg font-bold text-[#1C2B28]">Voice profile</h2>
+          {vp && <span className="text-xs text-[#6B7C79]">v{vp.version} · {vp.intake_method}</span>}
+        </div>
+
+        {vp ? (
+          <dl className="grid gap-4 sm:grid-cols-2">
+            <Field label="Audience" value={vp.audience ?? '—'} />
+            <Field label="One-word tone" value={vp.one_word_tone ?? '—'} />
+            <Field label="Register" value={vp.register ?? '—'} />
+            <Field label="Quality tier" value={vp.quality_tier} />
+            <Field label="Reading grade target" value={vp.reading_grade_target?.toString() ?? '—'} />
+            <Field label="Source URL" value={vp.source_url ?? '—'} />
+            <ListField label="Never sound like" items={vp.never_sound_like} />
+            <ListField label="Forbidden register" items={vp.forbidden_register} />
+            <ListField label="Do list" items={vp.do_list} />
+            <ListField label="Don't list" items={vp.dont_list} />
+            <ListField label="Signature phrases" items={vp.signature_phrases} />
+          </dl>
+        ) : (
+          <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+            No voice profile yet. Onboarding intake (Phase B) creates this row.
+          </div>
+        )}
+      </section>
+
+      <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6">
+        <h2 className="mb-4 text-lg font-bold text-[#1C2B28]">
+          Per-client banned phrases <span className="text-sm font-normal text-[#6B7C79]">({bannedPhrases?.length ?? 0})</span>
+        </h2>
+        {bannedPhrases && bannedPhrases.length > 0 ? (
+          <ul className="space-y-2 text-sm">
+            {bannedPhrases.map((p) => (
+              <li key={p.id} className="flex items-baseline gap-2">
+                <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${p.severity === 'block' ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}`}>
+                  {p.severity}
+                </span>
+                <span className="font-mono">"{p.phrase}"</span>
+                {p.rationale && <span className="text-[#6B7C79]">— {p.rationale}</span>}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-[#6B7C79]">No client-specific banned phrases. Global canon (40+) still applies.</p>
+        )}
+      </section>
+
+      <section className="rounded-xl border border-slate-200 bg-slate-50 p-6">
+        <h2 className="mb-2 text-lg font-bold text-[#1C2B28]">Coming in Phase B / C</h2>
+        <ul className="grid gap-2 text-sm text-[#6B7C79] sm:grid-cols-2">
+          <li>· Onboarding intake wizard (5-step)</li>
+          <li>· Voice profile editor with version history</li>
+          <li>· Brand assets uploads (logo, palette, fonts, photos)</li>
+          <li>· Templates library</li>
+          <li>· Draft generation against this voice profile</li>
+          <li>· 5-pillar score history + brand health</li>
+          <li>· Stripe billing + Stripe Connect</li>
+          <li>· Outreach sequences</li>
+        </ul>
+      </section>
+    </div>
+  )
+}
+
+function Field({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="text-xs font-semibold uppercase tracking-wider text-[#6B7C79]">{label}</dt>
+      <dd className="mt-0.5 text-[#1C2B28]">{value}</dd>
+    </div>
+  )
+}
+
+function ListField({ label, items }: { label: string; items: string[] | null }) {
+  return (
+    <div className="sm:col-span-2">
+      <dt className="text-xs font-semibold uppercase tracking-wider text-[#6B7C79]">{label}</dt>
+      <dd className="mt-1">
+        {items && items.length > 0 ? (
+          <ul className="flex flex-wrap gap-2">
+            {items.map((item, i) => (
+              <li key={i} className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-[#1C2B28]">
+                {item}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <span className="text-sm text-[#6B7C79]">—</span>
+        )}
+      </dd>
+    </div>
+  )
+}
