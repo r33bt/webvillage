@@ -46,12 +46,13 @@ interface ClusterRow {
 
 async function pickAndLockJob(): Promise<JobRow | null> {
   const sb = createSupabaseServiceClient()
-  // Pick oldest pending or processing job (processing = continuation of prior tick)
+  // Pick oldest pending or processing job across all known types
+  // Slice 6: cluster_generate; Slice 8: publish
   const { data: candidates } = await sb
     .from('wv_be_jobs')
     .select('id, client_id, job_type, payload, status, progress, attempt_count')
     .in('status', ['pending', 'processing'])
-    .eq('job_type', 'cluster_generate')
+    .in('job_type', ['cluster_generate', 'publish'])
     .order('created_at', { ascending: true })
     .limit(1)
 
@@ -281,7 +282,13 @@ export async function POST(_req: NextRequest) {
 
   let outcome: { done: boolean; error?: string }
   try {
-    outcome = await processClusterSlot(job)
+    if (job.job_type === 'cluster_generate') {
+      outcome = await processClusterSlot(job)
+    } else if (job.job_type === 'publish') {
+      outcome = await processPublishJob(job)
+    } else {
+      outcome = { done: true, error: `unknown_job_type: ${job.job_type}` }
+    }
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err)
     await sb.from('wv_be_jobs').update({ status: 'failed', last_error: `worker_exception: ${msg}`, completed_at: new Date().toISOString() }).eq('id', job.id)
@@ -294,23 +301,149 @@ export async function POST(_req: NextRequest) {
       .update({ status: outcome.error ? 'failed' : 'completed', last_error: outcome.error ?? null, completed_at: new Date().toISOString() })
       .eq('id', job.id)
   } else if (outcome.error) {
-    // Mid-job failure — mark the job failed (cluster paused; founder resumes via /generate with start_from_slot_index)
     await sb
       .from('wv_be_jobs')
       .update({ status: 'failed', last_error: outcome.error, completed_at: new Date().toISOString() })
       .eq('id', job.id)
   } else {
     // Slot succeeded; more slots remain — leave job as 'processing' for next tick
-    // No additional update needed (status already 'processing' from pickAndLockJob)
   }
 
   return NextResponse.json({
     processed: 1,
     job_id: job.id,
-    cluster_id: job.payload.cluster_id,
+    job_type: job.job_type,
     done: outcome.done,
     error: outcome.error ?? null,
   })
+}
+
+// ----------------------------------------------------------------------------
+// Slice 8: publish job processor
+// ----------------------------------------------------------------------------
+
+async function processPublishJob(job: JobRow): Promise<{ done: boolean; error?: string }> {
+  const sb = createSupabaseServiceClient()
+  const { publish_id, scheduled_for } = job.payload as { publish_id?: string; scheduled_for?: string }
+
+  if (!publish_id) {
+    return { done: true, error: 'missing_publish_id_in_payload' }
+  }
+
+  // Defer if scheduled_for is in the future (job claimed too early — leave it)
+  if (scheduled_for && new Date(scheduled_for).getTime() > Date.now()) {
+    // Re-queue: revert status and clear lock
+    await sb.from('wv_be_jobs').update({ status: 'pending', locked_at: null, locked_by: null }).eq('id', job.id)
+    return { done: false }  // not really done — but signals "no more work this tick"; will be re-picked next tick
+  }
+
+  // Fetch publish row + verify still queued (cancellation race)
+  const { data: pub } = await sb
+    .from('wv_be_publishes')
+    .select('id, client_id, draft_id, draft_generated_at, platforms, metadata, platform_credential_id, status, parent_publish_id')
+    .eq('id', publish_id)
+    .maybeSingle()
+  if (!pub) {
+    return { done: true, error: 'publish_not_found' }
+  }
+  if (pub.status !== 'queued') {
+    // Cancelled / already processed — skip
+    return { done: true, error: pub.status === 'cancelled' ? 'cancelled_by_founder' : `unexpected_state: ${pub.status}` }
+  }
+
+  // Verify draft not soft-deleted
+  const { data: draft } = await sb
+    .from('wv_be_drafts')
+    .select('id, draft_body, generated_at, scheduled_for')
+    .eq('id', pub.draft_id)
+    .maybeSingle()
+  if (!draft) {
+    await sb.from('wv_be_publishes').update({ status: 'cancelled', cancelled_at: new Date().toISOString(), failure_reason: 'draft_deleted' }).eq('id', publish_id)
+    return { done: true, error: 'draft_deleted_during_schedule' }
+  }
+
+  // Fetch platform credential
+  const { data: cred } = await sb
+    .from('wv_be_platform_credentials')
+    .select('oauth_access_token_encrypted, external_workspace_id')
+    .eq('id', pub.platform_credential_id as string)
+    .maybeSingle()
+  if (!cred) {
+    await sb.from('wv_be_publishes').update({ status: 'failed', failure_reason: 'credential_missing_at_fire_time' }).eq('id', publish_id)
+    return { done: true, error: 'credential_missing' }
+  }
+
+  // Decrypt + fire Ayrshare
+  const { decryptToken } = await import('@/lib/be-token-encryption')
+  const { ayrsharePostWithRetry, AyrshareAPIError } = await import('@/lib/ayrshare')
+
+  const profileKey = decryptToken(cred.oauth_access_token_encrypted as string)
+  const overrideBody = (job.payload as { override_body?: string }).override_body
+  const finalBody = overrideBody ?? draft.draft_body
+
+  // Mark publish row as 'pending' (Ayrshare call in progress)
+  await sb.from('wv_be_publishes').update({ status: 'pending' }).eq('id', publish_id)
+
+  let ayrResult, retryCount = 0
+  try {
+    const r = await ayrsharePostWithRetry({
+      profileKey,
+      body: finalBody as string,
+      platforms: pub.platforms as string[],
+    })
+    ayrResult = r.result
+    retryCount = r.retryCount
+  } catch (err) {
+    if (err instanceof AyrshareAPIError) {
+      await sb
+        .from('wv_be_publishes')
+        .update({ status: 'failed', failure_reason: `${err.status}: ${err.detail.slice(0, 200)}`, retry_count: retryCount, response_payload: { ayrshare_error: { status: err.status, detail: err.detail } } })
+        .eq('id', publish_id)
+      await sb.from('wv_be_audit_log').insert({
+        client_id: pub.client_id,
+        actor_user_id: null,
+        actor_type: 'system',
+        action: 'publish_failed',
+        target_table: 'wv_be_publishes',
+        target_id: publish_id,
+        after_state: { status: 'failed', failure_reason: err.detail.slice(0, 200), retry_count: retryCount, source: 'cron_tick' },
+      })
+      return { done: true, error: `ayrshare_failed: ${err.status}` }
+    }
+    throw err
+  }
+
+  const isSuccess = ayrResult.status === 'success'
+  await sb
+    .from('wv_be_publishes')
+    .update({
+      status: isSuccess ? 'pending' : 'failed',  // pending = waiting for confirmation webhook
+      ayrshare_post_id: ayrResult.ayrsharePostId,
+      response_payload: ayrResult as unknown as Record<string, unknown>,
+      published_at: isSuccess && (ayrResult.postIds?.length ?? 0) > 0 ? new Date().toISOString() : null,
+      failure_reason: isSuccess ? null : (ayrResult.errors?.map((e) => e.message).join('; ').slice(0, 500) ?? 'unknown'),
+      retry_count: retryCount,
+    })
+    .eq('id', publish_id)
+
+  if (isSuccess) {
+    await sb
+      .from('wv_be_drafts')
+      .update({ published_at: new Date().toISOString(), scheduled_for: null, last_publish_id: publish_id })
+      .eq('id', draft.id)
+  }
+
+  await sb.from('wv_be_audit_log').insert({
+    client_id: pub.client_id,
+    actor_user_id: null,
+    actor_type: 'system',
+    action: isSuccess ? 'publish_initiated' : 'publish_failed',
+    target_table: 'wv_be_publishes',
+    target_id: publish_id,
+    after_state: { status: isSuccess ? 'pending' : 'failed', ayrshare_post_id: ayrResult.ayrsharePostId, retry_count: retryCount, source: 'cron_tick' },
+  })
+
+  return { done: true }
 }
 
 // Allow GET for Vercel cron dashboard testing

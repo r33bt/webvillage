@@ -46,6 +46,42 @@ export async function regenerateDraft(formData: FormData): Promise<void> {
   redirect(`/admin/brand-engine/${parent.client_id}/drafts/${result.draft_id}`)
 }
 
+export async function publishDraft(formData: FormData): Promise<void> {
+  const clientId = String(formData.get('client_id') ?? '')
+  const draftId = String(formData.get('draft_id') ?? '')
+  const scheduledFor = String(formData.get('scheduled_for') ?? '').trim()
+  if (!clientId || !draftId) throw new Error('Missing client_id or draft_id')
+
+  const h = await headers()
+  const proto = h.get('x-forwarded-proto') ?? 'http'
+  const host = h.get('host') ?? 'localhost:3000'
+  const baseUrl = `${proto}://${host}`
+
+  const body: Record<string, unknown> = {
+    draft_id: draftId,
+    platforms: ['linkedin'],
+  }
+  if (scheduledFor) body.scheduled_for = new Date(scheduledFor).toISOString()
+
+  const resp = await fetch(`${baseUrl}/api/be/publish`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+
+  if (!resp.ok) {
+    const errText = await resp.text()
+    redirect(`/admin/brand-engine/${clientId}/drafts/${draftId}?error=${encodeURIComponent(errText.slice(0, 500))}`)
+  }
+
+  const result = await resp.json()
+  revalidatePath(`/admin/brand-engine/${clientId}/drafts/${draftId}`)
+  if (result.publish_id) {
+    redirect(`/admin/brand-engine/${clientId}/publishes/${result.publish_id}`)
+  }
+  redirect(`/admin/brand-engine/${clientId}/drafts/${draftId}`)
+}
+
 export async function updateDraftStatus(formData: FormData): Promise<void> {
   const draftId = String(formData.get('draft_id') ?? '')
   const newStatus = String(formData.get('new_status') ?? '')

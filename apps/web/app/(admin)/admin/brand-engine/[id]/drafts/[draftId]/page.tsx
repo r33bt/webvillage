@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { createSupabaseServiceClient } from '@/lib/supabase'
-import { regenerateDraft, updateDraftStatus } from './actions'
+import { regenerateDraft, updateDraftStatus, publishDraft } from './actions'
 
 export const dynamic = 'force-dynamic'
 
@@ -26,6 +26,9 @@ interface DraftRow {
   outreach_sequence_id: string | null
   outreach_step: number | null
   language: string
+  scheduled_for?: string | null
+  published_at?: string | null
+  last_publish_id?: string | null
 }
 
 interface ScoreRow {
@@ -257,6 +260,70 @@ export default async function DraftDetailPage({ params }: { params: Promise<{ id
           </form>
         </div>
       </section>
+
+      {/* Slice 8: Publish controls (only when draft is publishable) */}
+      {(d.status === 'approved' || d.status === 'edited') && d.source_type !== 'reply' && (
+        <section className="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 p-6">
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-emerald-800">Publish to LinkedIn (Ayrshare)</h2>
+          {d.published_at ? (
+            <p className="text-sm text-emerald-900">
+              Already published at {new Date(d.published_at).toISOString().slice(0, 19).replace('T', ' ')}.
+              {d.last_publish_id && (
+                <Link
+                  href={`/admin/brand-engine/${id}/publishes/${d.last_publish_id}`}
+                  className="ml-2 text-[#0F766E] hover:underline"
+                >
+                  View publish &rarr;
+                </Link>
+              )}
+            </p>
+          ) : d.scheduled_for ? (
+            <p className="text-sm text-emerald-900">
+              Scheduled for {new Date(d.scheduled_for).toISOString().slice(0, 19).replace('T', ' ')}.
+              {d.last_publish_id && (
+                <Link
+                  href={`/admin/brand-engine/${id}/publishes/${d.last_publish_id}`}
+                  className="ml-2 text-[#0F766E] hover:underline"
+                >
+                  Manage scheduled publish &rarr;
+                </Link>
+              )}
+            </p>
+          ) : (
+            <div className="flex flex-wrap items-end gap-3">
+              <form action={publishDraft}>
+                <input type="hidden" name="client_id" value={id} />
+                <input type="hidden" name="draft_id" value={d.id} />
+                <button
+                  type="submit"
+                  className="rounded-lg bg-[#0F766E] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0d655d]"
+                >
+                  Publish now
+                </button>
+              </form>
+              <form action={publishDraft} className="flex items-end gap-2">
+                <input type="hidden" name="client_id" value={id} />
+                <input type="hidden" name="draft_id" value={d.id} />
+                <div>
+                  <label className="mb-1 block text-xs font-semibold text-emerald-800">Schedule for</label>
+                  <input
+                    type="datetime-local"
+                    name="scheduled_for"
+                    required
+                    className="form-input rounded-lg border border-emerald-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="rounded-lg border border-emerald-300 bg-white px-3 py-1.5 text-sm font-semibold text-emerald-800 hover:bg-emerald-100"
+                >
+                  Schedule
+                </button>
+              </form>
+            </div>
+          )}
+        </section>
+      )}
 
       {voice && (
         <section className="mb-6 rounded-xl border border-slate-200 bg-white p-6">
