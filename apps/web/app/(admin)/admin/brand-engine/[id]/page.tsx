@@ -159,6 +159,21 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
 
       <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6">
         <div className="mb-4 flex items-baseline justify-between">
+          <h2 className="text-lg font-bold text-[#1C2B28]">Inbox (Vista LinkedIn)</h2>
+          <Link
+            href={`/admin/brand-engine/${id}/inbox`}
+            className="rounded-lg bg-[#0F766E] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#0d655d]"
+          >
+            View inbox &rarr;
+          </Link>
+        </div>
+        <p className="text-sm text-[#6B7C79]">
+          Voice-aware reply variants for LinkedIn mentions/DMs/comments via Vista Social. Founder approves + sends; no auto-reply.
+        </p>
+      </section>
+
+      <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6">
+        <div className="mb-4 flex items-baseline justify-between">
           <h2 className="text-lg font-bold text-[#1C2B28]">Topic clusters</h2>
           <div className="flex items-center gap-2">
             <Link
@@ -213,6 +228,7 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
           <p className="text-emerald-700">&#10003; Drafts UI (list + detail + new + regen + status overrides)</p>
           <p className="text-emerald-700">&#10003; Visual substrate (Ideogram v3 + brand asset uploads + signed URLs)</p>
           <p className="text-emerald-700">&#10003; Topic clusters (planner + sequential peer-aware generation + Vercel cron worker)</p>
+          <p className="text-emerald-700">&#10003; Vista Social inbox (LinkedIn) — webhook + 3 reply variants + send-via-Vista (founder approval, no auto-reply)</p>
           <p className="text-[#6B7C79]">&middot; Brand health monthly view</p>
           <p className="text-[#6B7C79]">&middot; Stripe billing + Connect</p>
           <p className="text-[#6B7C79]">&middot; Outreach sequences</p>

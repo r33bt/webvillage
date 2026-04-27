@@ -33,6 +33,7 @@ const RequestSchema = z.object({
     .enum([
       'tool_post', 'tool_article', 'tool_bio', 'tool_featured_tile',
       'outreach_message', 'editorial_post', 'editorial_article', 'editorial_email',
+      'reply',  // Slice 7
     ])
     .optional(),
   parent_draft_id: z.string().uuid().optional(),
@@ -40,6 +41,7 @@ const RequestSchema = z.object({
   cluster_slot: z.number().int().optional(),
   outreach_sequence_id: z.string().uuid().optional(),
   outreach_step: z.number().int().optional(),
+  inbox_event_id: z.string().uuid().optional(),  // Slice 7 — links reply drafts to inbox events
   vars: z.record(z.string(), z.string()).optional(),
 })
 
@@ -249,20 +251,45 @@ Return ONLY valid JSON (no markdown, no commentary, no code fences):
     (finalScores.provenance + finalScores.specificity + finalScores.structure + finalScores.voice + finalScores.utility) /
     5
 
-  // 7. Status routing per Strict bands
-  let status: 'approved' | 'generated' | 'rejected'
-  if (enforcer.hasHardFail && retryCount >= 1) {
-    // Hard fail persisted (after retry also failed) → rejected
-    status = 'rejected'
-  } else if (average >= 85) {
-    status = 'approved'
-  } else if (average >= 60) {
-    status = 'generated'
-  } else {
-    status = 'rejected'
-  }
+  // 7. Status routing
+  // Slice 7 reply-specific gating per Q7-8: replies are 1-3 sentences; long-form Strict bands
+  // would reject every reply (hard to score 70+ on Structure for "Yes! Try our Ramadan calculator.")
+  // → use voice + specificity gating only for source_type='reply'.
+  const isReply = body.source_type === 'reply'
 
-  const passes_threshold = average >= 60 && !enforcer.hasHardFail
+  let status: 'approved' | 'generated' | 'rejected'
+  let passes_threshold: boolean
+
+  if (isReply) {
+    // Slice 7 lock: replies pass when (no hard fail) AND voice >= 70 AND specificity >= 50
+    const voiceOk = finalScores.voice >= 70
+    const specificityOk = finalScores.specificity >= 50
+    passes_threshold = !enforcer.hasHardFail && voiceOk && specificityOk
+
+    if (enforcer.hasHardFail && retryCount >= 1) {
+      status = 'rejected'
+    } else if (finalScores.voice >= 85 && finalScores.specificity >= 70) {
+      status = 'approved'  // UI hint: "recommended" variant
+    } else if (passes_threshold) {
+      status = 'generated'
+    } else {
+      // Voice OR specificity below floor — still surface as generated (de-emphasized in UI)
+      // per spec §6 "Listed but visually de-emphasized"
+      status = 'generated'
+    }
+  } else {
+    // Slice 3 Strict bands (long-form default)
+    if (enforcer.hasHardFail && retryCount >= 1) {
+      status = 'rejected'
+    } else if (average >= 85) {
+      status = 'approved'
+    } else if (average >= 60) {
+      status = 'generated'
+    } else {
+      status = 'rejected'
+    }
+    passes_threshold = average >= 60 && !enforcer.hasHardFail
+  }
 
   // 8. Persist draft row
   const sourceType =
@@ -290,6 +317,7 @@ Return ONLY valid JSON (no markdown, no commentary, no code fences):
       generation_cost_cents: genMeta.cost_cents,
       generated_at: new Date().toISOString(),
       parent_draft_id: body.parent_draft_id ?? null,
+      inbox_event_id: body.inbox_event_id ?? null,  // Slice 7
     })
     .select('id, generated_at')
     .single()
