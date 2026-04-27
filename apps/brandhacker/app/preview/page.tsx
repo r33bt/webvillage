@@ -307,7 +307,7 @@ export default function PreviewPage() {
               Case study — 2026-05-26
             </div>
             <Link
-              href="/case-study"
+              href="/case-study/v22-multibrand"
               className="mt-3 block text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 text-sm leading-relaxed"
             >
               How a regulated financial-services brand consolidated voice, templates, and AI-engine canon onto BrandHacker →
