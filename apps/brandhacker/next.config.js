@@ -14,6 +14,15 @@ const nextConfig = {
         source: '/:slug/.well-known/brand.json',
         destination: '/:slug/well-known/brand.json',
       },
+      // Map the `.txt`-suffixed AEO URL to a non-dot folder. Vercel + Next.js
+      // route static-file extensions (`.txt`, `.xml`, etc.) through static
+      // serving paths before hitting App Router dynamic routes — folder name
+      // `llms.txt` doesn't reliably match `/pat/llms.txt` requests. Rewriting
+      // forces the request through the `route.ts` handler.
+      {
+        source: '/:slug/llms.txt',
+        destination: '/:slug/llms-txt',
+      },
     ]
   },
 }
