@@ -13,15 +13,27 @@ export const metadata: Metadata = {
   ),
   title: 'BrandHacker — coming soon',
   description: 'The source of truth for your brand. Coming soon.',
+  alternates: {
+    canonical: '/',
+  },
   robots: {
     index: false,
     follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'none',
+      'max-snippet': -1,
+    },
   },
   openGraph: {
     title: 'BrandHacker',
     description: 'The source of truth for your brand. Coming soon.',
     type: 'website',
-    url: 'https://brandhacker.com',
+    url: '/',
   },
 }
 
