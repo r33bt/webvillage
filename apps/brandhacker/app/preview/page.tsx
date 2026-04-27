@@ -302,14 +302,16 @@ export default function PreviewPage() {
             three surfaces, before-and-after on consistency.
           </p>
 
-          <div className="rounded-lg border border-dashed border-zinc-700 bg-zinc-950 p-6">
+          <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-6">
             <div className="text-xs uppercase tracking-[0.2em] text-zinc-400">
-              Coming 2026-05-26
+              Case study — 2026-05-26
             </div>
-            <p className="mt-3 text-zinc-400 text-sm leading-relaxed">
-              [W4 case study placeholder — drops in here as a single-line link
-              when published.]
-            </p>
+            <Link
+              href="/case-study"
+              className="mt-3 block text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 text-sm leading-relaxed"
+            >
+              How a regulated financial-services brand consolidated voice, templates, and AI-engine canon onto BrandHacker →
+            </Link>
           </div>
         </div>
       </Section>
