@@ -143,6 +143,21 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
       </section>
 
       <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6">
+        <div className="mb-4 flex items-baseline justify-between">
+          <h2 className="text-lg font-bold text-[#1C2B28]">Visual assets</h2>
+          <Link
+            href={`/admin/brand-engine/${id}/assets`}
+            className="rounded-lg bg-[#0F766E] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#0d655d]"
+          >
+            View assets &rarr;
+          </Link>
+        </div>
+        <p className="text-sm text-[#6B7C79]">
+          Logo, palette, mood board, banners + Ideogram v3 image generation (palette + mood board auto-injected into prompt).
+        </p>
+      </section>
+
+      <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6">
         <h2 className="mb-4 text-lg font-bold text-[#1C2B28]">
           Per-client banned phrases <span className="text-sm font-normal text-[#6B7C79]">({bannedPhrases?.length ?? 0})</span>
         </h2>
@@ -173,7 +188,7 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
           <p className="text-emerald-700">&#10003; Templates library (15 WV canon + 6 V22 overrides)</p>
           <p className="text-emerald-700">&#10003; Draft generation API (Sonnet 4.6) + 5-pillar scoring (Haiku 4.5)</p>
           <p className="text-emerald-700">&#10003; Drafts UI (list + detail + new + regen + status overrides)</p>
-          <p className="text-[#6B7C79]">&middot; Brand assets uploads (Supabase Storage)</p>
+          <p className="text-emerald-700">&#10003; Visual substrate (Ideogram v3 + brand asset uploads + signed URLs)</p>
           <p className="text-[#6B7C79]">&middot; Brand health monthly view</p>
           <p className="text-[#6B7C79]">&middot; Stripe billing + Connect</p>
           <p className="text-[#6B7C79]">&middot; Outreach sequences</p>
