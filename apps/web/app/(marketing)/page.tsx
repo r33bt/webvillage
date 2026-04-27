@@ -227,7 +227,7 @@ export default function HomePage() {
           </div>
 
           <p className="mb-8 text-sm text-[#6B7C79]">
-            Retainer pricing from $750/mo to $20K+. No self-serve tier — production economics don't pencil there.
+            Self-serve from $99/mo (Tool tier) · Retainer from $599/mo (Editorial tier) · Enterprise from $15K+/mo.
           </p>
 
           <Link

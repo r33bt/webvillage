@@ -47,12 +47,12 @@ interface ClusterRow {
 async function pickAndLockJob(): Promise<JobRow | null> {
   const sb = createSupabaseServiceClient()
   // Pick oldest pending or processing job across all known types
-  // Slice 6: cluster_generate; Slice 8: publish
+  // Slice 6: cluster_generate; Slice 8: publish; Slice 10: outreach_touch_send
   const { data: candidates } = await sb
     .from('wv_be_jobs')
     .select('id, client_id, job_type, payload, status, progress, attempt_count')
     .in('status', ['pending', 'processing'])
-    .in('job_type', ['cluster_generate', 'publish'])
+    .in('job_type', ['cluster_generate', 'publish', 'outreach_touch_send'])
     .order('created_at', { ascending: true })
     .limit(1)
 
@@ -286,6 +286,8 @@ export async function POST(_req: NextRequest) {
       outcome = await processClusterSlot(job)
     } else if (job.job_type === 'publish') {
       outcome = await processPublishJob(job)
+    } else if (job.job_type === 'outreach_touch_send') {
+      outcome = await processOutreachTouchSend(job)
     } else {
       outcome = { done: true, error: `unknown_job_type: ${job.job_type}` }
     }
@@ -441,6 +443,279 @@ async function processPublishJob(job: JobRow): Promise<{ done: boolean; error?: 
     target_table: 'wv_be_publishes',
     target_id: publish_id,
     after_state: { status: isSuccess ? 'pending' : 'failed', ayrshare_post_id: ayrResult.ayrsharePostId, retry_count: retryCount, source: 'cron_tick' },
+  })
+
+  return { done: true }
+}
+
+// ----------------------------------------------------------------------------
+// Slice 10: outreach touch send job processor
+// ----------------------------------------------------------------------------
+
+interface OutreachTouchPayload {
+  sequence_id: string
+  recipient_id: string
+  touch_index: number
+  send_at?: string
+}
+
+async function processOutreachTouchSend(job: JobRow): Promise<{ done: boolean; error?: string }> {
+  const sb = createSupabaseServiceClient()
+  const payload = job.payload as unknown as OutreachTouchPayload
+  const { sequence_id, recipient_id, touch_index, send_at } = payload
+
+  if (!sequence_id || !recipient_id || !touch_index) {
+    return { done: true, error: 'missing_required_payload_fields' }
+  }
+
+  // Defer if send_at in future — leave as pending for a later tick
+  if (send_at && new Date(send_at).getTime() > Date.now()) {
+    await sb.from('wv_be_jobs').update({ status: 'pending', locked_at: null, locked_by: null }).eq('id', job.id)
+    return { done: false }
+  }
+
+  // Re-fetch sequence + verify still active
+  const { data: seq } = await sb
+    .from('wv_be_outreach_sequences')
+    .select('id, client_id, status, cadence_days, template_ids, reply_to_email_override, per_domain_daily_cap')
+    .eq('id', sequence_id)
+    .is('deleted_at', null)
+    .maybeSingle()
+  if (!seq) return { done: true, error: 'sequence_not_found' }
+  if (seq.status === 'paused' || seq.status === 'archived') {
+    return { done: true, error: `sequence_${seq.status}` }
+  }
+
+  // Re-fetch recipient + verify not in terminal state
+  const { data: rcp } = await sb
+    .from('wv_be_outreach_recipients')
+    .select('id, email, first_name, last_name, organization, recipient_source, unsubscribe_token, vars, status, opted_out_at, replied_at, bounced_at, marked_spam_at')
+    .eq('id', recipient_id)
+    .is('deleted_at', null)
+    .maybeSingle()
+  if (!rcp) return { done: true, error: 'recipient_not_found' }
+  if (rcp.opted_out_at || rcp.replied_at || rcp.bounced_at || rcp.marked_spam_at) {
+    return { done: true, error: `recipient_terminal_state: ${rcp.status}` }
+  }
+
+  // Per-domain daily cap (Q10-11): check sends to this recipient's domain in last 24h
+  const recipientDomain = (rcp.email as string).split('@')[1]?.toLowerCase()
+  if (recipientDomain) {
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+    const { data: sentToday } = await sb
+      .from('wv_be_outreach_messages')
+      .select('id, recipient_id', { count: 'exact' })
+      .eq('client_id', seq.client_id)
+      .gte('sent_at', since)
+      .eq('sequence_id', seq.id)
+    // Filter in-memory by domain (cheaper than join + we have small batches)
+    const { data: domainRecipients } = await sb
+      .from('wv_be_outreach_recipients')
+      .select('id, email')
+      .eq('client_id', seq.client_id)
+      .ilike('email', `%@${recipientDomain}`)
+    const domainRecipientIds = new Set((domainRecipients ?? []).map((r) => r.id as string))
+    const sentInDomain = (sentToday ?? []).filter((m) => domainRecipientIds.has(m.recipient_id as string)).length
+    const cap = (seq.per_domain_daily_cap as number) ?? 50
+    if (sentInDomain >= cap) {
+      // Defer 4h
+      const tomorrow = new Date(Date.now() + 4 * 60 * 60 * 1000).toISOString()
+      await sb
+        .from('wv_be_jobs')
+        .update({ status: 'pending', locked_at: null, locked_by: null, payload: { ...payload, send_at: tomorrow }, last_error: 'per_domain_daily_cap_hit_deferred' })
+        .eq('id', job.id)
+      return { done: false }
+    }
+  }
+
+  // Fetch client + template for this touch
+  const tmplIds = seq.template_ids as string[]
+  const cadence = seq.cadence_days as number[]
+  const idx = touch_index - 1
+  if (idx < 0 || idx >= tmplIds.length) {
+    return { done: true, error: `touch_index_out_of_range: ${touch_index}/${tmplIds.length}` }
+  }
+  const templateId = tmplIds[idx]
+
+  const [{ data: client }, { data: template }] = await Promise.all([
+    sb.from('wv_be_clients').select('id, display_name, reply_to_email, physical_address').eq('id', seq.client_id).maybeSingle(),
+    sb.from('wv_be_templates').select('id, body_template, subject_template, name').eq('id', templateId).maybeSingle(),
+  ])
+  if (!client) return { done: true, error: 'client_not_found' }
+  if (!template) return { done: true, error: 'template_not_found' }
+
+  // Determine base URL for internal HTTP
+  const h = await headers()
+  const proto = h.get('x-forwarded-proto') ?? 'http'
+  const host = h.get('host') ?? 'localhost:3000'
+  const baseUrl = `${proto}://${host}`
+
+  // Call Slice 3 drafts API to generate body
+  const draftVars: Record<string, string> = {
+    'recipient.email': rcp.email as string,
+    'recipient.first_name': (rcp.first_name as string | null) ?? '',
+    'recipient.last_name': (rcp.last_name as string | null) ?? '',
+    'recipient.organization': (rcp.organization as string | null) ?? '',
+    'recipient.source': rcp.recipient_source as string,
+    'brand_name': client.display_name as string,
+    'touch_index': String(touch_index),
+  }
+  for (const [k, v] of Object.entries((rcp.vars as Record<string, string>) ?? {})) {
+    draftVars[`var.${k}`] = v
+  }
+
+  let draftJson: { draft_id: string; draft_body: string } | null = null
+  try {
+    const draftsResp = await fetch(`${baseUrl}/api/be/drafts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        client_id: seq.client_id,
+        template_id: templateId,
+        prompt: `Outreach touch ${touch_index} for ${rcp.email} (sequence ${seq.id})`,
+        source_type: 'outreach_message',
+        vars: draftVars,
+      }),
+    })
+    if (draftsResp.status !== 200) {
+      const errBody = await draftsResp.text()
+      return { done: true, error: `drafts_api_${draftsResp.status}: ${errBody.slice(0, 300)}` }
+    }
+    draftJson = (await draftsResp.json()) as { draft_id: string; draft_body: string }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    return { done: true, error: `drafts_api_network: ${msg}` }
+  }
+
+  // Render email
+  const { renderOutreachEmail } = await import('@/lib/outreach-render')
+  const rendered = renderOutreachEmail({
+    subjectTemplate: (template.subject_template as string | null) ?? `A note from ${client.display_name}`,
+    bodyText: draftJson.draft_body,
+    recipient: {
+      email: rcp.email as string,
+      first_name: rcp.first_name as string | null,
+      last_name: rcp.last_name as string | null,
+      organization: rcp.organization as string | null,
+      recipient_source: rcp.recipient_source as string,
+      unsubscribe_token: rcp.unsubscribe_token as string,
+      vars: (rcp.vars as Record<string, string>) ?? {},
+    },
+    brand: {
+      display_name: client.display_name as string,
+      physical_address: client.physical_address as string | null,
+    },
+  })
+
+  // Determine reply-to + from
+  const fromEmail = process.env.RESEND_OUTREACH_FROM ?? `outreach@webvillage.com`
+  const replyTo = (seq.reply_to_email_override as string | null) ?? (client.reply_to_email as string | null) ?? 'hello@webvillage.com'
+  const unsubscribeUrl = `${process.env.NEXT_PUBLIC_BASE_URL ?? 'https://webvillage.com'}/api/be/outreach/unsubscribe?token=${rcp.unsubscribe_token}`
+
+  // Send via Resend
+  const { resendSend, ResendAPIError } = await import('@/lib/resend-outreach')
+  let resendResult: { id: string }
+  try {
+    resendResult = await resendSend({
+      from: `${client.display_name} <${fromEmail}>`,
+      to: rcp.email as string,
+      replyTo,
+      subject: rendered.subject,
+      html: rendered.html,
+      text: rendered.body,
+      headers: {
+        'List-Unsubscribe': `<${unsubscribeUrl}>, <mailto:${replyTo}?subject=unsubscribe>`,
+        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+      },
+      tags: [
+        { name: 'sequence_id', value: seq.id as string },
+        { name: 'recipient_id', value: rcp.id as string },
+        { name: 'touch_index', value: String(touch_index) },
+      ],
+    })
+  } catch (err) {
+    if (err instanceof ResendAPIError) {
+      // Persist failure
+      await sb.from('wv_be_outreach_messages').insert({
+        sequence_id: seq.id,
+        client_id: seq.client_id,
+        recipient_id: rcp.id,
+        recipient_handle: rcp.email,
+        step_index: touch_index,
+        draft_id: draftJson.draft_id,
+        channel: 'email',
+        subject: rendered.subject,
+        body: rendered.body,
+        send_failure_reason: `resend_${err.status}: ${err.detail.slice(0, 200)}`,
+      })
+      return { done: true, error: `resend_send_failed: ${err.status}` }
+    }
+    throw err
+  }
+
+  // Persist sent message
+  const nowIso = new Date().toISOString()
+  await sb.from('wv_be_outreach_messages').insert({
+    sequence_id: seq.id,
+    client_id: seq.client_id,
+    recipient_id: rcp.id,
+    recipient_handle: rcp.email,
+    recipient_name: [rcp.first_name, rcp.last_name].filter(Boolean).join(' ') || null,
+    recipient_company: rcp.organization,
+    step_index: touch_index,
+    draft_id: draftJson.draft_id,
+    channel: 'email',
+    subject: rendered.subject,
+    body: rendered.body,
+    sent_at: nowIso,
+    resend_message_id: resendResult.id,
+  })
+
+  // Schedule next touch OR mark recipient completed
+  const isLastTouch = touch_index >= tmplIds.length
+  if (isLastTouch) {
+    await sb.from('wv_be_outreach_recipients').update({ status: 'completed' }).eq('id', rcp.id)
+    // If all recipients completed, mark sequence completed
+    const { count: remaining } = await sb
+      .from('wv_be_outreach_recipients')
+      .select('id', { count: 'exact', head: true })
+      .eq('sequence_id', seq.id)
+      .in('status', ['pending', 'sending'])
+      .is('deleted_at', null)
+    if ((remaining ?? 0) === 0) {
+      await sb.from('wv_be_outreach_sequences').update({ status: 'completed' }).eq('id', seq.id)
+    }
+  } else {
+    const nextTouchIdx = touch_index + 1
+    const daysUntilNext = (cadence[nextTouchIdx - 1] ?? 3) - (cadence[idx] ?? 0)
+    const nextSendAt = new Date(Date.now() + daysUntilNext * 24 * 60 * 60 * 1000).toISOString()
+    await sb.from('wv_be_jobs').insert({
+      client_id: seq.client_id,
+      job_type: 'outreach_touch_send',
+      payload: {
+        sequence_id: seq.id,
+        recipient_id: rcp.id,
+        touch_index: nextTouchIdx,
+        send_at: nextSendAt,
+      },
+      status: 'pending',
+    })
+  }
+
+  await sb.from('wv_be_audit_log').insert({
+    client_id: seq.client_id,
+    actor_user_id: null,
+    actor_type: 'system',
+    action: 'touch_sent',
+    target_table: 'wv_be_outreach_messages',
+    target_id: null,
+    after_state: {
+      sequence_id: seq.id,
+      recipient_id: rcp.id,
+      touch_index,
+      resend_message_id: resendResult.id,
+      is_last_touch: isLastTouch,
+    },
   })
 
   return { done: true }

@@ -246,6 +246,29 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
         )}
       </section>
 
+      <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6">
+        <div className="mb-4 flex items-baseline justify-between">
+          <h2 className="text-lg font-bold text-[#1C2B28]">Outreach sequences</h2>
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/admin/brand-engine/${id}/outreach/new`}
+              className="rounded-lg bg-[#0F766E] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#0d655d]"
+            >
+              + New sequence
+            </Link>
+            <Link
+              href={`/admin/brand-engine/${id}/outreach`}
+              className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-[#1C2B28] hover:bg-slate-50"
+            >
+              View all &rarr;
+            </Link>
+          </div>
+        </div>
+        <p className="text-sm text-[#6B7C79]">
+          Multi-touch cold email via Resend. CSV import · per-domain daily cap · one-click unsubscribe (RFC 8058) · Svix webhook tracking (open/click/bounce/reply/spam). Consent-gated (CAN-SPAM).
+        </p>
+      </section>
+
       <section className="rounded-xl border border-slate-200 bg-slate-50 p-6">
         <h2 className="mb-3 text-lg font-bold text-[#1C2B28]">Roadmap</h2>
         <div className="grid gap-2 text-sm sm:grid-cols-2">
@@ -261,9 +284,9 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
           <p className="text-emerald-700">&#10003; Vista Social inbox (LinkedIn) — webhook + 3 reply variants + send-via-Vista (founder approval, no auto-reply)</p>
           <p className="text-emerald-700">&#10003; Ayrshare publishing (LinkedIn) — immediate or scheduled · cancel/reschedule/retry · webhook status callbacks</p>
           <p className="text-emerald-700">&#10003; Editorial calendar (Stage 1 Looker Studio) — MV + wrapper view + refresh-on-publish + 15-min cron</p>
+          <p className="text-emerald-700">&#10003; Outreach sequences — Resend multi-touch · consent-gated · RFC 8058 unsubscribe · per-domain daily cap</p>
           <p className="text-[#6B7C79]">&middot; Brand health monthly view</p>
           <p className="text-[#6B7C79]">&middot; Stripe billing + Connect</p>
-          <p className="text-[#6B7C79]">&middot; Outreach sequences</p>
           <p className="text-[#6B7C79]">&middot; Cluster planner + slot assignments</p>
         </div>
       </section>

@@ -252,10 +252,9 @@ Return ONLY valid JSON (no markdown, no commentary, no code fences):
     5
 
   // 7. Status routing
-  // Slice 7 reply-specific gating per Q7-8: replies are 1-3 sentences; long-form Strict bands
-  // would reject every reply (hard to score 70+ on Structure for "Yes! Try our Ramadan calculator.")
-  // → use voice + specificity gating only for source_type='reply'.
-  const isReply = body.source_type === 'reply'
+  // Slice 7+10 short-form gating: replies + outreach_messages are short-form (1-3 sentences for replies, 3-6 for outreach).
+  // Long-form Strict bands would reject every short-form draft → use voice + specificity gating instead.
+  const isReply = body.source_type === 'reply' || body.source_type === 'outreach_message'
 
   let status: 'approved' | 'generated' | 'rejected'
   let passes_threshold: boolean
