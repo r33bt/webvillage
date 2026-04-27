@@ -139,5 +139,13 @@ export async function POST(req: NextRequest) {
     after_state: { event_type: payload.event_type, status: newStatus, success_count: successCount, error_count: errorCount },
   })
 
+  // Slice 9 cross-slice handshake (§6.2): refresh editorial calendar MV on publish status change
+  // Non-blocking — fire-and-forget. ~50-200ms cost; calendar reflects new publishes within seconds.
+  if (newStatus === 'published' || newStatus === 'failed') {
+    sb.rpc('refresh_wv_be_mv_editorial_calendar').then(({ error }) => {
+      if (error) console.warn('[ayrshare webhook] calendar refresh failed (non-fatal):', error.message)
+    })
+  }
+
   return NextResponse.json({ received: true, publish_id: pub.id, new_status: newStatus })
 }
