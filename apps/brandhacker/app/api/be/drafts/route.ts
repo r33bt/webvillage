@@ -666,7 +666,7 @@ export async function POST(req: NextRequest) {
     })
   }
 
-  // 13. Return 200
+  // 13. Return 201
   return Response.json(
     {
       draft_id: draftRow.id,
@@ -693,6 +693,6 @@ export async function POST(req: NextRequest) {
         cost_cents: estimateCostCents(tokensIn, tokensOut),
       },
     },
-    { status: 200 },
+    { status: 201 },
   )
 }

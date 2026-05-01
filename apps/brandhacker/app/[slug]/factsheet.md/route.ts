@@ -130,7 +130,7 @@ export async function GET(
     .from('wv_be_aeo_crawl_log')
     .insert({
       client_id: client.id,
-      artefact_type: 'llms_txt',
+      artefact_type: 'factsheet_md',
       user_agent: req.headers.get('user-agent') ?? '(none)',
       ip_hash: null,
     })

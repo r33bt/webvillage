@@ -84,7 +84,7 @@ export async function GET(
     .from('wv_be_aeo_crawl_log')
     .insert({
       client_id: client.id,
-      artefact_type: 'schema_jsonld',
+      artefact_type: 'og_meta',
       user_agent: req.headers.get('user-agent') ?? '(none)',
       ip_hash: null,
     })
