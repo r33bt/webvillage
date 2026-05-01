@@ -13,14 +13,18 @@ export const metadata: Metadata = {
   ),
   title: 'BrandHacker — One brand. Every surface.',
   description:
-    'The source of truth for your brand. Upload once. Your team, your AI, your social, your web — all stay on-brand by default.',
+    'Be findable and correct in every AI answer. BrandHacker is the source of truth for your brand — upload it once, your team and your AI stay on-brand by default.',
   alternates: {
     canonical: '/',
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
   openGraph: {
-    title: 'BrandHacker — One brand. Every surface.',
+    title: 'BrandHacker',
     description:
-      'The source of truth for your brand. Upload once. Your team, your AI, your social, your web — all stay on-brand by default.',
+      'Be findable and correct in every AI answer. BrandHacker is the source of truth for your brand — upload it once, your team and your AI stay on-brand by default.',
     type: 'website',
     url: '/',
   },
