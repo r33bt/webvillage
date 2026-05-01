@@ -38,6 +38,7 @@ export type ClientMetadata = {
   brand_facts?: BrandFacts
   assigned_reviewer_id?: string
   design_tokens?: Record<string, unknown>
+  content_pillars?: Record<string, unknown>
 }
 
 export type ClientRow = {

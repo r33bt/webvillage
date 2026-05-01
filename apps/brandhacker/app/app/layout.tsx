@@ -11,6 +11,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <Link href="/app/calendar/pat" className="hover:text-zinc-200 transition-colors">
             Calendar
           </Link>
+          <Link href="/app/strategy/pat" className="hover:text-zinc-200 transition-colors">
+            Strategy
+          </Link>
           <span className="text-zinc-800">|</span>
           <span className="text-zinc-600 text-xs uppercase tracking-widest">internal</span>
         </div>
