@@ -47,6 +47,7 @@ export type ClientRow = {
   industry: string | null
   metadata: ClientMetadata
   updated_at: string
+  current_tier: string
 }
 
 export type VoiceProfileRow = {
