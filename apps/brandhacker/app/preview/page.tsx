@@ -91,7 +91,7 @@ export default function PreviewPage() {
           <div className="mt-12 flex flex-wrap gap-4 items-center">
             <Link
               href="/pat/llms.txt"
-              className="inline-flex items-center gap-2 rounded-md bg-zinc-50 px-5 py-3 text-sm font-medium text-zinc-950 hover:bg-zinc-200 transition-colors"
+              className="inline-flex items-center gap-2 rounded-md bg-zinc-50 px-5 py-3 text-sm font-medium text-zinc-950 hover:bg-zinc-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
             >
               See the live AEO surface
               <span aria-hidden>→</span>
@@ -164,7 +164,7 @@ export default function PreviewPage() {
             <li>
               <Link
                 href="/pat/llms.txt"
-                className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300"
+                className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
               >
                 /pat/llms.txt
               </Link>
@@ -173,7 +173,7 @@ export default function PreviewPage() {
             <li>
               <Link
                 href="/pat/.well-known/brand.json"
-                className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300"
+                className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
               >
                 /pat/.well-known/brand.json
               </Link>
@@ -308,7 +308,7 @@ export default function PreviewPage() {
             </div>
             <Link
               href="/case-study/v22-multibrand"
-              className="mt-3 block text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 text-sm leading-relaxed"
+              className="mt-3 block text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 text-sm leading-relaxed focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
             >
               How a regulated financial-services brand consolidated voice, templates, and AI-engine canon onto BrandHacker →
             </Link>
@@ -329,14 +329,14 @@ export default function PreviewPage() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
             <Link
               href="/pat/llms.txt"
-              className="inline-flex items-center gap-2 rounded-md bg-zinc-50 px-5 py-3 text-sm font-medium text-zinc-950 hover:bg-zinc-200 transition-colors"
+              className="inline-flex items-center gap-2 rounded-md bg-zinc-50 px-5 py-3 text-sm font-medium text-zinc-950 hover:bg-zinc-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
             >
               See the live AEO surface
               <span aria-hidden>→</span>
             </Link>
             <a
               href="mailto:hello@brandhacker.com"
-              className="inline-flex items-center gap-2 rounded-md border border-zinc-700 px-5 py-3 text-sm font-medium text-zinc-200 hover:border-zinc-500 transition-colors"
+              className="inline-flex items-center gap-2 rounded-md border border-zinc-700 px-5 py-3 text-sm font-medium text-zinc-200 hover:border-zinc-500 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
             >
               Or talk to us about WebVillage Editorial — we run BrandHacker for you
             </a>

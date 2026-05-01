@@ -117,7 +117,7 @@ export default function CaseStudyPage() {
         <div className="mx-auto max-w-3xl">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] text-zinc-400 hover:text-zinc-200 transition-colors mb-12"
+            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] text-zinc-400 hover:text-zinc-200 transition-colors mb-12 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
           >
             <span aria-hidden>←</span>
             Back
@@ -353,7 +353,7 @@ export default function CaseStudyPage() {
               <li>
                 <a
                   href="/pat/llms.txt"
-                  className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300"
+                  className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
                 >
                   /pat/llms.txt
                 </a>
@@ -362,7 +362,7 @@ export default function CaseStudyPage() {
               <li>
                 <a
                   href="/pat/.well-known/brand.json"
-                  className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300"
+                  className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
                 >
                   /pat/.well-known/brand.json
                 </a>
@@ -433,7 +433,7 @@ export default function CaseStudyPage() {
             If you want to talk before either, the contact path is on{' '}
             <a
               href="https://webvillage.com"
-              className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300"
+              className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
             >
               webvillage.com
             </a>
