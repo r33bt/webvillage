@@ -24,30 +24,16 @@ export type CalendarSlot = {
 
 type PageProps = {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ view?: string; platform?: string; from?: string; key?: string }>
+  searchParams: Promise<{ view?: string; platform?: string; from?: string }>
 }
 
 export default async function CalendarPage({ params, searchParams }: PageProps) {
   const { slug } = await params
   const sp = await searchParams
 
-  // Internal token gate (fail-open in dev)
-  const token = process.env.BH_INTERNAL_TOKEN
-  if (token && sp.key !== token) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center space-y-3">
-          <p className="text-zinc-400 text-sm">Internal access required.</p>
-          <p className="text-zinc-600 text-xs">Pass <code className="bg-zinc-900 px-1 rounded">?key=…</code> to continue.</p>
-        </div>
-      </div>
-    )
-  }
-
   const view = sp.view === '30d' ? '30d' : '7d'
   const platform = sp.platform ?? 'all'
   const fromParam = sp.from
-  const internalKey = sp.key
 
   const sb = getServiceRoleClient()
 
@@ -102,7 +88,6 @@ export default async function CalendarPage({ params, searchParams }: PageProps) 
         platform={platform}
         fromISO={fromDate.toISOString()}
         slots={(slots ?? []) as CalendarSlot[]}
-        internalKey={internalKey}
       />
     </div>
   )

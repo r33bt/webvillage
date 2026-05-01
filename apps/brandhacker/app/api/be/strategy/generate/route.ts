@@ -20,6 +20,7 @@ import type { NextRequest } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { z } from 'zod'
 import { getServiceRoleClient, type VoiceProfileRow, type ClientMetadata } from '@/lib/supabase'
+import { requireAuth } from '@/lib/supabase-server'
 
 export const dynamic = 'force-dynamic'
 
@@ -62,15 +63,6 @@ const RequestSchema = z.object({
     .optional(),
 })
 
-// ---------------------------------------------------------------------------
-// Auth
-// ---------------------------------------------------------------------------
-
-function isAuthorized(req: NextRequest): boolean {
-  const token = process.env.BH_INTERNAL_TOKEN
-  if (!token) return true
-  return req.headers.get('x-bh-internal') === token
-}
 
 // ---------------------------------------------------------------------------
 // Claude tool schema
@@ -246,9 +238,8 @@ async function getOrCreateCalendar(
 // ---------------------------------------------------------------------------
 
 export async function POST(req: NextRequest) {
-  if (!isAuthorized(req)) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth(req)
+  if (auth instanceof Response) return auth
 
   let rawBody: unknown
   try {

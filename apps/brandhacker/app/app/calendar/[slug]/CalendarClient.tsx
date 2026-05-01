@@ -14,7 +14,6 @@ type Props = {
   platform: string
   fromISO: string
   slots: CalendarSlot[]
-  internalKey?: string
 }
 
 // ---------------------------------------------------------------------------
@@ -108,9 +107,8 @@ function fmtTime(iso: string): string {
   return new Date(iso).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
 }
 
-function buildHref(slug: string, params: Record<string, string>, key?: string): string {
+function buildHref(slug: string, params: Record<string, string>): string {
   const p = new URLSearchParams(params)
-  if (key) p.set('key', key)
   return `/app/calendar/${slug}?${p.toString()}`
 }
 
@@ -343,7 +341,7 @@ function ThirtyDayView({
 // CalendarClient (main)
 // ---------------------------------------------------------------------------
 
-export function CalendarClient({ slug, view, platform, fromISO, slots: initialSlots, internalKey }: Props) {
+export function CalendarClient({ slug, view, platform, fromISO, slots: initialSlots }: Props) {
   const router = useRouter()
   const [slots, setSlots] = useState<CalendarSlot[]>(initialSlots)
   const [draggingId, setDraggingId] = useState<string | null>(null)
@@ -355,9 +353,9 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
   // Navigation helpers
   const navigate = useCallback(
     (params: Record<string, string>) => {
-      router.push(buildHref(slug, params, internalKey))
+      router.push(buildHref(slug, params))
     },
-    [slug, router, internalKey],
+    [slug, router],
   )
 
   const prevWindow = () => {
@@ -402,13 +400,9 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
       )
 
       try {
-        const headers: Record<string, string> = { 'Content-Type': 'application/json' }
-        const token = process.env.NEXT_PUBLIC_BH_INTERNAL_TOKEN
-        if (token) headers['x-bh-internal'] = token
-
         const res = await fetch(`/api/be/calendar/slots/${slotId}`, {
           method: 'PATCH',
-          headers,
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ scheduled_for: targetDate.toISOString() }),
         })
 

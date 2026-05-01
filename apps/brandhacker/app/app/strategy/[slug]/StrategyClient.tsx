@@ -67,10 +67,9 @@ type Props = {
   slug: string
   clientId: string
   existing: ContentPillarsMetadata | null
-  internalKey?: string
 }
 
-export function StrategyClient({ slug, clientId, existing, internalKey }: Props) {
+export function StrategyClient({ slug, clientId, existing }: Props) {
   const [strategy, setStrategy] = useState<GenerateResult | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -83,12 +82,9 @@ export function StrategyClient({ slug, clientId, existing, internalKey }: Props)
     setLoading(true)
     setError(null)
     try {
-      const headers: Record<string, string> = { 'Content-Type': 'application/json' }
-      if (internalKey) headers['x-bh-internal'] = internalKey
-
       const res = await fetch('/api/be/strategy/generate', {
         method: 'POST',
-        headers,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ client_id: clientId }),
       })
 
@@ -124,7 +120,7 @@ export function StrategyClient({ slug, clientId, existing, internalKey }: Props)
           )}
         </button>
         <a
-          href={`/app/calendar/${slug}${internalKey ? `?key=${internalKey}` : ''}`}
+          href={`/app/calendar/${slug}`}
           className="text-sm text-zinc-400 hover:text-zinc-200 transition-colors"
         >
           View calendar →
@@ -148,7 +144,7 @@ export function StrategyClient({ slug, clientId, existing, internalKey }: Props)
       {strategy && (
         <div className="rounded-md bg-emerald-950/60 border border-emerald-800/60 px-4 py-3 text-sm text-emerald-300">
           {strategy.slots_seeded} topic{strategy.slots_seeded !== 1 ? 's' : ''} added to calendar for {strategy.target_month}.{' '}
-          <a href={`/app/calendar/${slug}${internalKey ? `?key=${internalKey}` : ''}`} className="underline hover:text-emerald-200">
+          <a href={`/app/calendar/${slug}`} className="underline hover:text-emerald-200">
             View calendar
           </a>
         </div>

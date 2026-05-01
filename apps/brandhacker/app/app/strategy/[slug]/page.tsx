@@ -7,24 +7,10 @@ export const dynamic = 'force-dynamic'
 
 type PageProps = {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ key?: string }>
 }
 
-export default async function StrategyPage({ params, searchParams }: PageProps) {
+export default async function StrategyPage({ params }: PageProps) {
   const { slug } = await params
-  const sp = await searchParams
-
-  const token = process.env.BH_INTERNAL_TOKEN
-  if (token && sp.key !== token) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center space-y-3">
-          <p className="text-zinc-400 text-sm">Internal access required.</p>
-          <p className="text-zinc-600 text-xs">Pass <code className="bg-zinc-900 px-1 rounded">?key=…</code> to continue.</p>
-        </div>
-      </div>
-    )
-  }
 
   const sb = getServiceRoleClient()
 
@@ -52,7 +38,6 @@ export default async function StrategyPage({ params, searchParams }: PageProps) 
         slug={slug}
         clientId={client.id}
         existing={existing}
-        internalKey={sp.key}
       />
     </div>
   )

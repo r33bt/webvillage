@@ -1,15 +1,7 @@
-/**
- * PATCH /api/be/calendar/slots/:id
- *
- * Reschedule a slot. Body: { scheduled_for: ISO datetime string }
- * Increments reschedule_count, updates updated_at.
- *
- * Auth: BH_INTERNAL_TOKEN (x-bh-internal header). Fail-open in dev.
- */
-
 import type { NextRequest } from 'next/server'
 import { z } from 'zod'
 import { getServiceRoleClient } from '@/lib/supabase'
+import { requireAuth } from '@/lib/supabase-server'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,19 +9,12 @@ const PatchSchema = z.object({
   scheduled_for: z.string().datetime({ message: 'scheduled_for must be a valid ISO datetime' }),
 })
 
-function isAuthorized(req: NextRequest): boolean {
-  const token = process.env.BH_INTERNAL_TOKEN
-  if (!token) return true
-  return req.headers.get('x-bh-internal') === token
-}
-
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  if (!isAuthorized(req)) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth(req)
+  if (auth instanceof Response) return auth
 
   const { id } = await params
 
