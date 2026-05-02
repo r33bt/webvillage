@@ -38,7 +38,7 @@ export default function NavClient({
             className="flex items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-sm text-zinc-300 hover:border-zinc-700 hover:text-zinc-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-600"
           >
             <span className="font-medium truncate max-w-[140px]">{tenant.display_name}</span>
-            <span className="shrink-0 rounded-full bg-zinc-800 px-1.5 py-0.5 text-[10px] text-zinc-400 uppercase tracking-widest">
+            <span className="shrink-0 rounded-full bg-zinc-800 px-1.5 py-0.5 text-xs text-zinc-400 uppercase tracking-widest">
               {tierLabel}
             </span>
             <svg className={`h-3.5 w-3.5 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

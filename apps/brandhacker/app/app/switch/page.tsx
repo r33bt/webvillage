@@ -63,9 +63,9 @@ export default async function SwitchPage() {
                   <p className="text-xs text-zinc-500 mt-0.5">{t.slug} · {t.role}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-[10px] uppercase tracking-wider text-zinc-500">{t.tier.replace('_', ' ')}</span>
+                  <span className="text-xs uppercase tracking-wider text-zinc-500">{t.tier.replace('_', ' ')}</span>
                   {t.id === currentTenantId && (
-                    <span className="text-[10px] text-emerald-400 font-medium">Active</span>
+                    <span className="text-xs text-emerald-400 font-medium">Active</span>
                   )}
                 </div>
               </button>

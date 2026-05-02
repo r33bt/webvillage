@@ -14,7 +14,7 @@ function TierBadge({ tier }: { tier: string }) {
     editorial_brand: 'Brand',
   }
   return (
-    <span className="text-[10px] uppercase tracking-widest text-zinc-500 font-medium">
+    <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
       {labels[tier] ?? tier}
     </span>
   )
@@ -94,7 +94,7 @@ export default async function AppDashboard() {
           <div className="flex items-center gap-2 mt-1">
             <TierBadge tier={client.current_tier} />
             {daysLeft !== null && (
-              <span className="text-[10px] text-zinc-600">· {daysLeft} days left in trial</span>
+              <span className="text-xs text-zinc-600">· {daysLeft} days left in trial</span>
             )}
           </div>
         </div>
@@ -176,7 +176,7 @@ export default async function AppDashboard() {
               {recentDrafts.map((d) => (
                 <li key={d.id} className="flex items-center justify-between gap-2">
                   <span className="text-sm text-zinc-300 truncate">{d.title ?? 'Untitled'}</span>
-                  <span className="text-[10px] uppercase tracking-wider text-zinc-600 shrink-0">{d.status}</span>
+                  <span className="text-xs uppercase tracking-wider text-zinc-600 shrink-0">{d.status}</span>
                 </li>
               ))}
             </ul>
@@ -202,7 +202,7 @@ export default async function AppDashboard() {
                   </span>
                   <div>
                     <p className="text-sm text-zinc-300 leading-tight">{slot.topic_brief ?? '(no brief)'}</p>
-                    <p className="text-[10px] uppercase tracking-wider text-zinc-600 mt-0.5">{slot.channel}</p>
+                    <p className="text-xs uppercase tracking-wider text-zinc-600 mt-0.5">{slot.channel}</p>
                   </div>
                 </li>
               ))}
@@ -228,7 +228,7 @@ export default async function AppDashboard() {
                     <span className="text-sm text-zinc-500">{label}</span>
                   )}
                 </div>
-                {note && <span className="text-[10px] text-zinc-600">{note}</span>}
+                {note && <span className="text-xs text-zinc-600">{note}</span>}
               </li>
             ))}
           </ul>

@@ -32,7 +32,7 @@ function PillarCard({ pillar, topics }: { pillar: ContentPillar; topics: TopicSt
       </div>
       <div className="flex flex-wrap gap-1">
         {pillar.channels.map((ch) => (
-          <span key={ch} className="flex items-center gap-1 text-[11px] text-zinc-400 bg-zinc-800 rounded px-2 py-0.5">
+          <span key={ch} className="flex items-center gap-1 text-xs text-zinc-400 bg-zinc-800 rounded px-2 py-0.5">
             <span className={`w-1.5 h-1.5 rounded-full ${CHANNEL_DOT[ch] ?? 'bg-zinc-400'}`} />
             {ch}
           </span>
@@ -44,7 +44,7 @@ function PillarCard({ pillar, topics }: { pillar: ContentPillar; topics: TopicSt
             <li key={i} className="flex items-start gap-2 text-sm">
               <span className={`mt-1.5 w-1.5 h-1.5 shrink-0 rounded-full ${CHANNEL_DOT[t.channel] ?? 'bg-zinc-400'}`} />
               <span className="text-zinc-300 leading-snug flex-1">{t.title}</span>
-              <span className="shrink-0 text-[10px] text-zinc-500 uppercase tracking-wide mt-0.5">
+              <span className="shrink-0 text-xs text-zinc-500 uppercase tracking-wide mt-0.5">
                 W{t.scheduled_week} · {PIECE_LABEL[t.piece_type] ?? t.piece_type}
               </span>
             </li>

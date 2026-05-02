@@ -143,7 +143,7 @@ export default function HomePage() {
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-zinc-50">{s.name}</h3>
                 {s.highlighted ? (
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-300">
+                  <span className="text-xs uppercase tracking-[0.2em] text-zinc-300">
                     Unclaimed lane
                   </span>
                 ) : null}
@@ -244,6 +244,8 @@ export default function HomePage() {
             price="$0"
             period="/ 14 days"
             blurb="Full feature access. No card. Day-12 and day-14 nudge before it ends."
+            ctaHref="/waitlist"
+            ctaLabel="Get early access"
             features={[
               '1 brand',
               '50 drafts',
@@ -256,6 +258,8 @@ export default function HomePage() {
             price="$99"
             period="/ month"
             blurb="One brand. The complete source-of-record + three surfaces."
+            ctaHref="/waitlist"
+            ctaLabel="Join waitlist"
             features={[
               '1 brand',
               '200 drafts / month',
@@ -269,6 +273,9 @@ export default function HomePage() {
             price="$249"
             period="/ month"
             blurb="Up to three brands, multi-channel publishing, AEO refresh + crawl monitoring."
+            ctaHref="/waitlist"
+            ctaLabel="Join waitlist"
+            highlighted
             features={[
               'Up to 3 brands',
               '1,000 drafts / month',
@@ -278,7 +285,6 @@ export default function HomePage() {
               'AEO crawl monitoring',
               'Team roles + audit log',
             ]}
-            highlighted
           />
         </div>
       </Section>

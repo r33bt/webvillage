@@ -145,15 +145,15 @@ function SlotCard({
     >
       <div className="flex items-center gap-1.5 mb-1">
         <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${CHANNEL_DOTS[slot.channel] ?? 'bg-zinc-400'}`} />
-        <span className="text-[10px] uppercase tracking-widest opacity-70">{slot.channel}</span>
-        <span className={`ml-auto text-[10px] rounded px-1 py-0.5 ${badge}`}>
+        <span className="text-xs uppercase tracking-widest opacity-70">{slot.channel}</span>
+        <span className={`ml-auto text-xs rounded px-1 py-0.5 ${badge}`}>
           {slot.status.replace('_', ' ')}
         </span>
       </div>
       {slot.topic_brief && (
         <p className="text-xs leading-snug line-clamp-2 opacity-90">{slot.topic_brief}</p>
       )}
-      <p className="text-[10px] opacity-50 mt-1">{fmtTime(slot.scheduled_for)}</p>
+      <p className="text-xs opacity-50 mt-1">{fmtTime(slot.scheduled_for)}</p>
     </div>
   )
 }
@@ -304,7 +304,7 @@ function ThirtyDayView({
       {/* Day-of-week header */}
       <div className="grid grid-cols-7 gap-1">
         {([...DAY_LABELS.slice(1), DAY_LABELS[0] ?? 'Sun']).map((d) => (
-          <div key={d} className="text-center text-[10px] uppercase tracking-widest text-zinc-600 py-1">
+          <div key={d} className="text-center text-xs uppercase tracking-widest text-zinc-600 py-1">
             {d}
           </div>
         ))}
@@ -455,18 +455,21 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
         <div className="flex items-center gap-1">
           <button
             onClick={prevWindow}
+            aria-label="Previous week"
             className="px-2 py-1.5 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 rounded text-sm transition-colors"
           >
             ←
           </button>
           <button
             onClick={goToday}
+            aria-label="Go to today"
             className="px-3 py-1.5 text-xs text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 rounded transition-colors"
           >
             Today
           </button>
           <button
             onClick={nextWindow}
+            aria-label="Next week"
             className="px-2 py-1.5 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 rounded text-sm transition-colors"
           >
             →
@@ -531,7 +534,7 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
         {Object.entries(CHANNEL_DOTS).map(([ch, dot]) => (
           <div key={ch} className="flex items-center gap-1.5">
             <span className={`w-2 h-2 rounded-full ${dot}`} />
-            <span className="text-[11px] text-zinc-500 capitalize">{ch}</span>
+            <span className="text-xs text-zinc-500 capitalize">{ch}</span>
           </div>
         ))}
       </div>

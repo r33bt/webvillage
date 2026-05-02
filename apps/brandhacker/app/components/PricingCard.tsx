@@ -6,6 +6,8 @@ type PricingCardProps = {
   features: string[]
   highlighted?: boolean
   footnote?: string
+  ctaHref?: string
+  ctaLabel?: string
 }
 
 export function PricingCard({
@@ -16,6 +18,8 @@ export function PricingCard({
   features,
   highlighted = false,
   footnote,
+  ctaHref,
+  ctaLabel,
 }: PricingCardProps) {
   return (
     <div
@@ -28,7 +32,7 @@ export function PricingCard({
       <div className="flex items-baseline justify-between gap-3">
         <h3 className="text-lg font-semibold text-zinc-50">{name}</h3>
         {highlighted ? (
-          <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-300">
+          <span className="text-xs uppercase tracking-[0.2em] text-zinc-300">
             Most flexible
           </span>
         ) : null}
@@ -50,6 +54,18 @@ export function PricingCard({
       </ul>
       {footnote ? (
         <p className="mt-6 text-xs text-zinc-400 leading-relaxed">{footnote}</p>
+      ) : null}
+      {ctaHref && ctaLabel ? (
+        <a
+          href={ctaHref}
+          className={`mt-6 block w-full rounded-md px-4 py-2.5 text-sm font-medium text-center transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400 ${
+            highlighted
+              ? 'bg-zinc-50 text-zinc-950 hover:bg-zinc-200'
+              : 'border border-zinc-700 text-zinc-200 hover:border-zinc-500'
+          }`}
+        >
+          {ctaLabel}
+        </a>
       ) : null}
     </div>
   )
