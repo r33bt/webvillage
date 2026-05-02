@@ -381,6 +381,12 @@ export default function CaseStudyPage() {
               behaviour. The only difference is the tenant slug and the brand-facts
               payload.
             </p>
+            <p className="text-sm text-zinc-400 leading-relaxed">
+              We track which AI engines fetch these files and how often — that is
+              the crawl-frequency metric. Citation quality: whether the engines
+              changed what they return about the brand when prospects ask
+              questions. That comparison is the Q3 report.
+            </p>
           </div>
         </div>
       </Section>

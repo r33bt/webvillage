@@ -88,17 +88,21 @@ export default function HomePage() {
             three things in three places.
           </p>
 
-          <div className="mt-12 flex flex-wrap gap-4 items-center">
-            <Link
-              href="/pat/llms.txt"
-              className="inline-flex items-center gap-2 rounded-md bg-zinc-50 px-5 py-3 text-sm font-medium text-zinc-950 hover:bg-zinc-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
-            >
-              See the live AEO surface
-              <span aria-hidden>→</span>
-            </Link>
-            <span className="text-sm text-zinc-400">
-              A real `/llms.txt` for a real brand.
-            </span>
+          <div className="mt-12 space-y-4">
+            <div className="flex flex-wrap gap-4 items-center">
+              <Link
+                href="/pat/llms.txt"
+                className="inline-flex items-center gap-2 rounded-md bg-zinc-50 px-5 py-3 text-sm font-medium text-zinc-950 hover:bg-zinc-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
+              >
+                See the live AEO surface
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
+            <p className="text-sm text-zinc-400 max-w-md leading-relaxed">
+              When ChatGPT is asked about your brand, it reads whatever it can find — your 2022
+              about page, a mismatched LinkedIn bio, old press hits. This is the file where you
+              write the answer yourself.
+            </p>
           </div>
         </div>
       </section>

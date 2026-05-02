@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { Resend } from 'resend'
 import { getServiceRoleClient } from '@/lib/supabase'
+import {
+  SEQUENCE,
+  getEmailData,
+  buildMetadataWithEmailSent,
+} from '@/lib/lifecycle-emails'
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url)
@@ -83,6 +89,15 @@ export async function GET(request: NextRequest) {
         accepted_at: new Date().toISOString(),
       })
 
+      // Fire Day 0 welcome email (non-blocking)
+      void sendWelcomeEmail(
+        newClient.id,
+        slug,
+        displayName,
+        user.email ?? '',
+        { slug },
+      )
+
       const response = NextResponse.redirect(`${origin}/app/onboarding`)
       response.cookies.set('bh_current_tenant_id', newClient.id, {
         httpOnly: true,
@@ -96,6 +111,48 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.redirect(`${origin}/app`)
   }
+
+// ---------------------------------------------------------------------------
+// Welcome email helper — fires after new tenant creation, non-blocking
+// ---------------------------------------------------------------------------
+
+async function sendWelcomeEmail(
+  clientId: string,
+  slug: string,
+  displayName: string,
+  email: string,
+  metadata: Record<string, unknown>,
+): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey || !email) return
+
+  const welcomeDef = SEQUENCE.find((e) => e.key === 'welcome')
+  if (!welcomeDef) return
+
+  const sb = getServiceRoleClient()
+  const emailData = getEmailData(slug, displayName)
+  const html = welcomeDef.html(emailData)
+  const subject = welcomeDef.subject(displayName)
+  const from = process.env.RESEND_FROM_EMAIL ?? 'hello@brandhacker.com'
+
+  try {
+    const resend = new Resend(apiKey)
+    await resend.emails.send({
+      from: `BrandHacker <${from}>`,
+      to: email,
+      subject,
+      html,
+    })
+
+    const updatedMeta = buildMetadataWithEmailSent(metadata, 'welcome')
+    await sb
+      .from('wv_be_clients')
+      .update({ metadata: updatedMeta })
+      .eq('id', clientId)
+  } catch (err) {
+    console.error('[auth/callback] welcome email failed (non-fatal)', String(err))
+  }
+}
 
   // Returning user — set/refresh tenant cookie
   const currentTenantId = existingLinks[0]!.client_id

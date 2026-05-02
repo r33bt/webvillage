@@ -50,9 +50,10 @@ export default async function AppDashboard() {
       .limit(5),
     sb
       .from('wv_be_aeo_crawl_log')
-      .select('id', { count: 'exact', head: true })
+      .select('user_agent')
       .eq('client_id', currentTenantId)
-      .gte('occurred_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
+      .gte('occurred_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
+      .limit(100),
     sb
       .from('wv_be_calendar_slots')
       .select('id, channel, scheduled_for, topic_brief, status')
@@ -74,9 +75,30 @@ export default async function AppDashboard() {
   const meta = client.metadata as Record<string, unknown>
   const slug = (meta?.slug as string) ?? ''
   const recentDrafts = draftsRes.data ?? []
-  const crawlCount = crawlRes.count ?? 0
+  const crawlRows = crawlRes.data ?? []
+  const crawlCount = crawlRows.length
   const upcomingSlots = calendarRes.data ?? []
   const aeoArtefact = artefactRes.data
+
+  const isProTier =
+    client.current_tier === 'tool_pro' || client.current_tier === 'editorial_brand'
+
+  // Group crawl events by bot identity (for Pro breakdown)
+  function classifyBot(ua: string): string {
+    const lower = ua.toLowerCase()
+    if (lower.includes('gptbot') || lower.includes('openai')) return 'GPTBot'
+    if (lower.includes('claudebot') || lower.includes('anthropic-ai')) return 'ClaudeBot'
+    if (lower.includes('perplexitybot')) return 'PerplexityBot'
+    if (lower.includes('bingbot') || lower.includes('msnbot')) return 'BingBot'
+    if (lower.includes('googlebot')) return 'Googlebot'
+    return 'Other'
+  }
+
+  const botBreakdown = crawlRows.reduce<Record<string, number>>((acc, row) => {
+    const bot = classifyBot((row as { user_agent?: string }).user_agent ?? '')
+    acc[bot] = (acc[bot] ?? 0) + 1
+    return acc
+  }, {})
 
   const isOnboarding = recentDrafts.length === 0 && !aeoArtefact
   const trialEndsAt = client.trial_ends_at ? new Date(client.trial_ends_at) : null
@@ -136,11 +158,11 @@ export default async function AppDashboard() {
           </div>
         ) : (
           <div>
-            <p className="text-sm font-medium text-zinc-200 mb-1">Recent activity</p>
+            <p className="text-sm font-medium text-zinc-200 mb-1">AI crawl activity</p>
             <p className="text-sm text-zinc-400">
               {crawlCount > 0
-                ? `${crawlCount} AI crawler ${crawlCount === 1 ? 'hit' : 'hits'} on your /llms.txt in the last 7 days.`
-                : 'No AI crawler activity in the last 7 days.'}
+                ? `Your /llms.txt was fetched ${crawlCount} ${crawlCount === 1 ? 'time' : 'times'} this week.`
+                : 'No AI crawler hits yet this week. Check back after robots.txt lifts.'}
             </p>
           </div>
         )}
@@ -243,9 +265,36 @@ export default async function AppDashboard() {
               <p className="text-xs text-zinc-600">AI crawlers will hit /llms.txt once robots.txt lifts.</p>
             </div>
           ) : (
-            <div>
-              <p className="text-3xl font-semibold text-zinc-50 mb-1">{crawlCount}</p>
-              <p className="text-sm text-zinc-400">{crawlCount === 1 ? 'request' : 'requests'} on your /llms.txt</p>
+            <div className="space-y-3">
+              <div>
+                <p className="text-3xl font-semibold text-zinc-50 mb-0.5">{crawlCount}</p>
+                <p className="text-sm text-zinc-400">
+                  {crawlCount === 1 ? 'request' : 'requests'} on your /llms.txt this week
+                </p>
+              </div>
+              {/* Source breakdown — Pro only */}
+              <div className="relative">
+                <ul className={`space-y-1.5 ${isProTier ? '' : 'blur-sm select-none pointer-events-none'}`}>
+                  {Object.entries(botBreakdown)
+                    .sort(([, a], [, b]) => b - a)
+                    .map(([bot, count]) => (
+                      <li key={bot} className="flex items-center justify-between text-xs">
+                        <span className="text-zinc-400">{bot}</span>
+                        <span className="text-zinc-300 font-medium tabular-nums">{count}</span>
+                      </li>
+                    ))}
+                </ul>
+                {!isProTier && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Link
+                      href="/waitlist"
+                      className="text-xs font-medium text-zinc-950 bg-zinc-50 hover:bg-zinc-200 rounded-md px-3 py-1.5 transition-colors"
+                    >
+                      Pro — see which crawlers
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>
