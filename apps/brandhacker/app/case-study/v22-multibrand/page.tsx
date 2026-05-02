@@ -8,6 +8,13 @@ export const metadata = {
   alternates: {
     canonical: '/case-study/v22-multibrand',
   },
+  openGraph: {
+    title: 'Case Study — Financial-services brand on BrandHacker',
+    description:
+      'A regulated financial-services brand moved its editorial substrate — voice profile, templates, banned phrases, brand facts, and AI-engine canon — onto BrandHacker.',
+    type: 'article',
+    url: '/case-study/v22-multibrand',
+  },
 }
 
 const SUBSTRATE_ITEMS = [
