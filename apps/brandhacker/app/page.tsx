@@ -61,9 +61,48 @@ const STEPS = [
   { n: '5', label: 'Done', body: 'Surfaces light up — web snippets, social drafts, AEO files. Under five minutes end-to-end.' },
 ]
 
+const ORGANIZATION_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'BrandHacker',
+  url: 'https://app.brandhacker.com',
+  description:
+    'The source of truth for your brand. Upload once. Your team, your AI, your social, your web — all stay on-brand by default.',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://app.brandhacker.com/opengraph-image',
+  },
+  founder: {
+    '@type': 'Person',
+    name: 'Patrick Lee',
+    url: 'https://app.brandhacker.com/pat/.well-known/brand.json',
+  },
+}
+
+const WEBSITE_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'BrandHacker',
+  url: 'https://app.brandhacker.com',
+  description: 'Brand consistency without the overhead.',
+  publisher: {
+    '@type': 'Organization',
+    name: 'BrandHacker',
+    url: 'https://app.brandhacker.com',
+  },
+}
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_JSON_LD) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }}
+      />
       {/* HERO */}
       <section className="px-6 sm:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-5xl">

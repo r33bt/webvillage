@@ -124,9 +124,43 @@ const SUBSTRATE_ITEMS = [
   },
 ]
 
+const ARTICLE_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline:
+    'How a regulated financial-services brand consolidated voice, templates, and AI-engine canon onto BrandHacker',
+  description:
+    'A regulated financial-services brand moved its editorial substrate — voice profile, templates, banned phrases, brand facts, and AI-engine canon — onto BrandHacker.',
+  datePublished: '2026-05-26',
+  dateModified: '2026-05-26',
+  author: {
+    '@type': 'Person',
+    name: 'Patrick Lee',
+    url: 'https://app.brandhacker.com/pat/.well-known/brand.json',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'BrandHacker',
+    url: 'https://app.brandhacker.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://app.brandhacker.com/opengraph-image',
+    },
+  },
+  image: 'https://app.brandhacker.com/opengraph-image',
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': 'https://app.brandhacker.com/case-study/v22-multibrand',
+  },
+}
+
 export default function CaseStudyPage() {
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ARTICLE_JSON_LD) }}
+      />
       {/* HEADER */}
       <section className="px-6 sm:px-8 py-24 sm:py-32">
         <div className="mx-auto max-w-3xl">
@@ -444,8 +478,25 @@ export default function CaseStudyPage() {
           <p>
             If your brand has the same shape as this one — multiple surfaces, drift
             between them, AI engines returning facts you did not write — the substrate
-            is available. Fourteen-day free trial, no credit card.
+            is available.{' '}
+            <Link
+              href="/waitlist"
+              className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
+            >
+              14-day free trial
+            </Link>
+            , no credit card.
           </p>
+
+          <div className="pt-4">
+            <Link
+              href="/waitlist"
+              className="inline-flex items-center gap-2 rounded-md bg-zinc-50 px-5 py-3 text-sm font-medium text-zinc-950 hover:bg-zinc-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
+            >
+              Get early access
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
         </div>
       </Section>
 
