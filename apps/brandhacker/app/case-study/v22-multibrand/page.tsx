@@ -14,6 +14,14 @@ export const metadata = {
       'A regulated financial-services brand moved its editorial substrate — voice profile, templates, banned phrases, brand facts, and AI-engine canon — onto BrandHacker.',
     type: 'article',
     url: '/case-study/v22-multibrand',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Case Study — Financial-services brand on BrandHacker',
+    description:
+      'A regulated financial-services brand moved its editorial substrate onto BrandHacker.',
+    images: ['/opengraph-image'],
   },
 }
 
@@ -437,20 +445,6 @@ export default function CaseStudyPage() {
             If your brand has the same shape as this one — multiple surfaces, drift
             between them, AI engines returning facts you did not write — the substrate
             is available. Fourteen-day free trial, no credit card.
-          </p>
-          <p>
-            If you want a human running it for you, that is what WebVillage Editorial
-            does.
-          </p>
-          <p>
-            If you want to talk before either, the contact path is on{' '}
-            <a
-              href="https://webvillage.com"
-              className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
-            >
-              webvillage.com
-            </a>
-            .
           </p>
         </div>
       </Section>
