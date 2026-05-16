@@ -5,6 +5,7 @@ import { ArrowRight, CheckCircle2, MapPin, Sparkles, CheckCircle } from 'lucide-
 import { getProviderBySlug, getCoursesByProvider } from '@webvillage/engine/adapters/findtraining'
 import type { FtCourse } from '@webvillage/engine/types/ft'
 import { ContactLinks } from './ContactLinks'
+import { EnquiryForm } from '@/components/EnquiryForm'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -121,6 +122,8 @@ export default async function ProviderPage({ params }: Props) {
   }
 
   const showContactInfo = PAID_TIERS.has(provider.tier) && provider.claimed
+  const showEnquiryForm = PAID_TIERS.has(provider.tier) && provider.claimed
+  const showEnquiryTeaser = !PAID_TIERS.has(provider.tier) && provider.claimed
   const tierBadge = TIER_BADGES[provider.tier] ?? TIER_BADGES.free
   const isVerified = provider.profile_status === 'claimed' || provider.profile_status === 'active'
 
@@ -318,6 +321,26 @@ export default async function ProviderPage({ params }: Props) {
               )}
             </div>
 
+
+            {showEnquiryForm && (
+              <EnquiryForm providerId={provider.id} providerName={provider.name} />
+            )}
+
+            {showEnquiryTeaser && (
+              <div className="bg-white border border-gray-200 rounded-xl p-5">
+                <p className="text-sm font-semibold text-gray-900 mb-1">Send a training enquiry</p>
+                <p className="text-xs text-gray-500 leading-relaxed mb-3">
+                  Starter and Pro providers can receive direct enquiries from HR managers. Upgrade to enable this feature.
+                </p>
+                <a
+                  href="/dashboard/billing"
+                  className="inline-flex items-center gap-1.5 w-full justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: '#0F6FEC' }}
+                >
+                  Upgrade to receive enquiries <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                </a>
+              </div>
+            )}
 
             {!provider.claimed && (
               <div className="rounded-xl border-2 border-[#0F6FEC] bg-blue-50 p-5">

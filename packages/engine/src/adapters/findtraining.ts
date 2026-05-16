@@ -323,6 +323,73 @@ export async function getProviderAnalytics(
   return { totalViews, monthViews, weekViews, topClickType, recentClicks }
 }
 
+// ============================================================================
+// ENQUIRIES
+// ============================================================================
+
+export interface FtEnquiry {
+  id: string
+  provider_id: string
+  enquirer_name: string
+  enquirer_email: string
+  enquirer_company: string | null
+  training_need: string
+  headcount: number | null
+  budget_range: string | null
+  preferred_dates: string | null
+  message: string | null
+  status: string
+  created_at: string
+}
+
+export async function submitEnquiry(data: {
+  provider_id: string
+  enquirer_name: string
+  enquirer_email: string
+  enquirer_company?: string
+  training_need: string
+  headcount?: number
+  budget_range?: string
+  preferred_dates?: string
+  message?: string
+}): Promise<{ id: string }> {
+  const supabase = createFtServiceClient()
+  const { data: row, error } = await supabase
+    .from('ft_enquiries')
+    .insert({
+      provider_id: data.provider_id,
+      enquirer_name: data.enquirer_name,
+      enquirer_email: data.enquirer_email,
+      enquirer_company: data.enquirer_company ?? null,
+      training_need: data.training_need,
+      headcount: data.headcount ?? null,
+      budget_range: data.budget_range ?? null,
+      preferred_dates: data.preferred_dates ?? null,
+      message: data.message ?? null,
+    })
+    .select('id')
+    .single()
+  if (error) throw new Error(`submitEnquiry: ${error.message}`)
+  return { id: (row as { id: string }).id }
+}
+
+export async function getEnquiriesByProvider(
+  supabaseClient: Awaited<ReturnType<typeof createFtClient>>,
+  providerId: string,
+  { page = 1, pageSize = 20 }: { page?: number; pageSize?: number } = {}
+): Promise<{ enquiries: FtEnquiry[]; total: number }> {
+  const from = (page - 1) * pageSize
+  const to = from + pageSize - 1
+  const { data, error, count } = await supabaseClient
+    .from('ft_enquiries')
+    .select('*', { count: 'exact' })
+    .eq('provider_id', providerId)
+    .order('created_at', { ascending: false })
+    .range(from, to)
+  if (error) throw new Error(`getEnquiriesByProvider: ${error.message}`)
+  return { enquiries: (data ?? []) as FtEnquiry[], total: count ?? 0 }
+}
+
 export async function getCategoryCountsByCountry(
   countryCode: string
 ): Promise<Record<string, number>> {
