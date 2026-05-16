@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { getAuthClient } from '@/lib/supabase-server'
 import { getServiceRoleClient } from '@/lib/supabase'
+import { computeHealthScore, getPrevWeekKey, type StoredWeekScore } from '@/lib/health-score'
 
 export const dynamic = 'force-dynamic'
 
@@ -88,27 +89,16 @@ export default async function AppDashboard() {
   const recentScores = scoresRes.data ?? []
 
   // --- Brand Health Score v0 ---
-  const AEO_TYPES = ['llms_txt', 'brand_json'] as const
-  const FRESH_MS = 30 * 24 * 60 * 60 * 1000
-  const freshAeoCount = aeoArtefacts.filter(
-    (a) =>
-      (AEO_TYPES as readonly string[]).includes(a.artefact_type) &&
-      Date.now() - new Date(a.generated_at).getTime() < FRESH_MS,
-  ).length
-  const aeoCoverage = Math.round((freshAeoCount / AEO_TYPES.length) * 100)
+  const healthResult = computeHealthScore(aeoArtefacts, recentScores)
+  const healthScore = healthResult?.score ?? null
+  const aeoCoverage = healthResult?.aeoCoverage ?? 0
+  const voiceConsistency = healthResult?.voiceConsistency ?? 0
 
-  const avgOverall =
-    recentScores.length > 0
-      ? recentScores.reduce((sum, s) => {
-          const sc = s.scores as Record<string, number> | null
-          return sum + (sc?.overall ?? 0)
-        }, 0) / recentScores.length
-      : 0
-  const voiceConsistency = Math.round(avgOverall * 10)
-
-  const isHealthScoreReady = freshAeoCount > 0 || recentScores.length > 0
-  const healthScore = isHealthScoreReady
-    ? Math.round((aeoCoverage + voiceConsistency) / 2)
+  // Trend: compare to last week's stored score in metadata
+  const storedScores = (meta?.health_scores ?? {}) as Record<string, StoredWeekScore>
+  const prevWeekScore = storedScores[getPrevWeekKey()]?.score
+  const scoreDelta = healthScore !== null && prevWeekScore !== undefined
+    ? healthScore - prevWeekScore
     : null
 
   const isProTier =
@@ -230,8 +220,15 @@ export default async function AppDashboard() {
           ) : (
             <div className="flex flex-wrap items-end gap-6">
               <div>
-                <p className="text-5xl font-semibold text-zinc-50 tabular-nums leading-none">{healthScore}</p>
-                <p className="text-xs text-zinc-600 mt-1">out of 100</p>
+                <div className="flex items-baseline gap-2">
+                  <p className="text-5xl font-semibold text-zinc-50 tabular-nums leading-none">{healthScore}</p>
+                  {scoreDelta !== null && (
+                    <span className={`text-sm font-medium tabular-nums ${scoreDelta > 0 ? 'text-emerald-400' : scoreDelta < 0 ? 'text-red-400' : 'text-zinc-500'}`}>
+                      {scoreDelta > 0 ? `+${scoreDelta}` : scoreDelta === 0 ? '±0' : scoreDelta}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-zinc-600 mt-1">{scoreDelta !== null ? 'vs last week' : 'out of 100'}</p>
               </div>
               <div className="flex flex-col gap-2 pb-0.5 flex-1 min-w-[200px]">
                 {([
