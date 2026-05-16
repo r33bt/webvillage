@@ -109,17 +109,42 @@ export async function searchProviders(
   return { providers, total: count ?? 0 }
 }
 
-export async function getFeaturedProviders(limit = 6): Promise<FtProvider[]> {
+export async function getFeaturedProviders(limit = 6, countryCode?: string): Promise<FtProvider[]> {
   const supabase = await createFtClient()
-  const { data, error } = await supabase
+  let query = supabase
     .from('ft_providers')
     .select('*')
     .in('tier', ['pro', 'founding'])
     .eq('profile_status', 'claimed')
     .order('featured', { ascending: false })
     .limit(limit)
+  if (countryCode) query = query.eq('country_code', countryCode)
+  const { data, error } = await query
   if (error) throw new Error(`getFeaturedProviders: ${error.message}`)
   return (data ?? []) as FtProvider[]
+}
+
+export async function getCountryStats(countryCode: string): Promise<{ total: number; states: string[] }> {
+  const supabase = await createFtClient()
+  const [countRes, stateRes] = await Promise.all([
+    supabase
+      .from('ft_providers')
+      .select('*', { count: 'exact', head: true })
+      .eq('country_code', countryCode)
+      .not('profile_status', 'in', '("removed","opted_out")'),
+    supabase
+      .from('ft_providers')
+      .select('state')
+      .eq('country_code', countryCode)
+      .not('profile_status', 'in', '("removed","opted_out")')
+      .not('state', 'is', null),
+  ])
+  if (countRes.error) throw new Error(`getCountryStats(total): ${countRes.error.message}`)
+  if (stateRes.error) throw new Error(`getCountryStats(states): ${stateRes.error.message}`)
+  const states = Array.from(new Set(
+    (stateRes.data ?? []).map((r: { state: string | null }) => r.state).filter((s): s is string => Boolean(s))
+  )).sort()
+  return { total: countRes.count ?? 0, states }
 }
 
 export async function getAllCategories(): Promise<FtCategory[]> {

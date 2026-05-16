@@ -8,23 +8,23 @@ function cleanName(name: string): string {
 }
 
 export const metadata = {
-  title: 'Search Training Providers in Malaysia',
+  title: 'Search Training Providers',
   robots: { index: false },
 }
 
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; category?: string; state?: string; page?: string }>
+  searchParams: Promise<{ q?: string; category?: string; state?: string; country?: string; page?: string }>
 }) {
   const params = await searchParams
-  const { q, category, state, page: pageStr } = params
+  const { q, category, state, country, page: pageStr } = params
   const page = Number(pageStr ?? 1)
-  const hasFilters = Boolean(q || category || state)
+  const hasFilters = Boolean(q || category || state || country)
 
   const [result, categories] = await Promise.all([
     hasFilters
-      ? searchProviders({ query: q, category, state, page })
+      ? searchProviders({ query: q, category, state, country_code: country, page })
       : Promise.resolve({ providers: [], total: 0 }),
     getAllCategories(),
   ])
@@ -34,11 +34,12 @@ export default async function SearchPage({
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold text-gray-900 mb-6">
-        {q ? `Results for "${q}"` : 'Search Training Providers'}
+        {q ? `Results for "${q}"` : country ? `Training Providers — ${country}` : 'Search Training Providers'}
       </h1>
 
       {/* Search form */}
       <form method="GET" action="/search" className="flex gap-2 mb-8 max-w-xl">
+        {country && <input type="hidden" name="country" value={country} />}
         <input
           name="q"
           type="search"
@@ -61,7 +62,7 @@ export default async function SearchPage({
             <h3 className="font-semibold text-gray-700 text-sm mb-2">Category</h3>
             <div className="space-y-1">
               <Link
-                href={`/search?q=${q ?? ''}`}
+                href={`/search?q=${q ?? ''}${country ? `&country=${country}` : ''}`}
                 className={`block text-sm px-2 py-1 rounded hover:bg-gray-100 ${!category ? 'text-brand-blue font-medium' : 'text-gray-600'}`}
               >
                 All categories
@@ -69,7 +70,7 @@ export default async function SearchPage({
               {categories.map((cat: FtCategory) => (
                 <Link
                   key={cat.id}
-                  href={`/search?q=${q ?? ''}&category=${cat.slug}`}
+                  href={`/search?q=${q ?? ''}&category=${cat.slug}${country ? `&country=${country}` : ''}`}
                   className={`block text-sm px-2 py-1 rounded hover:bg-gray-100 truncate ${category === cat.slug ? 'text-brand-blue font-medium' : 'text-gray-600'}`}
                 >
                   {cat.name}

@@ -7,25 +7,27 @@ import './globals.css'
 export const metadata: Metadata = {
   metadataBase: new URL('https://findtraining.com'),
   title: {
-    default: 'FindTraining.com — Find HRDF Training Providers in Malaysia',
+    default: 'FindTraining.com — Find Training Providers Worldwide',
     template: '%s | FindTraining.com',
   },
   description:
-    "Browse Malaysia's most complete directory of HRDF-registered training providers. Find courses by category, state, or delivery method.",
+    'Find training providers in Malaysia, Singapore, the UK, Australia, and the US. Browse HRDF-registered, SkillsFuture-eligible, and accredited corporate training providers.',
   keywords: [
-    'training providers Malaysia',
-    'HRDF training',
-    'corporate training Malaysia',
-    'training directory',
-    'HRD Corp',
+    'training providers',
+    'HRDF training Malaysia',
+    'SkillsFuture Singapore',
+    'corporate training',
     'professional development',
+    'sales training',
+    'HRD Corp',
+    'training directory',
   ],
   openGraph: {
-    title: "FindTraining — Malaysia's Training Provider Directory",
+    title: 'FindTraining — Find Training Providers Worldwide',
     description:
-      "Browse Malaysia's most complete directory of HRDF-registered training providers.",
+      'Find training providers in Malaysia, Singapore, the UK, Australia, and the US.',
     type: 'website',
-    locale: 'en_MY',
+    locale: 'en',
     siteName: 'FindTraining',
   },
   alternates: {
@@ -137,7 +139,7 @@ export default function RootLayout({
                     Terms
                   </Link>
                   <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-medium px-2.5 py-1 rounded-full border border-blue-100">
-                    HRDF / HRD Corp Registered
+                    Official Sources · 5 Countries
                   </span>
                 </div>
               </div>
