@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   description:
     'Free HRD Corp levy calculator for Malaysian employers. Enter your headcount and salary to calculate your monthly HRDF levy obligation and annual training budget.',
   alternates: { canonical: 'https://findtraining.com/tools/hrdf-calculator' },
+  openGraph: {
+    title: 'HRDF Levy Calculator — Calculate Your HRD Corp Contribution',
+    description: 'Free HRD Corp levy calculator for Malaysian employers. Calculate your monthly HRDF levy and annual training budget.',
+    url: 'https://findtraining.com/tools/hrdf-calculator',
+  },
 }
 
 const softwareAppSchema = {

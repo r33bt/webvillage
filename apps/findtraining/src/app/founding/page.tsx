@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   title: 'Founding Member — List Your Training Company',
   description: "Be first on Malaysia's HRDF training directory. Founding slots at RM 100/mo locked for life — vs RM 300/mo when we launch publicly.",
   alternates: { canonical: 'https://findtraining.com/founding' },
+  openGraph: {
+    title: 'Founding Member — List Your Training Company on FindTraining',
+    description: 'Founding slots at RM 100/mo locked for life. Be first on Malaysia\'s HRDF training directory.',
+    url: 'https://findtraining.com/founding',
+  },
   robots: { index: false },
 }
 
@@ -83,7 +88,7 @@ export default async function FoundingPage() {
               : 'Only 50 founding member slots available — first-come, first-served'}
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
-            Claim Your Founding Member Slot<br className="hidden sm:block" /> Before We Launch.
+            Claim Your Founding Member Slot<br className="hidden sm:block" /> — Now Live &amp; Taking Applications.
           </h1>
           <p className="text-blue-100 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
             FindTraining is Malaysia&apos;s HRDF training directory — built for HR managers who need to find

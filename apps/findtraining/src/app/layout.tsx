@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, GraduationCap } from 'lucide-react'
-import { PoweredByWebVillage } from '@/components/PoweredByWebVillage'
 import { MobileMenu } from '@/components/MobileMenu'
 import './globals.css'
 
@@ -81,6 +80,12 @@ export default function RootLayout({
                     Categories
                   </Link>
                   <Link
+                    href="/tools"
+                    className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+                  >
+                    Tools
+                  </Link>
+                  <Link
                     href="/founding"
                     className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
                   >
@@ -135,9 +140,6 @@ export default function RootLayout({
                     HRDF / HRD Corp Registered
                   </span>
                 </div>
-              </div>
-              <div className="mt-4 pt-4 border-t border-gray-100 flex justify-center">
-                <PoweredByWebVillage />
               </div>
             </div>
           </footer>

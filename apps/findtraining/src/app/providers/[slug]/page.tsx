@@ -12,6 +12,39 @@ interface Props {
 
 const PAID_TIERS = new Set(['starter', 'pro', 'founding'])
 
+// Map raw DB category values → actual ft_categories URL slugs
+const CATEGORY_SLUG_MAP: Record<string, string> = {
+  'it_technology': 'it-training',
+  'it-training': 'it-training',
+  'leadership_management': 'leadership-management',
+  'leadership-management': 'leadership-management',
+  'safety_health': 'safety-health',
+  'safety-health': 'safety-health',
+  'finance_accounting': 'finance-accounting',
+  'finance-accounting': 'finance-accounting',
+  'human_resources': 'human-resources',
+  'human-resources': 'human-resources',
+  'hr': 'human-resources',
+  'soft_skills': 'soft-skills',
+  'soft-skills': 'soft-skills',
+  'sales_marketing': 'sales-marketing',
+  'sales-marketing': 'sales-marketing',
+  'sales_training': 'sales-marketing',
+  'operations_logistics': 'operations-logistics',
+  'operations-logistics': 'operations-logistics',
+  'compliance_legal': 'compliance-legal',
+  'compliance-legal': 'compliance-legal',
+  'digital_marketing': 'digital-marketing',
+  'digital-marketing': 'digital-marketing',
+  'customer_service': 'customer-service',
+  'customer-service': 'customer-service',
+  'engineering_technical': 'engineering-technical',
+  'engineering-technical': 'engineering-technical',
+  'healthcare': 'healthcare',
+  'general_training': 'it-training',
+  'apprenticeship_training': 'sales-marketing',
+}
+
 const TIER_BADGES: Record<string, { label: string; className: string }> = {
   pro: { label: 'Pro', className: 'bg-[#0F6FEC] text-white' },
   founding: { label: 'Founding Member', className: 'bg-amber-500 text-white' },
@@ -172,15 +205,19 @@ export default async function ProviderPage({ params }: Props) {
               <section className="bg-white border border-gray-200 rounded-xl p-6">
                 <h2 className="text-base font-semibold text-gray-900 mb-3">Training Categories</h2>
                 <div className="flex flex-wrap gap-2">
-                  {provider.categories.map((cat: string) => (
-                    <Link
-                      key={cat}
-                      href={`/categories/${cat}`}
-                      className="px-3 py-1 bg-blue-50 text-blue-700 text-sm rounded-full hover:bg-blue-100 transition-colors"
-                    >
-                      {cat.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
-                    </Link>
-                  ))}
+                  {provider.categories.map((cat: string) => {
+                    const urlSlug = CATEGORY_SLUG_MAP[cat] ?? cat.replace(/_/g, '-')
+                    const label = urlSlug.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+                    return (
+                      <Link
+                        key={cat}
+                        href={`/categories/${urlSlug}`}
+                        className="px-3 py-1 bg-blue-50 text-blue-700 text-sm rounded-full hover:bg-blue-100 transition-colors"
+                      >
+                        {label}
+                      </Link>
+                    )
+                  })}
                 </div>
               </section>
             )}
@@ -262,8 +299,18 @@ export default async function ProviderPage({ params }: Props) {
                   website={provider.website}
                 />
               ) : (
-                <div className="text-sm text-gray-500 space-y-2">
-                  <p>Contact info available for listed providers.</p>
+                <div className="text-sm text-gray-500 space-y-3">
+                  {provider.website && (
+                    <a
+                      href={provider.website.startsWith('http') ? provider.website : `https://${provider.website}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 font-medium text-[#0F6FEC] hover:underline"
+                    >
+                      Visit Website <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                    </a>
+                  )}
+                  <p className="text-xs text-gray-400">Full contact details visible after provider claims this listing.</p>
                   <Link href={`/claim/${provider.slug}`} className="inline-flex items-center gap-1 font-medium text-[#0F6FEC] hover:underline">
                     Claim this listing <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
                   </Link>

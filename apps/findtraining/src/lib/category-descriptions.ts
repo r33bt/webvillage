@@ -33,7 +33,6 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
       'Many providers offer blended cohort learning with in-company customisation',
       'HRDF SBL-Khas claimable — ideal for targeted leadership succession planning',
     ],
-    learnMoreSlug: 'leadership-management-training-malaysia',
   },
 
   'human-resources': {

@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   description:
     'Find out if your company must pay the HRD Corp (HRDF) levy and calculate your monthly and annual levy amount.',
   alternates: { canonical: 'https://findtraining.com/tools/hrdf-eligibility' },
+  openGraph: {
+    title: 'HRDF Eligibility Checker — Are You Required to Pay the HRD Corp Levy?',
+    description: 'Find out if your company must pay the HRD Corp levy and calculate your monthly obligation.',
+    url: 'https://findtraining.com/tools/hrdf-eligibility',
+  },
 }
 
 const softwareAppSchema = {

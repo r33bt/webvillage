@@ -74,11 +74,15 @@ function StatusBadge({ status }: { status: string }) {
   )
 }
 
-export default async function AdminClaimsPage() {
+interface Props {
+  searchParams: Promise<{ token?: string }>
+}
+
+export default async function AdminClaimsPage({ searchParams }: Props) {
   // ── Admin token guard ────────────────────────────────────────────────────────
   const adminToken = process.env.ADMIN_TOKEN
-  if (!adminToken) {
-    // ADMIN_TOKEN env var not set — fail safe
+  const { token } = await searchParams
+  if (!adminToken || token !== adminToken) {
     redirect('/')
   }
 

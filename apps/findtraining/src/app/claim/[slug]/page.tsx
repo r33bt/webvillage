@@ -71,8 +71,39 @@ export default async function ClaimPage({ params }: Props) {
           </div>
         </div>
 
+        {/* Founding upsell — shown before the free claim form */}
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 mb-5">
+          <p className="text-sm font-semibold text-amber-900 mb-3">Want your listing fully visible from day one?</p>
+          <div className="grid grid-cols-2 gap-4 text-xs mb-4">
+            <div>
+              <p className="font-semibold text-gray-600 mb-2">Free Claim</p>
+              <ul className="space-y-1.5 text-gray-500">
+                <li>✓ Profile verified</li>
+                <li className="line-through opacity-50">Contact button visible</li>
+                <li className="line-through opacity-50">Course listings</li>
+                <li className="line-through opacity-50">Lead notifications</li>
+              </ul>
+            </div>
+            <div>
+              <p className="font-semibold text-amber-800 mb-2">Founding Member <span className="text-amber-600 font-bold">RM 100/mo</span></p>
+              <ul className="space-y-1.5 text-gray-700">
+                <li>✓ Profile verified</li>
+                <li>✓ Contact button visible to HR</li>
+                <li>✓ Up to 5 course listings</li>
+                <li>✓ Lead notifications by email</li>
+              </ul>
+            </div>
+          </div>
+          <Link
+            href="/founding"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-amber-800 hover:underline"
+          >
+            Join as Founding Member instead →
+          </Link>
+        </div>
+
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 sm:p-8 mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-1">Claim This Listing</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-1">Claim This Listing (Free)</h2>
           <p className="text-sm text-gray-500 mb-6">Verified listings can update contact details, add courses, and respond to enquiries.</p>
           <ClaimForm providerId={provider.id} providerName={provider.name} />
         </div>
