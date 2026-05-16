@@ -35,7 +35,7 @@ export default async function AppDashboard() {
 
   const sb = getServiceRoleClient()
 
-  const [clientRes, draftsRes, crawlRes, calendarRes, artefactRes] = await Promise.all([
+  const [clientRes, draftsRes, crawlRes, calendarRes, artefactsRes, scoresRes] = await Promise.all([
     sb
       .from('wv_be_clients')
       .select('id, display_name, current_tier, trial_ends_at, metadata')
@@ -65,8 +65,13 @@ export default async function AppDashboard() {
     sb
       .from('wv_be_aeo_artefacts')
       .select('artefact_type, generated_at, hosting_mode')
+      .eq('client_id', currentTenantId),
+    sb
+      .from('wv_be_scores')
+      .select('scores, scored_at')
       .eq('client_id', currentTenantId)
-      .maybeSingle(),
+      .order('scored_at', { ascending: false })
+      .limit(10),
   ])
 
   const client = clientRes.data
@@ -78,7 +83,33 @@ export default async function AppDashboard() {
   const crawlRows = crawlRes.data ?? []
   const crawlCount = crawlRows.length
   const upcomingSlots = calendarRes.data ?? []
-  const aeoArtefact = artefactRes.data
+  const aeoArtefacts = artefactsRes.data ?? []
+  const aeoArtefact = aeoArtefacts[0] ?? null
+  const recentScores = scoresRes.data ?? []
+
+  // --- Brand Health Score v0 ---
+  const AEO_TYPES = ['llms_txt', 'brand_json'] as const
+  const FRESH_MS = 30 * 24 * 60 * 60 * 1000
+  const freshAeoCount = aeoArtefacts.filter(
+    (a) =>
+      (AEO_TYPES as readonly string[]).includes(a.artefact_type) &&
+      Date.now() - new Date(a.generated_at).getTime() < FRESH_MS,
+  ).length
+  const aeoCoverage = Math.round((freshAeoCount / AEO_TYPES.length) * 100)
+
+  const avgOverall =
+    recentScores.length > 0
+      ? recentScores.reduce((sum, s) => {
+          const sc = s.scores as Record<string, number> | null
+          return sum + (sc?.overall ?? 0)
+        }, 0) / recentScores.length
+      : 0
+  const voiceConsistency = Math.round(avgOverall * 10)
+
+  const isHealthScoreReady = freshAeoCount > 0 || recentScores.length > 0
+  const healthScore = isHealthScoreReady
+    ? Math.round((aeoCoverage + voiceConsistency) / 2)
+    : null
 
   const isProTier =
     client.current_tier === 'tool_pro' || client.current_tier === 'editorial_brand'
@@ -188,6 +219,46 @@ export default async function AppDashboard() {
 
       {/* Below-fold cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        {/* Brand Health Score */}
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 md:col-span-2">
+          <p className="text-xs uppercase tracking-widest text-zinc-500 mb-3">Brand Health Score</p>
+          {healthScore === null ? (
+            <p className="text-sm text-zinc-500">
+              Not enough data yet — set up your AEO surface and run your first draft to see your score.
+            </p>
+          ) : (
+            <div className="flex flex-wrap items-end gap-6">
+              <div>
+                <p className="text-5xl font-semibold text-zinc-50 tabular-nums leading-none">{healthScore}</p>
+                <p className="text-xs text-zinc-600 mt-1">out of 100</p>
+              </div>
+              <div className="flex flex-col gap-2 pb-0.5 flex-1 min-w-[200px]">
+                {([
+                  { label: 'AEO coverage', value: aeoCoverage },
+                  { label: 'Voice consistency', value: voiceConsistency },
+                ] as { label: string; value: number }[]).map(({ label, value }) => (
+                  <div key={label} className="flex items-center gap-3 text-xs">
+                    <span className="text-zinc-500 w-32 shrink-0">{label}</span>
+                    <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-zinc-400 rounded-full transition-all"
+                        style={{ width: `${value}%` }}
+                      />
+                    </div>
+                    <span className="text-zinc-300 tabular-nums w-8 text-right">{value}</span>
+                  </div>
+                ))}
+              </div>
+              {recentScores.length > 0 && (
+                <p className="text-xs text-zinc-600 self-end pb-0.5">
+                  voice: {recentScores.length} draft{recentScores.length !== 1 ? 's' : ''} scored
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+
         {/* Recent drafts */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
           <p className="text-xs uppercase tracking-widest text-zinc-500 mb-3">Recent drafts</p>
