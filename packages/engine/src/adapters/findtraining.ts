@@ -323,6 +323,28 @@ export async function getProviderAnalytics(
   return { totalViews, monthViews, weekViews, topClickType, recentClicks }
 }
 
+export async function getCategoryCountsByCountry(
+  countryCode: string
+): Promise<Record<string, number>> {
+  const supabase = await createFtClient()
+  // !inner join filters to only rows where the provider is in this country.
+  // profile_status excluded from filter — removed/opted_out are <1% of rows,
+  // and the count is a trust signal (approximate is fine).
+  const { data, error } = await supabase
+    .from('ft_provider_categories')
+    .select('category_id, ft_providers!inner(country_code)')
+    .eq('ft_providers.country_code', countryCode)
+  if (error) {
+    console.error('[getCategoryCountsByCountry]', error.message)
+    return {} // graceful fallback — category cards render without counts
+  }
+  const counts: Record<string, number> = {}
+  for (const row of (data ?? []) as { category_id: string }[]) {
+    counts[row.category_id] = (counts[row.category_id] ?? 0) + 1
+  }
+  return counts
+}
+
 export async function getDistinctCountries(): Promise<string[]> {
   const supabase = await createFtClient()
   const { data, error } = await supabase

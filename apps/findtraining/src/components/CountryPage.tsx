@@ -2,7 +2,7 @@
 // Each country's page.tsx passes its countryCode; this component fetches data + renders.
 
 import Link from 'next/link'
-import { getAllCategories, getFeaturedProviders, getCountryStats } from '@webvillage/engine/adapters/findtraining'
+import { getAllCategories, getFeaturedProviders, getCountryStats, getCategoryCountsByCountry } from '@webvillage/engine/adapters/findtraining'
 import type { FtCategory, FtProvider } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS, getOtherCountries } from '@/lib/countries'
 import type { CountryConfig } from '@/lib/countries'
@@ -31,10 +31,11 @@ export default async function CountryPage({ countryCode }: { countryCode: string
   const config: CountryConfig | undefined = COUNTRY_CONFIGS[countryCode]
   if (!config) return null
 
-  const [categories, featured, stats] = await Promise.all([
+  const [categories, featured, stats, categoryCounts] = await Promise.all([
     getAllCategories(),
     getFeaturedProviders(6, countryCode),
     getCountryStats(countryCode),
+    getCategoryCountsByCountry(countryCode),
   ])
 
   const otherCountries = getOtherCountries(countryCode)
@@ -159,15 +160,23 @@ export default async function CountryPage({ countryCode }: { countryCode: string
           <div className="max-w-6xl mx-auto">
             <h2 className="text-2xl font-bold text-gray-900 mb-8">Browse by Category</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {categories.map((cat: FtCategory) => (
-                <Link
-                  key={cat.id}
-                  href={`/categories/${cat.slug}?country=${config.code}`}
-                  className="block p-4 border border-gray-200 rounded-lg hover:border-brand-blue hover:shadow-sm transition-all"
-                >
-                  <span className="font-medium text-gray-900 text-sm">{cat.name}</span>
-                </Link>
-              ))}
+              {categories.map((cat: FtCategory) => {
+                const count = categoryCounts[cat.id] ?? 0
+                return (
+                  <Link
+                    key={cat.id}
+                    href={`/categories/${cat.slug}?country=${config.code}`}
+                    className="block p-4 border border-gray-200 rounded-lg hover:border-brand-blue hover:shadow-sm transition-all"
+                  >
+                    <span className="font-medium text-gray-900 text-sm block">{cat.name}</span>
+                    {count > 0 && (
+                      <span className="text-xs text-gray-500 mt-1 block">
+                        {count.toLocaleString()} provider{count !== 1 ? 's' : ''}
+                      </span>
+                    )}
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </section>
