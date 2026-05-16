@@ -45,10 +45,10 @@ export default function RootLayout({
               BrandHacker
             </Link>
             <Link
-              href="/waitlist"
+              href="/signup"
               className="inline-flex items-center gap-1.5 rounded-md bg-zinc-50 px-3.5 py-1.5 text-xs font-medium text-zinc-950 hover:bg-zinc-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
             >
-              Join waitlist
+              Start for free
             </Link>
           </div>
         </header>

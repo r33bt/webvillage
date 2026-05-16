@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
-import { colors } from '@/lib/design/tokens'
 
+export const runtime = 'edge'
 export const size = { width: 32, height: 32 }
 export const contentType = 'image/png'
 
@@ -9,21 +9,23 @@ export default function Icon() {
     (
       <div
         style={{
-          fontSize: 22,
-          background: colors.background,
-          color: colors.foreground,
-          width: '100%',
-          height: '100%',
+          width: 32,
+          height: 32,
+          background: '#fafafa',
+          borderRadius: 6,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontWeight: 600,
-          letterSpacing: '-0.05em',
+          fontSize: 18,
+          fontWeight: 700,
+          color: '#09090b',
+          letterSpacing: '-0.04em',
+          fontFamily: 'system-ui, -apple-system, sans-serif',
         }}
       >
         B
       </div>
     ),
-    { ...size }
+    { ...size },
   )
 }

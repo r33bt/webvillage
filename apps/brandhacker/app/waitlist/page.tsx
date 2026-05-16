@@ -49,9 +49,39 @@ export default function WaitlistPage() {
         </p>
 
         {state === 'done' ? (
-          <div className="mt-10 rounded-lg border border-emerald-800/60 bg-emerald-950/60 px-6 py-8 text-center">
-            <p className="text-emerald-300 font-medium">You are on the list.</p>
-            <p className="mt-2 text-sm text-emerald-400">We will be in touch.</p>
+          <div className="mt-10 space-y-8">
+            <div className="rounded-lg border border-emerald-800/60 bg-emerald-950/60 px-6 py-6">
+              <p className="text-emerald-300 font-medium">You are on the list.</p>
+              <p className="mt-1 text-sm text-emerald-400">We will be in touch when your spot is ready.</p>
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.15em] text-zinc-500 mb-4">While you wait</p>
+              <div className="space-y-3">
+                <a
+                  href="/case-study/v22-multibrand"
+                  className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900 px-5 py-4 text-sm text-zinc-300 hover:border-zinc-700 hover:text-zinc-50 transition-colors"
+                >
+                  <span>Read the V22 case study</span>
+                  <span className="text-zinc-600">→</span>
+                </a>
+                <a
+                  href="/pat/llms.txt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900 px-5 py-4 text-sm text-zinc-300 hover:border-zinc-700 hover:text-zinc-50 transition-colors"
+                >
+                  <span>See a live AEO surface ↗</span>
+                  <span className="text-zinc-600">→</span>
+                </a>
+                <a
+                  href="/login"
+                  className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900 px-5 py-4 text-sm text-zinc-300 hover:border-zinc-700 hover:text-zinc-50 transition-colors"
+                >
+                  <span>Already have an account? Sign in</span>
+                  <span className="text-zinc-600">→</span>
+                </a>
+              </div>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="mt-10 space-y-5">
