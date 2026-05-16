@@ -201,7 +201,7 @@ export default async function HomePage() {
       </section>
 
       {/* Featured Providers */}
-      {featured.length > 0 && (
+      {featured.length > 0 ? (
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-between mb-8">
@@ -238,6 +238,29 @@ export default async function HomePage() {
                   )}
                 </Link>
               ))}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="py-16 px-4 bg-gray-50">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl font-bold text-gray-900 mb-3">Claim Your Profile</h2>
+            <p className="text-gray-600 mb-8 max-w-xl mx-auto">
+              Your training company is already listed. Claim your profile to add courses, contact details, and appear as a featured provider.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                href="/founding"
+                className="inline-block bg-brand-blue text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Claim as Founding Member
+              </Link>
+              <Link
+                href="/providers"
+                className="inline-block bg-white border border-gray-300 text-gray-700 font-medium px-6 py-3 rounded-lg hover:border-gray-400 transition-colors"
+              >
+                Browse {stats.total.toLocaleString()} Providers →
+              </Link>
             </div>
           </div>
         </section>
