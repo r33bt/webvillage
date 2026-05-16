@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { ErrorToast } from '@/components/ui/ErrorToast'
 import type { ContentPillar, ContentPillarsMetadata, TopicStub } from '@/api/be/strategy/generate/route'
 
 const CHANNEL_DOT: Record<string, string> = {
@@ -133,12 +134,7 @@ export function StrategyClient({ slug, clientId, existing }: Props) {
       </div>
 
       {/* Error */}
-      {error && (
-        <div className="rounded-md bg-red-950 border border-red-800 px-4 py-3 text-sm text-red-300 flex justify-between">
-          <span>{error}</span>
-          <button onClick={() => setError(null)} className="text-red-500 hover:text-red-300 ml-4">✕</button>
-        </div>
-      )}
+      {error && <ErrorToast message={error} onDismiss={() => setError(null)} />}
 
       {/* Result banner after generation */}
       {strategy && (

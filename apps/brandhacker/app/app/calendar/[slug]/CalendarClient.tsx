@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useCallback, useRef, useState } from 'react'
+import { ErrorToast } from '@/components/ui/ErrorToast'
 import type { CalendarSlot } from './page'
 
 // ---------------------------------------------------------------------------
@@ -119,13 +120,17 @@ function buildHref(slug: string, params: Record<string, string>): string {
 function SlotCard({
   slot,
   dragging,
+  selected,
   onDragStart,
   onDragEnd,
+  onSelect,
 }: {
   slot: CalendarSlot
   dragging: boolean
+  selected: boolean
   onDragStart: (id: string) => void
   onDragEnd: () => void
+  onSelect: (id: string) => void
 }) {
   const colors = CHANNEL_COLORS[slot.channel] ?? 'bg-zinc-800 border-zinc-700 text-zinc-300'
   const badge = STATUS_BADGE[slot.status] ?? 'bg-zinc-800 text-zinc-400'
@@ -133,14 +138,27 @@ function SlotCard({
 
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-pressed={selected}
+      aria-label={`${slot.channel} slot: ${slot.topic_brief ?? slot.status}. ${selected ? 'Selected — click a day to move.' : 'Press Enter to select and move with keyboard.'}`}
       draggable
       onDragStart={() => onDragStart(slot.id)}
       onDragEnd={onDragEnd}
+      onClick={() => onSelect(slot.id)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onSelect(slot.id)
+        }
+      }}
       className={`
         border rounded-md p-2 cursor-grab active:cursor-grabbing select-none
         transition-opacity
         ${colors} ${ring}
         ${dragging ? 'opacity-40' : 'opacity-100'}
+        ${selected ? 'ring-2 ring-zinc-200 ring-offset-1 ring-offset-zinc-950' : ''}
+        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-zinc-400
       `}
     >
       <div className="flex items-center gap-1.5 mb-1">
@@ -159,33 +177,51 @@ function SlotCard({
 }
 
 // ---------------------------------------------------------------------------
-// DayCell (drop target for drag-to-reschedule)
+// DayCell (drop target for drag-to-reschedule + keyboard-select drop)
 // ---------------------------------------------------------------------------
 
 function DayCell({
   date,
   slots,
   draggingId,
+  selectedId,
   onDragStart,
   onDragEnd,
   onDrop,
+  onKeyDrop,
+  onSelect,
 }: {
   date: Date
   slots: CalendarSlot[]
   draggingId: string | null
+  selectedId: string | null
   onDragStart: (id: string) => void
   onDragEnd: () => void
   onDrop: (slotId: string, targetDate: Date) => void
+  onKeyDrop: (targetDate: Date) => void
+  onSelect: (id: string) => void
 }) {
   const [over, setOver] = useState(false)
   const today = isToday(date)
+  const isKeyDropTarget = selectedId !== null
 
   return (
     <div
+      role={isKeyDropTarget ? 'button' : undefined}
+      tabIndex={isKeyDropTarget ? 0 : undefined}
+      aria-label={isKeyDropTarget ? `Move slot to ${fmtDayHeader(date)}` : undefined}
+      onClick={() => { if (isKeyDropTarget) onKeyDrop(date) }}
+      onKeyDown={(e) => {
+        if (isKeyDropTarget && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault()
+          onKeyDrop(date)
+        }
+      }}
       className={`
         min-h-[120px] rounded-lg border p-2 flex flex-col gap-1.5 transition-colors
         ${today ? 'border-zinc-600' : 'border-zinc-800'}
         ${over && draggingId ? 'bg-zinc-800/60 border-zinc-600' : 'bg-zinc-950'}
+        ${isKeyDropTarget ? 'cursor-pointer hover:bg-zinc-900/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-zinc-500' : ''}
       `}
       onDragOver={(e) => {
         e.preventDefault()
@@ -206,8 +242,10 @@ function DayCell({
           key={s.id}
           slot={s}
           dragging={draggingId === s.id}
+          selected={selectedId === s.id}
           onDragStart={onDragStart}
           onDragEnd={onDragEnd}
+          onSelect={onSelect}
         />
       ))}
       {over && draggingId && (
@@ -215,33 +253,44 @@ function DayCell({
           <span className="text-xs text-zinc-500">Drop here</span>
         </div>
       )}
+      {isKeyDropTarget && !over && (
+        <div className="border border-dashed border-zinc-700 rounded-md h-6 flex items-center justify-center opacity-40">
+          <span className="text-xs text-zinc-600">Move here</span>
+        </div>
+      )}
     </div>
   )
 }
 
 // ---------------------------------------------------------------------------
-// 7-day view
+// 7-day view — MOB-1: responsive grid (stacked on mobile)
 // ---------------------------------------------------------------------------
 
 function SevenDayView({
   from,
   slots,
   draggingId,
+  selectedId,
   onDragStart,
   onDragEnd,
   onDrop,
+  onKeyDrop,
+  onSelect,
 }: {
   from: Date
   slots: CalendarSlot[]
   draggingId: string | null
+  selectedId: string | null
   onDragStart: (id: string) => void
   onDragEnd: () => void
   onDrop: (slotId: string, targetDate: Date) => void
+  onKeyDrop: (targetDate: Date) => void
+  onSelect: (id: string) => void
 }) {
   const days = Array.from({ length: 7 }, (_, i) => addDays(from, i))
 
   return (
-    <div className="grid grid-cols-7 gap-2">
+    <div className="grid grid-cols-1 sm:grid-cols-7 gap-2">
       {days.map((day) => {
         const daySlots = slots.filter((s) => isSameDay(new Date(s.scheduled_for), day))
         return (
@@ -250,9 +299,12 @@ function SevenDayView({
             date={day}
             slots={daySlots}
             draggingId={draggingId}
+            selectedId={selectedId}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
             onDrop={onDrop}
+            onKeyDrop={onKeyDrop}
+            onSelect={onSelect}
           />
         )
       })}
@@ -261,31 +313,35 @@ function SevenDayView({
 }
 
 // ---------------------------------------------------------------------------
-// 30-day view
+// 30-day view — MOB-1: overflow-x-auto wrapper for small screens
 // ---------------------------------------------------------------------------
 
 function ThirtyDayView({
   from,
   slots,
   draggingId,
+  selectedId,
   onDragStart,
   onDragEnd,
   onDrop,
+  onKeyDrop,
+  onSelect,
 }: {
   from: Date
   slots: CalendarSlot[]
   draggingId: string | null
+  selectedId: string | null
   onDragStart: (id: string) => void
   onDragEnd: () => void
   onDrop: (slotId: string, targetDate: Date) => void
+  onKeyDrop: (targetDate: Date) => void
+  onSelect: (id: string) => void
 }) {
-  // Calendar grid: start from the Monday of the week containing `from`
   const startOfGrid = new Date(from)
-  const dayOfWeek = startOfGrid.getDay() // 0=Sun
-  const offset = dayOfWeek === 0 ? 6 : dayOfWeek - 1 // shift to Mon-start
+  const dayOfWeek = startOfGrid.getDay()
+  const offset = dayOfWeek === 0 ? 6 : dayOfWeek - 1
   startOfGrid.setDate(startOfGrid.getDate() - offset)
 
-  // Build 5 weeks (35 days) grid
   const weeks: Date[][] = []
   let cursor = new Date(startOfGrid)
   for (let w = 0; w < 5; w++) {
@@ -300,39 +356,44 @@ function ThirtyDayView({
   const endDate = addDays(from, 30)
 
   return (
-    <div className="space-y-1">
-      {/* Day-of-week header */}
-      <div className="grid grid-cols-7 gap-1">
-        {([...DAY_LABELS.slice(1), DAY_LABELS[0] ?? 'Sun']).map((d) => (
-          <div key={d} className="text-center text-xs uppercase tracking-widest text-zinc-600 py-1">
-            {d}
+    <div className="overflow-x-auto">
+      <div className="min-w-[560px] space-y-1">
+        {/* Day-of-week header */}
+        <div className="grid grid-cols-7 gap-1">
+          {([...DAY_LABELS.slice(1), DAY_LABELS[0] ?? 'Sun']).map((d) => (
+            <div key={d} className="text-center text-xs uppercase tracking-widest text-zinc-600 py-1">
+              {d}
+            </div>
+          ))}
+        </div>
+
+        {/* Weeks */}
+        {weeks.map((week, wi) => (
+          <div key={wi} className="grid grid-cols-7 gap-1">
+            {week.map((day) => {
+              const inWindow = day >= from && day < endDate
+              const daySlots = inWindow
+                ? slots.filter((s) => isSameDay(new Date(s.scheduled_for), day))
+                : []
+
+              return (
+                <DayCell
+                  key={day.toISOString()}
+                  date={day}
+                  slots={daySlots}
+                  draggingId={draggingId}
+                  selectedId={inWindow ? selectedId : null}
+                  onDragStart={onDragStart}
+                  onDragEnd={onDragEnd}
+                  onDrop={onDrop}
+                  onKeyDrop={onKeyDrop}
+                  onSelect={onSelect}
+                />
+              )
+            })}
           </div>
         ))}
       </div>
-
-      {/* Weeks */}
-      {weeks.map((week, wi) => (
-        <div key={wi} className="grid grid-cols-7 gap-1">
-          {week.map((day) => {
-            const inWindow = day >= from && day < endDate
-            const daySlots = inWindow
-              ? slots.filter((s) => isSameDay(new Date(s.scheduled_for), day))
-              : []
-
-            return (
-              <DayCell
-                key={day.toISOString()}
-                date={day}
-                slots={daySlots}
-                draggingId={draggingId}
-                onDragStart={onDragStart}
-                onDragEnd={onDragEnd}
-                onDrop={onDrop}
-              />
-            )
-          })}
-        </div>
-      ))}
     </div>
   )
 }
@@ -345,12 +406,12 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
   const router = useRouter()
   const [slots, setSlots] = useState<CalendarSlot[]>(initialSlots)
   const [draggingId, setDraggingId] = useState<string | null>(null)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const reschedulingRef = useRef(false)
 
   const from = new Date(fromISO)
 
-  // Navigation helpers
   const navigate = useCallback(
     (params: Record<string, string>) => {
       router.push(buildHref(slug, params))
@@ -376,6 +437,21 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
 
   const setPlatform = (p: string) => navigate({ view, platform: p, from: from.toISOString().slice(0, 10) })
 
+  // Keyboard select: toggle slot selection; clicking a day drops it
+  const handleSelect = useCallback((id: string) => {
+    setSelectedId((prev) => (prev === id ? null : id))
+  }, [])
+
+  const handleKeyDrop = useCallback(
+    async (targetDate: Date) => {
+      if (!selectedId) return
+      setSelectedId(null)
+      await handleDrop(selectedId, targetDate)
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedId],
+  )
+
   // Drag-to-reschedule
   const handleDrop = useCallback(
     async (slotId: string, targetDate: Date) => {
@@ -390,7 +466,6 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
       reschedulingRef.current = true
       setError(null)
 
-      // Optimistic update
       setSlots((prev) =>
         prev.map((s) =>
           s.id === slotId
@@ -407,7 +482,6 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
         })
 
         if (!res.ok) {
-          // Rollback
           setSlots((prev) =>
             prev.map((s) => (s.id === slotId ? { ...s, scheduled_for: slot.scheduled_for, reschedule_count: slot.reschedule_count } : s)),
           )
@@ -426,7 +500,6 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
     [slots],
   )
 
-  // Window label
   const windowLabel =
     view === '30d'
       ? fmtMonthHeader(from)
@@ -483,6 +556,13 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
         </div>
       </div>
 
+      {/* Keyboard hint when a slot is selected */}
+      {selectedId && (
+        <p className="text-xs text-zinc-500" role="status">
+          Slot selected — click or press Enter on a day to move it. Press Escape or click the slot again to cancel.
+        </p>
+      )}
+
       {/* Platform filter */}
       <div className="flex flex-wrap gap-1">
         {PLATFORMS.map((p) => (
@@ -501,12 +581,7 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
       </div>
 
       {/* Error toast */}
-      {error && (
-        <div className="rounded-md bg-red-950 border border-red-800 px-4 py-2 text-sm text-red-300 flex justify-between">
-          <span>{error}</span>
-          <button onClick={() => setError(null)} className="text-red-500 hover:text-red-300 ml-4">✕</button>
-        </div>
-      )}
+      {error && <ErrorToast message={error} onDismiss={() => setError(null)} />}
 
       {/* Calendar grid */}
       {view === '7d' ? (
@@ -514,18 +589,24 @@ export function CalendarClient({ slug, view, platform, fromISO, slots: initialSl
           from={from}
           slots={slots}
           draggingId={draggingId}
+          selectedId={selectedId}
           onDragStart={setDraggingId}
           onDragEnd={() => setDraggingId(null)}
           onDrop={handleDrop}
+          onKeyDrop={handleKeyDrop}
+          onSelect={handleSelect}
         />
       ) : (
         <ThirtyDayView
           from={from}
           slots={slots}
           draggingId={draggingId}
+          selectedId={selectedId}
           onDragStart={setDraggingId}
           onDragEnd={() => setDraggingId(null)}
           onDrop={handleDrop}
+          onKeyDrop={handleKeyDrop}
+          onSelect={handleSelect}
         />
       )}
 

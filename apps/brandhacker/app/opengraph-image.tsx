@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { colors } from '@/lib/design/tokens'
 
 export const runtime = 'edge'
 export const alt = 'BrandHacker — One brand. Every surface.'
@@ -10,7 +11,7 @@ export default function OGImage() {
     (
       <div
         style={{
-          background: '#09090b',
+          background: colors.background,
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -49,7 +50,7 @@ export default function OGImage() {
             style={{
               fontSize: '22px',
               fontWeight: 600,
-              color: '#fafafa',
+              color: colors.foreground,
               letterSpacing: '-0.02em',
             }}
           >
@@ -69,7 +70,7 @@ export default function OGImage() {
             style={{
               fontSize: '72px',
               fontWeight: 700,
-              color: '#fafafa',
+              color: colors.foreground,
               letterSpacing: '-0.04em',
               lineHeight: 1.05,
             }}
@@ -81,7 +82,7 @@ export default function OGImage() {
           <div
             style={{
               fontSize: '28px',
-              color: '#a1a1aa',
+              color: colors.muted,
               letterSpacing: '-0.01em',
               lineHeight: 1.4,
             }}
@@ -94,7 +95,7 @@ export default function OGImage() {
         <div
           style={{
             fontSize: '18px',
-            color: '#52525b',
+            color: colors.mutedDark,
             letterSpacing: '0.04em',
           }}
         >
