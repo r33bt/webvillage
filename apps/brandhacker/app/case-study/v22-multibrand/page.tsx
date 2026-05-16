@@ -438,7 +438,7 @@ export default function CaseStudyPage() {
         <div className="space-y-6 text-zinc-300 leading-relaxed">
           <p>
             BrandHacker is the product. It is the substrate, the surfaces, the gates,
-            the audit log. Self-serve. $99/month Starter, $249/month Pro, fourteen-day
+            the audit log. Self-serve. $99/month Starter, $249/month Pro, 14-day
             trial.
           </p>
           <p>
