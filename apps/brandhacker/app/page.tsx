@@ -1,6 +1,9 @@
 import Link from 'next/link'
 import { Section } from './components/Section'
 import { PricingCard } from './components/PricingCard'
+import { getServiceRoleClient } from '@/lib/supabase'
+
+export const revalidate = 3600
 
 export const metadata = {
   title: 'BrandHacker — One brand. Every surface.',
@@ -92,7 +95,25 @@ const WEBSITE_JSON_LD = {
   },
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  let brandsCount = 0
+  let draftsCount = 0
+  let crawlsCount = 0
+  try {
+    const sb = getServiceRoleClient()
+    const [br, dr, cr] = await Promise.all([
+      sb.from('wv_be_clients').select('id', { count: 'exact', head: true }).is('deleted_at', null),
+      sb.from('wv_be_drafts').select('id', { count: 'exact', head: true }),
+      sb.from('wv_be_aeo_crawl_log').select('id', { count: 'exact', head: true })
+        .gte('occurred_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()),
+    ])
+    brandsCount = br.count ?? 0
+    draftsCount = dr.count ?? 0
+    crawlsCount = cr.count ?? 0
+  } catch {
+    // stats are cosmetic — fail silently
+  }
+
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-50">
       <script
@@ -145,6 +166,26 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* STATS */}
+      {(brandsCount > 0 || draftsCount > 0) && (
+        <div className="border-y border-zinc-900">
+          <div className="mx-auto max-w-5xl px-6 sm:px-8 py-8 grid grid-cols-3 gap-4 text-center">
+            <div>
+              <p className="text-3xl font-semibold text-zinc-50 tabular-nums">{brandsCount}</p>
+              <p className="text-sm text-zinc-500 mt-1">brands managed</p>
+            </div>
+            <div>
+              <p className="text-3xl font-semibold text-zinc-50 tabular-nums">{draftsCount}</p>
+              <p className="text-sm text-zinc-500 mt-1">drafts scored</p>
+            </div>
+            <div>
+              <p className="text-3xl font-semibold text-zinc-50 tabular-nums">{crawlsCount}</p>
+              <p className="text-sm text-zinc-500 mt-1">AI crawl hits (30d)</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* PROBLEM */}
       <Section
@@ -278,21 +319,21 @@ export default function HomePage() {
       {/* PRICING */}
       <Section
         eyebrow="Pricing"
-        heading="Two tiers and a free trial."
-        intro="No credit card on the trial. Cancel any time."
+        heading="Start free. Upgrade when ready."
+        intro="No card required. Upgrade any time."
       >
         <div className="grid gap-4 sm:grid-cols-3">
           <PricingCard
-            name="Free Trial"
+            name="Free"
             price="$0"
-            period="/ 14 days"
-            blurb="Full feature access. No card. Day-12 and day-14 nudge before it ends."
-            ctaHref="/waitlist"
-            ctaLabel="Get early access"
+            period="/ always"
+            blurb="One brand. AEO surface included. No card required."
+            ctaHref="/signup"
+            ctaLabel="Start for free"
             features={[
               '1 brand',
-              '50 drafts',
-              'All web + social + AI surfaces',
+              '20 drafts / month',
+              'AEO surface (llms.txt + brand.json)',
               'No credit card required',
             ]}
           />

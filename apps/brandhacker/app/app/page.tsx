@@ -37,7 +37,7 @@ export default async function AppDashboard() {
 
   const sb = getServiceRoleClient()
 
-  const [clientRes, draftsRes, crawlRes, calendarRes, artefactsRes, scoresRes] = await Promise.all([
+  const [clientRes, draftsRes, crawlRes, calendarRes, artefactsRes, scoresRes, voiceRes] = await Promise.all([
     sb
       .from('wv_be_clients')
       .select('id, display_name, current_tier, trial_ends_at, metadata')
@@ -74,6 +74,11 @@ export default async function AppDashboard() {
       .eq('client_id', currentTenantId)
       .order('scored_at', { ascending: false })
       .limit(10),
+    sb
+      .from('wv_be_voice_profiles')
+      .select('version')
+      .eq('client_id', currentTenantId)
+      .maybeSingle(),
   ])
 
   const client = clientRes.data
@@ -123,6 +128,18 @@ export default async function AppDashboard() {
   }, {})
 
   const isOnboarding = recentDrafts.length === 0 && !aeoArtefact
+
+  const hasVoiceProfile = !!voiceRes.data
+  const hasDraft = recentDrafts.length > 0
+  const hasAeoArtefact = !!aeoArtefact
+  const stepsDone = [true, hasVoiceProfile, hasDraft, hasAeoArtefact].filter(Boolean).length
+  const stepsTotal = 4
+  const nextAction: { label: string; href: string; external?: boolean } | null =
+    !hasVoiceProfile ? { label: 'Set up voice profile', href: '/app/onboarding' }
+    : !hasDraft ? { label: 'Generate your first draft', href: '/app/onboarding' }
+    : !hasAeoArtefact && slug ? { label: 'View your AEO surface', href: `/${slug}/llms.txt`, external: true }
+    : null
+
   const trialEndsAt = client.trial_ends_at ? new Date(client.trial_ends_at) : null
   const daysLeft = trialEndsAt
     ? Math.max(0, Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
@@ -152,43 +169,48 @@ export default async function AppDashboard() {
         )}
       </div>
 
-      {/* Hero card */}
+      {/* Setup checklist */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 mb-6">
-        {isOnboarding ? (
-          <div className="space-y-3">
-            <p className="text-sm font-medium text-zinc-200">Draft your first post</p>
-            <p className="text-sm text-zinc-400">
-              Complete onboarding to set up your voice profile — then generate content on-brand.
-            </p>
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-xs uppercase tracking-widest text-zinc-500">Getting started</p>
+          <span className="text-xs text-zinc-600">{stepsDone} / {stepsTotal}</span>
+        </div>
+        <div className="space-y-3">
+          {([
+            { done: true, label: 'Account created', href: null },
+            { done: hasVoiceProfile, label: 'Voice profile set up', href: '/app/onboarding' },
+            { done: hasDraft, label: 'First draft generated', href: '/app/onboarding' },
+            { done: hasAeoArtefact, label: 'AEO surface published', href: slug ? `/${slug}/llms.txt` : null, external: true },
+          ] as { done: boolean; label: string; href: string | null; external?: boolean }[]).map(({ done, label, href, external }) => (
+            <div key={label} className="flex items-center gap-3">
+              <div className={`w-4 h-4 rounded-full border flex-none flex items-center justify-center text-[9px] font-bold ${done ? 'bg-emerald-500 border-emerald-500 text-zinc-950' : 'border-zinc-600 text-transparent'}`}>
+                ✓
+              </div>
+              {href && !done ? (
+                <Link href={href} target={external ? '_blank' : undefined} className="text-sm text-zinc-400 hover:text-zinc-200 underline decoration-zinc-700 transition-colors">
+                  {label}
+                </Link>
+              ) : (
+                <span className={`text-sm ${done ? 'text-zinc-300' : 'text-zinc-500'}`}>{label}</span>
+              )}
+            </div>
+          ))}
+        </div>
+        {nextAction && (
+          <div className="mt-5 pt-4 border-t border-zinc-800">
             <Link
-              href="/app/onboarding"
+              href={nextAction.href}
+              target={nextAction.external ? '_blank' : undefined}
               className="inline-flex items-center text-sm font-medium text-zinc-50 bg-zinc-800 hover:bg-zinc-700 rounded-lg px-4 py-2 transition-colors"
             >
-              Complete onboarding →
+              {nextAction.label} →
             </Link>
           </div>
-        ) : !aeoArtefact ? (
-          <div className="space-y-3">
-            <p className="text-sm font-medium text-zinc-200">Publish your AEO factsheet</p>
-            <p className="text-sm text-zinc-400">
-              ChatGPT and Perplexity read this when asked about your brand.
-            </p>
-            <Link
-              href={`/${slug}/llms.txt`}
-              target="_blank"
-              className="inline-flex items-center text-sm font-medium text-zinc-50 bg-zinc-800 hover:bg-zinc-700 rounded-lg px-4 py-2 transition-colors"
-            >
-              View AEO surface ↗
-            </Link>
-          </div>
-        ) : (
-          <div>
-            <p className="text-sm font-medium text-zinc-200 mb-1">AI crawl activity</p>
-            <p className="text-sm text-zinc-400">
-              {crawlCount > 0
-                ? `Your /llms.txt was fetched ${crawlCount} ${crawlCount === 1 ? 'time' : 'times'} this week.`
-                : 'No AI crawler hits yet this week. Check back after robots.txt lifts.'}
-            </p>
+        )}
+        {isOnboarding && (
+          <div className="mt-3 flex flex-wrap gap-4 text-xs text-zinc-600">
+            <a href="/case-study/v22-multibrand" className="hover:text-zinc-400 transition-colors underline">See the case study</a>
+            {slug && <a href={`/${slug}/llms.txt`} target="_blank" rel="noopener noreferrer" className="hover:text-zinc-400 transition-colors underline">View a live AEO surface ↗</a>}
           </div>
         )}
       </div>
