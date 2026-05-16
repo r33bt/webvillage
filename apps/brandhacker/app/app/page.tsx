@@ -9,6 +9,7 @@ export const dynamic = 'force-dynamic'
 
 function TierBadge({ tier }: { tier: string }) {
   const labels: Record<string, string> = {
+    free: 'Free',
     free_trial: 'Trial',
     tool_starter: 'Starter',
     tool_pro: 'Pro',
@@ -138,6 +139,9 @@ export default async function AppDashboard() {
             <TierBadge tier={client.current_tier} />
             {daysLeft !== null && (
               <span className="text-xs text-zinc-600">· {daysLeft} days left in trial</span>
+            )}
+            {client.current_tier === 'free' && (
+              <Link href="/waitlist" className="text-xs text-zinc-500 hover:text-zinc-300 underline transition-colors">· Upgrade</Link>
             )}
           </div>
         </div>

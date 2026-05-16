@@ -19,9 +19,9 @@ export default async function SignupPage({
           <a href="/" className="text-sm font-semibold tracking-tight text-zinc-50">
             BrandHacker
           </a>
-          <h1 className="mt-6 text-2xl font-semibold text-zinc-50">Start your free trial</h1>
+          <h1 className="mt-6 text-2xl font-semibold text-zinc-50">Start for free</h1>
           <p className="mt-2 text-sm text-zinc-400">
-            14 days free. No card required. Enter your email to begin.
+            No card required. Free forever. Enter your email to begin.
           </p>
         </div>
 

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import type { ClientRow } from '../lib/supabase'
 
 const TIER_LABELS: Record<string, string> = {
+  free: 'Free',
   free_trial: 'Trial',
   tool_starter: 'Starter',
   tool_pro: 'Pro',

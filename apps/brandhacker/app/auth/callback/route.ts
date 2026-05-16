@@ -73,8 +73,7 @@ export async function GET(request: NextRequest) {
       .from('wv_be_clients')
       .insert({
         display_name: displayName,
-        current_tier: 'free_trial',
-        trial_ends_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+        current_tier: 'free',
         lifecycle_stage: 'onboarding',
         metadata: { slug },
       })

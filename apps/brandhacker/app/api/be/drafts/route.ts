@@ -448,6 +448,24 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  // Free tier: 20 drafts/month cap
+  if (client.current_tier === 'free') {
+    const monthStart = new Date()
+    monthStart.setUTCDate(1)
+    monthStart.setUTCHours(0, 0, 0, 0)
+    const { count } = await sb
+      .from('wv_be_drafts')
+      .select('id', { count: 'exact', head: true })
+      .eq('client_id', client_id)
+      .gte('generated_at', monthStart.toISOString())
+    if ((count ?? 0) >= 20) {
+      return Response.json(
+        { error: 'Free plan limit reached — 20 drafts per month. Upgrade to Starter for unlimited drafts.' },
+        { status: 429 },
+      )
+    }
+  }
+
   // 5. Load voice profile
   const { data: vp, error: vpErr } = await sb
     .from('wv_be_voice_profiles')
