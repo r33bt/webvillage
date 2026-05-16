@@ -66,7 +66,7 @@ async function sendFoundingConfirmation(data: {
         '',
         "Here's what happens next:",
         '',
-        '1. We will personally review your application within 48 hours.',
+        '1. We will personally review your application within 24 hours.',
         '2. Once confirmed, we will send you a payment link for RM 100/mo.',
         '3. No payment is taken until we confirm your slot.',
         '',

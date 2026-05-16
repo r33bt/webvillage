@@ -8,11 +8,11 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Founding Member — List Your Training Company',
-  description: "Be first on Malaysia's HRDF training directory. Founding slots at RM 100/mo locked for life — vs RM 300/mo when we launch publicly.",
+  description: "Malaysia's HRDF training directory is live — 5,690 providers listed. Founding slots at RM 100/mo locked for life. 50 slots only.",
   alternates: { canonical: 'https://findtraining.com/founding' },
   openGraph: {
     title: 'Founding Member — List Your Training Company on FindTraining',
-    description: 'Founding slots at RM 100/mo locked for life. Be first on Malaysia\'s HRDF training directory.',
+    description: "Malaysia's HRDF training directory is live — 5,690 providers listed. Get found by HR managers at RM 100/mo, locked for life.",
     url: 'https://findtraining.com/founding',
   },
   robots: { index: false },
@@ -60,7 +60,7 @@ const NEXT_STEPS = [
   {
     step: '2',
     title: 'Claim your profile',
-    detail: "We confirm your slot within 48 hours, then you build out your full provider profile — courses, HRDF number, contact details.",
+    detail: "We confirm your slot within 24 hours and send your payment link. Once paid, you build out your full provider profile — courses, HRDF number, contact details.",
   },
   {
     step: '3',

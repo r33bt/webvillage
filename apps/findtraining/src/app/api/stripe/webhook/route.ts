@@ -18,10 +18,49 @@ function getServiceClient() {
   )
 }
 
+async function handleFoundingCheckoutCompleted(
+  session: Stripe.Checkout.Session,
+  supabase: ReturnType<typeof getServiceClient>
+) {
+  const foundingMemberId = session.metadata?.founding_member_id
+  const customerId = typeof session.customer === 'string' ? session.customer : session.customer?.id
+  const subscriptionId =
+    typeof session.subscription === 'string' ? session.subscription : session.subscription?.id
+
+  if (!foundingMemberId || !customerId || !subscriptionId) {
+    console.error('[webhook] founding checkout.completed: missing metadata', {
+      foundingMemberId,
+      customerId,
+      subscriptionId,
+    })
+    return
+  }
+
+  const { error } = await supabase
+    .from('ft_founding_members')
+    .update({
+      status: 'paid',
+      stripe_customer_id: customerId,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', foundingMemberId)
+
+  if (error) {
+    console.error('[webhook] DB update error (founding checkout.completed):', error.message)
+  } else {
+    console.log(`[webhook] Founding member ${foundingMemberId} paid (sub: ${subscriptionId})`)
+  }
+}
+
 async function handleCheckoutCompleted(
   session: Stripe.Checkout.Session,
   supabase: ReturnType<typeof getServiceClient>
 ) {
+  // Route founding member payments separately
+  if (session.metadata?.plan === 'founding' || session.metadata?.founding_member_id) {
+    return handleFoundingCheckoutCompleted(session, supabase)
+  }
+
   const providerId = session.metadata?.provider_id
   const plan = session.metadata?.plan as StripePlan | undefined
   const customerId = typeof session.customer === 'string' ? session.customer : session.customer?.id

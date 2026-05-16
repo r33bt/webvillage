@@ -15,7 +15,7 @@ type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error'
 const FAQS = [
   {
     q: 'When do I pay?',
-    a: 'After we confirm your slot and before launch. We will send you a payment link — no money changes hands until we personally review your application.',
+    a: 'After we confirm your slot. We review every application personally and send you a payment link within 24 hours — no money changes hands until we confirm.',
   },
   {
     q: 'What if I am not happy?',
@@ -95,7 +95,7 @@ export function FoundingFormCard({ foundingCount, totalSlots }: { foundingCount:
           </svg>
         </div>
         <h3 className="text-xl font-bold text-gray-900 mb-2">You&apos;re on the list</h3>
-        <p className="text-sm text-gray-600">We&apos;ll be in touch within 48 hours to confirm your founding slot and next steps.</p>
+        <p className="text-sm text-gray-600">We&apos;ll be in touch within 24 hours to confirm your founding slot and send your payment link.</p>
       </div>
     )
   }

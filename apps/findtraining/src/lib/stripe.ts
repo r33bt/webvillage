@@ -6,6 +6,12 @@ import Stripe from 'stripe'
 
 // Prices in MYR cents (100 = RM 1.00)
 export const STRIPE_PRICES = {
+  founding: {
+    amount: 10000,  // RM 100.00 — locked for life, first 50 slots only
+    currency: 'myr',
+    interval: 'month' as const,
+    name: 'FindTraining Founding Member',
+  },
   starter: {
     amount: 30000,  // RM 300.00
     currency: 'myr',
@@ -23,7 +29,8 @@ export const STRIPE_PRICES = {
 export type StripePlan = keyof typeof STRIPE_PRICES
 
 // Tier map: Stripe plan → ft_providers.tier
-export const PLAN_TO_TIER: Record<StripePlan, 'starter' | 'pro'> = {
+export const PLAN_TO_TIER: Record<StripePlan, 'founding' | 'starter' | 'pro'> = {
+  founding: 'founding',
   starter: 'starter',
   pro: 'pro',
 }
