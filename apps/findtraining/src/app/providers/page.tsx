@@ -108,10 +108,20 @@ export default async function ProvidersPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Training Providers</h1>
-      <p className="text-gray-500 mb-8">
-        {total.toLocaleString()} HRDF-registered and certified corporate training organisations in Malaysia.
-      </p>
+      <h1 className="text-3xl font-bold text-gray-900 mb-3">Training Providers</h1>
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-1 mb-8 text-sm text-gray-500">
+        <span>
+          <strong className="text-[#0F6FEC] text-xl font-bold">{total.toLocaleString()}</strong>{' '}
+          providers
+        </span>
+        <span className="text-gray-300 hidden sm:inline">·</span>
+        <span>
+          <strong className="text-[#0F6FEC] text-xl font-bold">{availableCountries.length}</strong>{' '}
+          countries
+        </span>
+        <span className="text-gray-300 hidden sm:inline">·</span>
+        <span className="text-gray-400">Updated daily</span>
+      </div>
 
       {/* Country filter */}
       {availableCountries.length > 1 && (
@@ -160,7 +170,12 @@ export default async function ProvidersPage({
               >
                 <div className="flex items-start gap-3">
                   {provider.logo_url && (
-                    <img src={provider.logo_url} alt="" className="w-12 h-12 rounded object-contain flex-shrink-0" />
+                    <img
+                      src={provider.logo_url}
+                      alt={cleanName(provider.name)}
+                      className="w-12 h-12 rounded object-contain flex-shrink-0"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                    />
                   )}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-1">

@@ -2,10 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight, CheckCircle2, MapPin, Sparkles, CheckCircle } from 'lucide-react'
-import { getProviderBySlug, getCoursesByProvider } from '@webvillage/engine/adapters/findtraining'
-import type { FtCourse } from '@webvillage/engine/types/ft'
+import { getProviderBySlug, getCoursesByProvider, getRelatedProviders } from '@webvillage/engine/adapters/findtraining'
+import type { FtCourse, FtProvider } from '@webvillage/engine/types/ft'
 import { ContactLinks } from './ContactLinks'
 import { EnquiryForm } from '@/components/EnquiryForm'
+import { ShareButtons } from './ShareButtons'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -115,10 +116,16 @@ export default async function ProviderPage({ params }: Props) {
   }
 
   let courses: FtCourse[] = []
+  let related: FtProvider[] = []
   try {
     courses = await getCoursesByProvider(provider.id)
   } catch {
     courses = []
+  }
+  try {
+    related = await getRelatedProviders(provider.id, provider.categories ?? [])
+  } catch {
+    related = []
   }
 
   const showContactInfo = PAID_TIERS.has(provider.tier) && provider.claimed
@@ -169,7 +176,7 @@ export default async function ProviderPage({ params }: Props) {
         {/* Header */}
         <header className="mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight mb-2">{provider.name}</h1>
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 mb-3">
             {provider.hrdf_status === 'registered' && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-[#00C48C]/10 text-[#00C48C]">
                 <CheckCircle className="w-3 h-3" aria-hidden="true" /> HRDF Registered
@@ -190,6 +197,10 @@ export default async function ProviderPage({ params }: Props) {
               </span>
             )}
           </div>
+          <ShareButtons
+            url={`https://findtraining.com/providers/${slug}`}
+            title={provider.name}
+          />
         </header>
 
         {/* Two-column layout */}
@@ -198,9 +209,20 @@ export default async function ProviderPage({ params }: Props) {
             {/* About */}
             <section className="bg-white border border-gray-200 rounded-xl p-6">
               <h2 className="text-base font-semibold text-gray-900 mb-3">About</h2>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {provider.description ?? 'HRDF-registered training provider in Malaysia.'}
-              </p>
+              {provider.description ? (
+                <p className="text-gray-600 text-sm leading-relaxed">{provider.description}</p>
+              ) : provider.claimed ? (
+                <p className="text-gray-400 text-sm italic">No description added yet.</p>
+              ) : (
+                <>
+                  <p className="text-gray-500 text-sm leading-relaxed mb-2">
+                    HRDF-registered training provider in Malaysia.
+                  </p>
+                  <Link href={`/claim/${provider.slug}`} className="inline-flex items-center gap-1 text-xs text-[#0F6FEC] hover:underline">
+                    Own this listing? Add your profile description <ArrowRight className="w-3 h-3" aria-hidden="true" />
+                  </Link>
+                </>
+              )}
             </section>
 
             {/* Categories */}
@@ -359,6 +381,42 @@ export default async function ProviderPage({ params }: Props) {
             )}
           </aside>
         </div>
+
+        {/* Related Providers */}
+        {related.length > 0 && (
+          <section className="mt-10">
+            <h2 className="text-base font-semibold text-gray-900 mb-4">Also in this category</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {related.map((rel) => {
+                const firstCat = rel.categories?.[0]
+                const catLabel = firstCat
+                  ? (CATEGORY_SLUG_MAP[firstCat] ?? firstCat).split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+                  : null
+                return (
+                  <Link
+                    key={rel.id}
+                    href={`/providers/${rel.slug}`}
+                    className="block bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow"
+                  >
+                    <div className="flex items-center gap-3 mb-2">
+                      {rel.logo_url && (
+                        <img
+                          src={rel.logo_url}
+                          alt=""
+                          className="w-8 h-8 rounded object-contain flex-shrink-0"
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                        />
+                      )}
+                      <p className="text-sm font-semibold text-gray-900 line-clamp-2 leading-snug">{rel.name}</p>
+                    </div>
+                    {rel.state && <p className="text-xs text-gray-400">{rel.state}</p>}
+                    {catLabel && <p className="text-xs text-blue-600 mt-1">{catLabel}</p>}
+                  </Link>
+                )
+              })}
+            </div>
+          </section>
+        )}
       </div>
     </>
   )

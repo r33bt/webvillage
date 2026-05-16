@@ -412,6 +412,28 @@ export async function getCategoryCountsByCountry(
   return counts
 }
 
+export async function getRelatedProviders(
+  providerId: string,
+  categories: string[],
+  limit = 4
+): Promise<FtProvider[]> {
+  if (categories.length === 0) return []
+  const supabase = await createFtClient()
+  const { data, error } = await supabase
+    .from('ft_providers')
+    .select('*')
+    .overlaps('categories', categories)
+    .neq('id', providerId)
+    .not('profile_status', 'in', '("removed","opted_out")')
+    .order('tier', { ascending: false })
+    .limit(limit)
+  if (error) {
+    console.error('[getRelatedProviders]', error.message)
+    return []
+  }
+  return (data ?? []) as FtProvider[]
+}
+
 export async function getDistinctCountries(): Promise<string[]> {
   const supabase = await createFtClient()
   const { data, error } = await supabase

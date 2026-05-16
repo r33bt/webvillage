@@ -1,6 +1,6 @@
 'use client'
 
-import { Mail, Phone, Globe, ExternalLink } from 'lucide-react'
+import { Mail, Phone, Globe, ExternalLink, MessageCircle } from 'lucide-react'
 
 interface ContactLinksProps {
   providerId: string
@@ -9,7 +9,7 @@ interface ContactLinksProps {
   website: string | null
 }
 
-async function trackClick(providerId: string, clickType: 'email' | 'phone' | 'website') {
+async function trackClick(providerId: string, clickType: 'email' | 'phone' | 'website' | 'whatsapp') {
   try {
     await fetch('/api/contact-click', {
       method: 'POST',
@@ -19,6 +19,13 @@ async function trackClick(providerId: string, clickType: 'email' | 'phone' | 'we
   } catch {
     // Non-blocking
   }
+}
+
+function formatWhatsAppNumber(phone: string): string {
+  const digits = phone.replace(/\D/g, '')
+  if (digits.startsWith('60')) return digits
+  if (digits.startsWith('0')) return '60' + digits.slice(1)
+  return digits
 }
 
 export function ContactLinks({ providerId, email, phone, website }: ContactLinksProps) {
@@ -45,6 +52,20 @@ export function ContactLinks({ providerId, email, phone, website }: ContactLinks
           >
             <Phone className="w-4 h-4 text-gray-400 group-hover:text-[#0F6FEC] flex-shrink-0" aria-hidden="true" />
             <span>{phone}</span>
+          </a>
+        </li>
+      )}
+      {phone && (
+        <li>
+          <a
+            href={`https://wa.me/${formatWhatsAppNumber(phone)}`}
+            onClick={() => trackClick(providerId, 'whatsapp')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-sm text-gray-700 hover:text-[#25D366] transition-colors group"
+          >
+            <MessageCircle className="w-4 h-4 text-gray-400 group-hover:text-[#25D366] flex-shrink-0" aria-hidden="true" />
+            <span>WhatsApp</span>
           </a>
         </li>
       )}
