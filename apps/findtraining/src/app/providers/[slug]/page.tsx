@@ -38,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${provider.name} | FindTraining Malaysia`,
       description: `${catLabel ?? 'HRDF-registered training provider'}${provider.state ? ` in ${provider.state}` : ''}. Find courses and contact details.`,
+      url: `https://findtraining.com/providers/${slug}`,
       images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
     },
     alternates: { canonical: `https://findtraining.com/providers/${slug}` },
