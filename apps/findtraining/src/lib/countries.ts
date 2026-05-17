@@ -92,7 +92,7 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
       },
       {
         q: 'Can I list my training company on FindTraining?',
-        a: "If your company is registered with HRD Corp, you are already listed. Claim your profile to add contact details, courses, and a company description. Visit our founding member page for early access pricing.",
+        a: "If your company is registered with HRD Corp, you are already listed. Claim your profile to add contact details, courses, and a company description. Visit our founding member page for the RM 100/mo founding rate — 50 slots only.",
       },
     ],
     pricingCTA: { currency: 'RM', starterRange: '200–300/mo' },
