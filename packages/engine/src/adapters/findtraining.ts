@@ -79,7 +79,22 @@ export async function searchProviders(
   if (filters.category)    query = query.eq('ft_provider_categories.ft_categories.slug', filters.category)
   if (filters.state)       query = query.ilike('state', filters.state)
   if (filters.delivery)    query = query.contains('delivery_methods', [filters.delivery])
-  if (filters.query)       query = query.ilike('name', `%${filters.query}%`)
+  if (filters.query) {
+    // Block PostgREST or() syntax chars: , . ( ) * %  (% is our wildcard)
+    const cleanQuery = filters.query.trim().replace(/[,.()*%]/g, ' ').trim()
+    const tokens = cleanQuery.split(/\s+/).filter((t) => t.length >= 2)
+    if (tokens.length === 1) {
+      // Single-token: name OR state OR description
+      const t = tokens[0]
+      query = query.or(`name.ilike.%${t}%,state.ilike.%${t}%,description.ilike.%${t}%`)
+    } else if (tokens.length > 1) {
+      // Multi-token: every token must appear in name OR state OR description
+      // (AND of per-token ORs — Supabase chains .or() as AND)
+      for (const t of tokens) {
+        query = query.or(`name.ilike.%${t}%,state.ilike.%${t}%,description.ilike.%${t}%`)
+      }
+    }
+  }
   if (filters.country_code) query = query.eq('country_code', filters.country_code)
 
   query = query
