@@ -4,9 +4,9 @@ import { notFound } from 'next/navigation'
 import { ArrowRight, CheckCircle2, MapPin, Sparkles, CheckCircle } from 'lucide-react'
 import { getProviderBySlug, getCoursesByProvider, getRelatedProviders } from '@webvillage/engine/adapters/findtraining'
 import type { FtCourse, FtProvider } from '@webvillage/engine/types/ft'
+import { COUNTRY_CONFIGS } from '@/lib/countries'
 import { ContactLinks } from './ContactLinks'
 import { EnquiryForm } from '@/components/EnquiryForm'
-import { ShareButtons } from './ShareButtons'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -43,8 +43,6 @@ const CATEGORY_SLUG_MAP: Record<string, string> = {
   'engineering_technical': 'engineering-technical',
   'engineering-technical': 'engineering-technical',
   'healthcare': 'healthcare',
-  'general_training': 'it-training',
-  'apprenticeship_training': 'sales-marketing',
 }
 
 const TIER_BADGES: Record<string, { label: string; className: string }> = {
@@ -62,17 +60,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const catLabel = provider.categories?.[0]
     ? provider.categories[0].split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
     : null
+  const countryName = COUNTRY_CONFIGS[provider.country_code]?.name ?? 'Malaysia'
+  const providerLabel = catLabel
+    ? `a ${catLabel} training provider`
+    : provider.country_code === 'MY'
+      ? 'an HRDF-registered training provider'
+      : 'a training provider'
+  const locationLabel = provider.state ? `${provider.state}, ${countryName}` : countryName
 
   return {
     title: provider.name,
-    description: [
-      `Find and contact ${provider.name},`,
-      catLabel ? `a ${catLabel} training provider` : 'an HRDF-registered training provider',
-      provider.state ? `in ${provider.state}, Malaysia.` : 'in Malaysia.',
-    ].join(' '),
+    description: `Find and contact ${provider.name}, ${providerLabel} in ${locationLabel}.`,
     openGraph: {
-      title: `${provider.name} | FindTraining Malaysia`,
-      description: `${catLabel ?? 'HRDF-registered training provider'}${provider.state ? ` in ${provider.state}` : ''}. Find courses and contact details.`,
+      title: `${provider.name} | FindTraining`,
+      description: `${catLabel ?? providerLabel}${provider.state ? ` in ${provider.state}, ${countryName}` : ` in ${countryName}`}. Find courses and contact details.`,
       url: `https://findtraining.com/providers/${slug}`,
       images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
     },
@@ -133,6 +134,10 @@ export default async function ProviderPage({ params }: Props) {
   const showEnquiryTeaser = !PAID_TIERS.has(provider.tier) && provider.claimed
   const tierBadge = TIER_BADGES[provider.tier] ?? TIER_BADGES.free
   const isVerified = provider.profile_status === 'claimed' || provider.profile_status === 'active'
+  const countryName = COUNTRY_CONFIGS[provider.country_code]?.name ?? 'Malaysia'
+  const fallbackDescription = provider.country_code === 'MY'
+    ? 'HRDF-registered training provider in Malaysia.'
+    : `Training provider in ${countryName}.`
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -148,11 +153,11 @@ export default async function ProviderPage({ params }: Props) {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: provider.name,
-    description: provider.description ?? 'HRDF-registered training provider in Malaysia.',
+    description: provider.description ?? fallbackDescription,
     ...(showContactInfo && provider.email ? { email: provider.email } : {}),
     ...(showContactInfo && provider.phone ? { telephone: provider.phone } : {}),
     ...(provider.website ? { url: provider.website.startsWith('http') ? provider.website : `https://${provider.website}` } : {}),
-    ...(provider.state ? { address: { '@type': 'PostalAddress', addressRegion: provider.state, addressCountry: 'MY' } } : {}),
+    ...(provider.state ? { address: { '@type': 'PostalAddress', addressRegion: provider.state, addressCountry: provider.country_code || 'MY' } } : {}),
     ...(provider.logo_url ? { image: provider.logo_url } : {}),
   }
 
@@ -197,10 +202,6 @@ export default async function ProviderPage({ params }: Props) {
               </span>
             )}
           </div>
-          <ShareButtons
-            url={`https://findtraining.com/providers/${slug}`}
-            title={provider.name}
-          />
         </header>
 
         {/* Two-column layout */}
@@ -216,7 +217,7 @@ export default async function ProviderPage({ params }: Props) {
               ) : (
                 <>
                   <p className="text-gray-500 text-sm leading-relaxed mb-2">
-                    HRDF-registered training provider in Malaysia.
+                    {fallbackDescription}
                   </p>
                   <Link href={`/claim/${provider.slug}`} className="inline-flex items-center gap-1 text-xs text-[#0F6FEC] hover:underline">
                     Own this listing? Add your profile description <ArrowRight className="w-3 h-3" aria-hidden="true" />
@@ -226,26 +227,30 @@ export default async function ProviderPage({ params }: Props) {
             </section>
 
             {/* Categories */}
-            {provider.categories?.length > 0 && (
-              <section className="bg-white border border-gray-200 rounded-xl p-6">
-                <h2 className="text-base font-semibold text-gray-900 mb-3">Training Categories</h2>
-                <div className="flex flex-wrap gap-2">
-                  {provider.categories.map((cat: string) => {
-                    const urlSlug = CATEGORY_SLUG_MAP[cat] ?? cat.replace(/_/g, '-')
-                    const label = urlSlug.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
-                    return (
-                      <Link
-                        key={cat}
-                        href={`/categories/${urlSlug}`}
-                        className="px-3 py-1 bg-blue-50 text-blue-700 text-sm rounded-full hover:bg-blue-100 transition-colors"
-                      >
-                        {label}
-                      </Link>
-                    )
-                  })}
-                </div>
-              </section>
-            )}
+            {(() => {
+              const visibleCategories = provider.categories?.filter((cat) => CATEGORY_SLUG_MAP[cat]) ?? []
+              if (visibleCategories.length === 0) return null
+              return (
+                <section className="bg-white border border-gray-200 rounded-xl p-6">
+                  <h2 className="text-base font-semibold text-gray-900 mb-3">Training Categories</h2>
+                  <div className="flex flex-wrap gap-2">
+                    {visibleCategories.map((cat: string) => {
+                      const urlSlug = CATEGORY_SLUG_MAP[cat]
+                      const label = urlSlug.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+                      return (
+                        <Link
+                          key={cat}
+                          href={`/categories/${urlSlug}`}
+                          className="px-3 py-1 bg-blue-50 text-blue-700 text-sm rounded-full hover:bg-blue-100 transition-colors"
+                        >
+                          {label}
+                        </Link>
+                      )
+                    })}
+                  </div>
+                </section>
+              )
+            })()}
 
             {/* Delivery methods */}
             {provider.delivery_methods?.length > 0 && (
@@ -388,9 +393,9 @@ export default async function ProviderPage({ params }: Props) {
             <h2 className="text-base font-semibold text-gray-900 mb-4">Also in this category</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {related.map((rel) => {
-                const firstCat = rel.categories?.[0]
-                const catLabel = firstCat
-                  ? (CATEGORY_SLUG_MAP[firstCat] ?? firstCat).split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+                const firstMappedCat = rel.categories?.find((c) => CATEGORY_SLUG_MAP[c])
+                const catLabel = firstMappedCat
+                  ? CATEGORY_SLUG_MAP[firstMappedCat].split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
                   : null
                 return (
                   <Link

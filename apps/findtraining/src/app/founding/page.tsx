@@ -19,10 +19,10 @@ export const metadata: Metadata = {
 }
 
 const SPECIFIC_BENEFITS = [
-  'Profile visible on Malaysia\'s most complete HRDF training directory — the first place HR managers search',
-  'Direct contact button on your listing — leads come straight to you',
+  'Profile visible on Malaysia\'s most complete HRDF training directory',
+  'Direct contact button on your listing — buyers reach you, not us',
   'Add up to 5 courses or services with full details',
-  'Dashboard with real-time lead notifications by email',
+  'Dashboard inbox — email notification when an HR manager submits an enquiry',
   'HRDF-verified badge displayed on your public profile',
   'Priority support — real responses, not a ticket queue',
   'Rate locked for life — RM 100/mo, never increases',

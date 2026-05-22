@@ -198,7 +198,7 @@ export const articles: ResourceArticle[] = [
           'Filter by state — find providers near your office or your employees',
           'Filter by delivery method — in-person, virtual classroom, or e-learning',
           'View full company profiles with descriptions and contact details',
-          'Shortlist providers and compare them side by side',
+          'Contact providers directly from their profile — no portal hopping',
         ],
       },
       {
