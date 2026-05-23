@@ -3,9 +3,9 @@ import Link from 'next/link'
 import {
   Monitor, Users, DollarSign, ShieldCheck, Briefcase, TrendingUp,
   Smile, BookOpen, Scale, Wrench, UtensilsCrossed, Stethoscope,
-  Factory, HeartPulse,
+  Factory, HeartPulse, Calculator, ClipboardCheck,
 } from 'lucide-react'
-import { getProviderStats, getAllCategories } from '@webvillage/engine/adapters/findtraining'
+import { getProviderStats, getAllCategories, getFoundingMemberCount } from '@webvillage/engine/adapters/findtraining'
 import type { FtCategory } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS } from '@/lib/countries'
 
@@ -56,13 +56,16 @@ const websiteSchema = {
 const COUNTRY_ORDER = ['MY', 'SG', 'GB', 'AU', 'US']
 
 export default async function GlobalHomePage() {
-  const [stats, categories] = await Promise.all([
+  const [stats, categories, founding] = await Promise.all([
     getProviderStats(),
     getAllCategories().catch(() => [] as FtCategory[]),
+    getFoundingMemberCount().catch(() => ({ taken: 0, total: 50 })),
   ])
 
   const countries = COUNTRY_ORDER.map((code) => COUNTRY_CONFIGS[code]).filter(Boolean)
   const topCategories = categories.slice(0, 8)
+  const foundingOpen = founding.taken < founding.total
+  const foundingSlotsLeft = founding.total - founding.taken
 
   return (
     <>
@@ -101,6 +104,37 @@ export default async function GlobalHomePage() {
             </button>
           </form>
           <p className="text-xs text-gray-500">Or choose a country below to browse providers</p>
+        </div>
+      </section>
+
+      {/* ── Free HRDF Tools strip ──────────────────────────────────────── */}
+      <section className="py-6 px-4 bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 sm:mr-2 flex-shrink-0">
+              Free HRDF Tools
+            </p>
+            <Link
+              href="/tools/hrdf-calculator"
+              className="flex-1 w-full sm:w-auto flex items-center gap-3 bg-gray-50 hover:bg-blue-50 border border-gray-200 hover:border-brand-blue rounded-lg px-4 py-2.5 transition-all group"
+            >
+              <Calculator className="w-4 h-4 text-brand-blue flex-shrink-0" aria-hidden="true" />
+              <span className="text-sm font-medium text-gray-900 group-hover:text-brand-blue">
+                HRDF Levy Calculator
+              </span>
+              <span className="ml-auto text-xs text-gray-400 hidden sm:inline">Estimate your annual levy</span>
+            </Link>
+            <Link
+              href="/tools/hrdf-eligibility"
+              className="flex-1 w-full sm:w-auto flex items-center gap-3 bg-gray-50 hover:bg-blue-50 border border-gray-200 hover:border-brand-blue rounded-lg px-4 py-2.5 transition-all group"
+            >
+              <ClipboardCheck className="w-4 h-4 text-brand-blue flex-shrink-0" aria-hidden="true" />
+              <span className="text-sm font-medium text-gray-900 group-hover:text-brand-blue">
+                HRDF Eligibility Checker
+              </span>
+              <span className="ml-auto text-xs text-gray-400 hidden sm:inline">Is my company in scope?</span>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -219,16 +253,22 @@ export default async function GlobalHomePage() {
       {/* ── Provider CTA ────────────────────────────────────────────────── */}
       <section className="py-16 px-4 bg-brand-blue text-white text-center">
         <div className="max-w-2xl mx-auto">
+          {foundingOpen && (
+            <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
+              {foundingSlotsLeft} of {founding.total} founding slots remaining
+            </span>
+          )}
           <h2 className="text-3xl font-bold mb-4">Are You a Training Provider?</h2>
           <p className="text-blue-100 mb-8">
-            List your programmes and reach HR managers across Malaysia, Singapore, the UK, Australia,
-            and the US.
+            {foundingOpen
+              ? `List your programmes and reach HR managers across Malaysia, Singapore, the UK, Australia, and the US. First ${founding.total} providers lock RM 100/mo for life.`
+              : 'List your programmes and reach HR managers across Malaysia, Singapore, the UK, Australia, and the US.'}
           </p>
           <Link
-            href="/founding"
+            href={foundingOpen ? '/founding' : '/claim-profile'}
             className="inline-block bg-white text-brand-blue font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors"
           >
-            Become a Founding Member
+            {foundingOpen ? 'Become a Founding Member' : 'List Your Company'}
           </Link>
         </div>
       </section>

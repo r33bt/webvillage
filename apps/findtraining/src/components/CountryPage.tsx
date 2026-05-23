@@ -2,7 +2,7 @@
 // Each country's page.tsx passes its countryCode; this component fetches data + renders.
 
 import Link from 'next/link'
-import { getAllCategories, getFeaturedProviders, getCountryStats, getCategoryCountsByCountry } from '@webvillage/engine/adapters/findtraining'
+import { getAllCategories, getFeaturedProviders, getCountryStats, getCategoryCountsByCountry, getFoundingMemberCount } from '@webvillage/engine/adapters/findtraining'
 import type { FtCategory, FtProvider } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS, getOtherCountries } from '@/lib/countries'
 import type { CountryConfig } from '@/lib/countries'
@@ -31,14 +31,17 @@ export default async function CountryPage({ countryCode }: { countryCode: string
   const config: CountryConfig | undefined = COUNTRY_CONFIGS[countryCode]
   if (!config) return null
 
-  const [categories, featured, stats, categoryCounts] = await Promise.all([
+  const [categories, featured, stats, categoryCounts, founding] = await Promise.all([
     getAllCategories(),
     getFeaturedProviders(6, countryCode),
     getCountryStats(countryCode),
     getCategoryCountsByCountry(countryCode),
+    getFoundingMemberCount().catch(() => ({ taken: 0, total: 50 })),
   ])
 
   const otherCountries = getOtherCountries(countryCode)
+  const foundingOpen = founding.taken < founding.total
+  const foundingSlotsLeft = founding.total - founding.taken
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -294,12 +297,17 @@ export default async function CountryPage({ countryCode }: { countryCode: string
               Your training company may already be listed. Claim your profile to add courses, contact
               details, and appear as a featured provider.
             </p>
+            {foundingOpen && (
+              <p className="text-xs font-semibold uppercase tracking-wide text-brand-blue mb-3">
+                {foundingSlotsLeft} of {founding.total} founding slots remaining
+              </p>
+            )}
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
-                href="/founding"
+                href={foundingOpen ? '/founding' : '/claim-profile'}
                 className="inline-block bg-brand-blue text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
               >
-                Claim as Founding Member
+                {foundingOpen ? 'Claim as Founding Member' : 'List Your Company'}
               </Link>
               <Link
                 href={`/search?country=${config.code}`}
@@ -353,18 +361,25 @@ export default async function CountryPage({ countryCode }: { countryCode: string
       {/* ── [9] Provider CTA ────────────────────────────────────────────── */}
       <section className="py-16 px-4 bg-brand-blue text-white text-center">
         <div className="max-w-2xl mx-auto">
+          {foundingOpen && (
+            <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
+              {foundingSlotsLeft} of {founding.total} founding slots remaining
+            </span>
+          )}
           <h2 className="text-3xl font-bold mb-4">Are You a Training Provider in {config.name}?</h2>
           <p className="text-blue-100 mb-2">
             List your training programmes and reach thousands of HR professionals.
           </p>
           <p className="text-blue-200 text-sm mb-8">
-            From {config.pricingCTA.currency}{config.pricingCTA.starterRange} · Cancel anytime
+            {foundingOpen
+              ? `Founding members lock RM 100/mo for life. After ${founding.total} slots: ${config.pricingCTA.currency}${config.pricingCTA.starterRange}.`
+              : `From ${config.pricingCTA.currency}${config.pricingCTA.starterRange} · Cancel anytime`}
           </p>
           <Link
-            href="/founding"
+            href={foundingOpen ? '/founding' : '/claim-profile'}
             className="inline-block bg-white text-brand-blue font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors"
           >
-            Become a Founding Member
+            {foundingOpen ? 'Become a Founding Member' : 'List Your Company'}
           </Link>
         </div>
       </section>

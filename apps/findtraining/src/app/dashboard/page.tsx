@@ -200,11 +200,29 @@ export default async function DashboardPage() {
       )}
 
       {/* ── Quick stats — placeholders ───────────────────────────────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
         {[
-          { label: 'Profile views', value: '—', note: 'View analytics →' },
-          { label: 'Course listings', value: '0', note: 'No courses added yet' },
-          { label: 'New leads', value: '0', note: 'No leads yet' },
+          {
+            label: 'Profile views',
+            value: '—',
+            note: 'First views appear once Google indexes your listing (24–48h after publish).',
+          },
+          {
+            label: 'Course listings',
+            value: '0',
+            note: tier === 'founding' || tier === 'starter'
+              ? 'Add up to 5 courses to appear in category searches.'
+              : tier === 'pro'
+                ? 'Add unlimited courses to appear in category searches.'
+                : 'Add courses after upgrading to appear in category searches.',
+          },
+          {
+            label: 'New leads',
+            value: '0',
+            note: tier === 'free'
+              ? 'Contact button is hidden on free listings — upgrade to receive leads.'
+              : 'Leads arrive when HR managers click "Contact provider" or submit the enquiry form.',
+          },
         ].map(({ label, value, note }) => (
           <div
             key={label}
@@ -213,10 +231,34 @@ export default async function DashboardPage() {
             <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
               {label}
             </p>
-            <p className="text-3xl font-bold text-gray-900 mb-0.5">{value}</p>
-            <p className="text-xs text-gray-400">{note}</p>
+            <p className="text-3xl font-bold text-gray-900 mb-1">{value}</p>
+            <p className="text-xs text-gray-500 leading-relaxed">{note}</p>
           </div>
         ))}
+      </div>
+
+      {/* ── What to expect in the first 7 days ─────────────────────────── */}
+      <div className="rounded-xl bg-gray-50 border border-gray-200 p-5 mb-8">
+        <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-3">
+          What to expect in the first 7 days
+        </p>
+        <ol className="space-y-2 text-sm text-gray-700">
+          <li className="flex gap-3">
+            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-white border border-gray-300 text-xs font-semibold text-gray-700 flex items-center justify-center">1</span>
+            <span><span className="font-medium">Day 0:</span> Add your description, logo, and contact details. Profile goes live on your public listing within minutes.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-white border border-gray-300 text-xs font-semibold text-gray-700 flex items-center justify-center">2</span>
+            <span><span className="font-medium">Day 1–2:</span> Google re-indexes your updated profile. Search traffic begins to land on your listing.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-white border border-gray-300 text-xs font-semibold text-gray-700 flex items-center justify-center">3</span>
+            <span><span className="font-medium">Day 3+:</span> Profile views appear in analytics. First enquiries typically arrive within the first 1–2 weeks for active categories.</span>
+          </li>
+        </ol>
+        <p className="text-xs text-gray-400 mt-3">
+          No leads after 14 days? Email <a href="mailto:hello@findtraining.com" className="text-brand-blue hover:underline">hello@findtraining.com</a> — we will review your listing.
+        </p>
       </div>
 
       {/* ── Quick links ──────────────────────────────────────────────────── */}

@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { Star, CheckCircle2, GraduationCap, BookOpen, Inbox } from 'lucide-react'
+import { Star, CheckCircle2, GraduationCap, BookOpen, Inbox, Lock, Mail, MessageSquare, ShieldCheck } from 'lucide-react'
 import { getFoundingMemberCount } from '@webvillage/engine/adapters/findtraining'
 import { FoundingFormCard, FaqSection } from './FoundingForm'
 
@@ -164,8 +164,116 @@ export default async function FoundingPage() {
         </div>
       </section>
 
-      {/* Pricing comparison */}
+      {/* Before / After visual */}
       <section className="py-14 px-4 bg-gray-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">What your profile actually looks like</h2>
+            <p className="text-gray-500 text-sm max-w-xl mx-auto">
+              Same company, two listings. Free leaves you indexed but unreachable. Paid turns the listing into a working lead channel.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* FREE listing mock */}
+            <div className="bg-white rounded-2xl border border-gray-200 p-6 relative">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">Free listing</span>
+                <span className="text-xs font-semibold text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">RM 0</span>
+              </div>
+              <div className="border border-gray-200 rounded-xl p-4">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+                    <GraduationCap className="w-5 h-5 text-gray-400" aria-hidden="true" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-gray-700 truncate">Your Company Name</p>
+                    <p className="text-xs text-gray-400">Selangor · HRDF-registered</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500 line-clamp-2 mb-4">
+                  HRDF-registered training provider in Malaysia.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-xs text-gray-400 bg-gray-50 rounded px-3 py-2">
+                    <Lock className="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true" />
+                    Contact details hidden
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-gray-400 bg-gray-50 rounded px-3 py-2">
+                    <Lock className="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true" />
+                    Enquiry form disabled
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-gray-400 bg-gray-50 rounded px-3 py-2">
+                    <Lock className="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true" />
+                    No course or service listings
+                  </div>
+                </div>
+              </div>
+              <p className="text-xs text-gray-400 mt-4 text-center">
+                Indexed but buyers can&rsquo;t reach you directly.
+              </p>
+            </div>
+
+            {/* FOUNDING listing mock */}
+            <div className="bg-white rounded-2xl border-2 p-6 relative shadow-md" style={{ borderColor: '#0F6FEC' }}>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#0F6FEC' }}>Founding listing</span>
+                <span className="text-xs font-semibold text-white px-2 py-0.5 rounded-full" style={{ backgroundColor: '#0F6FEC' }}>RM 100/mo</span>
+              </div>
+              <div className="border rounded-xl p-4" style={{ borderColor: '#0F6FEC', backgroundColor: '#F0F7FF' }}>
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#0F6FEC' }}>
+                    <GraduationCap className="w-5 h-5 text-white" aria-hidden="true" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-gray-900 truncate">Your Company Name</p>
+                    <p className="text-xs text-gray-600">Selangor · HRDF-registered</p>
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-wide text-white px-1.5 py-0.5 rounded" style={{ backgroundColor: '#0F6FEC' }}>
+                    Founding
+                  </span>
+                </div>
+                <p className="text-sm text-gray-700 mb-4">
+                  Sales & leadership programmes for Malaysian SMEs. HRD Corp claimable. 15+ years training corporate teams across KL and Penang.
+                </p>
+                <div className="space-y-2 mb-3">
+                  <div className="flex items-center gap-2 text-xs font-medium text-gray-700 bg-white rounded px-3 py-2 border border-gray-100">
+                    <BookOpen className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#0F6FEC' }} aria-hidden="true" />
+                    5 courses listed
+                  </div>
+                  <button
+                    type="button"
+                    disabled
+                    className="w-full flex items-center justify-center gap-2 text-xs font-semibold text-white rounded px-3 py-2"
+                    style={{ backgroundColor: '#0F6FEC' }}
+                  >
+                    <Mail className="w-3.5 h-3.5" aria-hidden="true" />
+                    Contact provider
+                  </button>
+                  <button
+                    type="button"
+                    disabled
+                    className="w-full flex items-center justify-center gap-2 text-xs font-semibold text-gray-700 bg-white rounded px-3 py-2 border border-gray-200"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" style={{ color: '#0F6FEC' }} aria-hidden="true" />
+                    Request a quote
+                  </button>
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#0F6FEC' }}>
+                  <ShieldCheck className="w-3 h-3" aria-hidden="true" />
+                  HRDF-verified
+                </div>
+              </div>
+              <p className="text-xs mt-4 text-center font-medium" style={{ color: '#0F6FEC' }}>
+                Buyers reach you, browse your courses, and request quotes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing comparison */}
+      <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Lock in RM 100/mo before the price goes up</h2>
