@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import Stripe from 'stripe'
 import { getStripe, PLAN_TO_TIER, StripePlan } from '@/lib/stripe'
+import { buildDay0, sendWelcomeEmail } from '@/lib/email/welcome-sequence'
 
 // Next.js App Router: body parsing is not applicable — route handlers
 // read raw body via request.text() directly.
@@ -36,7 +37,7 @@ async function handleFoundingCheckoutCompleted(
     return
   }
 
-  const { error } = await supabase
+  const { data: member, error } = await supabase
     .from('ft_founding_members')
     .update({
       status: 'paid',
@@ -44,11 +45,27 @@ async function handleFoundingCheckoutCompleted(
       updated_at: new Date().toISOString(),
     })
     .eq('id', foundingMemberId)
+    .select('email, name, company_name')
+    .maybeSingle()
 
   if (error) {
     console.error('[webhook] DB update error (founding checkout.completed):', error.message)
-  } else {
-    console.log(`[webhook] Founding member ${foundingMemberId} paid (sub: ${subscriptionId})`)
+    return
+  }
+
+  console.log(`[webhook] Founding member ${foundingMemberId} paid (sub: ${subscriptionId})`)
+
+  if (member?.email && member?.name && member?.company_name) {
+    const day0 = buildDay0({
+      email: member.email,
+      name: member.name,
+      company_name: member.company_name,
+      tier: 'founding',
+    })
+    const result = await sendWelcomeEmail(member.email, day0)
+    if (!result.ok) {
+      console.error('[webhook] Day-0 welcome send failed:', result.error)
+    }
   }
 }
 
@@ -83,7 +100,7 @@ async function handleCheckoutCompleted(
     return
   }
 
-  const { error } = await supabase
+  const { data: provider, error } = await supabase
     .from('ft_providers')
     .update({
       tier,
@@ -92,11 +109,30 @@ async function handleCheckoutCompleted(
       subscription_status: 'active',
     })
     .eq('id', providerId)
+    .select('name')
+    .maybeSingle()
 
   if (error) {
     console.error('[webhook] DB update error (checkout.completed):', error.message)
-  } else {
-    console.log(`[webhook] Provider ${providerId} upgraded to ${tier} (sub: ${subscriptionId})`)
+    return
+  }
+
+  console.log(`[webhook] Provider ${providerId} upgraded to ${tier} (sub: ${subscriptionId})`)
+
+  const recipientEmail = session.customer_details?.email
+  const recipientName = session.customer_details?.name?.split(' ')[0] ?? 'there'
+  const companyName = provider?.name
+  if (recipientEmail && companyName && (tier === 'starter' || tier === 'pro')) {
+    const day0 = buildDay0({
+      email: recipientEmail,
+      name: recipientName,
+      company_name: companyName,
+      tier,
+    })
+    const result = await sendWelcomeEmail(recipientEmail, day0)
+    if (!result.ok) {
+      console.error('[webhook] Day-0 welcome send failed:', result.error)
+    }
   }
 }
 

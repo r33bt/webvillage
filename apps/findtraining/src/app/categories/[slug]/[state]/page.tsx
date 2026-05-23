@@ -68,14 +68,24 @@ interface PageProps {
   params: Promise<{ slug: string; state: string }>
 }
 
+// Pages with fewer than this many real providers are noindexed to avoid
+// thin-content SEO liability (FT-GAP-24). They still render for direct
+// visitors — we just don't ask Google to rank them.
+const MIN_INDEXABLE_PROVIDERS = 10
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug, state } = await params
 
   const stateName = STATE_MAP[state]
   if (!stateName) return { title: 'Not Found' }
 
-  const category = await getCategoryBySlug(slug)
+  const [category, { total }] = await Promise.all([
+    getCategoryBySlug(slug),
+    getProvidersByCategory(slug, { state: stateName }),
+  ])
   if (!category) return { title: 'Not Found' }
+
+  const isThin = total < MIN_INDEXABLE_PROVIDERS
 
   return {
     title: `${category.name} Training Providers in ${stateName}`,
@@ -90,6 +100,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: 'en_MY',
       siteName: 'FindTraining',
     },
+    robots: isThin ? { index: false, follow: true } : undefined,
   }
 }
 
@@ -109,6 +120,8 @@ export default async function CategoryStatePage({ params }: PageProps) {
   ])
 
   if (!category) notFound()
+
+  const isThinSet = total < MIN_INDEXABLE_PROVIDERS
 
   // JSON-LD — BreadcrumbList schema
   const breadcrumbSchema = {
@@ -225,6 +238,17 @@ export default async function CategoryStatePage({ params }: PageProps) {
             Browse all categories
           </Link>
         </div>
+
+        {/* Thin set notice */}
+        {isThinSet && providers.length > 0 && (
+          <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            <span className="font-medium">Limited coverage in {stateName} for this category.</span>{' '}
+            Showing {total} provider{total !== 1 ? 's' : ''}. For a fuller set,{' '}
+            <Link href={`/categories/${slug}`} className="underline font-medium hover:text-amber-700">
+              browse {category.name} across all of Malaysia
+            </Link>.
+          </div>
+        )}
 
         {/* Results */}
         {providers.length > 0 ? (

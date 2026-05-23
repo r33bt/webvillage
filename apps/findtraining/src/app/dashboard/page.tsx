@@ -5,7 +5,7 @@
 
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { GraduationCap, BookOpen, Inbox, ArrowRight, Star, TrendingUp, CreditCard } from 'lucide-react'
+import { GraduationCap, BookOpen, Inbox, ArrowRight, Star, TrendingUp, CreditCard, CheckCircle2, Circle } from 'lucide-react'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import type { Tier } from '@webvillage/engine/types/ft'
 import type { Metadata } from 'next'
@@ -124,12 +124,66 @@ export default async function DashboardPage() {
   // Fetch provider linked to this user
   const { data: provider } = await supabase
     .from('ft_providers')
-    .select('id, name, slug, tier, profile_status')
+    .select('id, name, slug, tier, profile_status, description, logo_url, phone, website, hrdf_status, country_code')
     .eq('claimed_by', user.id)
     .maybeSingle()
 
   const tier: Tier = (provider?.tier as Tier) ?? 'free'
   const badgeConfig = TIER_BADGE[tier] ?? TIER_BADGE.free
+
+  // Count courses for this provider (cheap COUNT query, no row data)
+  let courseCount = 0
+  if (provider?.id) {
+    const { count } = await supabase
+      .from('ft_courses')
+      .select('id', { count: 'exact', head: true })
+      .eq('provider_id', provider.id)
+    courseCount = count ?? 0
+  }
+
+  // Compute onboarding checklist state
+  const isMY = provider?.country_code === 'MY'
+  const checklist = provider
+    ? [
+        {
+          key: 'description',
+          label: 'Add a description (3+ sentences)',
+          done: (provider.description?.trim().length ?? 0) >= 100,
+          href: '/dashboard/profile',
+        },
+        {
+          key: 'logo',
+          label: 'Upload your logo',
+          done: Boolean(provider.logo_url),
+          href: '/dashboard/profile',
+        },
+        {
+          key: 'contact',
+          label: 'Add a contact phone or website',
+          done: Boolean(provider.phone || provider.website),
+          href: '/dashboard/profile',
+        },
+        {
+          key: 'courses',
+          label: 'List at least one course',
+          done: courseCount > 0,
+          href: '/dashboard/courses/new',
+        },
+        ...(isMY
+          ? [
+              {
+                key: 'hrdf',
+                label: 'Confirm your HRDF status',
+                done: provider.hrdf_status === 'registered' || provider.hrdf_status === 'exempt',
+                href: '/dashboard/profile',
+              },
+            ]
+          : []),
+      ]
+    : []
+  const checklistDone = checklist.filter((x) => x.done).length
+  const checklistTotal = checklist.length
+  const showChecklist = provider && tier !== 'free' && checklistDone < checklistTotal
 
   return (
     <div>
@@ -196,6 +250,57 @@ export default async function DashboardPage() {
             <CreditCard className="w-4 h-4" aria-hidden="true" />
             Upgrade
           </Link>
+        </div>
+      )}
+
+      {/* ── Onboarding checklist (paid tiers, while incomplete) ────────── */}
+      {showChecklist && (
+        <div className="rounded-xl border border-gray-200 bg-white p-5 mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <p className="text-sm font-semibold text-gray-900">Get your profile launch-ready</p>
+              <p className="text-xs text-gray-500 mt-0.5">
+                {checklistDone} of {checklistTotal} done · finish these to start receiving leads
+              </p>
+            </div>
+            <span className="text-xs font-bold text-brand-blue">
+              {Math.round((checklistDone / checklistTotal) * 100)}%
+            </span>
+          </div>
+          <div className="w-full bg-gray-100 rounded-full h-1.5 mb-4">
+            <div
+              className="h-1.5 rounded-full bg-brand-blue transition-all"
+              style={{ width: `${(checklistDone / checklistTotal) * 100}%` }}
+              role="progressbar"
+              aria-valuenow={checklistDone}
+              aria-valuemin={0}
+              aria-valuemax={checklistTotal}
+            />
+          </div>
+          <ul className="space-y-2">
+            {checklist.map((item) => (
+              <li key={item.key}>
+                <Link
+                  href={item.href}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+                    item.done ? 'text-gray-400' : 'hover:bg-gray-50'
+                  }`}
+                >
+                  {item.done ? (
+                    <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-brand-blue" aria-hidden="true" />
+                  ) : (
+                    <Circle className="w-4 h-4 flex-shrink-0 text-gray-300" aria-hidden="true" />
+                  )}
+                  <span className={`text-sm ${item.done ? 'line-through' : 'text-gray-900 font-medium'}`}>
+                    {item.label}
+                  </span>
+                  {!item.done && (
+                    <ArrowRight className="w-3.5 h-3.5 ml-auto text-gray-300" aria-hidden="true" />
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 
