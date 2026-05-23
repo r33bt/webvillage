@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { SearchX, MapPin, ArrowLeft } from 'lucide-react'
 import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/adapters/findtraining'
 import { ProviderCard } from '@/components/ProviderCard'
+import { BuyerSignup } from '@/components/BuyerSignup'
 
 // ---------------------------------------------------------------------------
 // State slug ↔ display name map
@@ -276,6 +277,18 @@ export default async function CategoryStatePage({ params }: PageProps) {
             </Link>
           </div>
         )}
+
+        {/* Buyer email capture */}
+        <div className="my-10">
+          <BuyerSignup
+            categorySlug={slug}
+            stateSlug={state}
+            countryCode="MY"
+            sourceLabel="category-state-page"
+            heading={`New ${category.name} providers in ${stateName}?`}
+            subheading={`We'll email you when a new ${category.name.toLowerCase()} provider lists in ${stateName}.`}
+          />
+        </div>
 
         {/* Other states cross-links */}
         <section className="border-t border-gray-100 pt-8 mt-4">

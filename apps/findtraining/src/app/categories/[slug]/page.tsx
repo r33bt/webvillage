@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/adapters/findtraining'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
 import { categoryDescriptions } from '@/lib/category-descriptions'
+import { BuyerSignup } from '@/components/BuyerSignup'
 
 function cleanName(name: string): string {
   const m = name.match(/^\*\*(.*?)\*\*/)
@@ -227,6 +228,16 @@ export default async function CategoryPage({ params, searchParams }: Props) {
             </div>
           )}
         </div>
+      </div>
+
+      <div className="mt-10">
+        <BuyerSignup
+          categorySlug={slug}
+          countryCode="MY"
+          sourceLabel="category-page"
+          heading={`Get new ${category.name} providers in your inbox`}
+          subheading="One short email when new HRDF-claimable providers in this category go live. Unsubscribe any time."
+        />
       </div>
     </div>
   )

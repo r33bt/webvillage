@@ -6,6 +6,7 @@ import { getAllCategories, getFeaturedProviders, getCountryStats, getCategoryCou
 import type { FtCategory, FtProvider } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS, getOtherCountries } from '@/lib/countries'
 import type { CountryConfig } from '@/lib/countries'
+import { BuyerSignup } from '@/components/BuyerSignup'
 
 // Malaysian states for the Browse by State section
 const MY_STATES = [
@@ -342,6 +343,18 @@ export default async function CountryPage({ countryCode }: { countryCode: string
           </div>
         </section>
       )}
+
+      {/* ── [7b] Buyer email capture ───────────────────────────────────── */}
+      <section className="py-12 px-4 bg-white border-t border-gray-100">
+        <div className="max-w-3xl mx-auto">
+          <BuyerSignup
+            countryCode={config.code}
+            sourceLabel="country-hub"
+            heading={`Get new ${config.name} training providers in your inbox`}
+            subheading={`One short email when notable providers in ${config.name} go live or update their listings. Unsubscribe any time.`}
+          />
+        </div>
+      </section>
 
       {/* ── [8] FAQ ──────────────────────────────────────────────────────── */}
       <section className="py-16 px-4 bg-gray-50 border-t border-gray-100">
