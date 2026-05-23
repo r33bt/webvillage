@@ -87,10 +87,13 @@ export default async function CountryPage({ countryCode }: { countryCode: string
 
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{config.heroHeadline}</h1>
           <p className="text-xl text-gray-300 mb-2">{config.heroSubline}</p>
-          <p className="text-sm text-gray-400 mb-8">
+          <p className="text-sm text-gray-400 mb-2">
             {stats.total.toLocaleString()} providers
             {regionsLabel ? ` · ${regionsLabel}` : ''}
             {categories.length > 0 ? ` · ${categories.length} categories` : ''}
+          </p>
+          <p className="text-xs text-gray-500 mb-8 max-w-2xl mx-auto">
+            Most listings are indexed from public {config.regulatoryBody?.acronym ?? 'registry'} data — providers add full contact details, courses, and descriptions when they claim their profile.
           </p>
 
           {/* Search */}
