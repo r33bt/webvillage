@@ -1253,6 +1253,348 @@ export const articles: ResourceArticle[] = [
       },
     ],
   },
+  {
+    slug: 'how-to-choose-training-provider-malaysia',
+    title: 'How to Choose a Training Provider in Malaysia: A 7-Step Framework',
+    description:
+      'A practical seven-step shortlist for HR and L&D managers in Malaysia — from HRD Corp verification through proposal scoring to post-training evaluation.',
+    publishedAt: '2026-05-23',
+    readingTimeMinutes: 7,
+    category: 'Buyer Guide',
+    content: [
+      {
+        type: 'p',
+        text: 'Most HR managers in Malaysia have a procurement playbook for office supplies but no equivalent for training providers. The result is that the choice tends to default to whoever Patrick from finance worked with two years ago. This guide gives you a seven-step framework you can use on every training procurement — from levy-claimable HRD Corp courses through to leadership development engagements.',
+      },
+      {
+        type: 'h2',
+        text: 'Step 1 — Define the outcome before you scope the course',
+      },
+      {
+        type: 'p',
+        text: 'The single most common mistake is starting from "we need leadership training" rather than "in 6 months, we need our middle managers to run weekly 1:1s and deliver written feedback every quarter". Outcome-first scoping shrinks the provider shortlist immediately, because most providers cannot evidence outcomes — they sell content. The few that can are worth a second look.',
+      },
+      {
+        type: 'h2',
+        text: 'Step 2 — Verify HRD Corp registration',
+      },
+      {
+        type: 'p',
+        text: 'For levy-claimable training, the provider must be HRD Corp-registered and the course must be approved on the eTRiS system. Both conditions are necessary — provider registration alone does not guarantee that a specific course is claimable. Always ask for the eTRiS course code in writing before signing.',
+      },
+      {
+        type: 'h2',
+        text: 'Step 3 — Shortlist three to five providers, not more',
+      },
+      {
+        type: 'p',
+        text: 'A shortlist of three to five gives you enough comparison without burning weeks on procurement. Use category and state filters on findtraining.com to surface candidates. For specialist categories — for example sales training or technical certifications — the eligible pool is small enough that five is realistic. For generic categories like soft skills, narrow the shortlist using "delivery method" and "HRDF-verified" filters.',
+      },
+      {
+        type: 'h2',
+        text: 'Step 4 — Ask each provider for the same five things',
+      },
+      {
+        type: 'ul',
+        items: [
+          'A course outline with hour-by-hour breakdown',
+          'Trainer CVs (not just company bio)',
+          'Three references from clients who ran the same course in the last 12 months',
+          'eTRiS course code (for HRDF-claimable courses)',
+          'Pricing per pax + per cohort + minimum cohort size — itemised',
+        ],
+      },
+      {
+        type: 'p',
+        text: 'You want apples to apples. Providers who cannot produce these — particularly the trainer CV and the references — are the ones to drop early.',
+      },
+      {
+        type: 'h2',
+        text: 'Step 5 — Score against the outcome from Step 1',
+      },
+      {
+        type: 'p',
+        text: 'Build a simple weighted scoresheet: 40% trainer fit (relevant experience to your outcome), 25% delivery method fit (in-person / hybrid / virtual matching your team\'s reality), 20% references (do they describe outcomes or content?), 15% price. Avoid scoring price > 25% — the cheapest training delivers no outcome change, and the levy reimbursement neutralises a lot of the price spread anyway.',
+      },
+      {
+        type: 'h2',
+        text: 'Step 6 — Pilot before you commit at scale',
+      },
+      {
+        type: 'p',
+        text: 'For anything beyond a single-cohort engagement, run a one-cohort pilot first. The cost is a fraction of the full engagement, and you get to see the trainer in your room with your team before you commit to the full programme. Providers worth working with will agree to a pilot at standard pricing.',
+      },
+      {
+        type: 'h2',
+        text: 'Step 7 — Plan the post-training measurement at the start',
+      },
+      {
+        type: 'p',
+        text: 'Decide before delivery what you\'ll measure 30, 60, and 90 days after the course. "Did they enjoy it" measured on Day 0 tells you almost nothing. "Did the behaviour change" measured at Day 60 tells you whether to renew the contract.',
+      },
+      {
+        type: 'h2',
+        text: 'How FindTraining helps',
+      },
+      {
+        type: 'p',
+        text: 'Use findtraining.com to build the Step-3 shortlist — filter by category, state, delivery method, and HRDF status, then send the same Step-4 question set to each provider. The directory is free for buyers; we earn from the provider side when they upgrade their listing.',
+      },
+    ],
+  },
+  {
+    slug: 'corporate-training-cost-malaysia-2026',
+    title: 'How Much Does Corporate Training Cost in Malaysia? A 2026 Buyer\'s Guide',
+    description:
+      'Realistic price ranges for HRDF-claimable corporate training in Malaysia — by category, delivery method, and engagement size. Plus what drives the spread.',
+    publishedAt: '2026-05-23',
+    readingTimeMinutes: 6,
+    category: 'Buyer Guide',
+    content: [
+      {
+        type: 'p',
+        text: 'Pricing for corporate training in Malaysia is opaque because providers usually only quote on RFP. This guide gives you typical ranges so you can recognise an outlier — too high or too low — when one lands in your inbox. All figures are 2026 market observations, expressed as RM and per cohort unless stated otherwise.',
+      },
+      {
+        type: 'callout',
+        text: 'These ranges are observed market values, not official rates. The HRD Corp levy reimburses most of these costs for registered employers — see /tools/hrdf-calculator for your annual levy estimate.',
+      },
+      {
+        type: 'h2',
+        text: 'Per-pax pricing — soft skills and short courses',
+      },
+      {
+        type: 'p',
+        text: 'For one or two-day open-enrolment courses in Kuala Lumpur — communication skills, time management, presentation skills, basic leadership — typical per-pax pricing is RM 700 to RM 1,800. The wider end of the spread is for branded methodologies (e.g. Crucial Conversations, Situational Leadership) where the licence fee inflates the price.',
+      },
+      {
+        type: 'h2',
+        text: 'Per-cohort pricing — in-house delivery',
+      },
+      {
+        type: 'p',
+        text: 'In-house delivery for a closed cohort of 12 to 20 participants is usually the better deal once you have more than 8 attendees. Typical day-rates in 2026:',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Soft skills / communication / general leadership — RM 4,500 to RM 8,000 per day',
+          'Sales training — RM 6,000 to RM 14,000 per day (higher for branded methodologies)',
+          'Technical / IT certifications — RM 5,500 to RM 12,000 per day depending on vendor exam fees',
+          'Senior leadership / executive coaching — RM 8,000 to RM 25,000 per day for experienced trainers',
+          'Compliance / safety mandatory — RM 3,500 to RM 6,500 per day',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'Multi-day and multi-cohort engagements',
+      },
+      {
+        type: 'p',
+        text: 'For programmes of 4+ days or 3+ cohorts within a quarter, providers typically discount 10–20% off the headline day rate. Some negotiate a single fixed programme fee instead of day-rate billing. If you are buying training as a recurring commitment, ask for a framework agreement with locked rates for 12 months.',
+      },
+      {
+        type: 'h2',
+        text: 'Hidden costs to ask about up front',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Materials — branded methodology workbooks, assessment licences, certification fees',
+          'Venue — included or excluded; for off-site, hotel meeting rooms in KL range RM 1,200 to RM 3,500 per day for groups of 20',
+          'F&B — typically RM 60 to RM 120 per pax per day at hotel venues',
+          'Trainer travel — for trainings outside KL or for non-local trainers',
+          'Post-training assessments / coaching follow-ups',
+          'Cancellation policy — usually 14–21 day window before full charge',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'Virtual vs. in-person',
+      },
+      {
+        type: 'p',
+        text: 'Virtual delivery typically reduces price by 25–40% — no venue, no F&B, lower trainer day rate (no travel/time-on-the-road). For genuine learning outcomes, virtual works well for technical and content-heavy programmes but underperforms for behavioural / soft-skills outcomes where peer practice in the room is part of the value.',
+      },
+      {
+        type: 'h2',
+        text: 'How HRD Corp levy claims affect net cost',
+      },
+      {
+        type: 'p',
+        text: 'For HRD Corp-registered employers, claimable training is reimbursed against your levy contribution. The headline price you pay the provider is the same; the levy claim is filed separately through eTRiS post-delivery. Net cost to the employer is the levy not yet reimbursed plus any non-claimable elements (e.g. T&E above the eligible cap).',
+      },
+      {
+        type: 'h2',
+        text: 'How FindTraining helps',
+      },
+      {
+        type: 'p',
+        text: 'Use findtraining.com to identify three to five providers in your category, ask each for an itemised quote against the same scope, and compare like for like. The HRDF levy calculator at /tools/hrdf-calculator gives you the upper envelope of what your employer can spend reimbursable.',
+      },
+    ],
+  },
+  {
+    slug: 'sales-vs-leadership-training-when-to-spend',
+    title: 'Sales Training vs Leadership Training: When to Spend on Which',
+    description:
+      'A practical framework for deciding whether your team needs sales training, leadership training, or both — and how to sequence them when budget is finite.',
+    publishedAt: '2026-05-23',
+    readingTimeMinutes: 5,
+    category: 'Buyer Guide',
+    content: [
+      {
+        type: 'p',
+        text: 'When budget is tight, the question "do we invest in sales training or leadership development?" tends to land on the HR director\'s desk with no good way to answer it. This guide gives you a decision framework based on the team you have, the outcome you need, and the time horizon you have to deliver it.',
+      },
+      {
+        type: 'h2',
+        text: 'The shortest answer',
+      },
+      {
+        type: 'p',
+        text: 'If your sales team is hitting quota but your managers are leaving — invest in leadership training. If your managers are competent but the sales pipeline is leaking at qualification or close — invest in sales training. If both are broken, fix the manager layer first; sales training delivered into a broken management cadence does not stick.',
+      },
+      {
+        type: 'h2',
+        text: 'Sales training: what it actually delivers',
+      },
+      {
+        type: 'p',
+        text: 'Modern sales training is methodology-driven (SPIN, MEDDIC, Challenger, Sandler are the dominant frameworks in MY corporate B2B) and delivers measurable pipeline impact when paired with a manager-led coaching cadence. Without the coaching cadence, the half-life of sales training behaviour change is 4–8 weeks. Most providers offer 2–4 day initial training; the best providers offer or require a manager-coaching layer on top.',
+      },
+      {
+        type: 'h2',
+        text: 'Leadership training: what it actually delivers',
+      },
+      {
+        type: 'p',
+        text: 'Leadership training covers the broad ground of how a manager runs people: 1:1s, feedback, delegation, performance conversations, conflict, decision-making. Outcomes are slower to measure (typically 60–90 days post-training for behaviour change in 1:1 cadence and feedback frequency) but compound across every person the manager supervises. For middle managers, leadership programmes deliver more value per ringgit than any other category in the long run.',
+      },
+      {
+        type: 'h2',
+        text: 'The decision framework',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Sales pipeline is the bottleneck → Sales training, with manager coaching layer',
+          'Manager turnover or team disengagement → Leadership training, before any other layer',
+          'New manager promoted from individual contributor → Leadership training (essentials, not advanced)',
+          'Senior team underperforming on strategic decisions → Executive coaching, not group training',
+          'Customer-facing team but not sales (CS, support) → Customer service training, not sales',
+          'Both managers and sales team need help, finite budget → Managers first, sales next quarter',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'Sequencing when you have budget for both',
+      },
+      {
+        type: 'p',
+        text: 'If the budget supports both, sequence them: leadership training for managers Q1, sales training for the team Q2. This way, when sales training lands in Q2, the managers have a coaching cadence to reinforce the new behaviours. Doing them in the reverse order wastes the sales training investment, because the managers will not yet have the 1:1 cadence to reinforce it.',
+      },
+      {
+        type: 'h2',
+        text: 'How to find specialist providers in Malaysia',
+      },
+      {
+        type: 'p',
+        text: 'Browse the Sales & Marketing category and the Leadership & Management category on findtraining.com to surface providers in each. For sales training, filter by methodology in the provider description (SPIN, MEDDIC, Sandler, etc.) — the methodology match matters more than the headline brand for most B2B teams.',
+      },
+      {
+        type: 'h2',
+        text: 'How FindTraining helps',
+      },
+      {
+        type: 'p',
+        text: 'Sales: findtraining.com/categories/sales-marketing. Leadership: findtraining.com/categories/leadership-management. Both lists are filterable by state, delivery method, and HRDF-claimable status. For combined sales-and-leadership engagements ("salesforce effectiveness", "revenue enablement"), search for those phrases.',
+      },
+    ],
+  },
+  {
+    slug: 'measure-training-roi-metrics-hr-managers',
+    title: 'How to Measure Training ROI: 4 Metrics HR Managers Actually Report On',
+    description:
+      'Skip the Kirkpatrick lecture — these are the four post-training metrics that get used in real HR reviews in Malaysian corporates, with how to set them up.',
+    publishedAt: '2026-05-23',
+    readingTimeMinutes: 5,
+    category: 'Buyer Guide',
+    content: [
+      {
+        type: 'p',
+        text: 'Kirkpatrick\'s four-level evaluation model is taught in every L&D certification and used in almost no real HR reports. This guide skips the academic framework and shows you four metrics that work in practice — what to measure, when, and how to report it in a quarterly review.',
+      },
+      {
+        type: 'h2',
+        text: 'Why post-training "happy sheets" don\'t count',
+      },
+      {
+        type: 'p',
+        text: 'Day-0 satisfaction surveys ("rate the trainer / venue / materials") measure how the participants felt walking out the door. They do not measure outcome change, and they correlate weakly with whether the training delivered any business value. Use them for trainer quality control, not for ROI.',
+      },
+      {
+        type: 'h2',
+        text: 'Metric 1 — Behaviour-change observation at Day 60',
+      },
+      {
+        type: 'p',
+        text: 'Sixty days after training, the manager observes whether the participant is doing the new behaviour in their day-to-day work. For sales training: are reps using the new qualification questions in discovery calls? For leadership training: are managers running weekly 1:1s with a written agenda? This is the highest-signal metric and the one most often skipped.',
+      },
+      {
+        type: 'h2',
+        text: 'How to set it up',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Before training: agree 3-5 specific observable behaviours with the manager',
+          'Day 60: manager scores each behaviour 0/1/2 (not visible / partial / consistent) for each participant',
+          'Report the average score per cohort and the trend month-on-month',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'Metric 2 — Lagging business indicator tied to the training outcome',
+      },
+      {
+        type: 'p',
+        text: 'Tie one lagging indicator to the training outcome — and only one. For sales training: revenue per rep, deal velocity, or pipeline conversion at the targeted stage. For leadership training: skip-level engagement scores, voluntary turnover in the trained manager\'s team, or 1:1 completion rate from calendar data. Resist the urge to measure five things; one lagging indicator with clear baseline and 90-day window is more credible than five with noisy data.',
+      },
+      {
+        type: 'h2',
+        text: 'Metric 3 — Application rate of HRDF levy spend',
+      },
+      {
+        type: 'p',
+        text: 'For HRDF-registered employers, this is the metric finance directors actually ask about: of the annual levy contribution, what percentage is being claimed back through training? Levy utilisation below 60% is wasted; above 90% is exemplary. Track quarterly and report against the annual levy contribution estimate (see /tools/hrdf-calculator).',
+      },
+      {
+        type: 'h2',
+        text: 'Metric 4 — Cost per behaviour-changed participant',
+      },
+      {
+        type: 'p',
+        text: 'Take the all-in training cost (provider fee + materials + venue + F&B + participant time at internal day rate) and divide by the number of participants who scored 2 on the Day-60 behaviour observation (consistent). This is your real cost per outcome. A cheap training that delivers behaviour change in 1 in 10 participants is more expensive than a premium training that delivers behaviour change in 7 in 10.',
+      },
+      {
+        type: 'h2',
+        text: 'What a quarterly L&D review looks like with these four metrics',
+      },
+      {
+        type: 'p',
+        text: 'A one-page report per programme: (1) Day-60 behaviour score chart, (2) lagging indicator pre-training baseline vs. 90-day post-training, (3) levy utilisation year-to-date, (4) cost per behaviour-changed participant by programme. That is enough to defend the L&D budget and to make renewal-or-replace decisions on each provider you work with.',
+      },
+      {
+        type: 'h2',
+        text: 'How FindTraining helps',
+      },
+      {
+        type: 'p',
+        text: 'When sourcing on findtraining.com, ask each shortlisted provider which of the four metrics above they will help you set up. Providers who include behaviour-change observation in their delivery (rather than just leaving you to do it) outperform on Metric 4 by a wide margin.',
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): ResourceArticle | undefined {

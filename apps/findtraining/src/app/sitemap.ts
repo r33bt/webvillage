@@ -44,6 +44,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/resources/uk-apprenticeship-levy-guide`, changeFrequency: 'monthly', priority: 0.7, lastModified: new Date() },
     { url: `${BASE_URL}/resources/skillsfuture-credit-employer-guide-singapore`, changeFrequency: 'monthly', priority: 0.7, lastModified: new Date() },
     { url: `${BASE_URL}/resources/australia-rto-buyers-guide`, changeFrequency: 'monthly', priority: 0.7, lastModified: new Date() },
+    { url: `${BASE_URL}/resources/how-to-choose-training-provider-malaysia`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date() },
+    { url: `${BASE_URL}/resources/corporate-training-cost-malaysia-2026`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date() },
+    { url: `${BASE_URL}/resources/sales-vs-leadership-training-when-to-spend`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date() },
+    { url: `${BASE_URL}/resources/measure-training-roi-metrics-hr-managers`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date() },
   ]
 
   const categoryPages: MetadataRoute.Sitemap = (categories ?? []).map((c) => ({
