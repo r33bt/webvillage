@@ -1,7 +1,29 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getProviderStats } from '@webvillage/engine/adapters/findtraining'
+import {
+  Monitor, Users, DollarSign, ShieldCheck, Briefcase, TrendingUp,
+  Smile, BookOpen, Scale, Wrench, UtensilsCrossed, Stethoscope,
+  Factory, HeartPulse,
+} from 'lucide-react'
+import { getProviderStats, getAllCategories } from '@webvillage/engine/adapters/findtraining'
+import type { FtCategory } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS } from '@/lib/countries'
+
+const CATEGORY_ICONS: Record<string, React.ElementType> = {
+  'it-training': Monitor,
+  'leadership-management': Users,
+  'finance-accounting': DollarSign,
+  'safety-health': ShieldCheck,
+  'human-resources': Briefcase,
+  'sales-marketing': TrendingUp,
+  'customer-service': Smile,
+  'soft-skills': BookOpen,
+  'compliance-legal': Scale,
+  'technical-skills': Wrench,
+  'hospitality-tourism': UtensilsCrossed,
+  'healthcare': Stethoscope,
+  'manufacturing': Factory,
+}
 
 export const metadata: Metadata = {
   title: 'FindTraining.com — Find Training Providers Worldwide',
@@ -34,9 +56,13 @@ const websiteSchema = {
 const COUNTRY_ORDER = ['MY', 'SG', 'GB', 'AU', 'US']
 
 export default async function GlobalHomePage() {
-  const stats = await getProviderStats()
+  const [stats, categories] = await Promise.all([
+    getProviderStats(),
+    getAllCategories().catch(() => [] as FtCategory[]),
+  ])
 
   const countries = COUNTRY_ORDER.map((code) => COUNTRY_CONFIGS[code]).filter(Boolean)
+  const topCategories = categories.slice(0, 8)
 
   return (
     <>
@@ -120,6 +146,45 @@ export default async function GlobalHomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Browse by Category ──────────────────────────────────────────── */}
+      {topCategories.length > 0 && (
+        <section className="py-16 px-4 bg-gray-50 border-t border-gray-100">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 text-center">Browse by Training Category</h2>
+            <p className="text-gray-500 text-center mb-10 text-sm">
+              HRDF-claimable categories from IT and leadership to safety and finance.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {topCategories.map((cat) => {
+                const Icon = CATEGORY_ICONS[cat.slug] ?? HeartPulse
+                return (
+                  <Link
+                    key={cat.id}
+                    href={`/categories/${cat.slug}`}
+                    className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-brand-blue hover:shadow-md transition-all group"
+                  >
+                    <div className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-lg bg-blue-50 group-hover:bg-blue-100 transition-colors">
+                      <Icon className="w-4 h-4 text-brand-blue" aria-hidden="true" />
+                    </div>
+                    <span className="text-sm font-semibold text-gray-900 group-hover:text-brand-blue leading-snug">
+                      {cat.name}
+                    </span>
+                  </Link>
+                )
+              })}
+            </div>
+            <div className="text-center mt-8">
+              <Link
+                href="/categories"
+                className="inline-block text-sm font-semibold text-brand-blue hover:underline"
+              >
+                See all {categories.length} categories →
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Why FindTraining ────────────────────────────────────────────── */}
       <section className="py-16 px-4 bg-gray-50 border-t border-gray-100">

@@ -123,8 +123,49 @@ export default async function FoundingPage() {
         </div>
       </section>
 
+      {/* ROI framing */}
+      <section className="py-14 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">What one closed deal pays for</h2>
+            <p className="text-gray-500 text-sm max-w-xl mx-auto">
+              RM&nbsp;100/mo is RM&nbsp;1,200/year. Most HRDF-claimable corporate engagements cover the year many times over.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 text-center">
+              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">1 small workshop</p>
+              <p className="text-3xl font-bold text-gray-900">RM 5,000</p>
+              <p className="text-sm text-gray-600 mt-2">
+                Pays for <span className="font-semibold" style={{ color: '#0F6FEC' }}>50 months</span> of founding membership.
+              </p>
+              <p className="text-xs text-gray-400 mt-2">e.g. 1-day in-house session for 10 staff</p>
+            </div>
+            <div className="rounded-2xl border-2 p-6 text-center" style={{ borderColor: '#0F6FEC', backgroundColor: '#F0F7FF' }}>
+              <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: '#0F6FEC' }}>1 typical programme</p>
+              <p className="text-3xl font-bold text-gray-900">RM 12,000</p>
+              <p className="text-sm text-gray-700 mt-2">
+                Pays for <span className="font-semibold" style={{ color: '#0F6FEC' }}>120 months</span> — 10 years — of founding membership.
+              </p>
+              <p className="text-xs text-gray-500 mt-2">e.g. 3-day programme for 20 staff</p>
+            </div>
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 text-center">
+              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">1 multi-cohort engagement</p>
+              <p className="text-3xl font-bold text-gray-900">RM 30,000+</p>
+              <p className="text-sm text-gray-600 mt-2">
+                Pays for <span className="font-semibold" style={{ color: '#0F6FEC' }}>300+ months</span> — 25+ years.
+              </p>
+              <p className="text-xs text-gray-400 mt-2">e.g. quarterly cohorts for a mid-size client</p>
+            </div>
+          </div>
+          <p className="text-center text-xs text-gray-400 mt-6 max-w-2xl mx-auto">
+            One closed lead from FindTraining covers the directory for the life of the engagement, often many times over.
+          </p>
+        </div>
+      </section>
+
       {/* Pricing comparison */}
-      <section className="py-14 px-4">
+      <section className="py-14 px-4 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Lock in RM 100/mo before the price goes up</h2>

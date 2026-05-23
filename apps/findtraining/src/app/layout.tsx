@@ -113,7 +113,7 @@ export default function RootLayout({
                   <Link href="/about" className="hover:text-gray-700 transition-colors">
                     About
                   </Link>
-                  <Link href="/founding" className="hover:text-gray-700 transition-colors">
+                  <Link href="/claim-profile" className="hover:text-gray-700 transition-colors">
                     For Providers
                   </Link>
                   <Link href="/contact" className="hover:text-gray-700 transition-colors">
