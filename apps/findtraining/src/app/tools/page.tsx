@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Calculator, ArrowRight, CheckCircle } from 'lucide-react'
+import { Calculator, ArrowRight, CheckCircle, Globe, MapPin, DollarSign } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Free HRD Corp Tools — FindTraining.com',
+  title: 'Free Training-Funding Tools — FindTraining.com',
   description:
-    'Free tools for Malaysian employers and HR managers — calculate your HRD Corp levy, estimate your annual training budget, and more.',
+    'Free calculators and lookups for HRDF (Malaysia), Apprenticeship Levy (UK), SkillsFuture (Singapore), state RTO funding (Australia), and US sales training pricing.',
   alternates: { canonical: 'https://findtraining.com/tools' },
 }
 
@@ -57,16 +57,17 @@ export default function ToolsPage() {
 
       <header className="mb-10">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-          Free HRD Corp Tools
+          Free Training-Funding Tools
         </h1>
         <p className="text-gray-600 text-base max-w-2xl">
-          Practical calculators and resources for Malaysian HR managers and employers.
-          All tools are free — no sign-up required.
+          Practical calculators and lookups for training procurement in Malaysia, the UK,
+          Singapore, Australia, and the US. All tools are free — no sign-up required.
         </p>
       </header>
 
+      <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-3">Malaysia</h2>
       {/* Tools grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
         <Link
           href="/tools/hrdf-calculator"
           className="flex flex-col gap-4 p-6 bg-white border border-gray-200 rounded-xl hover:border-[#0F6FEC] hover:shadow-md transition-all group"
@@ -107,6 +108,94 @@ export default function ToolsPage() {
           </div>
           <div className="flex items-center gap-1 text-xs font-medium text-[#0F6FEC]">
             Check eligibility
+            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+          </div>
+        </Link>
+      </div>
+
+      <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-3">International</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+        <Link
+          href="/tools/uk-apprenticeship-levy-calculator"
+          className="flex flex-col gap-4 p-6 bg-white border border-gray-200 rounded-xl hover:border-[#0F6FEC] hover:shadow-md transition-all group"
+        >
+          <div className="w-11 h-11 flex items-center justify-center rounded-lg bg-blue-50 group-hover:bg-blue-100 transition-colors flex-shrink-0">
+            <Calculator className="w-5 h-5 text-[#0F6FEC]" aria-hidden="true" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#0F6FEC] leading-snug mb-1">
+              UK Apprenticeship Levy Calculator
+            </h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Estimate your annual Apprenticeship Levy, the 10% government top-up, and your
+              digital-account funds.
+            </p>
+          </div>
+          <div className="flex items-center gap-1 text-xs font-medium text-[#0F6FEC]">
+            Open calculator
+            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+          </div>
+        </Link>
+
+        <Link
+          href="/tools/skillsfuture-credit-estimator"
+          className="flex flex-col gap-4 p-6 bg-white border border-gray-200 rounded-xl hover:border-[#0F6FEC] hover:shadow-md transition-all group"
+        >
+          <div className="w-11 h-11 flex items-center justify-center rounded-lg bg-purple-50 group-hover:bg-purple-100 transition-colors flex-shrink-0">
+            <Globe className="w-5 h-5 text-purple-600" aria-hidden="true" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#0F6FEC] leading-snug mb-1">
+              SkillsFuture Credit Estimator (SG)
+            </h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Map the SkillsFuture + SFEC + ETSS + Absentee Payroll stack for Singapore employers.
+            </p>
+          </div>
+          <div className="flex items-center gap-1 text-xs font-medium text-[#0F6FEC]">
+            Open estimator
+            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+          </div>
+        </Link>
+
+        <Link
+          href="/tools/au-state-funding-lookup"
+          className="flex flex-col gap-4 p-6 bg-white border border-gray-200 rounded-xl hover:border-[#0F6FEC] hover:shadow-md transition-all group"
+        >
+          <div className="w-11 h-11 flex items-center justify-center rounded-lg bg-amber-50 group-hover:bg-amber-100 transition-colors flex-shrink-0">
+            <MapPin className="w-5 h-5 text-amber-600" aria-hidden="true" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#0F6FEC] leading-snug mb-1">
+              AU State Funding Lookup
+            </h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Subsidised training schemes by Australian state — Smart and Skilled, Skills First, and 6 more.
+            </p>
+          </div>
+          <div className="flex items-center gap-1 text-xs font-medium text-[#0F6FEC]">
+            Open lookup
+            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+          </div>
+        </Link>
+
+        <Link
+          href="/tools/us-sales-training-budget"
+          className="flex flex-col gap-4 p-6 bg-white border border-gray-200 rounded-xl hover:border-[#0F6FEC] hover:shadow-md transition-all group"
+        >
+          <div className="w-11 h-11 flex items-center justify-center rounded-lg bg-emerald-50 group-hover:bg-emerald-100 transition-colors flex-shrink-0">
+            <DollarSign className="w-5 h-5 text-emerald-600" aria-hidden="true" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#0F6FEC] leading-snug mb-1">
+              US Sales Training Budget Guide
+            </h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Typical US sales training pricing — SDR, AE methodology, enterprise, leadership.
+            </p>
+          </div>
+          <div className="flex items-center gap-1 text-xs font-medium text-[#0F6FEC]">
+            Open guide
             <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
           </div>
         </Link>

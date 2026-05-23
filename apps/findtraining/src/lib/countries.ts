@@ -117,7 +117,13 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
       levyExplainer:
         'Singapore Citizens aged 25 and above receive SkillsFuture Credit that can be used to offset the cost of approved training programmes. Additional top-ups are available for mid-career workers.',
     },
-    tools: [],
+    tools: [
+      {
+        label: 'SkillsFuture Credit Estimator',
+        href: '/tools/skillsfuture-credit-estimator',
+        description: 'Map SkillsFuture Credit + SFEC + ETSS + Absentee Payroll for SG employers',
+      },
+    ],
     howItWorksStep3: {
       title: 'Apply for SkillsFuture Credit',
       body: 'Log in to MySkillsFuture.sg with your Singpass and claim your credit to offset course fees at approved providers.',
@@ -158,7 +164,13 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
       levyExplainer:
         'UK employers with a payroll over £3 million pay a 0.5% Apprenticeship Levy. This can fund apprenticeship training — including the Level 4 Sales Executive standard — via providers on the Register of Apprenticeship Training Providers (RoATP).',
     },
-    tools: [],
+    tools: [
+      {
+        label: 'UK Apprenticeship Levy Calculator',
+        href: '/tools/uk-apprenticeship-levy-calculator',
+        description: 'Pay bill → annual levy → digital-account funds (with 10% top-up)',
+      },
+    ],
     howItWorksStep3: {
       title: 'Fund via Apprenticeship Levy',
       body: "Eligible employers can use their Apprenticeship Levy balance to fund Level 4 Sales Executive training. Access your account via the Apprenticeship Service on GOV.UK.",
@@ -199,7 +211,13 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
       levyExplainer:
         "ASQA is Australia's national vocational education and training regulator. Registered Training Organisations (RTOs) listed on training.gov.au are government-approved to deliver nationally accredited qualifications.",
     },
-    tools: [],
+    tools: [
+      {
+        label: 'AU State Funding Lookup',
+        href: '/tools/au-state-funding-lookup',
+        description: 'Subsidised training schemes by Australian state (NSW, VIC, QLD, WA, SA, TAS, NT, ACT)',
+      },
+    ],
     howItWorksStep3: {
       title: 'Verify RTO Registration',
       body: 'Check that your chosen provider is listed on training.gov.au before enrolling. Nationally accredited qualifications are only valid from registered RTOs.',
@@ -232,7 +250,13 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     heroSubline:
       'Browse top sales training organisations, Sandler franchises, and professional development providers across the US.',
     regulatoryBody: null,
-    tools: [],
+    tools: [
+      {
+        label: 'US Sales Training Budget Guide',
+        href: '/tools/us-sales-training-budget',
+        description: 'Typical US sales training pricing — SDR, AE methodology, enterprise, leadership',
+      },
+    ],
     howItWorksStep3: {
       title: 'Contact the Provider',
       body: 'Reach out directly using the contact details on each profile. US training has no government levy scheme — providers offer direct pricing and custom corporate packages.',
