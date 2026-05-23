@@ -129,9 +129,11 @@ export default async function ProviderPage({ params }: Props) {
     related = []
   }
 
-  const showContactInfo = PAID_TIERS.has(provider.tier) && provider.claimed
-  const showEnquiryForm = PAID_TIERS.has(provider.tier) && provider.claimed
+  const isClaimedPaid = PAID_TIERS.has(provider.tier) && provider.claimed
+  const showContactInfo = isClaimedPaid
+  const showEnquiryForm = isClaimedPaid
   const showEnquiryTeaser = !PAID_TIERS.has(provider.tier) && provider.claimed
+  const showUnclaimedEnquiryForm = !provider.claimed
   const tierBadge = TIER_BADGES[provider.tier] ?? TIER_BADGES.free
   const isVerified = provider.profile_status === 'claimed' || provider.profile_status === 'active'
   const countryName = COUNTRY_CONFIGS[provider.country_code]?.name ?? 'Malaysia'
@@ -351,6 +353,10 @@ export default async function ProviderPage({ params }: Props) {
 
             {showEnquiryForm && (
               <EnquiryForm providerId={provider.id} providerName={provider.name} />
+            )}
+
+            {showUnclaimedEnquiryForm && (
+              <EnquiryForm providerId={provider.id} providerName={provider.name} mode="unclaimed" />
             )}
 
             {showEnquiryTeaser && (

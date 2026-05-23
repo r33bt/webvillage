@@ -15,9 +15,11 @@ const BUDGET_OPTIONS = [
 interface Props {
   providerId: string
   providerName: string
+  mode?: 'claimed' | 'unclaimed'
 }
 
-export function EnquiryForm({ providerId, providerName }: Props) {
+export function EnquiryForm({ providerId, providerName, mode = 'claimed' }: Props) {
+  const isUnclaimed = mode === 'unclaimed'
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -71,9 +73,13 @@ export function EnquiryForm({ providerId, providerName }: Props) {
         <div className="flex items-start gap-3">
           <CheckCircle2 className="w-5 h-5 text-[#00C48C] flex-shrink-0 mt-0.5" aria-hidden="true" />
           <div>
-            <p className="text-sm font-semibold text-gray-900 mb-1">Enquiry sent</p>
+            <p className="text-sm font-semibold text-gray-900 mb-1">
+              {isUnclaimed ? 'Request received' : 'Enquiry sent'}
+            </p>
             <p className="text-xs text-gray-500 leading-relaxed">
-              {providerName} will be in touch within 2 business days. Check your inbox for a confirmation.
+              {isUnclaimed
+                ? `FindTraining will pass your request to ${providerName} and get back to you within 2 business days. Check your inbox for a confirmation.`
+                : `${providerName} will be in touch within 2 business days. Check your inbox for a confirmation.`}
             </p>
           </div>
         </div>
@@ -86,7 +92,14 @@ export function EnquiryForm({ providerId, providerName }: Props) {
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-5">
-      <h2 className="text-base font-semibold text-gray-900 mb-4">Send an enquiry</h2>
+      <h2 className="text-base font-semibold text-gray-900 mb-1">
+        {isUnclaimed ? 'Ask about this provider' : 'Send an enquiry'}
+      </h2>
+      {isUnclaimed && (
+        <p className="text-xs text-gray-500 leading-relaxed mb-4">
+          {providerName} hasn&apos;t claimed their listing yet. FindTraining will pass your request to them and get back to you within 2 business days.
+        </p>
+      )}
       <form onSubmit={handleSubmit} className="space-y-3" noValidate>
         <div>
           <label htmlFor="eq-name" className="block text-xs font-medium text-gray-600 mb-1">
@@ -215,7 +228,7 @@ export function EnquiryForm({ providerId, providerName }: Props) {
           {submitting ? (
             <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> Sending…</>
           ) : (
-            <><Send className="w-4 h-4" aria-hidden="true" /> Send enquiry</>
+            <><Send className="w-4 h-4" aria-hidden="true" /> {isUnclaimed ? 'Send request' : 'Send enquiry'}</>
           )}
         </button>
 

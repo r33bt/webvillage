@@ -1,6 +1,8 @@
 // POST /api/enquiry
 // Saves an HR manager enquiry to ft_enquiries and notifies the provider.
-// Only accepted for Starter, Pro, and Founding tier claimed providers.
+// Claimed + paid tier: notify the provider directly.
+// Unclaimed or free tier: notify hello@findtraining.com so the FindTraining team
+// can pass the lead on — captures buyer demand even before the provider claims.
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
@@ -32,16 +34,21 @@ async function notifyProvider(opts: {
   budgetRange: string | null
   preferredDates: string | null
   message: string | null
+  unclaimed: boolean
 }) {
   if (!process.env.RESEND_API_KEY) return
   const resend = new Resend(process.env.RESEND_API_KEY)
+  const header = opts.unclaimed
+    ? `New training enquiry for ${opts.providerName} (UNCLAIMED — pass to provider)`
+    : `New training enquiry from ${opts.enquirerName}`
   const lines = [
-    `New training enquiry from ${opts.enquirerName}`,
+    header,
     '',
     `Name:     ${opts.enquirerName}`,
     `Email:    ${opts.enquirerEmail}`,
     `Company:  ${opts.enquirerCompany ?? '—'}`,
     '',
+    ...(opts.unclaimed ? [`Provider:      ${opts.providerName}`, ''] : []),
     `Training need: ${opts.trainingNeed}`,
     `Headcount:     ${opts.headcount ?? '—'}`,
     `Budget:        ${opts.budgetRange ?? '—'}`,
@@ -52,12 +59,15 @@ async function notifyProvider(opts: {
     '',
     '— FindTraining.com',
   ]
+  const subject = opts.unclaimed
+    ? `[UNCLAIMED] Enquiry for ${opts.providerName} from ${opts.enquirerName}${opts.enquirerCompany ? ` (${opts.enquirerCompany})` : ''}`
+    : `New enquiry from ${opts.enquirerName}${opts.enquirerCompany ? ` (${opts.enquirerCompany})` : ''}`
   try {
     await resend.emails.send({
       from: 'FindTraining <notifications@findtraining.com>',
       to: opts.providerEmail,
       reply_to: opts.enquirerEmail,
-      subject: `New enquiry from ${opts.enquirerName}${opts.enquirerCompany ? ` (${opts.enquirerCompany})` : ''}`,
+      subject,
       text: lines.join('\n'),
     })
   } catch (err) {
@@ -69,15 +79,25 @@ async function confirmEnquirer(opts: {
   enquirerName: string
   enquirerEmail: string
   providerName: string
+  unclaimed: boolean
 }) {
   if (!process.env.RESEND_API_KEY) return
   const resend = new Resend(process.env.RESEND_API_KEY)
-  try {
-    await resend.emails.send({
-      from: 'FindTraining <hello@findtraining.com>',
-      to: opts.enquirerEmail,
-      subject: `Your enquiry to ${opts.providerName} has been sent`,
-      text: [
+  const subject = opts.unclaimed
+    ? `Your request about ${opts.providerName} has been received`
+    : `Your enquiry to ${opts.providerName} has been sent`
+  const body = opts.unclaimed
+    ? [
+        `Hi ${opts.enquirerName},`,
+        '',
+        `Thanks for your enquiry about ${opts.providerName}.`,
+        '',
+        `${opts.providerName} hasn't claimed their listing on FindTraining yet, so we'll pass your request to them directly and get back to you within 2 business days.`,
+        '',
+        'The FindTraining Team',
+        'https://findtraining.com',
+      ]
+    : [
         `Hi ${opts.enquirerName},`,
         '',
         `Your training enquiry has been sent to ${opts.providerName}.`,
@@ -86,7 +106,13 @@ async function confirmEnquirer(opts: {
         '',
         'The FindTraining Team',
         'https://findtraining.com',
-      ].join('\n'),
+      ]
+  try {
+    await resend.emails.send({
+      from: 'FindTraining <hello@findtraining.com>',
+      to: opts.enquirerEmail,
+      subject,
+      text: body.join('\n'),
     })
   } catch (err) {
     console.error('[enquiry] enquirer confirm error:', err)
@@ -135,9 +161,12 @@ export async function POST(request: NextRequest) {
     if (providerErr || !provider) {
       return NextResponse.json({ error: 'Provider not found.' }, { status: 404 })
     }
-    if (!provider.claimed || !PAID_TIERS.has(provider.tier)) {
-      return NextResponse.json({ error: 'This provider cannot receive enquiries yet.' }, { status: 403 })
+    // Removed/opted_out providers cannot receive enquiries.
+    if (provider.profile_status === 'removed' || provider.profile_status === 'opted_out') {
+      return NextResponse.json({ error: 'This provider cannot receive enquiries.' }, { status: 403 })
     }
+    const isClaimedPaid = provider.claimed && PAID_TIERS.has(provider.tier)
+    const unclaimed = !isClaimedPaid
 
     // Write enquiry
     await submitEnquiry({
@@ -152,7 +181,11 @@ export async function POST(request: NextRequest) {
       message: message ? String(message).trim() : undefined,
     })
 
-    const notifyEmail = provider.email ?? 'hello@findtraining.com'
+    // Unclaimed or free-tier providers: route to hello@ so the team can pass it on.
+    // Claimed paid: notify the provider directly (fallback to hello@ if no email on file).
+    const notifyEmail = unclaimed
+      ? 'hello@findtraining.com'
+      : (provider.email ?? 'hello@findtraining.com')
 
     // Fire-and-forget — do not await
     notifyProvider({
@@ -166,11 +199,13 @@ export async function POST(request: NextRequest) {
       budgetRange: budget_range ? String(budget_range) : null,
       preferredDates: preferred_dates ? String(preferred_dates).trim() : null,
       message: message ? String(message).trim() : null,
+      unclaimed,
     })
     confirmEnquirer({
       enquirerName: String(enquirer_name).trim(),
       enquirerEmail: String(enquirer_email).trim().toLowerCase(),
       providerName: provider.name,
+      unclaimed,
     })
 
     return NextResponse.json({ success: true }, { status: 200 })
