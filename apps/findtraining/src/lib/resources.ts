@@ -993,6 +993,266 @@ export const articles: ResourceArticle[] = [
       },
     ],
   },
+  {
+    slug: 'uk-apprenticeship-levy-guide',
+    title: 'The UK Apprenticeship Levy: A Practical Guide for Employers',
+    description:
+      'How the UK Apprenticeship Levy works, who pays it, how much, and how to spend it through your digital apprenticeship account before it expires.',
+    publishedAt: '2026-05-23',
+    readingTimeMinutes: 6,
+    category: 'UK Employer Funding',
+    content: [
+      {
+        type: 'p',
+        text: 'If your UK business has an annual pay bill above £3 million, you are an apprenticeship levy payer. The levy is 0.5% of your annual pay bill, paid monthly via PAYE. Funds sit in a digital apprenticeship service account and expire 24 months after they enter — so a real cost of unspent levy is real money lost back to the Treasury. This guide covers the mechanics, who is eligible, and what training the levy actually funds.',
+      },
+      {
+        type: 'h2',
+        text: 'What the Apprenticeship Levy is',
+      },
+      {
+        type: 'p',
+        text: 'The Apprenticeship Levy was introduced in April 2017 by HMRC. It is a UK-wide tax on employer pay bills, with the receipts funnelled into a fund that pays for accredited apprenticeship training in England. (Scotland, Wales, and Northern Ireland receive a Barnett-formula share that is spent through their own devolved skills systems.) Levy-paying employers in England access their share via a digital apprenticeship service account, which credits funds with a 10% government top-up.',
+      },
+      {
+        type: 'h2',
+        text: 'Who pays — and how much',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Annual pay bill > £3 million → 0.5% levy on the portion above £3m (you receive a £15,000 annual allowance offset)',
+          'Annual pay bill < £3 million → not a levy payer, but can still access apprenticeship funding via co-investment (95% government, 5% employer)',
+          'Connected companies (groups) calculate one combined pay bill and share one £15,000 allowance',
+          'The levy is paid monthly through PAYE alongside Income Tax and National Insurance',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'The 24-month expiry rule',
+      },
+      {
+        type: 'p',
+        text: 'Each monthly deposit into your digital account has an individual 24-month clock. Funds expire on a rolling first-in, first-out basis. A levy payer that funded the account in May 2024 must spend that May 2024 deposit by May 2026 or lose it. This is why levy-paying employers should treat unspent funds as an active cost line, not a passive credit.',
+      },
+      {
+        type: 'h2',
+        text: 'What the levy can — and cannot — be spent on',
+      },
+      {
+        type: 'p',
+        text: 'Apprenticeship Levy funds can only be spent on the training and end-point assessment portion of an apprenticeship that is on the approved register — see the Institute for Apprenticeships standards list. They cannot be used for apprentice wages, travel, accommodation, equipment, or non-apprenticeship training. The fund is for accredited, multi-month structured programmes, not short courses.',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Eligible: Level 2 to Level 7 apprenticeship standards delivered by Register of Apprenticeship Training Providers (RoATP) providers',
+          'Eligible: end-point assessment fees',
+          'Not eligible: apprentice salary, statutory training (e.g. mandatory health and safety inductions), CPD short courses, university degrees outside an apprenticeship route',
+          'Transferable: up to 50% of your annual levy can be transferred to other employers',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'How to find an approved apprenticeship provider',
+      },
+      {
+        type: 'p',
+        text: 'In England, only providers on the Register of Apprenticeship Training Providers (RoATP) can deliver levy-funded apprenticeships. The official directory is the Find apprenticeship training service operated by the Department for Education. FindTraining indexes a subset of these providers — particularly those who also offer commercial (non-levy) training — alongside their delivery methods and locations. Filter by GB on findtraining.com to browse.',
+      },
+      {
+        type: 'h2',
+        text: 'Common mistakes to avoid',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Treating the levy as sunk cost — every unspent month is real money that exits the account in 24 months',
+          'Assuming all training is levy-eligible — only on-RoATP apprenticeships qualify',
+          'Forgetting the 5% co-investment if your apprenticeship cost exceeds your account balance',
+          'Ignoring the 50% transfer rule — useful if you cannot use the full allowance internally',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'How FindTraining helps',
+      },
+      {
+        type: 'p',
+        text: 'FindTraining indexes UK training providers, including those on the Find Apprenticeship Training register. Browse the UK directory at findtraining.com/gb to see categories, delivery methods, and contact options. For levy-funded apprenticeship procurement specifically, always cross-check the official Find apprenticeship training service to confirm RoATP status before contracting.',
+      },
+    ],
+  },
+  {
+    slug: 'skillsfuture-credit-employer-guide-singapore',
+    title: 'SkillsFuture Credit and Employer Funding in Singapore: A Practical Guide',
+    description:
+      'How SkillsFuture Credit, Enhanced Subsidies, and the Absentee Payroll scheme work for Singapore employers — and how to access SSG-approved training.',
+    publishedAt: '2026-05-23',
+    readingTimeMinutes: 6,
+    category: 'Singapore Employer Funding',
+    content: [
+      {
+        type: 'p',
+        text: 'Singapore employers have one of the most generous workforce development funding regimes in the region — but it operates through several overlapping schemes administered by SkillsFuture Singapore (SSG) and Workforce Singapore (WSG). This guide separates the employer-side schemes from the individual ones, so HR and L&D teams know exactly what is on the table.',
+      },
+      {
+        type: 'h2',
+        text: 'SkillsFuture vs. SkillsFuture Credit',
+      },
+      {
+        type: 'p',
+        text: 'SkillsFuture is the umbrella national movement. SkillsFuture Credit is one specific instrument within it — a S$500 credit (plus periodic top-ups) granted to every Singapore citizen aged 25 and above to spend on approved courses. The credit is held by the individual, not the employer. Employers cannot directly spend an employee\'s SkillsFuture Credit, but they can run training where employees use their credit to offset their share of fees.',
+      },
+      {
+        type: 'h2',
+        text: 'Employer-funded schemes',
+      },
+      {
+        type: 'ul',
+        items: [
+          'SkillsFuture Enterprise Credit (SFEC) — S$10,000 credit per qualifying employer (90% subsidy on eligible workforce transformation costs incl. training)',
+          'Enhanced Training Support for SMEs (ETSS) — up to 90% subsidy on SSG-funded course fees for SME employees',
+          'Absentee Payroll (AP) funding — reimbursement of basic monthly salary for SME employees attending eligible training during working hours',
+          'Mid-Career Pathways Programme — for hiring and training mid-career workers (40+)',
+          'Career Conversion Programme (CCP) — salary support during reskilling for hires moving into new sectors or roles',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'What counts as SSG-approved training',
+      },
+      {
+        type: 'p',
+        text: 'SSG-approved courses are listed on the MySkillsFuture portal under the "Course Directory". Approval is course-level (each individual course is assessed), not provider-level — though a provider can be an "Approved Training Organisation" (ATO) which streamlines new-course submissions. When sourcing training, verify the specific course you want to run is listed under "Funded Courses" before committing — provider accreditation alone does not guarantee subsidy eligibility for a given course.',
+      },
+      {
+        type: 'h2',
+        text: 'How the subsidy stack works in practice',
+      },
+      {
+        type: 'p',
+        text: 'For an SME employer enrolling a Singapore Citizen employee in a SkillsFuture-funded course, the funding stack typically looks like: SSG course-fee subsidy (covers a base percentage) + Enhanced Training Support for SMEs (raises subsidy to up to 90%) + Absentee Payroll (reimburses basic salary at 80% capped at S$4.50 per training hour). Net employer outlay is often 10–20% of the headline course fee plus the AP-uncovered salary portion.',
+      },
+      {
+        type: 'h2',
+        text: 'Eligibility rules to check before enrolling',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Employee must be a Singapore Citizen or Permanent Resident for full subsidy access (some schemes are Citizen-only)',
+          'Employer must be SME-classified for ETSS and SFEC (group revenue and headcount tests apply)',
+          'Course must be on the SSG-funded list at the time of enrolment',
+          'AP funding requires the training to be conducted during normal working hours',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'How to find an Approved Training Organisation',
+      },
+      {
+        type: 'p',
+        text: 'The MySkillsFuture portal at myskillsfuture.gov.sg/content/portal/en/career/job-search/training-providers.html lists every ATO. FindTraining indexes a subset of these providers — search the Singapore directory at findtraining.com/sg to filter by category, delivery method, and contact options. Always cross-check the official portal for the latest accreditation status before contracting.',
+      },
+      {
+        type: 'h2',
+        text: 'How FindTraining helps',
+      },
+      {
+        type: 'p',
+        text: 'FindTraining indexes Singapore training providers with their delivery methods and contact details. Browse at findtraining.com/sg, narrow by category, and reach out via the providers\' contact details. We do not handle SkillsFuture claims directly — those go through the MySkillsFuture portal — but we cut the discovery time on the front of the process.',
+      },
+    ],
+  },
+  {
+    slug: 'australia-rto-buyers-guide',
+    title: 'Working with Australian RTOs: A Buyer\'s Guide for HR and L&D',
+    description:
+      'What an RTO is, how to verify accreditation, and how to use state and federal funding when procuring training for Australian teams.',
+    publishedAt: '2026-05-23',
+    readingTimeMinutes: 6,
+    category: 'Australia Employer Funding',
+    content: [
+      {
+        type: 'p',
+        text: 'In Australia, "RTO" — Registered Training Organisation — is the only accreditation that allows a provider to issue nationally recognised qualifications under the Australian Qualifications Framework. If you are buying training in Australia and the outcome matters (compliance, formal qualifications, government-funded co-payment), the provider must be an RTO. This guide explains how to verify status, where to find providers, and what state-level funding sits behind the buyer side.',
+      },
+      {
+        type: 'h2',
+        text: 'What an RTO is',
+      },
+      {
+        type: 'p',
+        text: 'An RTO is a training provider registered with the Australian Skills Quality Authority (ASQA) — or, for a small number of providers in Victoria and Western Australia, their respective state regulators. ASQA registration permits the RTO to deliver and assess training packages and accredited courses on its scope of registration, and to issue AQF-aligned qualifications and statements of attainment.',
+      },
+      {
+        type: 'h2',
+        text: 'How to verify an RTO',
+      },
+      {
+        type: 'p',
+        text: 'The authoritative source is training.gov.au — the National Register on VET. Every RTO has a four-digit RTO code, a current scope of registration, and a status (Current / Suspended / Cancelled). Three things to check before signing a contract:',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Status is Current (not Suspended or Cancelled)',
+          'Scope of registration includes the specific qualification or unit you want delivered',
+          'Registration expiry date is comfortably beyond your training delivery window',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'State-level funding for employers',
+      },
+      {
+        type: 'p',
+        text: 'Workforce skills funding in Australia is state-administered through subsidised training lists. Each state defines its own subsidy schedule and eligibility criteria — the headline programmes vary by state and change year to year. Before procuring training, check the current programme name and rules for the relevant state on the state training-authority website.',
+      },
+      {
+        type: 'ul',
+        items: [
+          'NSW — Smart and Skilled (subsidised qualifications from the NSW Skills List)',
+          'VIC — Skills First (subsidies via Victorian Training Guarantee)',
+          'QLD — Certificate 3 Guarantee + User Choice (apprenticeships)',
+          'WA — Jobs and Skills WA (priority occupation list)',
+          'SA — Subsidised Training List + WorkReady',
+          'TAS, NT, ACT — Each has its own subsidised training list and eligibility tests',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'Federal layer: apprenticeships and traineeships',
+      },
+      {
+        type: 'p',
+        text: 'The Australian Apprenticeships Incentive System (AAIS) sits at the federal level, providing employer incentives for hiring apprentices and trainees in priority occupations. Payments are made through Australian Apprenticeship Support Network (AASN) providers, not directly between the RTO and employer. If you are hiring rather than upskilling existing staff, route the AAIS conversation through your AASN before contracting the RTO.',
+      },
+      {
+        type: 'h2',
+        text: 'What to look for in an RTO procurement',
+      },
+      {
+        type: 'ul',
+        items: [
+          'RTO code + current scope confirmed on training.gov.au',
+          'Trainer credentials — TAE40122 (or equivalent) for the trainer/assessor delivering the qualification',
+          'Delivery mode that matches your team — face-to-face, blended, online, workplace-based',
+          'Recognition of Prior Learning (RPL) pathway available if relevant',
+          'State subsidy eligibility confirmed in writing — do not assume',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'How FindTraining helps',
+      },
+      {
+        type: 'p',
+        text: 'FindTraining indexes Australian training providers, including a starter set of RTOs imported from training.gov.au. Browse the Australia directory at findtraining.com/au, filter by category and delivery method, and reach out via the providers\' published contact details. We always recommend cross-checking RTO status on training.gov.au before contracting — a directory listing is a starting point, not an accreditation guarantee.',
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): ResourceArticle | undefined {

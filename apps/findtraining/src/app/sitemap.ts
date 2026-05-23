@@ -41,6 +41,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/resources/what-is-hrd-corp-levy`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date() },
     { url: `${BASE_URL}/resources/how-to-find-hrdf-training-provider`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date() },
     { url: `${BASE_URL}/resources/best-it-training-providers-malaysia-2026`, changeFrequency: 'monthly', priority: 0.7, lastModified: new Date() },
+    { url: `${BASE_URL}/resources/uk-apprenticeship-levy-guide`, changeFrequency: 'monthly', priority: 0.7, lastModified: new Date() },
+    { url: `${BASE_URL}/resources/skillsfuture-credit-employer-guide-singapore`, changeFrequency: 'monthly', priority: 0.7, lastModified: new Date() },
+    { url: `${BASE_URL}/resources/australia-rto-buyers-guide`, changeFrequency: 'monthly', priority: 0.7, lastModified: new Date() },
   ]
 
   const categoryPages: MetadataRoute.Sitemap = (categories ?? []).map((c) => ({
