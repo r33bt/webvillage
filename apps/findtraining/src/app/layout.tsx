@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, GraduationCap } from 'lucide-react'
+import { GraduationCap } from 'lucide-react'
 import { MobileMenu } from '@/components/MobileMenu'
 import './globals.css'
 
@@ -88,28 +88,12 @@ export default function RootLayout({
                     Tools
                   </Link>
                   <Link
-                    href="/founding"
-                    className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
-                  >
-                    For Providers
-                  </Link>
-                  <Link
                     href="/about"
                     className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     About
                   </Link>
                 </nav>
-
-                {/* CTA (desktop) */}
-                <Link
-                  href="/founding"
-                  className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
-                  style={{ backgroundColor: '#00C48C', outlineColor: '#00C48C' }}
-                >
-                  List Your Company
-                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                </Link>
 
                 {/* Mobile hamburger */}
                 <MobileMenu />
@@ -125,9 +109,12 @@ export default function RootLayout({
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
                 <p>© {new Date().getFullYear()} FindTraining.com</p>
-                <div className="flex items-center gap-6">
+                <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
                   <Link href="/about" className="hover:text-gray-700 transition-colors">
                     About
+                  </Link>
+                  <Link href="/founding" className="hover:text-gray-700 transition-colors">
+                    For Providers
                   </Link>
                   <Link href="/contact" className="hover:text-gray-700 transition-colors">
                     Contact
