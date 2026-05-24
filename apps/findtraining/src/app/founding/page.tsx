@@ -54,13 +54,13 @@ const DASHBOARD_FEATURES = [
 const NEXT_STEPS = [
   {
     step: '1',
-    title: 'Sign up',
-    detail: 'Fill in your company name, email, and contact. Takes 90 seconds. No payment yet.',
+    title: 'Sign up & pay',
+    detail: 'Fill in your company name, email, and contact, then complete payment via Stripe. RM 100/mo, locked for life. Full refund within 7 days.',
   },
   {
     step: '2',
     title: 'Claim your profile',
-    detail: "We confirm your slot within 24 hours and send your payment link. Once paid, you build out your full provider profile — courses, HRDF number, contact details.",
+    detail: 'We link your existing FindTraining listing to your account and send you a magic link. Build out your provider profile — courses, HRDF number, contact details.',
   },
   {
     step: '3',
@@ -374,8 +374,8 @@ export default async function FoundingPage() {
           <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 flex items-start gap-3">
             <CheckCircle2 className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
             <p className="text-sm text-amber-800 leading-relaxed">
-              <span className="font-semibold">No payment until we confirm your slot.</span>{' '}
-              Reserve now, pay only after we personally review and approve your application.
+              <span className="font-semibold">Secure payment via Stripe — instant activation.</span>{' '}
+              Reserve your slot, complete payment, and your dashboard is set up within 24 hours.
               Full refund within 7 days of your first payment.
             </p>
           </div>

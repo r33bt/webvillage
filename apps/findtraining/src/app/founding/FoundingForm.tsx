@@ -10,12 +10,12 @@ interface FormState {
   phone: string
 }
 
-type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error'
+type SubmitStatus = 'idle' | 'submitting' | 'redirecting' | 'error'
 
 const FAQS = [
   {
     q: 'When do I pay?',
-    a: 'After we confirm your slot. We review every application personally and send you a payment link within 24 hours — no money changes hands until we confirm.',
+    a: 'Right away — you go straight to Stripe checkout after reserving your slot. Full refund within 7 days, no questions asked, so there is no risk in claiming your founding rate now.',
   },
   {
     q: 'What if I am not happy?',
@@ -79,23 +79,26 @@ export function FoundingFormCard({ foundingCount, totalSlots }: { foundingCount:
       })
       const json = await res.json()
       if (!res.ok) { setErrorMsg(json.error ?? 'Something went wrong.'); setStatus('error'); return }
-      setStatus('success')
+      if (!json.url) { setErrorMsg('Checkout link missing. Please try again.'); setStatus('error'); return }
+      setStatus('redirecting')
+      window.location.href = json.url as string
     } catch {
       setErrorMsg('Network error. Please try again.')
       setStatus('error')
     }
   }
 
-  if (status === 'success') {
+  if (status === 'redirecting') {
     return (
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 text-center">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4" style={{ backgroundColor: '#00C48C1A' }}>
-          <svg className="w-7 h-7" style={{ color: '#00C48C' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4" style={{ backgroundColor: '#0F6FEC1A' }}>
+          <svg className="w-7 h-7 animate-spin" style={{ color: '#0F6FEC' }} fill="none" viewBox="0 0 24 24" aria-hidden="true">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth={4} />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
           </svg>
         </div>
-        <h3 className="text-xl font-bold text-gray-900 mb-2">You&apos;re on the list</h3>
-        <p className="text-sm text-gray-600">We&apos;ll be in touch within 24 hours to confirm your founding slot and send your payment link.</p>
+        <h3 className="text-xl font-bold text-gray-900 mb-2">Redirecting to secure checkout…</h3>
+        <p className="text-sm text-gray-600">If you are not redirected in a few seconds, please refresh and try again.</p>
       </div>
     )
   }
@@ -107,7 +110,7 @@ export function FoundingFormCard({ foundingCount, totalSlots }: { foundingCount:
       <div className="text-center mb-6">
         <p className="text-sm font-semibold text-amber-600 mb-1">{slotsLeft} of {totalSlots} founding slots remaining</p>
         <h2 className="text-xl font-bold text-gray-900">Reserve Your Founding Slot</h2>
-        <p className="text-sm text-gray-500 mt-1">RM 100/mo locked for life — no payment until confirmed</p>
+        <p className="text-sm text-gray-500 mt-1">RM 100/mo locked for life — pay securely via Stripe</p>
       </div>
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
         <div>
@@ -140,9 +143,9 @@ export function FoundingFormCard({ foundingCount, totalSlots }: { foundingCount:
         <button type="submit" disabled={status === 'submitting'}
           className="w-full py-3 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60"
           style={{ backgroundColor: '#0F6FEC', outlineColor: '#0F6FEC' }}>
-          {status === 'submitting' ? 'Reserving your slot…' : 'Reserve My Founding Slot'}
+          {status === 'submitting' ? 'Preparing secure checkout…' : 'Continue to Secure Payment'}
         </button>
-        <p className="text-xs text-gray-400 text-center">No payment until we confirm your slot. Full refund within 7 days.</p>
+        <p className="text-xs text-gray-400 text-center">You will be redirected to Stripe to complete payment. Full refund within 7 days.</p>
       </form>
     </div>
   )

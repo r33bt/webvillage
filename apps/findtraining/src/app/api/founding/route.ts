@@ -1,10 +1,25 @@
 // POST /api/founding
-// Saves a founding member prospect to ft_founding_members.
-// Duplicate emails return 200 with success message — don't leak existence.
+// Saves a founding member prospect to ft_founding_members AND immediately
+// creates a Stripe Checkout session for self-serve payment.
+//
+// Self-serve flow (replaces 7-step manual Patrick-sends-link flow):
+//   1. Form submits -> this endpoint
+//   2. Insert/lookup lead in ft_founding_members
+//   3. Create Stripe Checkout session (metadata.founding_member_id, plan=founding)
+//   4. Return { url } to the client
+//   5. Client redirects window.location to the Stripe URL
+//   6. On payment, Stripe webhook (api/stripe/webhook) marks status='paid'
+//
+// Duplicate emails: existing leads are looked up and re-issued a fresh checkout
+// URL (so people who bounced can come back). Already-paid members get a 409.
+//
+// Stripe is in test mode until KYC clears — when live keys are added (REV-P0-1),
+// only the env var STRIPE_SECRET_KEY changes; no code change here.
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { Resend } from 'resend'
+import { getStripe, STRIPE_PRICES } from '@/lib/stripe'
 
 function getServiceClient() {
   return createClient(
@@ -30,56 +45,21 @@ async function sendFoundingNotification(data: {
     await resend.emails.send({
       from: 'FindTraining <notifications@findtraining.com>',
       to: 'hello@findtraining.com',
-      subject: `New Founding Member Interest — ${data.company_name}`,
+      subject: `New Founding Member Checkout Started — ${data.company_name}`,
       text: [
-        'New founding member inquiry received via /founding',
+        'New founding member started self-serve checkout via /founding',
         '',
         `Company: ${data.company_name}`,
         `Name:    ${data.name}`,
         `Email:   ${data.email}`,
         `Phone:   ${data.phone ?? '—'}`,
         '',
-        'Log in to Supabase to view: ft_founding_members',
+        'They have been redirected to Stripe Checkout.',
+        'Watch ft_founding_members for status -> paid (set by webhook).',
       ].join('\n'),
     })
   } catch (err) {
     console.error('[founding] resend error:', err)
-  }
-}
-
-async function sendFoundingConfirmation(data: {
-  company_name: string
-  name: string
-  email: string
-}) {
-  if (!process.env.RESEND_API_KEY) return
-  const resend = new Resend(process.env.RESEND_API_KEY)
-  try {
-    await resend.emails.send({
-      from: 'FindTraining <hello@findtraining.com>',
-      to: data.email,
-      subject: `Your founding slot is reserved — ${data.company_name}`,
-      text: [
-        `Hi ${data.name},`,
-        '',
-        `Thank you for reserving a founding member slot for ${data.company_name} on FindTraining.`,
-        '',
-        "Here's what happens next:",
-        '',
-        '1. We will personally review your application within 24 hours.',
-        '2. Once confirmed, we will send you a payment link for RM 100/mo.',
-        '3. No payment is taken until we confirm your slot.',
-        '',
-        'Your founding rate of RM 100/mo is locked for life — it will never increase.',
-        '',
-        'If you have any questions in the meantime, reply to this email.',
-        '',
-        'The FindTraining Team',
-        'https://findtraining.com',
-      ].join('\n'),
-    })
-  } catch (err) {
-    console.error('[founding] provider confirmation email error:', err)
   }
 }
 
@@ -105,57 +85,186 @@ export async function POST(request: NextRequest) {
     }
 
     const normalizedEmail = email.trim().toLowerCase()
-    const supabase = getServiceClient()
+    const trimmedCompany = company_name.trim()
+    const trimmedName = name.trim()
+    const trimmedPhone = phone?.trim() || null
 
-    const { data: existing } = await supabase
-      .from('ft_founding_members')
-      .select('id')
-      .eq('email', normalizedEmail)
-      .maybeSingle()
-
-    if (existing) {
+    const stripe = getStripe()
+    if (!stripe) {
+      console.error('[founding] Stripe not configured — STRIPE_SECRET_KEY missing')
       return NextResponse.json(
-        { success: true, message: 'We have your details and will be in touch shortly.' },
-        { status: 200 }
+        { error: 'Payments are temporarily unavailable. Please email hello@findtraining.com.' },
+        { status: 503 }
       )
     }
 
-    const { error } = await supabase.from('ft_founding_members').insert({
-      email: normalizedEmail,
-      company_name: company_name.trim(),
-      name: name.trim(),
-      phone: phone?.trim() ?? null,
-      status: 'prospect',
-      source: 'founding_page',
-    })
+    const supabase = getServiceClient()
 
-    if (error) {
-      if (error.code === '23505') {
-        return NextResponse.json({ success: true }, { status: 200 })
-      }
-      console.error('[founding] insert error:', error.message)
+    // Look up or insert the lead so we have an ft_founding_members.id to put in Stripe metadata
+    const { data: existing, error: lookupError } = await supabase
+      .from('ft_founding_members')
+      .select('id, email, name, company_name, status, stripe_customer_id')
+      .eq('email', normalizedEmail)
+      .maybeSingle()
+
+    if (lookupError) {
+      console.error('[founding] lookup error:', lookupError.message)
       return NextResponse.json(
         { error: 'Something went wrong. Please try again.' },
         { status: 500 }
       )
     }
 
-    // Fire-and-forget — do not await, does not block response
-    sendFoundingNotification({
-      company_name: company_name.trim(),
-      name: name.trim(),
-      email: normalizedEmail,
-      phone: phone?.trim(),
-    })
-    sendFoundingConfirmation({
-      company_name: company_name.trim(),
-      name: name.trim(),
-      email: normalizedEmail,
+    // Reject already-paid members so we don't double-charge
+    if (
+      existing &&
+      (existing.status === 'paid' ||
+        existing.status === 'active' ||
+        existing.status === 'onboarded')
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            'You are already a founding member. Check your inbox for your dashboard link, or email hello@findtraining.com.',
+        },
+        { status: 409 }
+      )
+    }
+
+    let memberId: string
+    let stripeCustomerId: string | undefined
+
+    if (existing) {
+      memberId = existing.id
+      stripeCustomerId = existing.stripe_customer_id ?? undefined
+      // Refresh name/company/phone with latest submission so checkout reflects what they just typed
+      await supabase
+        .from('ft_founding_members')
+        .update({
+          company_name: trimmedCompany,
+          name: trimmedName,
+          phone: trimmedPhone,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', memberId)
+    } else {
+      const { data: inserted, error: insertError } = await supabase
+        .from('ft_founding_members')
+        .insert({
+          email: normalizedEmail,
+          company_name: trimmedCompany,
+          name: trimmedName,
+          phone: trimmedPhone,
+          status: 'prospect',
+          source: 'founding_page',
+        })
+        .select('id')
+        .single()
+
+      if (insertError || !inserted) {
+        // Race condition: another request inserted between our lookup and insert.
+        // Try one more lookup to recover.
+        if (insertError?.code === '23505') {
+          const { data: raceRow } = await supabase
+            .from('ft_founding_members')
+            .select('id, stripe_customer_id')
+            .eq('email', normalizedEmail)
+            .maybeSingle()
+          if (!raceRow) {
+            console.error('[founding] insert+recovery failed:', insertError?.message)
+            return NextResponse.json(
+              { error: 'Something went wrong. Please try again.' },
+              { status: 500 }
+            )
+          }
+          memberId = raceRow.id
+          stripeCustomerId = raceRow.stripe_customer_id ?? undefined
+        } else {
+          console.error('[founding] insert error:', insertError?.message)
+          return NextResponse.json(
+            { error: 'Something went wrong. Please try again.' },
+            { status: 500 }
+          )
+        }
+      } else {
+        memberId = inserted.id
+      }
+    }
+
+    // Create or reuse Stripe customer (so customer_email + name are pre-filled in Checkout)
+    if (!stripeCustomerId) {
+      const customer = await stripe.customers.create({
+        email: normalizedEmail,
+        name: trimmedCompany,
+        metadata: { founding_member_id: memberId },
+      })
+      stripeCustomerId = customer.id
+      await supabase
+        .from('ft_founding_members')
+        .update({ stripe_customer_id: stripeCustomerId })
+        .eq('id', memberId)
+    }
+
+    const origin = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://findtraining.com'
+    const priceConfig = STRIPE_PRICES.founding
+
+    const session = await stripe.checkout.sessions.create({
+      customer: stripeCustomerId,
+      payment_method_types: ['card'],
+      mode: 'subscription',
+      line_items: [
+        {
+          price_data: {
+            currency: priceConfig.currency,
+            product_data: {
+              name: priceConfig.name,
+              description: 'Founding Member — RM 100/mo locked for life',
+              metadata: { founding_member_id: memberId },
+            },
+            unit_amount: priceConfig.amount,
+            recurring: { interval: priceConfig.interval },
+          },
+          quantity: 1,
+        },
+      ],
+      metadata: {
+        founding_member_id: memberId,
+        plan: 'founding',
+        contact_name: trimmedName,
+        company_name: trimmedCompany,
+      },
+      success_url: `${origin}/founding/payment-complete?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/founding`,
+      expires_at: Math.floor(Date.now() / 1000) + 86400, // 24 hours
     })
 
-    return NextResponse.json({ success: true }, { status: 200 })
+    if (!session.url) {
+      console.error('[founding] Stripe returned no checkout URL')
+      return NextResponse.json(
+        { error: 'Could not start checkout. Please try again.' },
+        { status: 500 }
+      )
+    }
+
+    // Mark as contacted so the admin path knows a link is outstanding
+    await supabase
+      .from('ft_founding_members')
+      .update({ status: 'contacted', updated_at: new Date().toISOString() })
+      .eq('id', memberId)
+      .in('status', ['prospect', 'interested'])
+
+    // Notify Patrick (fire-and-forget) — useful while in test mode to see drop-off
+    sendFoundingNotification({
+      company_name: trimmedCompany,
+      name: trimmedName,
+      email: normalizedEmail,
+      phone: trimmedPhone ?? undefined,
+    })
+
+    return NextResponse.json({ success: true, url: session.url }, { status: 200 })
   } catch (err) {
-    console.error('[founding] unexpected error:', err)
+    const message = err instanceof Error ? err.message : 'Unknown error'
+    console.error('[founding] unexpected error:', message)
     return NextResponse.json(
       { error: 'Something went wrong. Please try again.' },
       { status: 500 }
