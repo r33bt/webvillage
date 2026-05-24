@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Script from 'next/script'
 import { GraduationCap } from 'lucide-react'
 import { MobileMenu } from '@/components/MobileMenu'
 import './globals.css'
@@ -46,6 +47,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {process.env.NEXT_PUBLIC_GA4_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${process.env.NEXT_PUBLIC_GA4_ID}');`}
+            </Script>
+          </>
+        )}
         <div className="flex flex-col min-h-screen bg-white">
           {/* ── Navigation ─────────────────────────────────────────────── */}
           <header className="border-b border-gray-100 bg-white sticky top-0 z-50">
