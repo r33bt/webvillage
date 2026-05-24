@@ -8,25 +8,12 @@ import { COUNTRY_CONFIGS, getOtherCountries } from '@/lib/countries'
 import type { CountryConfig } from '@/lib/countries'
 import { BuyerSignup } from '@/components/BuyerSignup'
 
-// Malaysian states for the Browse by State section
-const MY_STATES = [
-  'Selangor',
-  'Kuala Lumpur',
-  'Johor',
-  'Penang',
-  'Perak',
-  'Sabah',
-  'Sarawak',
-  'Negeri Sembilan',
-  'Pahang',
-  'Kedah',
-  'Melaka',
-  'Kelantan',
-  'Terengganu',
-  'Perlis',
-  'Putrajaya',
-  'Labuan',
-]
+// Region label by country code (used for the Browse-by-Region section heading).
+const REGION_SECTION_LABEL: Record<string, string> = {
+  MY: 'Browse by State',
+  GB: 'Browse by Nation',
+  AU: 'Browse by State or Territory',
+}
 
 export default async function CountryPage({ countryCode }: { countryCode: string }) {
   const config: CountryConfig | undefined = COUNTRY_CONFIGS[countryCode]
@@ -189,19 +176,21 @@ export default async function CountryPage({ countryCode }: { countryCode: string
         </section>
       )}
 
-      {/* ── [4] Browse by State (MY only) ───────────────────────────────── */}
-      {config.hasStateData && (
+      {/* ── [4] Browse by Region (states / nations / territories) ─────── */}
+      {config.hasStateData && config.regions && Object.keys(config.regions).length > 0 && (
         <section className="py-12 px-4 bg-gray-50 border-t border-gray-100">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Browse by State</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-6">
+              {REGION_SECTION_LABEL[config.code] ?? 'Browse by Region'}
+            </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-              {MY_STATES.map((state) => (
+              {Object.entries(config.regions).map(([slug, name]) => (
                 <Link
-                  key={state}
-                  href={`/search?country=${config.code}&state=${encodeURIComponent(state)}`}
+                  key={slug}
+                  href={`/search?country=${config.code}&state=${encodeURIComponent(name)}`}
                   className="block px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:border-brand-blue hover:text-brand-blue transition-all text-center"
                 >
-                  {state}
+                  {name}
                 </Link>
               ))}
             </div>

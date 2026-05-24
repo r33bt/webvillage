@@ -36,6 +36,10 @@ export type CountryConfig = {
   faqs: FAQ[]
   pricingCTA: { currency: string; starterRange: string }
   hasStateData: boolean
+  // Sub-national regions (states/provinces/territories) used to drive
+  // /categories/[slug]/[state] page generation. Map: url slug → display name.
+  // Empty object = no region pages generated.
+  regions?: Record<string, string>
 }
 
 export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
@@ -97,6 +101,24 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     ],
     pricingCTA: { currency: 'RM', starterRange: '200–300/mo' },
     hasStateData: true,
+    regions: {
+      johor: 'Johor',
+      kedah: 'Kedah',
+      kelantan: 'Kelantan',
+      'kuala-lumpur': 'Kuala Lumpur',
+      labuan: 'Labuan',
+      melaka: 'Melaka',
+      'negeri-sembilan': 'Negeri Sembilan',
+      pahang: 'Pahang',
+      penang: 'Penang',
+      perak: 'Perak',
+      perlis: 'Perlis',
+      putrajaya: 'Putrajaya',
+      sabah: 'Sabah',
+      sarawak: 'Sarawak',
+      selangor: 'Selangor',
+      terengganu: 'Terengganu',
+    },
   },
 
   SG: {
@@ -190,7 +212,13 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
       },
     ],
     pricingCTA: { currency: '£', starterRange: '80–120/mo' },
-    hasStateData: false,
+    hasStateData: true,
+    regions: {
+      england: 'England',
+      scotland: 'Scotland',
+      wales: 'Wales',
+      'northern-ireland': 'Northern Ireland',
+    },
   },
 
   AU: {
@@ -237,7 +265,17 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
       },
     ],
     pricingCTA: { currency: 'A$', starterRange: '120–180/mo' },
-    hasStateData: false,
+    hasStateData: true,
+    regions: {
+      'new-south-wales': 'New South Wales',
+      victoria: 'Victoria',
+      queensland: 'Queensland',
+      'western-australia': 'Western Australia',
+      'south-australia': 'South Australia',
+      tasmania: 'Tasmania',
+      'australian-capital-territory': 'Australian Capital Territory',
+      'northern-territory': 'Northern Territory',
+    },
   },
 
   US: {
