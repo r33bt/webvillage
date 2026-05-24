@@ -11,15 +11,35 @@ function getServiceClient() {
   )
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const supabase = getServiceClient()
-
-  const [{ data: providers }, { data: categories }] = await Promise.all([
-    supabase
+// PostgREST caps a single SELECT at 1000 rows; without paging the sitemap
+// silently dropped 96% of providers once ft_providers exceeded 1k (FT-GAP-30).
+async function fetchAllProviders(
+  supabase: ReturnType<typeof getServiceClient>,
+): Promise<Array<{ slug: string; updated_at: string | null }>> {
+  const PAGE_SIZE = 1000
+  const all: Array<{ slug: string; updated_at: string | null }> = []
+  let from = 0
+  while (true) {
+    const { data, error } = await supabase
       .from('ft_providers')
       .select('slug, updated_at')
       .not('profile_status', 'in', '("removed","opted_out")')
-      .order('updated_at', { ascending: false }),
+      .order('updated_at', { ascending: false })
+      .range(from, from + PAGE_SIZE - 1)
+    if (error) throw new Error(`sitemap fetchAllProviders: ${error.message}`)
+    if (!data || data.length === 0) break
+    all.push(...data)
+    if (data.length < PAGE_SIZE) break
+    from += PAGE_SIZE
+  }
+  return all
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const supabase = getServiceClient()
+
+  const [providers, { data: categories }] = await Promise.all([
+    fetchAllProviders(supabase),
     supabase
       .from('ft_categories')
       .select('slug, updated_at')
