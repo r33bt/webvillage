@@ -1,4 +1,6 @@
-<!-- HARNESS-BASELINE v1.0 (2026-07-23) — managed by _command-center/tools/harness-adopt.py.
+<!-- HARNESS-BASELINE v1.1 (2026-07-25) — managed by _command-center/tools/harness-adopt.py.
+     v1.1: corrected qa-preflight.py path (was the nonexistent _command-center/tools/, now the
+     real C:/Users/User/.claude/tools/). 214 pre-v1.1 copies carry the dead path — re-adopt to fix.
      Reference-not-copy: this file POINTS at the global tools; it never duplicates rule content
      (copy = silent drift, the F10 trap). Re-run `harness-adopt.py adopt <project>` to refresh. -->
 
@@ -12,7 +14,7 @@ that fixed the portfolio's top failure mode (loop closed against a proxy, not re
 Run the environment-sanity preflight FIRST — stale servers and stale `.next` have faked QA
 results at least 6 times portfolio-wide:
 ```
-python C:/Users/User/Documents/alphadev22/_command-center/tools/qa-preflight.py --project <this-dir>
+python C:/Users/User/.claude/tools/qa-preflight.py --project <this-dir>
 ```
 (`--kill` scopes to the stated `--port`/`--project` only. Never trust a QA pass produced
 without a preflight in the same session.)
@@ -29,7 +31,7 @@ without a preflight in the same session.)
 ## Global tools this project can call (no copies here)
 | Tool | Invocation |
 |---|---|
-| Env-sanity preflight | `python _command-center/tools/qa-preflight.py` |
+| Env-sanity preflight | `python C:/Users/User/.claude/tools/qa-preflight.py` |
 | Guard self-test | `python C:/Users/User/.claude/hooks/guards_selftest.py` |
 | Craft lint (A–G corrections) | `python _command-center/design-craft/craft-lint.py` |
 | Token lint (colour discipline) | `python 227-housestyle/scripts/token-lint.py` |
