@@ -75,11 +75,6 @@ const ORGANIZATION_JSON_LD = {
     '@type': 'ImageObject',
     url: 'https://app.brandhacker.com/opengraph-image',
   },
-  founder: {
-    '@type': 'Person',
-    name: 'Patrick Lee',
-    url: 'https://app.brandhacker.com/pat/.well-known/brand.json',
-  },
 }
 
 const WEBSITE_JSON_LD = {
@@ -150,19 +145,14 @@ export default async function HomePage() {
 
           <div className="mt-12 space-y-4">
             <div className="flex flex-wrap gap-4 items-center">
-              <Link
-                href="/case-study/v22-multibrand"
+              <a
+                href="mailto:hello@brandhacker.com"
                 className="inline-flex items-center gap-2 rounded-md bg-zinc-50 px-5 py-3 text-sm font-medium text-zinc-950 hover:bg-zinc-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
               >
-                Read the case study
+                Talk to us
                 <span aria-hidden>→</span>
-              </Link>
+              </a>
             </div>
-            <p className="text-sm text-zinc-400 max-w-md leading-relaxed">
-              We dogfood BrandHacker on our own brands before charging anyone. The first
-              sanitised case study is live — same source of record, three surfaces,
-              before-and-after on consistency.
-            </p>
           </div>
         </div>
       </section>
@@ -237,34 +227,6 @@ export default async function HomePage() {
           ))}
         </div>
 
-        <div className="mt-10 rounded-lg border border-zinc-800 bg-zinc-950 p-6">
-          <div className="text-xs uppercase tracking-[0.2em] text-zinc-400">
-            Live demo
-          </div>
-          <p className="mt-3 text-zinc-300 leading-relaxed">
-            The AI surface is already running. These are real files, served from this domain:
-          </p>
-          <ul className="mt-4 space-y-2 text-sm">
-            <li>
-              <Link
-                href="/pat/llms.txt"
-                className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
-              >
-                /pat/llms.txt
-              </Link>
-              <span className="text-zinc-400"> — the emerging AI-crawler standard</span>
-            </li>
-            <li>
-              <Link
-                href="/pat/.well-known/brand.json"
-                className="text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
-              >
-                /pat/.well-known/brand.json
-              </Link>
-              <span className="text-zinc-400"> — the BrandHacker-native schema</span>
-            </li>
-          </ul>
-        </div>
       </Section>
 
       {/* AEO DIFFERENTIATOR */}
@@ -373,62 +335,22 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* DOGFOOD PROOF */}
-      <Section
-        eyebrow="Dogfood proof"
-        heading="We run BrandHacker on our own brands first."
-        narrow
-      >
-        <div className="space-y-6">
-          <p className="text-zinc-300 leading-relaxed">
-            Before we charge anyone, we run the system on four of our own brands —
-            a regulated MENA fintech, an SA personal finance app, a global
-            personal finance platform, and Pat-personal. If it can&apos;t hold a
-            voice across those, it&apos;s not ready.
-          </p>
-          <p className="text-zinc-300 leading-relaxed">
-            The first sanitised case study lands{' '}
-            <span className="text-zinc-50">2026-05-26</span> — same source of record,
-            three surfaces, before-and-after on consistency.
-          </p>
-
-          <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-6">
-            <div className="text-xs uppercase tracking-[0.2em] text-zinc-400">
-              Case study — 2026-05-26
-            </div>
-            <Link
-              href="/case-study/v22-multibrand"
-              className="mt-3 block text-zinc-50 underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300 text-sm leading-relaxed focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
-            >
-              How a regulated financial-services brand consolidated voice, templates, and AI-engine canon onto BrandHacker →
-            </Link>
-          </div>
-        </div>
-      </Section>
-
       {/* FINAL CTA */}
       <Section narrow>
         <div className="text-center space-y-8">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-50">
-            See the live AEO surface.
+            Keep every surface on-brand.
           </h2>
           <p className="text-zinc-300 leading-relaxed max-w-xl mx-auto">
-            A real file, served from this domain, generated from a real source
-            of record. The fastest way to see what BrandHacker actually does.
+            Tell us about your brand and the surfaces you need to keep consistent.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-            <Link
-              href="/pat/llms.txt"
-              className="inline-flex items-center gap-2 rounded-md bg-zinc-50 px-5 py-3 text-sm font-medium text-zinc-950 hover:bg-zinc-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
-            >
-              See the live AEO surface
-              <span aria-hidden>→</span>
-            </Link>
             <a
               href="mailto:hello@brandhacker.com"
-              className="inline-flex items-center gap-2 rounded-md border border-zinc-700 px-5 py-3 text-sm font-medium text-zinc-200 hover:border-zinc-500 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
+              className="inline-flex items-center gap-2 rounded-md bg-zinc-50 px-5 py-3 text-sm font-medium text-zinc-950 hover:bg-zinc-200 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
             >
-              Or talk to us about WebVillage Editorial — we run BrandHacker for you
+              Talk to us
+              <span aria-hidden>→</span>
             </a>
           </div>
         </div>

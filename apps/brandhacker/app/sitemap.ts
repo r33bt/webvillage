@@ -11,12 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${BASE}/case-study/v22-multibrand`,
-      lastModified: new Date('2026-05-26'),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
       url: `${BASE}/waitlist`,
       lastModified: new Date(),
       changeFrequency: 'monthly',

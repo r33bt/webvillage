@@ -209,7 +209,6 @@ export default async function AppDashboard() {
         )}
         {isOnboarding && (
           <div className="mt-3 flex flex-wrap gap-4 text-xs text-zinc-600">
-            <a href="/case-study/v22-multibrand" className="hover:text-zinc-400 transition-colors underline">See the case study</a>
             {slug && <a href={`/${slug}/llms.txt`} target="_blank" rel="noopener noreferrer" className="hover:text-zinc-400 transition-colors underline">View a live AEO surface ↗</a>}
           </div>
         )}

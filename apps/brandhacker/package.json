@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3003",
+    "prebuild": "node scripts/identity-check.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

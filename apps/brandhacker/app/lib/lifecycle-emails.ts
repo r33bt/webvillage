@@ -70,7 +70,7 @@ export const SEQUENCE: Array<{
     html: (d) => layout('Day 15 of 30', `
       <p style="${body}">You're halfway through your free trial. A quick question: is BrandHacker doing the job you signed up for?</p>
       <ul style="${list}">
-        <li style="${item}">If your AEO surface is set up and drafts are scoring well — you're in good shape. The case study that convinced you to try this is available at <a href="https://app.brandhacker.com/case-study/v22-multibrand" style="${link}">app.brandhacker.com/case-study/v22-multibrand</a> if you need to make the case internally.</li>
+        <li style="${item}">If your AEO surface is set up and drafts are scoring well — you're in good shape.</li>
         <li style="${item}">If you haven't finished onboarding — the wizard takes about 10 minutes. Voice, tokens, facts, first draft. The AEO surface updates automatically after you save facts.</li>
       </ul>
       ${cta(d.dashboardUrl, 'Go to dashboard')}

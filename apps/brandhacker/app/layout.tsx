@@ -70,7 +70,7 @@ export default function RootLayout({
             <span>© 2026 BrandHacker</span>
             <nav className="flex flex-wrap gap-x-6 gap-y-2 justify-center sm:justify-end">
               <Link href="/" className="hover:text-zinc-300 transition-colors">Home</Link>
-              <Link href="/case-study/v22-multibrand" className="whitespace-nowrap hover:text-zinc-300 transition-colors">Case study</Link>
+
               <Link href="/signup" className="whitespace-nowrap hover:text-zinc-300 transition-colors">Sign up free</Link>
               <Link href="/login" className="hover:text-zinc-300 transition-colors">Sign in</Link>
             </nav>
