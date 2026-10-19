@@ -1,6 +1,6 @@
 // scripts/smoke-slice-3.ts
 // Standalone smoke test for Slice 3 — validates the full draft generation + scoring
-// pipeline against all 3 V22 brands without needing a dev server.
+// pipeline against all 3 brand clients without needing a dev server.
 //
 // Run: cd apps/web && npx tsx --env-file=.env.local scripts/smoke-slice-3.ts
 // Requires: ANTHROPIC_API_KEY + NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in .env.local
@@ -41,21 +41,21 @@ interface Brand {
 const TESTS: Brand[] = [
   {
     client_id: '4737a9bd-1edd-4290-855e-4921c28f1a71',
-    display_name: 'Hafiq',
-    template_name: 'Hafiq: LinkedIn long-form (Shariah-aware)',
+    display_name: 'Islamic finance client (example)',
+    template_name: 'Islamic finance client: LinkedIn long-form (Shariah-aware)',
     prompt: 'Write about why Zakat is more than just a tax on wealth — frame it around stewardship and intention (niyyah). Reader is a Muslim professional in their 30s thinking about long-term planning.',
   },
   {
     client_id: '34bd9acb-5157-430b-92ca-f2d41ceb8152',
     display_name: 'v4-sa',
     template_name: 'v4-sa: LinkedIn long-form (22seven heritage)',
-    prompt: 'Write a post explaining why building wealth in 2026 South Africa requires both consistency and acknowledging real-life pressures (load shedding, cost of living). Anchor in the 22seven heritage of helping South Africans since 2012.',
+    prompt: 'Write a post explaining why building wealth in 2026 South Africa requires both consistency and acknowledging real-life pressures (load shedding, cost of living). Anchor in the long heritage of the brand of helping South Africans.',
   },
   {
     client_id: '711cde6c-bc22-4289-be1e-6376e290b0d3',
     display_name: 'v4-global',
     template_name: 'v4-global: LinkedIn long-form (multi-market)',
-    prompt: 'Write a post about how Vault22 brings the same principles of clear, calm money management across SA, UAE, and the upcoming Malaysia market — without losing the local feel each market needs.',
+    prompt: 'Write a post about how the brand brings the same principles of clear, calm money management across SA, UAE, and the upcoming Malaysia market — without losing the local feel each market needs.',
   },
 ]
 
@@ -201,7 +201,7 @@ Return ONLY valid JSON (no markdown, no commentary, no code fences):
 }
 
 async function main() {
-  console.log('Slice 3 smoke test — drafts API pipeline against 3 V22 brands\n')
+  console.log('Slice 3 smoke test — drafts API pipeline against 3 brand clients\n')
   const results = []
   for (const test of TESTS) {
     try {
