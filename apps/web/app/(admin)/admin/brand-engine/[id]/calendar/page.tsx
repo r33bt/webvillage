@@ -20,6 +20,7 @@ export default async function CalendarPage({
 }) {
   const { id } = await params
   const { error: errorParam, refreshed } = await searchParams
+  const ownerEmail = process.env.BRAND_ENGINE_OWNER_EMAIL
   const sb = createSupabaseServiceClient()
 
   const [{ data: client }, { data: lastRefresh }, { count: rowCount }] = await Promise.all([
@@ -84,7 +85,7 @@ export default async function CalendarPage({
           <p className="mb-2 font-semibold">Looker Studio not configured.</p>
           <p>The materialized view + RPC + reader role are deployed; founder action is the Looker Studio side:</p>
           <ol className="mt-2 list-decimal pl-5 space-y-1">
-            <li>Sign in to <span className="font-mono text-xs">lookerstudio.google.com</span> (massiveniche@gmail.com)</li>
+            <li>Sign in to <span className="font-mono text-xs">lookerstudio.google.com</span> {ownerEmail ? <> ({ownerEmail})</> : null}</li>
             <li>New blank report → Add data → PostgreSQL connector</li>
             <li>Connection: <span className="font-mono text-xs">db.hzqbsixlintiairmabbg.supabase.co:5432</span> · DB <span className="font-mono text-xs">postgres</span> · User <span className="font-mono text-xs">wv_calendar_reader</span> · password (set via Supabase dashboard → Settings → Database → set password for the role; store as 1Password "Looker Calendar Reader (EVA Platform)")</li>
             <li>Custom SQL initial query: <span className="font-mono text-xs">SET LOCAL app.current_client = @client_id; SELECT * FROM wv_be_v_editorial_calendar;</span></li>

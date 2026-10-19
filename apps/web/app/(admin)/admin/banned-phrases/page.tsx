@@ -84,7 +84,7 @@ export default async function BannedPhrasesCanonPage() {
       </div>
 
       <p className="mt-8 text-xs text-[#6B7C79]">
-        Source: <span className="font-mono">pb-editorial-anti-slop-overlay.md §5</span> · v4-ToV §D upstream for V22-substrate engagements
+        Source: <span className="font-mono">pb-editorial-anti-slop-overlay.md §5</span> · v4-ToV §D upstream for client engagements
       </p>
     </div>
   )
