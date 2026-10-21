@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { publicDescription } from './provider-description'
+import { isOwnerWrittenDescription, publicDescription } from './provider-description'
 
 describe('publicDescription', () => {
   it('returns null for empty input', () => {
@@ -62,3 +62,15 @@ describe('publicDescription', () => {
   })
 })
 
+describe('isOwnerWrittenDescription', () => {
+  it('is true only for a claimed profile whose owner saved the description', () => {
+    expect(isOwnerWrittenDescription({ claimed: true, description_edited_by_owner: true })).toBe(true)
+    expect(isOwnerWrittenDescription({ claimed: true, description_edited_by_owner: false })).toBe(false)
+    expect(isOwnerWrittenDescription({ claimed: false, description_edited_by_owner: true })).toBe(false)
+  })
+
+  it('treats a missing column (migration not applied) as false', () => {
+    expect(isOwnerWrittenDescription({ claimed: true })).toBe(false)
+    expect(isOwnerWrittenDescription({ claimed: true, description_edited_by_owner: null })).toBe(false)
+  })
+})

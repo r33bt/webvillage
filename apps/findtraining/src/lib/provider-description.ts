@@ -29,3 +29,16 @@ export function publicDescription(description: string | null | undefined, claime
     .trim()
   return kept.length > 0 ? kept : null
 }
+
+/**
+ * True only when the provider's owner saved the description themselves (dashboard profile edit).
+ * A claimed profile can still carry the text the directory seeded, which must not be labelled
+ * "From the provider". `description_edited_by_owner` is missing until its migration is applied;
+ * missing counts as false.
+ */
+export function isOwnerWrittenDescription(provider: {
+  claimed: boolean
+  description_edited_by_owner?: boolean | null
+}): boolean {
+  return provider.claimed && provider.description_edited_by_owner === true
+}

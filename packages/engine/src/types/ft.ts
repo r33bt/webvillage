@@ -26,6 +26,9 @@ export interface FtProvider {
   description: string | null
   logo_url: string | null
   claimed: boolean
+  /** Set when the owner saves the description from the dashboard. Absent until migration
+   *  20261021000001_ft_providers_description_edited_by_owner is applied; treat absent as false. */
+  description_edited_by_owner?: boolean | null
   regulatory_body_id: string | null
   site_id?: number | null
   created_at: string

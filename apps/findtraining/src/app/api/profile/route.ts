@@ -58,6 +58,15 @@ async function createAuthClient() {
   )
 }
 
+function isMissingColumnError(error: { code?: string; message?: string }): boolean {
+  // PostgREST schema cache miss (PGRST204) or Postgres undefined_column (42703)
+  return (
+    error.code === 'PGRST204' ||
+    error.code === '42703' ||
+    (error.message ?? '').includes('description_edited_by_owner')
+  )
+}
+
 export async function PATCH(request: NextRequest) {
   try {
     const supabase = await createAuthClient()
@@ -173,11 +182,33 @@ export async function PATCH(request: NextRequest) {
       updated_at: new Date().toISOString(),
     }
 
+    // The public "From the provider" label needs to know the owner wrote the description,
+    // not just that the profile is claimed (it may still hold the seeded text). Mark it only
+    // when the saved description differs from what is stored.
+    const { data: current } = await supabase
+      .from('ft_providers')
+      .select('description')
+      .eq('claimed_by', user.id)
+      .maybeSingle()
+    const descriptionChanged =
+      updatePayload.description !== null &&
+      updatePayload.description !== ((current as { description: string | null } | null)?.description ?? null)
+    if (descriptionChanged) updatePayload.description_edited_by_owner = true
+
     // UPDATE — ownership enforced via claimed_by = auth.uid()
-    const { error: updateError } = await supabase
+    let { error: updateError } = await supabase
       .from('ft_providers')
       .update(updatePayload)
       .eq('claimed_by', user.id)
+
+    // Column missing (migration 20261021000001 not applied yet): save without the flag.
+    if (updateError && 'description_edited_by_owner' in updatePayload && isMissingColumnError(updateError)) {
+      delete updatePayload.description_edited_by_owner
+      ;({ error: updateError } = await supabase
+        .from('ft_providers')
+        .update(updatePayload)
+        .eq('claimed_by', user.id))
+    }
 
     if (updateError) {
       console.error('[api/profile] update error:', updateError.message)
