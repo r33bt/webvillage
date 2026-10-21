@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { searchProviders, getDistinctCountries } from '@webvillage/engine/adapters/findtraining'
+import { publicDescription } from '@/lib/provider-description'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
 
 // Strip Firecrawl markdown formatting from names: **Name**\\\nDescription → Name
@@ -189,10 +190,10 @@ export default async function ProvidersPage({
                     )}
                   </div>
                 </div>
-                {provider.description && (
+                {publicDescription(provider.description, provider.claimed) && (
                   <div className="mt-3">
-                    <p className="text-sm font-semibold text-gray-700">From the provider</p>
-                    <p className="text-sm text-gray-600 line-clamp-2 break-words">{provider.description}</p>
+                    {provider.claimed && <p className="text-sm font-semibold text-gray-700">From the provider</p>}
+                    <p className="text-sm text-gray-600 line-clamp-2 break-words">{publicDescription(provider.description, provider.claimed)}</p>
                   </div>
                 )}
                 {provider.category_names.length > 0 && (

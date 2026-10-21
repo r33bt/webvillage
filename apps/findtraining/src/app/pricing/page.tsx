@@ -109,7 +109,7 @@ export default async function PricingPage() {
               <Star className="w-5 h-5 text-white" aria-hidden="true" />
             </div>
             <div className="flex-1">
-              <p className="font-semibold text-gray-900">
+              <p className="text-lg font-semibold text-gray-900">
                 Founding offer: RM 100/mo — locked for life
               </p>
               <p className="text-lg text-gray-800">
@@ -211,35 +211,35 @@ export default async function PricingPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Pricing questions</h2>
           <div className="space-y-5">
             <div>
-              <p className="font-semibold text-gray-900 mb-1">Do I need to pay to be listed?</p>
+              <p className="text-lg font-semibold text-gray-900 mb-1">Do I need to pay to be listed?</p>
               <p className="text-lg text-gray-800">
                 No. Many training providers are already listed from public registries. You can
                 claim your free profile without paying.
               </p>
             </div>
             <div>
-              <p className="font-semibold text-gray-900 mb-1">What does Starter unlock?</p>
+              <p className="text-lg font-semibold text-gray-900 mb-1">What does Starter unlock?</p>
               <p className="text-lg text-gray-800">
                 A direct contact button on your profile, the structured enquiry form, email
                 notifications when an HR manager enquires, and 5 course or service listings.
               </p>
             </div>
             <div>
-              <p className="font-semibold text-gray-900 mb-1">What&rsquo;s the difference between Founding and Starter?</p>
+              <p className="text-lg font-semibold text-gray-900 mb-1">What&rsquo;s the difference between Founding and Starter?</p>
               <p className="text-lg text-gray-800">
                 Same feature set. Founding members lock RM 100/mo for life. Once all {total} founding slots are
                 claimed, the price for new providers becomes RM 300/mo (Starter).
               </p>
             </div>
             <div>
-              <p className="font-semibold text-gray-900 mb-1">Can I cancel?</p>
+              <p className="text-lg font-semibold text-gray-900 mb-1">Can I cancel?</p>
               <p className="text-lg text-gray-800">
                 Yes — cancel any time. Founding members get a full refund within 7 days of the first
                 payment.
               </p>
             </div>
             <div>
-              <p className="font-semibold text-gray-900 mb-1">Do you take a cut of bookings?</p>
+              <p className="text-lg font-semibold text-gray-900 mb-1">Do you take a cut of bookings?</p>
               <p className="text-lg text-gray-800">
                 No. FindTraining is a directory. Buyers contact you directly and you handle the
                 engagement on your terms — no commission, no markup.
@@ -249,7 +249,7 @@ export default async function PricingPage() {
           <div className="text-center mt-10">
             <Link
               href="/claim-profile"
-              className="inline-block bg-brand-blue text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+              className="inline-block bg-brand-blue text-white text-lg font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Find your listing →
             </Link>

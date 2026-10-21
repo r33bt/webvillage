@@ -1,3 +1,4 @@
+import { publicDescription } from '@/lib/provider-description'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -212,10 +213,10 @@ export default async function ProviderPage({ params }: Props) {
             {/* About */}
             <section className="bg-white border border-gray-200 rounded-xl p-6">
               <h2 className="text-base font-semibold text-gray-900 mb-3">About</h2>
-              {provider.description ? (
+              {publicDescription(provider.description, provider.claimed) ? (
                 <>
-                  <p className="text-sm font-semibold text-gray-700 mb-1">From the provider</p>
-                  <p className="text-gray-600 text-sm leading-relaxed">{provider.description}</p>
+                  {provider.claimed && <p className="text-sm font-semibold text-gray-700 mb-1">From the provider</p>}
+                  <p className="text-gray-600 text-sm leading-relaxed">{publicDescription(provider.description, provider.claimed)}</p>
                 </>
               ) : provider.claimed ? (
                 <p className="text-gray-400 text-sm italic">No description added yet.</p>
