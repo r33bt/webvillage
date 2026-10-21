@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { publicDescription } from '@/lib/provider-description'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/adapters/findtraining'
@@ -203,8 +204,8 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                         {provider.state && <p className="text-sm text-gray-500">{provider.state}</p>}
                       </div>
                     </div>
-                    {provider.description && (
-                      <p className="mt-3 text-sm text-gray-600 line-clamp-2">{provider.description}</p>
+                    {publicDescription(provider.description, provider.claimed) && (
+                      <p className="mt-3 text-sm text-gray-600 line-clamp-2">{publicDescription(provider.description, provider.claimed)}</p>
                     )}
                   </Link>
                 ))}

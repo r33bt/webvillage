@@ -2,6 +2,7 @@
 // Each country's page.tsx passes its countryCode; this component fetches data + renders.
 
 import Link from 'next/link'
+import { publicDescription } from '@/lib/provider-description'
 import { getAllCategories, getFeaturedProviders, getCountryStats, getCategoryCountsByCountry, getFoundingMemberCount } from '@webvillage/engine/adapters/findtraining'
 import type { FtCategory, FtProvider } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS, getOtherCountries } from '@/lib/countries'
@@ -287,8 +288,8 @@ export default async function CountryPage({ countryCode }: { countryCode: string
                       )}
                     </div>
                   </div>
-                  {provider.description && (
-                    <p className="mt-3 text-sm text-gray-600 line-clamp-2">{provider.description}</p>
+                  {publicDescription(provider.description, provider.claimed) && (
+                    <p className="mt-3 text-sm text-gray-600 line-clamp-2">{publicDescription(provider.description, provider.claimed)}</p>
                   )}
                 </Link>
               ))}

@@ -61,7 +61,7 @@ export function CourseForm({ course, categories, providerId }: CourseFormProps) 
     duration_days: course?.duration_days != null ? String(course.duration_days) : '',
     price_min: course?.price_min != null ? String(course.price_min) : '',
     price_max: course?.price_max != null ? String(course.price_max) : '',
-    hrdf_claimable: course?.hrdf_claimable ?? true,
+    hrdf_claimable: course?.hrdf_claimable ?? false,
     active: course?.active ?? true,
     category_id: course?.category_id ?? '',
   })

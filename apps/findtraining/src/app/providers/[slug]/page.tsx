@@ -142,6 +142,8 @@ export default async function ProviderPage({ params }: Props) {
     ? 'Training provider in Malaysia.'
     : `Training provider in ${countryName}.`
 
+  const aboutText = publicDescription(provider.description, provider.claimed)
+
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -156,7 +158,7 @@ export default async function ProviderPage({ params }: Props) {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: provider.name,
-    description: provider.description ?? fallbackDescription,
+    description: aboutText ?? fallbackDescription,
     ...(showContactInfo && provider.email ? { email: provider.email } : {}),
     ...(showContactInfo && provider.phone ? { telephone: provider.phone } : {}),
     ...(provider.website ? { url: provider.website.startsWith('http') ? provider.website : `https://${provider.website}` } : {}),
@@ -213,10 +215,10 @@ export default async function ProviderPage({ params }: Props) {
             {/* About */}
             <section className="bg-white border border-gray-200 rounded-xl p-6">
               <h2 className="text-base font-semibold text-gray-900 mb-3">About</h2>
-              {publicDescription(provider.description, provider.claimed) ? (
+              {aboutText ? (
                 <>
                   {provider.claimed && <p className="text-sm font-semibold text-gray-700 mb-1">From the provider</p>}
-                  <p className="text-gray-600 text-sm leading-relaxed">{publicDescription(provider.description, provider.claimed)}</p>
+                  <p className="text-gray-600 text-sm leading-relaxed">{aboutText}</p>
                 </>
               ) : provider.claimed ? (
                 <p className="text-gray-400 text-sm italic">No description added yet.</p>
@@ -286,7 +288,7 @@ export default async function ProviderPage({ params }: Props) {
                             {DELIVERY_LABELS[course.delivery_method] ?? course.delivery_method}
                           </span>
                         )}
-                        {course.hrdf_claimable && (
+                        {course.hrdf_claimable && provider.country_code === 'MY' && (
                           <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#00C48C]/10 text-[#00C48C] flex-shrink-0">
                             Provider says HRDF claimable
                           </span>

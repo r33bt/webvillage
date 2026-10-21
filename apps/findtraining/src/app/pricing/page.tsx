@@ -75,7 +75,7 @@ const FEATURES: FeatureRow[] = [
 
 function Cell({ value }: { value: boolean | string }) {
   if (value === true) {
-    return <CheckCircle2 className="w-5 h-5 mx-auto text-brand-blue"  aria-label="Included" />
+    return <CheckCircle2 className="w-5 h-5 mx-auto text-brand-blue" aria-label="Included" />
   }
   if (value === false) {
     return <Minus className="w-5 h-5 mx-auto text-gray-500" aria-label="Not included" />

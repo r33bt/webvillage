@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
         duration_days: duration_days != null ? Number(duration_days) : null,
         price_min: price_min != null ? Number(price_min) : null,
         price_max: price_max != null ? Number(price_max) : null,
-        hrdf_claimable: hrdf_claimable !== false,
+        hrdf_claimable: hrdf_claimable === true,
         active: active !== false,
         category_id: category_id || null,
         currency_code: 'MYR',
