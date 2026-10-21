@@ -188,7 +188,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'FindTraining.com is built for the discovery problem: search providers by category, state and delivery method in one place. Registration status changes, so confirm a provider's HRD Corp registration with the provider or with HRD Corp before you book.',
+        text: 'FindTraining.com is built for the discovery problem: search providers by category, state and delivery method in one place. Registration status changes, so confirm a provider’s HRD Corp registration with the provider or with HRD Corp before you book.',
       },
       {
         type: 'ul',
