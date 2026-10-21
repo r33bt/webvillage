@@ -86,47 +86,47 @@ export default function Page() {
         </ul>
       </section>
 
-      <section className="prose prose-sm max-w-none">
-        <h2>What drives the price</h2>
-        <ul>
+      <section className="text-gray-700 leading-relaxed">
+        <h2 className="text-lg font-semibold text-gray-900 mb-3">What drives the price</h2>
+        <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>
-            <span className="font-medium">Branded methodology licence fees.</span> Programmes taught
+            <span className="font-semibold text-gray-900">Branded methodology licence fees.</span> Programmes taught
             by certified instructors of a named methodology carry licence costs on top of the
             training itself.
           </li>
           <li>
-            <span className="font-medium">Pre-work and assessment.</span> Rep assessments, persona
+            <span className="font-semibold text-gray-900">Pre-work and assessment.</span> Rep assessments, persona
             work and call shadowing before the training add to the price.
           </li>
           <li>
-            <span className="font-medium">Delivery mode.</span> In-person delivery adds trainer
+            <span className="font-semibold text-gray-900">Delivery mode.</span> In-person delivery adds trainer
             travel and venue costs that virtual delivery does not.
           </li>
           <li>
-            <span className="font-medium">Post-training reinforcement.</span> Ongoing manager
+            <span className="font-semibold text-gray-900">Post-training reinforcement.</span> Ongoing manager
             coaching or platform access is often sold as an add-on or a subscription.
           </li>
           <li>
-            <span className="font-medium">Custom build.</span> Content built around your own sales
+            <span className="font-semibold text-gray-900">Custom build.</span> Content built around your own sales
             process costs more than an off-the-shelf programme.
           </li>
         </ul>
 
-        <h2>How to source</h2>
-        <p>
+        <h2 className="text-lg font-semibold text-gray-900 mt-8 mb-3">How to source</h2>
+        <p className="mb-3">
           US sales training providers fall into three broad groups:
         </p>
-        <ul>
+        <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>
-            <span className="font-medium">Methodology owners</span>, which sell their own named
+            <span className="font-semibold text-gray-900">Methodology owners</span>, which sell their own named
             methodology directly or through certified affiliates.
           </li>
           <li>
-            <span className="font-medium">Boutique consultancies</span>, often focused on one or
+            <span className="font-semibold text-gray-900">Boutique consultancies</span>, often focused on one or
             two industries, which build programmes around your process.
           </li>
           <li>
-            <span className="font-medium">Sales-enablement platforms with training arms</span>,
+            <span className="font-semibold text-gray-900">Sales-enablement platforms with training arms</span>,
             which bundle curricula with their software.
           </li>
         </ul>

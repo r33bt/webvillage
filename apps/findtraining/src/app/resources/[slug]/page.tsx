@@ -62,7 +62,7 @@ function renderSection(section: Section, index: number) {
       )
     case 'p':
       return (
-        <p key={index} className="text-gray-600 leading-relaxed mb-4">
+        <p key={index} className="text-gray-600 leading-relaxed mb-4 break-words">
           {section.text}
         </p>
       )
@@ -70,7 +70,7 @@ function renderSection(section: Section, index: number) {
       return (
         <ul key={index} className="list-disc list-inside space-y-1 mb-4 text-gray-600">
           {section.items?.map((item, i) => (
-            <li key={i} className="leading-relaxed">
+            <li key={i} className="leading-relaxed break-words">
               {item}
             </li>
           ))}
