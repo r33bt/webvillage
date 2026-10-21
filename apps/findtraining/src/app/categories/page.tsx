@@ -37,7 +37,6 @@ export default async function CategoriesPage() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Training Categories',
-    description: 'Browse HRDF training providers by category',
     numberOfItems: categories.length,
     itemListElement: categories.map((cat: FtCategory, index: number) => ({
       '@type': 'ListItem',

@@ -44,7 +44,6 @@ const websiteSchema = {
   '@type': 'WebSite',
   name: 'FindTraining.com',
   url: 'https://findtraining.com',
-  description: 'Find training providers worldwide',
   potentialAction: {
     '@type': 'SearchAction',
     target: 'https://findtraining.com/search?q={search_term_string}',
