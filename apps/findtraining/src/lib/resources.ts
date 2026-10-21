@@ -213,7 +213,7 @@ export const articles: ResourceArticle[] = [
   },
   {
     slug: 'best-it-training-providers-malaysia-2026',
-    title: 'Best IT Training Providers in Malaysia 2026 (HRDF Guide)',
+    title: 'Best IT Training Providers in Malaysia (HRDF Guide)',
     description:
       'How to choose IT and technology training providers in Malaysia, and how to fund the training from the HRD Corp levy.',
     publishedAt: '2026-03-15',
@@ -394,7 +394,7 @@ export const articles: ResourceArticle[] = [
   },
   {
     slug: 'hrdf-approved-soft-skills-training-malaysia',
-    title: 'HRDF Soft Skills Training Programmes in Malaysia (2026)',
+    title: 'HRDF Soft Skills Training Programmes in Malaysia',
     description:
       'Leadership, communication, and team-building programmes in Malaysia, how to fund them from the HRD Corp levy, and what to look for.',
     publishedAt: '2026-04-05',
@@ -514,7 +514,7 @@ export const articles: ResourceArticle[] = [
   },
   {
     slug: 'sales-training-providers-malaysia',
-    title: 'Sales Training Providers in Malaysia: What to Look for in 2026',
+    title: 'Sales Training Providers in Malaysia: What to Look For',
     description:
       'How Malaysian companies choose sales training programmes — from methodology to HRDF eligibility. Key questions to ask before you commit.',
     publishedAt: '2026-04-05',
@@ -1144,7 +1144,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Decide before delivery what you\'ll measure 30, 60, and 90 days after the course. "Did they enjoy it" measured on Day 0 tells you almost nothing. "Did the behaviour change" measured at Day 60 tells you whether to renew the contract.',
+        text: 'Decide before delivery what you\'ll measure after the course, and when. "Did they enjoy it" on the last day tells you little. "Did the behaviour change" at an agreed check-in tells you whether to renew the contract.',
       },
       {
         type: 'h2',
@@ -1267,7 +1267,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Modern sales training is methodology-driven (SPIN, MEDDIC, Challenger, Sandler are the dominant frameworks in MY corporate B2B) and delivers measurable pipeline impact when paired with a manager-led coaching cadence. Without the coaching cadence, the half-life of sales training behaviour change is 4–8 weeks. Most providers offer 2–4 day initial training; the best providers offer or require a manager-coaching layer on top.',
+        text: 'Modern sales training is methodology-driven (SPIN, MEDDIC, Challenger and Sandler are common frameworks) and works best when managers coach the new habits afterwards; without that, reps tend to drift back to old habits. Ask each provider whether they offer a manager-coaching layer on top of the initial workshop.',
       },
       {
         type: 'h2',
@@ -1275,7 +1275,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Leadership training covers the broad ground of how a manager runs people: 1:1s, feedback, delegation, performance conversations, conflict, decision-making. Outcomes are slower to measure (typically 60–90 days post-training for behaviour change in 1:1 cadence and feedback frequency) but compound across every person the manager supervises. For middle managers, leadership programmes deliver more value per ringgit than any other category in the long run.',
+        text: 'Leadership training covers the broad ground of how a manager runs people: 1:1s, feedback, delegation, performance conversations, conflict, decision-making. Outcomes take longer to show than sales results, but they reach every person the manager supervises.',
       },
       {
         type: 'h2',
@@ -1320,16 +1320,16 @@ export const articles: ResourceArticle[] = [
   },
   {
     slug: 'measure-training-roi-metrics-hr-managers',
-    title: 'How to Measure Training ROI: 4 Metrics HR Managers Actually Report On',
+    title: 'How to Measure Training ROI: 4 Metrics HR Managers Can Report On',
     description:
-      'Skip the Kirkpatrick lecture — these are the four post-training metrics that get used in real HR reviews in Malaysian corporates, with how to set them up.',
+      'Four post-training metrics you can set up and report on in a quarterly review, and how to set each one up.',
     publishedAt: '2026-05-23',
     readingTimeMinutes: 5,
     category: 'Buyer Guide',
     content: [
       {
         type: 'p',
-        text: 'Kirkpatrick\'s four-level evaluation model is taught in every L&D certification and used in almost no real HR reports. This guide skips the academic framework and shows you four metrics that work in practice — what to measure, when, and how to report it in a quarterly review.',
+        text: 'Kirkpatrick\'s four-level evaluation model is the standard L&D framework. This guide stays practical: four metrics, what to measure, when, and how to report it in a quarterly review.',
       },
       {
         type: 'h2',
@@ -1337,15 +1337,15 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Day-0 satisfaction surveys ("rate the trainer / venue / materials") measure how the participants felt walking out the door. They do not measure outcome change, and they correlate weakly with whether the training delivered any business value. Use them for trainer quality control, not for ROI.',
+        text: 'Day-0 satisfaction surveys ("rate the trainer / venue / materials") measure how the participants felt walking out the door. They do not measure whether anything changed at work. Use them for trainer quality control, not for ROI.',
       },
       {
         type: 'h2',
-        text: 'Metric 1 — Behaviour-change observation at Day 60',
+        text: 'Metric 1 — Behaviour-change observation at an agreed check-in',
       },
       {
         type: 'p',
-        text: 'Sixty days after training, the manager observes whether the participant is doing the new behaviour in their day-to-day work. For sales training: are reps using the new qualification questions in discovery calls? For leadership training: are managers running weekly 1:1s with a written agenda? This is the highest-signal metric and the one most often skipped.',
+        text: 'At a check-in date agreed before training, the manager observes whether the participant is doing the new behaviour in their day-to-day work. For sales training: are reps using the new qualification questions in discovery calls? For leadership training: are managers running weekly 1:1s with a written agenda? This is the most direct of the four metrics.',
       },
       {
         type: 'h2',
@@ -1355,7 +1355,7 @@ export const articles: ResourceArticle[] = [
         type: 'ul',
         items: [
           'Before training: agree 3-5 specific observable behaviours with the manager',
-          'Day 60: manager scores each behaviour 0/1/2 (not visible / partial / consistent) for each participant',
+          'At the check-in: manager scores each behaviour 0/1/2 (not visible / partial / consistent) for each participant',
           'Report the average score per cohort and the trend month-on-month',
         ],
       },
@@ -1365,7 +1365,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Tie one lagging indicator to the training outcome — and only one. For sales training: revenue per rep, deal velocity, or pipeline conversion at the targeted stage. For leadership training: skip-level engagement scores, voluntary turnover in the trained manager\'s team, or 1:1 completion rate from calendar data. Resist the urge to measure five things; one lagging indicator with clear baseline and 90-day window is more credible than five with noisy data.',
+        text: 'Tie one lagging indicator to the training outcome — and only one. For sales training: revenue per rep, deal velocity, or pipeline conversion at the targeted stage. For leadership training: skip-level engagement scores, voluntary turnover in the trained manager\'s team, or 1:1 completion rate from calendar data. Resist the urge to measure five things; one lagging indicator with a clear baseline and a fixed window agreed before training is more credible than five with noisy data.',
       },
       {
         type: 'h2',
@@ -1373,7 +1373,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'For HRDF-registered employers, this is the metric finance directors actually ask about: of the annual levy contribution, what percentage is being claimed back through training? Track quarterly and report against the annual levy contribution estimate (see /tools/hrdf-calculator).',
+        text: 'For HRDF-registered employers, this is a metric finance can follow directly: of the annual levy contribution, what percentage is being claimed back through training? Track quarterly and report against the annual levy contribution estimate (see /tools/hrdf-calculator).',
       },
       {
         type: 'h2',
@@ -1381,7 +1381,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Take the all-in training cost (provider fee + materials + venue + F&B + participant time at internal day rate) and divide by the number of participants who scored 2 on the Day-60 behaviour observation (consistent). This is your real cost per outcome. A cheap training that delivers behaviour change in 1 in 10 participants is more expensive than a premium training that delivers behaviour change in 7 in 10.',
+        text: 'Take the all-in training cost (provider fee + materials + venue + F&B + participant time at internal day rate) and divide by the number of participants who scored 2 (consistent) at the behaviour check-in. This is your real cost per outcome: a cheap course that changes few participants\' behaviour can cost more per outcome than a pricier one that changes most.',
       },
       {
         type: 'h2',
@@ -1389,7 +1389,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'A one-page report per programme: (1) Day-60 behaviour score chart, (2) lagging indicator pre-training baseline vs. 90-day post-training, (3) levy utilisation year-to-date, (4) cost per behaviour-changed participant by programme. That is enough to defend the L&D budget and to make renewal-or-replace decisions on each provider you work with.',
+        text: 'A one-page report per programme: (1) behaviour score chart from the check-in, (2) lagging indicator before training vs. the end of the agreed window, (3) levy utilisation year-to-date, (4) cost per behaviour-changed participant by programme. That is enough to defend the L&D budget and to make renewal-or-replace decisions on each provider you work with.',
       },
       {
         type: 'h2',
@@ -1397,7 +1397,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'When sourcing on findtraining.com, ask each shortlisted provider which of the four metrics above they will help you set up. Providers who include behaviour-change observation in their delivery (rather than just leaving you to do it) outperform on Metric 4 by a wide margin.',
+        text: 'When sourcing on findtraining.com, ask each shortlisted provider which of the four metrics above they will help you set up. Prefer providers who help with the behaviour check-in rather than leaving it to you.',
       },
     ],
   },

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Calculator from './Calculator'
 
 export const metadata: Metadata = {
-  title: 'UK Apprenticeship Levy Calculator 2026 — Estimate Your Annual Levy',
+  title: 'UK Apprenticeship Levy Calculator — Estimate Your Annual Levy',
   description:
     'Free UK Apprenticeship Levy calculator for employers. Enter your annual pay bill to estimate your annual and monthly levy, using the HMRC rate and allowance.',
   alternates: { canonical: 'https://findtraining.com/tools/uk-apprenticeship-levy-calculator' },
