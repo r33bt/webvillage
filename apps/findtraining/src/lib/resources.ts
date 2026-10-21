@@ -946,7 +946,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'For an SME employer enrolling a Singapore Citizen employee in a SkillsFuture-funded course, the funding stack typically looks like: SSG course-fee subsidy (covers a base percentage) + Enhanced Training Support for SMEs (raises subsidy to up to 90%) + Absentee Payroll (reimburses basic salary at 80% capped at S$4.50 per training hour). Net employer outlay is often 10–20% of the headline course fee plus the AP-uncovered salary portion.',
+        text: 'For an SME employer enrolling a Singapore Citizen employee in a SkillsFuture-funded course, the funding stack typically looks like: SSG course-fee subsidy (covers a base percentage) + Enhanced Training Support for SMEs (raises subsidy to up to 90%) + Absentee Payroll (reimburses basic salary at 80% capped at S$4.50 per training hour). What the employer pays after that depends on the employee\'s citizenship status, the company\'s SME status and the course. Check the course\'s funding details on MySkillsFuture before enrolling.',
       },
       {
         type: 'h2',

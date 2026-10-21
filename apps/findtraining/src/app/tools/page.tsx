@@ -5,7 +5,7 @@ import { Calculator, ArrowRight, CheckCircle, Globe, MapPin, DollarSign } from '
 export const metadata: Metadata = {
   title: 'Free Training-Funding Tools — FindTraining.com',
   description:
-    'Free calculators and lookups for HRDF (Malaysia), Apprenticeship Levy (UK), SkillsFuture (Singapore), state RTO funding (Australia), and US sales training pricing.',
+    'Free calculators and lookups for HRDF (Malaysia), Apprenticeship Levy (UK), SkillsFuture (Singapore), state RTO funding (Australia), and US sales training quotes.',
   alternates: { canonical: 'https://findtraining.com/tools' },
 }
 
@@ -188,14 +188,14 @@ export default function ToolsPage() {
           </div>
           <div className="flex-1">
             <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#0F6FEC] leading-snug mb-1">
-              US Sales Training Budget Guide
+              US Sales Training Budget Checklist
             </h3>
             <p className="text-xs text-gray-500 leading-relaxed">
-              Typical US sales training pricing — SDR, AE methodology, enterprise, leadership.
+              What to get in every sales training quote so you can compare like for like.
             </p>
           </div>
           <div className="flex items-center gap-1 text-xs font-medium text-[#0F6FEC]">
-            Open guide
+            Open checklist
             <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
           </div>
         </Link>

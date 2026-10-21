@@ -252,9 +252,9 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     regulatoryBody: null,
     tools: [
       {
-        label: 'US Sales Training Budget Guide',
+        label: 'US Sales Training Budget Checklist',
         href: '/tools/us-sales-training-budget',
-        description: 'Typical US sales training pricing — SDR, AE methodology, enterprise, leadership',
+        description: 'What to get in every sales training quote so you can compare like for like'
       },
     ],
     howItWorksStep3: {
