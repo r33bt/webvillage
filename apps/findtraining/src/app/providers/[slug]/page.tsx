@@ -58,8 +58,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const provider = await getProviderBySlug(slug)
   if (!provider) return { title: 'Provider Not Found' }
 
-  const catLabel = provider.categories?.[0]
-    ? provider.categories[0].split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+  // Label from the first category that maps to a real category page; raw DB values such as
+  // "general_training" would otherwise show up as "General_training" in the meta description.
+  const firstMappedCat = provider.categories?.find((c) => CATEGORY_SLUG_MAP[c])
+  const catLabel = firstMappedCat
+    ? CATEGORY_SLUG_MAP[firstMappedCat].split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
     : null
   const countryName = COUNTRY_CONFIGS[provider.country_code]?.name ?? 'Malaysia'
   const providerLabel = catLabel

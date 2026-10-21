@@ -101,7 +101,7 @@ export default async function ProvidersPage({
     return `/providers${str ? `?${str}` : ''}`
   }
 
-  const activeCountry = params.country ?? null
+  const activeCountry = params.country ? params.country.trim().toUpperCase() : null
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-12">
