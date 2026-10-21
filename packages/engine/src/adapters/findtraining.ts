@@ -59,13 +59,103 @@ export async function getProviderBySlug(slug: string): Promise<FtProvider | null
   return data as FtProvider
 }
 
+type SearchResult = { providers: FtProviderWithCategories[]; total: number }
+type FtClient = Awaited<ReturnType<typeof createFtClient>>
+
+function toProviderWithCategories(row: Record<string, unknown>): FtProviderWithCategories {
+  const categoryRows = (row.ft_provider_categories as Array<{ ft_categories: { name: string } | null }>) ?? []
+  const category_names = categoryRows.map((pc) => pc.ft_categories?.name).filter((n): n is string => Boolean(n))
+  const { ft_provider_categories: _ignored, ...rest } = row
+  void _ignored
+  return { ...rest, category_names } as FtProviderWithCategories
+}
+
+// Block PostgREST or() syntax chars: , . ( ) * %  (% is our wildcard)
+function searchTokens(raw: string | undefined): { clean: string; tokens: string[] } {
+  const clean = (raw ?? '').trim().replace(/[,.()*%]/g, ' ').trim()
+  return { clean, tokens: clean.split(/\s+/).filter((t) => t.length >= 2) }
+}
+
+/**
+ * FT-GAP-25 ranked search via the ft_search_providers_ranked RPC
+ * (supabase/migrations/20261021000002_ft_search_providers_ranked.sql): name matches first,
+ * then description/state matches, then a category fallback when no name matched.
+ * Returns null when the RPC errors (e.g. migration not applied) so the caller falls back
+ * to the name-sorted query.
+ */
+async function rankedSearch(
+  supabase: FtClient,
+  filters: SearchFilters,
+  query: string,
+  from: number,
+): Promise<SearchResult | null> {
+  const args = {
+    p_query: query,
+    p_country_code: filters.country_code ? filters.country_code.trim().toUpperCase() : null,
+    p_state: filters.state ?? null,
+    p_delivery: filters.delivery ?? null,
+    p_category: filters.category ?? null,
+  }
+  try {
+    const { data, error } = await supabase.rpc('ft_search_providers_ranked', {
+      ...args,
+      p_limit: PAGE_SIZE,
+      p_offset: from,
+    })
+    if (error) {
+      console.warn(`searchProviders: ranked search unavailable, using name order (${error.message})`)
+      return null
+    }
+    const hits = (data ?? []) as Array<{ provider_id: string; search_rank: number; total_count: number }>
+
+    if (hits.length === 0) {
+      if (from === 0) return { providers: [], total: 0 }
+      // Past the last page: still report the real total.
+      const { data: first, error: firstError } = await supabase.rpc('ft_search_providers_ranked', {
+        ...args,
+        p_limit: 1,
+        p_offset: 0,
+      })
+      if (firstError) return null
+      const total = Number((first as Array<{ total_count: number }> | null)?.[0]?.total_count ?? 0)
+      return { providers: [], total }
+    }
+
+    const ids = hits.map((h) => h.provider_id)
+    const { data: rows, error: rowsError } = await supabase
+      .from('ft_providers')
+      .select('*, ft_provider_categories(ft_categories(name,slug))')
+      .in('id', ids)
+      .not('profile_status', 'in', '("removed","opted_out")')
+    if (rowsError) {
+      console.warn(`searchProviders: ranked rows fetch failed, using name order (${rowsError.message})`)
+      return null
+    }
+    const byId = new Map((rows ?? []).map((row: Record<string, unknown>) => [row.id as string, row]))
+    const providers = ids
+      .map((id) => byId.get(id))
+      .filter((row): row is Record<string, unknown> => Boolean(row))
+      .map(toProviderWithCategories)
+    return { providers, total: Number(hits[0].total_count) }
+  } catch (err) {
+    console.warn(`searchProviders: ranked search threw, using name order (${err instanceof Error ? err.message : String(err)})`)
+    return null
+  }
+}
+
 export async function searchProviders(
   filters: SearchFilters
-): Promise<{ providers: FtProviderWithCategories[]; total: number }> {
+): Promise<SearchResult> {
   const supabase = await createFtClient()
   const page = filters.page ?? 1
   const from = (page - 1) * PAGE_SIZE
   const to = from + PAGE_SIZE - 1
+
+  const { clean: cleanQuery, tokens } = searchTokens(filters.query)
+  if (tokens.length > 0) {
+    const ranked = await rankedSearch(supabase, filters, cleanQuery, from)
+    if (ranked) return ranked
+  }
 
   const categoryJoin = filters.category
     ? 'ft_provider_categories!inner(ft_categories(name,slug))'
@@ -79,10 +169,8 @@ export async function searchProviders(
   if (filters.category)    query = query.eq('ft_provider_categories.ft_categories.slug', filters.category)
   if (filters.state)       query = query.ilike('state', filters.state)
   if (filters.delivery)    query = query.contains('delivery_methods', [filters.delivery])
-  if (filters.query) {
-    // Block PostgREST or() syntax chars: , . ( ) * %  (% is our wildcard)
-    const cleanQuery = filters.query.trim().replace(/[,.()*%]/g, ' ').trim()
-    const tokens = cleanQuery.split(/\s+/).filter((t) => t.length >= 2)
+  // Fallback / no-query path: the original name-sorted match.
+  if (tokens.length > 0) {
     if (tokens.length === 1) {
       // Single-token: name OR state OR description
       const t = tokens[0]
@@ -98,7 +186,8 @@ export async function searchProviders(
   // country_code is stored upper case (MY, AU); ?country=au must match too
   if (filters.country_code) query = query.eq('country_code', filters.country_code.trim().toUpperCase())
 
-  // Normal order is by name only. Paid tier and the featured flag never change
+  // Fallback order is by name only (the ranked RPC orders by match quality, then name).
+  // Paid tier and the featured flag never change
   // the order of search results; paid placements are shown separately and
   // labelled "Sponsored" (see getFeaturedProviders / CountryPage).
   query = query
@@ -108,13 +197,7 @@ export async function searchProviders(
   const { data, error, count } = await query
   if (error) throw new Error(`searchProviders: ${error.message}`)
 
-  const providers = (data ?? []).map((row: Record<string, unknown>) => {
-    const categoryRows = (row.ft_provider_categories as Array<{ ft_categories: { name: string } | null }>) ?? []
-    const category_names = categoryRows.map((pc) => pc.ft_categories?.name).filter((n): n is string => Boolean(n))
-    const { ft_provider_categories: _ignored, ...rest } = row
-    void _ignored
-    return { ...rest, category_names } as FtProviderWithCategories
-  })
+  const providers = (data ?? []).map((row: Record<string, unknown>) => toProviderWithCategories(row))
 
   return { providers, total: count ?? 0 }
 }
