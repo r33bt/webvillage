@@ -62,7 +62,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'For example: if the wages and fixed allowances of your Malaysian employees total RM 50,000 a month, your monthly levy at 1% is RM 500. The levy is due by the 15th of each month; late payment can lead to a fine and interest.',
+        text: 'To work out a month\'s levy, add up the wages and fixed allowances of your Malaysian employees for that month and multiply by your rate. The HRDF levy calculator at /tools/hrdf-calculator does this for you. The levy is due by the 15th of each month; late payment can lead to a fine and interest.',
       },
       {
         type: 'h2',
@@ -555,7 +555,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'The Malaysian market has a long tail of motivational sales trainers who generate high energy in the room but produce little change in actual sales behaviour. The research on training effectiveness is clear: a workshop alone retains roughly 10% of content after 30 days without reinforcement. Here is what the best providers do differently:',
+        text: 'The Malaysian market has a long tail of motivational sales trainers who generate high energy in the room but produce little change in actual sales behaviour. Without follow-up after the workshop, little of what was taught tends to show up in day-to-day selling. Here is what the best providers do differently:',
       },
       {
         type: 'ul',
