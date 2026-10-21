@@ -32,29 +32,29 @@ export default function Page() {
 
       <Calculator />
 
-      <section className="mt-10 prose prose-sm max-w-none">
-        <h2>How the Apprenticeship Levy works</h2>
-        <p>
+      <section className="mt-10 text-gray-700 leading-relaxed break-words">
+        <h2 className="text-lg font-semibold text-gray-900 mb-3">How the Apprenticeship Levy works</h2>
+        <p className="mb-4">
           UK employers with an annual pay bill above £3 million pay an Apprenticeship Levy of 0.5%
           on the portion above the £3m threshold. The Levy is collected monthly through PAYE
           alongside Income Tax and National Insurance, and credited into a digital apprenticeship
           service account with a 10% government top-up. Funds must be spent within 24 months of
           entering the account or they expire.
         </p>
-        <p>
+        <p className="mb-4">
           For deeper context see the resource article on the{' '}
           <Link href="/resources/uk-apprenticeship-levy-guide" className="text-brand-blue hover:underline">
             UK Apprenticeship Levy
           </Link>
           .
         </p>
-        <h2>What this calculator does not cover</h2>
-        <ul>
+        <h2 className="text-lg font-semibold text-gray-900 mb-3 mt-8">What this calculator does not cover</h2>
+        <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Connected-company group calculations (one shared £15,000 allowance)</li>
           <li>Co-investment funding for non-levy employers (95% government, 5% employer)</li>
           <li>Levy transfer to other employers (up to 50% of annual allowance)</li>
         </ul>
-        <p>
+        <p className="mb-4">
           For complex group structures, refer to the official HMRC guidance on{' '}
           <a
             href="https://www.gov.uk/government/publications/apprenticeship-levy"

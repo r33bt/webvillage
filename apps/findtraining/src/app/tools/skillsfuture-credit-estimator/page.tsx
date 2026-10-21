@@ -149,15 +149,15 @@ export default function Page() {
       </section>
 
       {/* Notes */}
-      <section className="prose prose-sm max-w-none">
-        <h2>Important caveats</h2>
-        <ul>
+      <section className="text-gray-700 leading-relaxed break-words">
+        <h2 className="text-lg font-semibold text-gray-900 mb-3">Important caveats</h2>
+        <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Course must be on the SSG-funded list at the time of enrolment.</li>
           <li>Employee must be a Singapore Citizen or PR for full subsidy access.</li>
           <li>SME classification is tested on revenue and headcount — verify with EnterpriseSG.</li>
           <li>AP funding requires training during normal working hours.</li>
         </ul>
-        <p>
+        <p className="mb-4">
           See the resource article on{' '}
           <Link href="/resources/skillsfuture-credit-employer-guide-singapore" className="text-brand-blue hover:underline">
             SkillsFuture Credit and Employer Funding in Singapore

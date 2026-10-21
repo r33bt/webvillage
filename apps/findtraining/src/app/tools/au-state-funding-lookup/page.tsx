@@ -157,14 +157,14 @@ export default function Page() {
         </a>
       </section>
 
-      <section className="prose prose-sm max-w-none">
-        <h2>Before contracting an RTO</h2>
-        <ul>
+      <section className="text-gray-700 leading-relaxed break-words">
+        <h2 className="text-lg font-semibold text-gray-900 mb-3">Before contracting an RTO</h2>
+        <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Verify the RTO\'s status, scope, and registration expiry on training.gov.au.</li>
           <li>Confirm the specific qualification is on the relevant state subsidised list.</li>
           <li>Get the subsidy eligibility confirmed in writing from the RTO before signing.</li>
         </ul>
-        <p>
+        <p className="mb-4">
           See the resource article on{' '}
           <Link href="/resources/australia-rto-buyers-guide" className="text-brand-blue hover:underline">
             Working with Australian RTOs
