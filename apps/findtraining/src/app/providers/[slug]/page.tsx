@@ -213,7 +213,10 @@ export default async function ProviderPage({ params }: Props) {
             <section className="bg-white border border-gray-200 rounded-xl p-6">
               <h2 className="text-base font-semibold text-gray-900 mb-3">About</h2>
               {provider.description ? (
-                <p className="text-gray-600 text-sm leading-relaxed">{provider.description}</p>
+                <>
+                  <p className="text-sm font-semibold text-gray-700 mb-1">From the provider</p>
+                  <p className="text-gray-600 text-sm leading-relaxed">{provider.description}</p>
+                </>
               ) : provider.claimed ? (
                 <p className="text-gray-400 text-sm italic">No description added yet.</p>
               ) : (
@@ -284,12 +287,12 @@ export default async function ProviderPage({ params }: Props) {
                         )}
                         {course.hrdf_claimable && (
                           <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#00C48C]/10 text-[#00C48C] flex-shrink-0">
-                            HRDF Claimable
+                            Provider says HRDF claimable
                           </span>
                         )}
                       </div>
                       {course.description && (
-                        <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-2">{course.description}</p>
+                        <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-2"><span className="font-semibold text-gray-700">From the provider: </span>{course.description}</p>
                       )}
                       <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
                         {course.duration_days !== null && (

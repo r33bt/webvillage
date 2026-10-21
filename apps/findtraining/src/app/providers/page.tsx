@@ -192,7 +192,10 @@ export default async function ProvidersPage({
                   </div>
                 </div>
                 {provider.description && (
-                  <p className="mt-3 text-sm text-gray-600 line-clamp-2">{provider.description}</p>
+                  <div className="mt-3">
+                    <p className="text-sm font-semibold text-gray-700">From the provider</p>
+                    <p className="text-sm text-gray-600 line-clamp-2">{provider.description}</p>
+                  </div>
                 )}
                 {provider.category_names.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1">
