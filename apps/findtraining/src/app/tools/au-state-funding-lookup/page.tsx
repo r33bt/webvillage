@@ -31,7 +31,7 @@ const STATE_SCHEMES: StateScheme[] = [
     scheme: 'Smart and Skilled',
     who: 'NSW residents, employees in priority occupations',
     highlights:
-      'Subsidies on qualifications from the NSW Skills List. Apprentices and trainees fully subsidised on most qualifications.',
+      'Subsidies on qualifications from the NSW Skills List, including apprenticeships and traineeships.',
     source: 'https://smartandskilled.nsw.gov.au',
   },
   {
@@ -58,7 +58,7 @@ const STATE_SCHEMES: StateScheme[] = [
     scheme: 'Jobs and Skills WA',
     who: 'WA residents in priority occupations',
     highlights:
-      'Lower Skill Set fees for priority qualifications. State-funded apprenticeships.',
+      'Reduced fees on priority qualifications and skill sets. State-funded apprenticeships.',
     source: 'https://www.jobsandskills.wa.gov.au',
   },
   {
@@ -76,7 +76,7 @@ const STATE_SCHEMES: StateScheme[] = [
     scheme: 'Skills Tasmania subsidies',
     who: 'Tasmanian residents',
     highlights:
-      'Apprenticeships fully funded. Subsidised places on Tasmania Training Plan qualifications.',
+      'Funding for apprenticeships and subsidised places on priority qualifications.',
     source: 'https://www.skills.tas.gov.au',
   },
   {

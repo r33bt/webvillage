@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { CheckCircle2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'SkillsFuture Credit Estimator 2026 — Singapore Employer Guide',
+  title: 'SkillsFuture Funding Map — Singapore Employer Guide',
   description:
-    'Estimate the SkillsFuture Credit and employer-side subsidies available for Singapore Citizens. Covers ETSS, SFEC, and Absentee Payroll funding stacks.',
+    'Which Singapore training-funding scheme fits which case: SkillsFuture Credit, SFEC, ETSS, Absentee Payroll and the Career Conversion Programme, with where to check current rates.',
   alternates: { canonical: 'https://findtraining.com/tools/skillsfuture-credit-estimator' },
   openGraph: {
-    title: 'SkillsFuture Credit Estimator — Singapore Employer Guide',
+    title: 'SkillsFuture Funding Map — Singapore Employer Guide',
     description:
-      'How much SkillsFuture funding stacks up for Singapore training procurement: SkillsFuture Credit + SFEC + ETSS + Absentee Payroll.',
+      'Which SkillsFuture scheme fits which training case for Singapore employers, and where to check the current rates.',
     url: 'https://findtraining.com/tools/skillsfuture-credit-estimator',
   },
 }
@@ -19,42 +19,46 @@ type FundingRow = {
   scheme: string
   who: string
   what: string
-  cap: string
+  check: string
   link?: string
 }
 
+// No amounts or rates here: they are set by the agencies and change. Each row sends the reader to
+// the place where the current figure is published.
 const FUNDING_TABLE: FundingRow[] = [
   {
     scheme: 'SkillsFuture Credit',
-    who: 'Singapore Citizens aged 25+',
+    who: 'Singapore Citizens aged 25 and above',
     what: 'Individual credit to offset course fees',
-    cap: 'S$500 baseline + periodic top-ups',
-    link: 'https://www.skillsfuture.gov.sg',
+    check: 'Your current balance on MySkillsFuture (log in with Singpass)',
+    link: 'https://www.myskillsfuture.gov.sg',
   },
   {
     scheme: 'SkillsFuture Enterprise Credit (SFEC)',
-    who: 'Qualifying SMEs',
-    what: '90% subsidy on eligible workforce transformation incl. training',
-    cap: 'S$10,000 per qualifying employer',
-    link: 'https://www.enterprisesg.gov.sg',
+    who: 'Qualifying employers',
+    what: 'Credit towards workforce transformation costs, including training',
+    check: 'Eligibility and current amount on the SFEC page at SkillsFuture Singapore',
+    link: 'https://www.skillsfuture.gov.sg',
   },
   {
     scheme: 'Enhanced Training Support for SMEs (ETSS)',
-    who: 'SMEs sending SC/PR employees on SSG courses',
-    what: 'Course-fee subsidy enhancement',
-    cap: 'Up to 90% of course fees',
+    who: 'SMEs sending SC/PR employees on SSG-funded courses',
+    what: 'Higher course-fee subsidy',
+    check: 'The funding details of the course on MySkillsFuture',
+    link: 'https://www.myskillsfuture.gov.sg',
   },
   {
     scheme: 'Absentee Payroll (AP)',
-    who: 'SMEs (SC/PR employees in training)',
-    what: 'Reimbursement of basic salary during training hours',
-    cap: '80% of hourly basic salary, capped at S$4.50/hr',
+    who: 'Employers of SC/PR employees in eligible training',
+    what: 'Part-reimbursement of basic salary during training hours',
+    check: 'Current rates and caps published by SkillsFuture Singapore',
+    link: 'https://www.skillsfuture.gov.sg',
   },
   {
     scheme: 'Career Conversion Programme (CCP)',
     who: 'Mid-career hires moving into new sectors',
     what: 'Salary support during reskilling',
-    cap: 'Up to 70-90% salary support, programme-dependent',
+    check: 'Support levels per programme at Workforce Singapore',
     link: 'https://www.wsg.gov.sg',
   },
 ]
@@ -65,24 +69,41 @@ export default function Page() {
       <header className="mb-8">
         <p className="text-xs font-semibold uppercase tracking-wide text-brand-blue mb-2">Singapore Tools</p>
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-          SkillsFuture Credit Estimator
+          SkillsFuture Funding Map
         </h1>
         <p className="text-gray-600">
-          Singapore has the most layered training-funding regime in the region. This page maps
-          which scheme applies to which scenario, so HR teams know what to claim before
-          committing to a course.
+          Singapore training funding comes from several schemes. This page maps which scheme
+          applies to which case and where the current rates are published, so HR teams know what
+          to claim before committing to a course.
         </p>
       </header>
 
       {/* Funding table */}
-      <section className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-8">
+      {/* Phone: one card per scheme, so no column is cut off */}
+      <section className="sm:hidden space-y-3 mb-8">
+        {FUNDING_TABLE.map((row) => (
+          <div key={row.scheme} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm text-sm">
+            <h2 className="font-semibold text-gray-900">{row.scheme}</h2>
+            <p className="mt-2 text-gray-700"><span className="font-medium text-gray-900">Who qualifies:</span> {row.who}</p>
+            <p className="mt-1 text-gray-700"><span className="font-medium text-gray-900">What it covers:</span> {row.what}</p>
+            <p className="mt-1 text-gray-700"><span className="font-medium text-gray-900">Where to check:</span> {row.check}</p>
+            {row.link && (
+              <a href={row.link} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs text-brand-blue hover:underline">
+                Official source ↗
+              </a>
+            )}
+          </div>
+        ))}
+      </section>
+
+      <section className="hidden sm:block bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-8">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
               <th className="text-left text-xs font-semibold uppercase tracking-wide text-gray-500 px-4 py-3">Scheme</th>
               <th className="text-left text-xs font-semibold uppercase tracking-wide text-gray-500 px-4 py-3">Who qualifies</th>
               <th className="text-left text-xs font-semibold uppercase tracking-wide text-gray-500 px-4 py-3">What it covers</th>
-              <th className="text-left text-xs font-semibold uppercase tracking-wide text-gray-500 px-4 py-3">Cap</th>
+              <th className="text-left text-xs font-semibold uppercase tracking-wide text-gray-500 px-4 py-3">Where to check</th>
             </tr>
           </thead>
           <tbody>
@@ -103,49 +124,29 @@ export default function Page() {
                 </td>
                 <td className="px-4 py-3 text-gray-700 align-top">{row.who}</td>
                 <td className="px-4 py-3 text-gray-700 align-top">{row.what}</td>
-                <td className="px-4 py-3 text-gray-700 align-top">{row.cap}</td>
+                <td className="px-4 py-3 text-gray-700 align-top">{row.check}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </section>
 
-      {/* Worked example */}
+      {/* How to work out the cost */}
       <section className="rounded-2xl border-2 border-blue-100 bg-blue-50 p-6 mb-8">
-        <h2 className="text-lg font-bold text-gray-900 mb-3">Worked example — SME upskilling 5 SC employees</h2>
-        <p className="text-sm text-gray-700 mb-3">
-          A 40-person SME sends 5 Singapore Citizen employees on an SSG-approved 3-day course
-          listed at S$1,800 per pax (S$9,000 total).
-        </p>
-        <ul className="space-y-2 text-sm text-gray-700">
-          <li className="flex items-start gap-2">
-            <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0 text-brand-blue" aria-hidden="true" />
-            <span>
-              <span className="font-medium">SSG + ETSS subsidy:</span> Up to 90% of course fee.
-              Net employer cost: ~S$900 (10% of S$9,000).
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0 text-brand-blue" aria-hidden="true" />
-            <span>
-              <span className="font-medium">Absentee Payroll:</span> 80% × hourly basic × 24 hours
-              (3 days × 8) capped at S$4.50/hr. Maximum AP across 5 staff:
-              5 × 24 × S$4.50 = S$540.
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0 text-brand-blue" aria-hidden="true" />
-            <span>
-              <span className="font-medium">Net cost to employer:</span> Course (S$900) less AP
-              reimbursement (S$540) = <span className="font-semibold">S$360 net</span> for 5
-              employees attending a 3-day programme.
-            </span>
-          </li>
-        </ul>
-        <p className="text-xs text-gray-500 mt-4">
-          Worked example uses 2026 published rates; actual outcome depends on the specific course’s
-          SSG-funded status and your SME classification.
-        </p>
+        <h2 className="text-lg font-bold text-gray-900 mb-3">How to work out your cost for a course</h2>
+        <ol className="space-y-2 text-sm text-gray-700">
+          {[
+            'Find the course on MySkillsFuture and open its funding details: they show the subsidised fee for each type of trainee.',
+            'Use the SME rate if your company qualifies (ETSS), and the Singapore Citizen or PR rate that applies to each employee.',
+            'If the training runs in working hours, check the current Absentee Payroll rate with SkillsFuture Singapore.',
+            'Ask the provider to confirm the net fee per trainee in writing before you enrol.',
+          ].map((step, i) => (
+            <li key={i} className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0 text-brand-blue" aria-hidden="true" />
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
       </section>
 
       {/* Notes */}

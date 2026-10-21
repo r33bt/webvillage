@@ -818,7 +818,7 @@ export const articles: ResourceArticle[] = [
     content: [
       {
         type: 'p',
-        text: 'If your UK business has an annual pay bill above £3 million, you are an apprenticeship levy payer. The levy is 0.5% of your annual pay bill, paid monthly via PAYE. Funds sit in a digital apprenticeship service account and expire 24 months after they enter — so a real cost of unspent levy is real money lost back to the Treasury. This guide covers the mechanics, who is eligible, and what training the levy actually funds.',
+        text: 'If your UK business has an annual pay bill above £3 million, you are an Apprenticeship Levy payer. The levy is 0.5% of your annual pay bill, less an annual allowance of £15,000, paid monthly through PAYE (source: HMRC, "Pay Apprenticeship Levy", gov.uk/government/publications/apprenticeship-levy). In England, the funds go into an apprenticeship service account and expire if they are not spent in time, so unspent levy is money lost. This guide covers the mechanics, who is eligible, and what training the levy funds.',
       },
       {
         type: 'h2',
@@ -826,7 +826,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'The Apprenticeship Levy was introduced in April 2017 by HMRC. It is a UK-wide tax on employer pay bills, with the receipts funnelled into a fund that pays for accredited apprenticeship training in England. (Scotland, Wales, and Northern Ireland receive a Barnett-formula share that is spent through their own devolved skills systems.) Levy-paying employers in England access their share via a digital apprenticeship service account, which credits funds with a 10% government top-up.',
+        text: 'The Apprenticeship Levy is a UK-wide tax on employer pay bills, collected by HMRC. In England the receipts pay for approved apprenticeship training; Scotland, Wales and Northern Ireland spend their share through their own skills systems. Levy-paying employers in England use their funds through an apprenticeship service account on GOV.UK. Any government top-up added to those funds is set in the apprenticeship funding rules on GOV.UK, which change from year to year.',
       },
       {
         type: 'h2',
@@ -835,19 +835,19 @@ export const articles: ResourceArticle[] = [
       {
         type: 'ul',
         items: [
-          'Annual pay bill > £3 million → 0.5% levy on the portion above £3m (you receive a £15,000 annual allowance offset)',
-          'Annual pay bill < £3 million → not a levy payer, but can still access apprenticeship funding via co-investment (95% government, 5% employer)',
-          'Connected companies (groups) calculate one combined pay bill and share one £15,000 allowance',
+          'Annual pay bill above £3 million → levy of 0.5% of the pay bill, less the £15,000 annual allowance (HMRC, Pay Apprenticeship Levy)',
+          'Annual pay bill of £3 million or less → not a levy payer, but you can still get apprenticeship funding through co-investment; the government and employer shares are set in the apprenticeship funding rules on GOV.UK',
+          'Connected companies (groups) share one £15,000 allowance',
           'The levy is paid monthly through PAYE alongside Income Tax and National Insurance',
         ],
       },
       {
         type: 'h2',
-        text: 'The 24-month expiry rule',
+        text: 'Unspent funds expire',
       },
       {
         type: 'p',
-        text: 'Each monthly deposit into your digital account has an individual 24-month clock. Funds expire on a rolling first-in, first-out basis. A levy payer that funded the account in May 2024 must spend that May 2024 deposit by May 2026 or lose it. This is why levy-paying employers should treat unspent funds as an active cost line, not a passive credit.',
+        text: 'Each monthly deposit into your apprenticeship service account expires if it is not spent within the period set in the apprenticeship funding rules on GOV.UK, oldest funds first. Check the current expiry period in your account and treat unspent funds as an active cost line, not a passive credit.',
       },
       {
         type: 'h2',
@@ -855,15 +855,15 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Apprenticeship Levy funds can only be spent on the training and end-point assessment portion of an apprenticeship that is on the approved register — see the Institute for Apprenticeships standards list. They cannot be used for apprentice wages, travel, accommodation, equipment, or non-apprenticeship training. The fund is for accredited, multi-month structured programmes, not short courses.',
+        text: 'Apprenticeship Levy funds can only be spent on the training and end-point assessment portion of an approved apprenticeship standard. They cannot be used for apprentice wages, travel, accommodation, equipment, or non-apprenticeship training. The fund is for accredited, multi-month structured programmes, not short courses.',
       },
       {
         type: 'ul',
         items: [
-          'Eligible: Level 2 to Level 7 apprenticeship standards delivered by Register of Apprenticeship Training Providers (RoATP) providers',
+          'Eligible: approved apprenticeship standards delivered by providers on the Register of Apprenticeship Training Providers (RoATP); which levels are funded is set in the funding rules',
           'Eligible: end-point assessment fees',
           'Not eligible: apprentice salary, statutory training (e.g. mandatory health and safety inductions), CPD short courses, university degrees outside an apprenticeship route',
-          'Transferable: up to 50% of your annual levy can be transferred to other employers',
+          'Transferable: part of your levy funds can be transferred to other employers, within the limit set in the funding rules',
         ],
       },
       {
@@ -881,10 +881,10 @@ export const articles: ResourceArticle[] = [
       {
         type: 'ul',
         items: [
-          'Treating the levy as sunk cost — every unspent month is real money that exits the account in 24 months',
-          'Assuming all training is levy-eligible — only on-RoATP apprenticeships qualify',
-          'Forgetting the 5% co-investment if your apprenticeship cost exceeds your account balance',
-          'Ignoring the 50% transfer rule — useful if you cannot use the full allowance internally',
+          'Treating the levy as sunk cost: unspent funds expire',
+          'Assuming all training is levy-eligible: only approved apprenticeships delivered by RoATP providers qualify',
+          'Forgetting the employer co-investment share when an apprenticeship costs more than your account balance',
+          'Ignoring levy transfers: useful if you cannot use all your funds internally',
         ],
       },
       {
@@ -916,7 +916,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'SkillsFuture is the umbrella national movement. SkillsFuture Credit is one specific instrument within it — a S$500 credit (plus periodic top-ups) granted to every Singapore citizen aged 25 and above to spend on approved courses. The credit is held by the individual, not the employer. Employers cannot directly spend an employee\'s SkillsFuture Credit, but they can run training where employees use their credit to offset their share of fees.',
+        text: 'SkillsFuture is the umbrella national movement. SkillsFuture Credit is one specific instrument within it: a credit for Singapore Citizens aged 25 and above to spend on approved courses, with top-ups announced from time to time (check your current balance on MySkillsFuture, myskillsfuture.gov.sg). The credit is held by the individual, not the employer. Employers cannot directly spend an employee\'s SkillsFuture Credit, but they can run training where employees use their credit to offset their share of fees.',
       },
       {
         type: 'h2',
@@ -925,10 +925,10 @@ export const articles: ResourceArticle[] = [
       {
         type: 'ul',
         items: [
-          'SkillsFuture Enterprise Credit (SFEC) — S$10,000 credit per qualifying employer (90% subsidy on eligible workforce transformation costs incl. training)',
-          'Enhanced Training Support for SMEs (ETSS) — up to 90% subsidy on SSG-funded course fees for SME employees',
-          'Absentee Payroll (AP) funding — reimbursement of basic monthly salary for SME employees attending eligible training during working hours',
-          'Mid-Career Pathways Programme — for hiring and training mid-career workers (40+)',
+          'SkillsFuture Enterprise Credit (SFEC): credit for qualifying employers towards workforce transformation costs, including training (check eligibility and the current amount on the SFEC page at skillsfuture.gov.sg)',
+          'Enhanced Training Support for SMEs (ETSS): higher course-fee subsidies on SSG-funded courses for SME employees (the course\'s funding details on MySkillsFuture show the current rate)',
+          'Absentee Payroll (AP) funding: part-reimbursement of basic salary for employees attending eligible training during working hours (current rates are published by SkillsFuture Singapore)',
+          'Mid-Career Pathways Programme: for hiring and training mid-career workers',
           'Career Conversion Programme (CCP) — salary support during reskilling for hires moving into new sectors or roles',
         ],
       },
@@ -946,7 +946,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'For an SME employer enrolling a Singapore Citizen employee in a SkillsFuture-funded course, the funding stack typically looks like: SSG course-fee subsidy (covers a base percentage) + Enhanced Training Support for SMEs (raises subsidy to up to 90%) + Absentee Payroll (reimburses basic salary at 80% capped at S$4.50 per training hour). What the employer pays after that depends on the employee\'s citizenship status, the company\'s SME status and the course. Check the course\'s funding details on MySkillsFuture before enrolling.',
+        text: 'For an SME employer enrolling a Singapore Citizen employee in a SkillsFuture-funded course, the funding stack typically looks like: SSG course-fee subsidy (a base percentage) + Enhanced Training Support for SMEs (a higher subsidy for SMEs) + Absentee Payroll (part of the employee\'s basic salary during training hours). What the employer pays after that depends on the employee\'s citizenship status, the company\'s SME status and the course. Check the course\'s funding details on MySkillsFuture before enrolling.',
       },
       {
         type: 'h2',
@@ -967,7 +967,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'The MySkillsFuture portal at myskillsfuture.gov.sg/content/portal/en/career/job-search/training-providers.html lists every ATO. FindTraining indexes a subset of these providers — search the Singapore directory at findtraining.com/sg to filter by category, delivery method, and contact options. Always cross-check the official portal for the latest accreditation status before contracting.',
+        text: 'The MySkillsFuture portal (myskillsfuture.gov.sg) lists approved training providers and their funded courses. FindTraining indexes a subset of these providers — search the Singapore directory at findtraining.com/sg to filter by category, delivery method, and contact options. Always cross-check the official portal for the latest accreditation status before contracting.',
       },
       {
         type: 'h2',
@@ -1006,7 +1006,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'The authoritative source is training.gov.au — the National Register on VET. Every RTO has a four-digit RTO code, a current scope of registration, and a status (Current / Suspended / Cancelled). Three things to check before signing a contract:',
+        text: 'The authoritative source is training.gov.au — the National Register on VET. Every RTO has an RTO code, a current scope of registration, and a status (Current / Suspended / Cancelled). Three things to check before signing a contract:',
       },
       {
         type: 'ul',

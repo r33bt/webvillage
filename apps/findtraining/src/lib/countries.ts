@@ -119,9 +119,9 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     },
     tools: [
       {
-        label: 'SkillsFuture Credit Estimator',
+        label: 'SkillsFuture Funding Map',
         href: '/tools/skillsfuture-credit-estimator',
-        description: 'Map SkillsFuture Credit + SFEC + ETSS + Absentee Payroll for SG employers',
+        description: 'Which SkillsFuture scheme fits which case, and where to check current rates',
       },
     ],
     howItWorksStep3: {
@@ -159,7 +159,7 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
       name: 'Institute of Sales Professionals',
       shortName: 'ISP',
       acronym: 'ISP',
-      website: 'https://www.ismprofessional.org',
+      website: 'https://the-isp.org',
       levyName: 'Apprenticeship Levy',
       levyExplainer:
         'UK employers with a payroll over £3 million pay a 0.5% Apprenticeship Levy. This can fund apprenticeship training — including the Level 4 Sales Executive standard — via providers on the Register of Apprenticeship Training Providers (RoATP).',
@@ -168,7 +168,7 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
       {
         label: 'UK Apprenticeship Levy Calculator',
         href: '/tools/uk-apprenticeship-levy-calculator',
-        description: 'Pay bill → annual levy → digital-account funds (with 10% top-up)',
+        description: 'Pay bill → annual levy (0.5% less the £15,000 allowance, per HMRC)',
       },
     ],
     howItWorksStep3: {
@@ -178,7 +178,7 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     faqs: [
       {
         q: 'What is the Apprenticeship Levy?',
-        a: 'UK employers with annual payroll over £3 million pay a 0.5% levy into a digital account. This can be used to pay for apprenticeship training from approved providers on the RoATP.',
+        a: 'UK employers with an annual pay bill over £3 million pay a 0.5% levy, less a £15,000 allowance (HMRC, Pay Apprenticeship Levy on GOV.UK). In England the funds go into an apprenticeship service account and can be used to pay for apprenticeship training from approved providers on the RoATP.',
       },
       {
         q: 'What is the ISP?',

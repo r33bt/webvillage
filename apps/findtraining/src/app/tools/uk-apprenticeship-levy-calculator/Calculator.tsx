@@ -2,10 +2,12 @@
 
 import { useState, useMemo } from 'react'
 
-const ALLOWANCE = 15_000 // £ — flat annual allowance offset
+// Statutory rate and allowance, per HMRC "Pay Apprenticeship Levy"
+// (https://www.gov.uk/government/publications/apprenticeship-levy), cited on the page.
+// The government top-up and fund expiry are funding-rule settings that change, so they are not computed here.
+const ALLOWANCE = 15_000 // £ annual allowance offset
 const LEVY_RATE = 0.005 // 0.5%
-const THRESHOLD = 3_000_000 // £3m pay-bill threshold (allowance fully offsets levy below this)
-const TOPUP_RATE = 0.1 // 10% government top-up on funds entering the digital account
+const THRESHOLD = ALLOWANCE / LEVY_RATE // £3m: below this the allowance cancels the levy
 
 function formatGBP(n: number): string {
   return new Intl.NumberFormat('en-GB', {
@@ -22,15 +24,11 @@ export default function Calculator() {
     const bill = Number(payBill) || 0
     const grossLevy = bill * LEVY_RATE
     const netLevy = Math.max(0, grossLevy - ALLOWANCE)
-    const topup = netLevy * TOPUP_RATE
-    const digitalAccountAnnual = netLevy + topup
     const isLevyPayer = bill > THRESHOLD
     return {
       bill,
       grossLevy,
       netLevy,
-      topup,
-      digitalAccountAnnual,
       isLevyPayer,
     }
   }, [payBill])
@@ -62,29 +60,23 @@ export default function Calculator() {
         {!result.isLevyPayer ? (
           <div className="rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-900">
             <span className="font-semibold">Below the £3m levy threshold.</span> You do not pay the
-            Apprenticeship Levy. You can still access apprenticeship funding via the co-investment
-            scheme (95% government, 5% employer) — see the resource article for details.
+            Apprenticeship Levy. You can still get apprenticeship funding through co-investment;
+            see the resource article for details.
           </div>
         ) : (
           <>
             <Row label="Gross levy (0.5%)" value={formatGBP(result.grossLevy)} />
             <Row label="£15,000 allowance offset" value={`− ${formatGBP(ALLOWANCE)}`} />
             <Row label="Annual levy paid" value={formatGBP(result.netLevy)} highlight />
-            <Row label="10% government top-up" value={`+ ${formatGBP(result.topup)}`} />
-            <Row
-              label="Total funds in digital account / year"
-              value={formatGBP(result.digitalAccountAnnual)}
-              highlight
-            />
-            <Row label="Monthly digital account credit" value={formatGBP(result.digitalAccountAnnual / 12)} />
+            <Row label="Monthly levy (approx.)" value={formatGBP(result.netLevy / 12)} />
           </>
         )}
       </div>
 
       <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 text-xs text-gray-500 leading-relaxed">
-        Estimates only — based on 2026 published rates. Each monthly deposit expires 24 months
-        after entering the account on a rolling first-in, first-out basis. Treat unspent funds as
-        a real cost line.
+        Estimates only. HMRC applies the allowance monthly through PAYE, so monthly amounts can
+        differ. In England, unspent funds in your apprenticeship service account expire; check the
+        current rules on GOV.UK.
       </div>
     </div>
   )

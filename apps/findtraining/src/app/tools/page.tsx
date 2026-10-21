@@ -127,8 +127,8 @@ export default function ToolsPage() {
               UK Apprenticeship Levy Calculator
             </h3>
             <p className="text-xs text-gray-500 leading-relaxed">
-              Estimate your annual Apprenticeship Levy, the 10% government top-up, and your
-              digital-account funds.
+              Estimate your annual Apprenticeship Levy from your pay bill (0.5% less the £15,000
+              allowance, per HMRC).
             </p>
           </div>
           <div className="flex items-center gap-1 text-xs font-medium text-[#0F6FEC]">
@@ -146,14 +146,14 @@ export default function ToolsPage() {
           </div>
           <div className="flex-1">
             <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#0F6FEC] leading-snug mb-1">
-              SkillsFuture Credit Estimator (SG)
+              SkillsFuture Funding Map (SG)
             </h3>
             <p className="text-xs text-gray-500 leading-relaxed">
               Map the SkillsFuture + SFEC + ETSS + Absentee Payroll stack for Singapore employers.
             </p>
           </div>
           <div className="flex items-center gap-1 text-xs font-medium text-[#0F6FEC]">
-            Open estimator
+            Open map
             <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
           </div>
         </Link>
@@ -170,7 +170,7 @@ export default function ToolsPage() {
               AU State Funding Lookup
             </h3>
             <p className="text-xs text-gray-500 leading-relaxed">
-              Subsidised training schemes by Australian state — Smart and Skilled, Skills First, and 6 more.
+              Subsidised training schemes by Australian state and territory, with each official source.
             </p>
           </div>
           <div className="flex items-center gap-1 text-xs font-medium text-[#0F6FEC]">
