@@ -291,11 +291,11 @@ export default async function DashboardBillingPage({
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" aria-hidden="true" />
-                      Priority search placement
+                      Labelled sponsored placement
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" aria-hidden="true" />
-                      Featured category listings
+                      Unlimited course listings
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" aria-hidden="true" />
@@ -320,7 +320,7 @@ export default async function DashboardBillingPage({
                       <h3 className="text-base font-semibold text-gray-900">Upgrade to Pro</h3>
                     </div>
                     <p className="text-sm text-gray-500 mb-4">
-                      Get priority placement, featured category listings, and an analytics dashboard.
+                      Get a labelled sponsored placement, unlimited course listings, and an analytics dashboard.
                       RM 800/mo.
                     </p>
                     <BillingCheckoutButton plan="pro" label="Upgrade to Pro" primary />

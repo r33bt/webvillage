@@ -324,7 +324,7 @@ export default async function FoundingPage() {
                 <p className="text-xs text-gray-400 mt-1">After launch — non-founding</p>
               </div>
               <ul className="mt-4 space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-400"><CheckCircle2 className="w-4 h-4 flex-shrink-0 text-gray-300" /> Featured placement</li>
+                <li className="flex items-center gap-2 text-sm text-gray-400"><CheckCircle2 className="w-4 h-4 flex-shrink-0 text-gray-300" /> Sponsored placement</li>
                 <li className="flex items-center gap-2 text-sm text-gray-400"><CheckCircle2 className="w-4 h-4 flex-shrink-0 text-gray-300" /> No founding badge</li>
                 <li className="flex items-center gap-2 text-sm text-gray-400"><CheckCircle2 className="w-4 h-4 flex-shrink-0 text-gray-300" /> Unlimited listings</li>
                 <li className="flex items-center gap-2 text-sm text-gray-400"><CheckCircle2 className="w-4 h-4 flex-shrink-0 text-gray-300" /> Advanced analytics</li>
