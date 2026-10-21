@@ -90,11 +90,11 @@ export default async function GlobalHomePage() {
               name="q"
               type="search"
               placeholder="Search training providers worldwide..."
-              className="flex-1 rounded-lg px-4 py-3 text-gray-900 text-base"
+              className="flex-1 min-w-0 rounded-lg px-4 py-3 text-gray-900 text-base"
             />
             <button
               type="submit"
-              className="bg-brand-blue hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+              className="shrink-0 bg-brand-blue hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
             >
               Search
             </button>
