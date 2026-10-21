@@ -289,11 +289,10 @@ export default async function DashboardAnalyticsPage() {
               />
               <div>
                 <p className="text-sm font-semibold text-blue-900">
-                  Unlock detailed analytics and featured placement
+                  Unlock detailed analytics
                 </p>
                 <p className="text-sm text-blue-700 mt-0.5 leading-relaxed">
-                  Upgrade to Starter (RM&nbsp;300/mo) to see deeper visitor insights and get
-                  priority placement in search results.
+                  Upgrade to Starter (RM&nbsp;300/mo) to see deeper visitor insights.
                 </p>
               </div>
             </div>

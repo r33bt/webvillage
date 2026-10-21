@@ -18,7 +18,7 @@ const faqSchema = {
       name: 'What is the HRD Corp levy rate?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Malaysian employers pay 1% of monthly wages for companies with 10+ employees (ramai group), or 0.5% for companies with fewer than 10 employees.',
+        text: '1% of monthly wages for employers with 10 or more Malaysian employees in a covered industry; 0.5% for employers with 5 to 9 who choose to register.',
       },
     },
     {
@@ -26,7 +26,7 @@ const faqSchema = {
       name: 'What can I use my HRD Corp levy for?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'You can claim HRDF-registered training courses for your employees.',
+        text: 'Training grants for your employees, mainly through HRD Corp Claimable Courses with an HRD Corp registered provider, or Skim Bantuan Latihan for some other providers.',
       },
     },
     {
@@ -34,7 +34,7 @@ const faqSchema = {
       name: 'Who must pay the HRD Corp levy?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'All Malaysian employers in sectors listed under the Pembangunan Sumber Manusia Berhad (PSMB) Act 2001 with at least 10 Malaysian employees.',
+        text: 'Employers in industries listed under the Pembangunan Sumber Manusia Berhad (PSMB) Act 2001 with 10 or more Malaysian employees must register; those with 5 to 9 may choose to.',
       },
     },
   ],
@@ -210,8 +210,8 @@ export default function ToolsPage() {
               What is the HRD Corp levy rate?
             </h3>
             <p className="text-sm text-gray-600 leading-relaxed">
-              Malaysian employers pay 1% of monthly wages for companies with 10 or more employees
-              (ramai group), or 0.5% for companies with fewer than 10 employees.
+              1% of monthly wages for employers with 10 or more Malaysian employees in a covered
+              industry; 0.5% for employers with 5 to 9 who choose to register.
             </p>
           </div>
           <div className="rounded-xl border border-gray-200 p-5">
@@ -219,8 +219,8 @@ export default function ToolsPage() {
               What can I use my HRD Corp levy for?
             </h3>
             <p className="text-sm text-gray-600 leading-relaxed">
-              You can claim HRDF-registered training courses for your employees. The full levy
-              pool accumulated each year is available to offset the cost of approved training programmes.
+              Training grants for your employees, mainly through HRD Corp Claimable Courses with an
+              HRD Corp registered provider, or Skim Bantuan Latihan for some other providers.
             </p>
           </div>
           <div className="rounded-xl border border-gray-200 p-5">
@@ -228,8 +228,8 @@ export default function ToolsPage() {
               Who must pay the HRD Corp levy?
             </h3>
             <p className="text-sm text-gray-600 leading-relaxed">
-              All Malaysian employers in sectors listed under the Pembangunan Sumber Manusia Berhad
-              (PSMB) Act 2001 with at least 10 Malaysian employees must register and contribute.
+              Employers in industries listed under the Pembangunan Sumber Manusia Berhad (PSMB) Act
+              2001 with 10 or more Malaysian employees must register; those with 5 to 9 may choose to.
             </p>
           </div>
         </div>

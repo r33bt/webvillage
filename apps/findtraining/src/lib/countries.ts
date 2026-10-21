@@ -45,9 +45,9 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     name: 'Malaysia',
     flag: '🇲🇾',
     currency: 'RM',
-    heroHeadline: 'Find HRDF-Registered Training Providers in Malaysia',
+    heroHeadline: 'Find Training Providers in Malaysia',
     heroSubline:
-      'Browse levy-claimable courses, certifications, and professional development programmes across all 16 states.',
+      'Browse training providers for courses, certifications, and professional development across Malaysia.',
     regulatoryBody: {
       name: 'Human Resource Development Corporation',
       shortName: 'HRD Corp',
@@ -55,7 +55,7 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
       website: 'https://www.hrdcorp.gov.my',
       levyName: 'HRDF levy',
       levyExplainer:
-        'Malaysian employers in covered sectors pay a monthly levy of 1% of wages into the HRD Corp fund. This levy can be claimed back to fund HRDF-registered training programmes — at no net cost to your company.',
+        'Employers in covered industries with 10 or more Malaysian employees pay HRD Corp a monthly levy of 1% of wages (0.5% for employers with 5 to 9 who register). Registered employers apply for training grants from the levy, mainly through HRD Corp Claimable Courses.',
     },
     tools: [
       {
@@ -76,23 +76,23 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     faqs: [
       {
         q: 'What is HRD Corp and the HRDF levy?',
-        a: "HRD Corp (formerly HRDF) is Malaysia's Human Resources Development Corporation. Employers in covered sectors pay a monthly levy of 1% of employee wages into the HRD Corp fund, which can be claimed back for registered training programmes.",
+        a: "HRD Corp (Pembangunan Sumber Manusia Berhad, formerly known as HRDF) collects the Human Resources Development levy under the PSMB Act 2001. Employers in covered industries with 10 or more Malaysian employees pay 1% of monthly wages, and registered employers apply for training grants from the levy.",
       },
       {
         q: 'How do I find HRDF-registered training providers?',
-        a: 'Search FindTraining by category, state, or keyword. Every Malaysian listing on this page is cross-referenced against the official HRD Corp registry.',
+        a: 'Search FindTraining by category, state, or keyword. Before you book, confirm the provider\'s HRD Corp registration with the provider or with HRD Corp.',
       },
       {
         q: 'How do I claim my HRD Corp levy?',
-        a: "Log in to eTRiS (HRD Corp's portal), select your training provider and course, and submit a claim before training starts. Claims must be submitted in advance — retrospective claims are not accepted.",
+        a: "Apply for the training grant in HRD Corp's e-TRiS system before the training starts, then submit the claim within six months of the training end date. Under HRD Corp Claimable Courses, HRD Corp pays the provider after approving the claim.",
       },
       {
-        q: 'How much is the HRDF levy, and can I claim it all back?',
-        a: "The levy is 1% of your employees' monthly wages. You can claim back up to the full amount you have accumulated in the fund, depending on training cost and your current balance.",
+        q: 'How much is the HRDF levy, and how much can I claim?',
+        a: "The levy is 1% of monthly wages for employers with 10 or more Malaysian employees (0.5% for 5 to 9 who register). For each grant, HRD Corp pays the approved amount or the actual cost, whichever is lower, within its cost limits.",
       },
       {
         q: 'Can I list my training company on FindTraining?',
-        a: "If your company is registered with HRD Corp, you are already listed. Claim your profile to add contact details, courses, and a company description. Visit our founding member page for the RM 100/mo founding rate — 50 slots only.",
+        a: "Your company may already be listed. Search for it and claim your profile to add contact details, courses, and a company description, or add a new listing. See the founding member page for the RM 100/mo founding rate.",
       },
     ],
     pricingCTA: { currency: 'RM', starterRange: '200–300/mo' },

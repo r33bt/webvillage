@@ -23,7 +23,7 @@ const FAQS = [
   },
   {
     q: 'What is HRDF levy?',
-    a: "HRDF (Human Resources Development Fund), now managed by HRD Corp, is a mandatory levy paid by employers in Malaysia. Companies contribute 1% of monthly payroll. This levy can be claimed back to fund training from registered providers — making HRDF-registered training effectively free for employers.",
+    a: "The HRDF (now HRD Corp) levy is paid by employers in covered industries with 10 or more Malaysian employees: 1% of monthly wages. Registered employers apply for training grants from it; under HRD Corp Claimable Courses, HRD Corp pays the registered provider after approving the claim.",
   },
   {
     q: 'Is this different from eTRiS?',

@@ -36,11 +36,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${category.name} Training Providers Malaysia | HRDF Claimable`,
-    description: `Browse HRDF-registered ${category.name} training providers in Malaysia. All courses HRDF levy claimable.`,
+    description: `Browse ${category.name} training providers in Malaysia and compare them by state and delivery method.`,
     alternates: { canonical: `https://findtraining.com/categories/${slug}` },
     openGraph: {
       title: `${category.name} Training Providers Malaysia | HRDF Claimable`,
-      description: `Browse HRDF-registered ${category.name} training providers in Malaysia. All courses HRDF levy claimable.`,
+      description: `Browse ${category.name} training providers in Malaysia and compare them by state and delivery method.`,
       images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
     },
   }
@@ -119,7 +119,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       <header className="mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{category.name} Training Providers</h1>
         <p className="text-gray-600">
-          {total.toLocaleString()} HRDF-registered {category.name.toLowerCase()} providers in Malaysia.
+          {total.toLocaleString()} {category.name.toLowerCase()} providers in Malaysia.
         </p>
       </header>
 
@@ -236,7 +236,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           countryCode="MY"
           sourceLabel="category-page"
           heading={`Get new ${category.name} providers in your inbox`}
-          subheading="One short email when new HRDF-claimable providers in this category go live. Unsubscribe any time."
+          subheading="One short email when new providers in this category are listed. Unsubscribe any time."
         />
       </div>
     </div>

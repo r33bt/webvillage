@@ -11,11 +11,11 @@ export interface CategoryDescription {
 
 export const categoryDescriptions: Record<string, CategoryDescription> = {
   'it-training': {
-    headline: 'HRDF-Registered IT & Technology Training Providers in Malaysia',
+    headline: 'IT & Technology Training Providers in Malaysia',
     intro:
-      'IT and technology training covers everything from software development and cybersecurity to cloud infrastructure and data analytics. These courses equip Malaysian employees with in-demand technical skills that drive digital transformation. All providers on FindTraining are HRDF-registered, so your organisation can claim the full course fee against your HRD levy.',
+      'IT and technology training covers everything from software development and cybersecurity to cloud infrastructure and data analytics. These courses equip Malaysian employees with in-demand technical skills that drive digital transformation.',
     keyPoints: [
-      'Microsoft, CompTIA, Cisco, and AWS certifications eligible for HRDF claims',
+      'Microsoft, CompTIA, Cisco, and AWS certification courses',
       'Courses available in cloud computing, cybersecurity, data science, and AI',
       'On-site, virtual live, and self-paced e-learning delivery options',
       'Suitable for technical staff, IT departments, and non-technical managers undergoing digital upskilling',
@@ -24,35 +24,34 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'leadership-management': {
-    headline: 'HRDF-Claimable Leadership & Management Training Providers in Malaysia',
+    headline: 'Leadership & Management Training Providers in Malaysia',
     intro:
-      'Leadership and management training develops the strategic thinking, people management, and decision-making capabilities that organisations need to grow. From first-time manager programmes to C-suite executive development, Malaysian HR teams rely on HRDF-registered providers to build a stronger leadership pipeline.',
+      'Leadership and management training develops the strategic thinking, people management, and decision-making capabilities that organisations need to grow. From first-time manager programmes to C-suite executive development, Providers here help Malaysian HR teams build a stronger leadership pipeline.',
     keyPoints: [
       'Programmes from supervisory skills to senior executive coaching',
       'Topics include strategic planning, change management, and high-performance team building',
       'Many providers offer blended cohort learning with in-company customisation',
-      'HRDF SBL-Khas claimable — ideal for targeted leadership succession planning',
     ],
   },
 
   'human-resources': {
-    headline: 'HRDF-Registered Human Resources Training Providers in Malaysia',
+    headline: 'Human Resources Training Providers in Malaysia',
     intro:
-      'HR training helps practitioners stay current with Malaysian employment law, best-practice talent management, and modern people analytics. Whether your HR team needs to master payroll compliance, performance appraisal frameworks, or HRDF SBL-Khas administration, these registered providers deliver practical, Malaysia-specific content.',
+      'HR training helps practitioners stay current with Malaysian employment law, best-practice talent management, and modern people analytics. Whether your HR team needs to master payroll compliance, performance appraisal frameworks, or HRD Corp levy and grant administration, these providers deliver practical, Malaysia-specific content.',
     keyPoints: [
       'Covers Employment Act 1955 updates, PCB/payroll compliance, and IR procedures',
       'Talent acquisition, competency-based interviewing, and onboarding best practices',
       'Performance management, KPI design, and 360-degree feedback methodologies',
-      'HRDF levy administration and SBL-Khas claim process workshops available',
+      'HRD Corp levy and grant administration workshops',
     ],
   },
 
   'finance-accounting': {
-    headline: 'HRDF-Registered Finance & Accounting Training Providers in Malaysia',
+    headline: 'Finance & Accounting Training Providers in Malaysia',
     intro:
-      'Finance and accounting training keeps your team current with Malaysian tax law, MFRS accounting standards, and financial management best practices. From executive financial literacy to advanced audit and compliance skills, HRDF-registered providers offer courses that directly improve business performance and regulatory readiness.',
+      'Finance and accounting training keeps your team current with Malaysian tax law, MFRS accounting standards, and financial management best practices. From executive financial literacy to advanced audit and compliance skills, providers offer courses that directly improve business performance and regulatory readiness.',
     keyPoints: [
-      'SST, GST reconciliation, and tax compliance courses aligned with LHDN requirements',
+      'SST and tax compliance courses',
       'MFRS and IFRS accounting standards training for finance teams',
       'Courses in financial modelling, budgeting, and management accounting',
       'ACCA, CIMA, and MIA-recognised CPD programmes available',
@@ -60,9 +59,9 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'safety-health': {
-    headline: 'HRDF-Claimable Safety & Health (NIOSH) Training Providers in Malaysia',
+    headline: 'Safety & Health (NIOSH) Training Providers in Malaysia',
     intro:
-      'Occupational safety and health training is both a legal requirement and a critical investment for Malaysian employers under the Occupational Safety and Health Act 1994. Certified NIOSH trainers and DOSH-accredited providers offer everything from Green Book certification to HIRARC facilitation — all HRDF claimable.',
+      'Occupational safety and health training is both a legal requirement and a critical investment for Malaysian employers under the Occupational Safety and Health Act 1994. Certified NIOSH trainers and DOSH-accredited providers offer everything from Green Book certification to HIRARC facilitation.',
     keyPoints: [
       'NIOSH Green Book and site safety supervisor certification programmes',
       'HIRARC (Hazard Identification, Risk Assessment, and Risk Control) workshops',
@@ -72,9 +71,9 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'sales-marketing': {
-    headline: 'HRDF-Registered Sales & Marketing Training Providers in Malaysia',
+    headline: 'Sales & Marketing Training Providers in Malaysia',
     intro:
-      'Sales and marketing training equips Malaysian teams with the skills to close deals, retain customers, and grow revenue in a competitive market. HRDF-registered providers cover everything from consultative B2B sales and CRM platforms to digital marketing strategy and brand management.',
+      'Sales and marketing training equips Malaysian teams with the skills to close deals, retain customers, and grow revenue in a competitive market. Providers cover everything from consultative B2B sales and CRM platforms to digital marketing strategy and brand management.',
     keyPoints: [
       'B2B solution selling, negotiation, and key account management techniques',
       'Digital marketing: SEO, social media, Google Ads, and email automation',
@@ -85,9 +84,9 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'customer-service': {
-    headline: 'HRDF-Claimable Customer Service Training Providers in Malaysia',
+    headline: 'Customer Service Training Providers in Malaysia',
     intro:
-      'Customer service training builds the communication, empathy, and problem-solving skills that separate average service from exceptional experiences. Malaysian HR teams use HRDF-registered providers to upskill frontline staff, call centre agents, and service managers in handling complaints, building rapport, and driving customer loyalty.',
+      'Customer service training builds the communication, empathy, and problem-solving skills that separate average service from exceptional experiences. Malaysian HR teams use these providers to upskill frontline staff, call centre agents, and service managers in handling complaints, building rapport, and driving customer loyalty.',
     keyPoints: [
       'Service excellence and customer experience (CX) frameworks',
       'Complaint handling, de-escalation, and difficult customer management',
@@ -97,9 +96,9 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'soft-skills': {
-    headline: 'HRDF-Registered Soft Skills Training Providers in Malaysia',
+    headline: 'Soft Skills Training Providers in Malaysia',
     intro:
-      'Soft skills training develops the interpersonal and professional capabilities that make technical expertise effective — communication, presentation, critical thinking, and emotional intelligence. Malaysian organisations of every size rely on HRDF-registered soft skills providers to prepare employees for leadership, client-facing roles, and cross-functional collaboration.',
+      'Soft skills training develops the interpersonal and professional capabilities that make technical expertise effective — communication, presentation, critical thinking, and emotional intelligence. Malaysian organisations use soft skills providers to prepare employees for leadership, client-facing roles, and cross-functional collaboration.',
     keyPoints: [
       'Business communication, report writing, and executive presentation skills',
       'Emotional intelligence (EQ), conflict resolution, and workplace relationship management',
@@ -110,9 +109,9 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'compliance-legal': {
-    headline: 'HRDF-Claimable Compliance & Legal Training Providers in Malaysia',
+    headline: 'Compliance & Legal Training Providers in Malaysia',
     intro:
-      'Compliance and legal training helps Malaysian businesses stay on the right side of an increasingly complex regulatory landscape. From PDPA data protection and AML obligations to corporate governance and employment law, HRDF-registered providers deliver targeted training that reduces organisational risk.',
+      'Compliance and legal training helps Malaysian businesses stay on the right side of an increasingly complex regulatory landscape. From PDPA data protection and AML obligations to corporate governance and employment law, providers deliver targeted training that reduces organisational risk.',
     keyPoints: [
       'PDPA 2010 (Malaysia Personal Data Protection Act) compliance workshops',
       'Anti-money laundering (AML) and Know Your Customer (KYC) certification',
@@ -122,9 +121,9 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'technical-skills': {
-    headline: 'HRDF-Registered Technical & Engineering Training Providers in Malaysia',
+    headline: 'Technical & Engineering Training Providers in Malaysia',
     intro:
-      'Technical and engineering training addresses the specialised skills gap in Malaysian manufacturing, construction, and industrial sectors. HRDF-registered providers offer hands-on programmes in maintenance engineering, quality management, and advanced manufacturing techniques — all claimable against your HRD levy.',
+      'Technical and engineering training addresses the specialised skills gap in Malaysian manufacturing, construction, and industrial sectors. Providers offer hands-on programmes in maintenance engineering, quality management, and advanced manufacturing techniques.',
     keyPoints: [
       'Electrical, mechanical, and instrumentation maintenance training',
       'ISO 9001, ISO 14001, and ISO 45001 implementation and internal auditing',
@@ -134,9 +133,9 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'hospitality-tourism': {
-    headline: 'HRDF-Claimable Hospitality & Tourism Training Providers in Malaysia',
+    headline: 'Hospitality & Tourism Training Providers in Malaysia',
     intro:
-      'Hospitality and tourism training prepares Malaysian hotel, F&B, and travel industry professionals for service excellence in a globally competitive market. HRDF-registered providers offer practical skills development across front office operations, food and beverage service, tour guiding, and hospitality management.',
+      'Hospitality and tourism training prepares Malaysian hotel, F&B, and travel industry professionals for service excellence in a globally competitive market. Providers offer practical skills development across front office operations, food and beverage service, tour guiding, and hospitality management.',
     keyPoints: [
       'Front office, housekeeping, and F&B service operations training',
       'Tourism product knowledge, tour planning, and guide certification',
@@ -146,9 +145,9 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'healthcare': {
-    headline: 'HRDF-Registered Healthcare Training Providers in Malaysia',
+    headline: 'Healthcare Training Providers in Malaysia',
     intro:
-      'Healthcare training develops the clinical, administrative, and interpersonal skills of Malaysia\'s healthcare workforce. HRDF-registered providers serve private hospital groups, clinic networks, and allied health employers — offering everything from clinical skills updates and medical billing to patient communication and healthcare management.',
+      'Healthcare training develops the clinical, administrative, and interpersonal skills of Malaysia\'s healthcare workforce. Providers serve private hospital groups, clinic networks, and allied health employers — offering everything from clinical skills updates and medical billing to patient communication and healthcare management.',
     keyPoints: [
       'Clinical skills updates, infection control, and patient safety programmes',
       'Medical billing, coding, and private healthcare administration',
@@ -158,9 +157,9 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'manufacturing': {
-    headline: 'HRDF-Claimable Manufacturing & Quality Training Providers in Malaysia',
+    headline: 'Manufacturing & Quality Training Providers in Malaysia',
     intro:
-      'Manufacturing and quality training helps Malaysian production teams reduce waste, maintain certifications, and continuously improve processes. From ISO certification support to lean and Six Sigma implementation, HRDF-registered providers equip shop floor and management personnel with skills that directly impact output quality and operational efficiency.',
+      'Manufacturing and quality training helps Malaysian production teams reduce waste, maintain certifications, and continuously improve processes. From ISO certification support to lean and Six Sigma implementation, providers equip shop floor and management personnel with skills that directly impact output quality and operational efficiency.',
     keyPoints: [
       'ISO 9001:2015, IATF 16949, and AS9100 quality management system training',
       'Lean manufacturing, 5S, Total Productive Maintenance (TPM), and Kaizen',

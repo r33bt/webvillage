@@ -26,7 +26,7 @@ export const articles: ResourceArticle[] = [
     content: [
       {
         type: 'p',
-        text: 'If you run a business in Malaysia with ten or more employees, you are almost certainly required to contribute to the HRD Corp levy every month. Yet many employers either do not know this obligation exists, or they pay in without ever claiming the funds back for training. This guide covers everything you need to know.',
+        text: 'If your business is in an industry covered by the PSMB Act 2001 and has 10 or more Malaysian employees, it must register with HRD Corp and pay the Human Resources Development levy every month. This guide covers who pays, how much, and how the levy funds training.',
       },
       {
         type: 'h2',
@@ -34,11 +34,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'HRD Corp — officially known as the Human Resource Development Corporation, or Perbadanan Pembangunan Sumber Manusia Berhad (PSMB) — is the national statutory body in Malaysia responsible for the development of human capital in the private sector. It was formerly known as HRDF (Human Resource Development Fund). The rebrand to HRD Corp happened in 2021, but "HRDF" is still widely used and refers to the same body and the same levy system.',
-      },
-      {
-        type: 'p',
-        text: 'HRD Corp operates under the Ministry of Human Resources (KESUMA) and administers the Human Resources Development (HRD) levy. Its mandate is to ensure that Malaysia\'s workforce is continuously upskilled to meet industry needs.',
+        text: 'HRD Corp (Pembangunan Sumber Manusia Berhad) collects the Human Resources Development levy under the PSMB Act 2001 and funds employee training from it. It was formerly known as HRDF (Human Resources Development Fund), and "HRDF" is still widely used for the same levy.',
       },
       {
         type: 'h2',
@@ -46,20 +42,15 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'The levy is mandatory for employers in covered sectors who have ten or more Malaysian employees. The covered sectors are defined in the Second Schedule of the Pembangunan Sumber Manusia Berhad Act 2001, and they span most of the formal economy — including manufacturing, services, mining, construction, and retail.',
+        text: 'Two things decide it: your headcount of Malaysian employees and whether your industry is listed in the First Schedule of the PSMB Act 2001. The list of covered industries was widened from 1 March 2021. Federal and state government, local councils and statutory bodies are not covered.',
       },
       {
         type: 'ul',
         items: [
-          '10 or more Malaysian employees → 1% levy on monthly wages',
-          '5 to 9 Malaysian employees → voluntary registration (0.5% levy)',
-          'Fewer than 5 employees → not required to register',
-          'Expatriate employees are excluded from the levy calculation',
+          '10 or more Malaysian employees → registration compulsory, 1% levy on monthly wages',
+          '5 to 9 Malaysian employees → registration optional, 0.5% levy if you register',
+          'Only Malaysian citizens employed under a contract of service count; domestic servants do not',
         ],
-      },
-      {
-        type: 'callout',
-        text: 'Tip: If you have between 5 and 9 employees, voluntary registration is often worth it — you get full access to HRDF-claimable training at a lower contribution rate.',
       },
       {
         type: 'h2',
@@ -67,11 +58,11 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'The calculation is straightforward: 1% of total monthly wages paid to Malaysian employees. This includes basic salary, allowances, and bonuses — but excludes overtime, service charges, and reimbursements.',
+        text: 'HRD Corp\'s formula is: (total wages or basic salaries + fixed allowances) × 1%, or × 0.5% for employers with 5 to 9 Malaysian employees. The levy may not be deducted from employees\' wages.',
       },
       {
         type: 'p',
-        text: 'For example: if your total monthly payroll for Malaysian employees is RM 50,000, your monthly levy contribution is RM 500. Contributions must be paid to HRD Corp by the 15th of the following month via the eTRiS (e-Training Information System) portal.',
+        text: 'For example: if the wages and fixed allowances of your Malaysian employees total RM 50,000 a month, your monthly levy at 1% is RM 500. The levy is due by the 15th of each month; late payment can lead to a fine and interest.',
       },
       {
         type: 'h2',
@@ -79,16 +70,15 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Your accumulated levy balance can be used to fund training for your employees — but only with HRDF-registered training providers offering approved courses. You cannot claim for internal training, ad hoc workshops from unregistered providers, or overseas training (with limited exceptions).',
+        text: 'Registered employers apply to HRD Corp for training grants. The main scheme, HRD Corp Claimable Courses (HCC), uses HRD Corp registered providers. Skim Bantuan Latihan (SBL) also allows some providers that are not registered, such as internal trainers, vendors and overseas training providers.',
       },
       {
         type: 'ul',
         items: [
-          'Courses from HRDF-registered training providers',
-          'E-learning programmes approved by HRD Corp',
-          'Apprenticeship and structured on-the-job training schemes',
-          'Competency-based training under NOSS frameworks',
-          'Recognised overseas certifications (with prior approval)',
+          'In-house and public training',
+          'Remote online training and e-learning',
+          'Coaching and mentoring',
+          'Development programmes',
         ],
       },
       {
@@ -97,17 +87,17 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Claims are processed through the eTRiS portal at etris.hrdcorp.gov.my. Your company\'s HR manager (or an appointed Training Coordinator) handles this. The general process is:',
+        text: 'Grant applications are made in HRD Corp\'s e-TRiS system. The general process for HCC is:',
       },
       {
         type: 'ul',
         items: [
-          'Step 1: Log in to eTRiS and verify your levy balance',
-          'Step 2: Browse available schemes (SBL-Khas, SBL, IBL, etc.) to find the right claim type',
-          'Step 3: Identify an HRDF-registered provider and confirm the course is claimable',
-          'Step 4: Submit your claim before the training starts (some schemes require pre-approval)',
-          'Step 5: Upload supporting documents after training — attendance sheets, invoice, and completion certificate',
-          'Step 6: Wait for HRD Corp approval, then payment is transferred directly to the training provider',
+          'Step 1: Choose the scheme (HCC or SBL) and a provider that fits it',
+          'Step 2: Apply for the grant in e-TRiS before training starts, with the quotation or invoice, the training schedule or course content, and the trainer profile',
+          'Step 3: From 15 June 2026, in-house HCC training can start 14 days after grant approval; public HCC training 3 days after approval until 31 December 2026, then 14 days',
+          'Step 4: Run the training (at least four hours for HCC)',
+          'Step 5: Submit the claim within six months of the training end date',
+          'Step 6: Under HCC, HRD Corp pays the provider after it approves the claim; HRD Corp pays the approved amount or the actual cost, whichever is lower',
         ],
       },
       {
@@ -117,17 +107,12 @@ export const articles: ResourceArticle[] = [
       {
         type: 'ul',
         items: [
-          'Not registering with HRD Corp after reaching 10 employees (penalties apply)',
+          'Not registering with HRD Corp after reaching 10 Malaysian employees in a covered industry (fines apply)',
           'Missing the monthly payment deadline of the 15th',
-          'Leaving levy balances unclaimed for years — accumulated balances can expire',
-          'Booking training with unregistered providers and assuming it is claimable',
-          'Failing to submit claims before training starts when pre-approval is required',
-          'Not appointing a dedicated Training Coordinator in the company',
+          'Booking a provider without checking which scheme the course falls under',
+          'Applying for the grant after training has started (applications must be made before)',
+          'Submitting the claim more than six months after the training ended',
         ],
-      },
-      {
-        type: 'callout',
-        text: 'Many Malaysian employers are sitting on thousands of ringgit in unclaimed levy. Check your eTRiS balance today — your employees deserve that training.',
       },
       {
         type: 'h2',
@@ -135,7 +120,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'FindTraining.com indexes every HRDF-registered training provider in Malaysia so you can find claimable courses faster than the eTRiS portal allows. Search by category, state, or delivery method.',
+        text: 'Search training providers in Malaysia on FindTraining.com by category, state, or delivery method, then ask each one which HRD Corp scheme its course falls under.',
       },
     ],
   },
@@ -150,7 +135,7 @@ export const articles: ResourceArticle[] = [
     content: [
       {
         type: 'p',
-        text: 'Finding the right HRDF-registered training provider sounds simple — until you open the eTRiS portal. Between the limited search filters, outdated listings, and the absence of any comparison or review features, what should be a ten-minute task often turns into an afternoon of calls and emails. Here is a better approach.',
+        text: 'Finding the right training provider for levy-funded training means checking two things: that the provider fits the HRD Corp scheme you will use, and that the course fits your team. Here is a practical approach.',
       },
       {
         type: 'h2',
@@ -158,30 +143,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Only training providers who are officially registered with HRD Corp can deliver courses that qualify for levy claims. If you book training with an unregistered provider — even a well-regarded one — your company cannot recover the cost from your HRD Corp levy account. Registration is non-negotiable.',
-      },
-      {
-        type: 'p',
-        text: 'Registration also provides a baseline of quality assurance. HRD Corp requires providers to meet minimum standards for their trainers, course materials, and programme delivery before granting registration. It is not a perfect filter, but it weeds out the least credible operators.',
-      },
-      {
-        type: 'h2',
-        text: 'The problem with eTRiS',
-      },
-      {
-        type: 'p',
-        text: 'The official eTRiS portal (etris.hrdcorp.gov.my) is the authoritative source of registered providers, but it is built for compliance administration — not discovery. Common frustrations HR managers face:',
-      },
-      {
-        type: 'ul',
-        items: [
-          'Search returns hundreds of results with no quality sorting',
-          'Provider profiles are sparse — often just a company name and registration number',
-          'No filtering by delivery method (in-person vs. virtual vs. e-learning)',
-          'No course catalogue — you cannot see what a provider actually teaches',
-          'No reviews or ratings from other employers',
-          'Mobile experience is unusable',
-        ],
+        text: 'Under HRD Corp Claimable Courses (HCC), the main scheme, the provider must be registered with HRD Corp and its trainers must hold HRD Corp Accreditation status. Skim Bantuan Latihan (SBL) also allows some providers that are not registered, such as internal trainers, vendors, associations, NGOs, government bodies and overseas providers.',
       },
       {
         type: 'h2',
@@ -189,7 +151,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'FindTraining.com is built specifically for the discovery problem. Every provider in our directory is cross-referenced against the HRD Corp registry, so you can be confident that any provider you find here is legitimately registered for levy claims.',
+        text: 'FindTraining.com is built for the discovery problem: search providers by category, state and delivery method in one place. Registration status changes, so confirm a provider’s HRD Corp registration with the provider or with HRD Corp before you book.',
       },
       {
         type: 'ul',
@@ -207,7 +169,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Once you have a shortlist of HRDF-registered providers, use these criteria to evaluate them:',
+        text: 'Once you have a shortlist, use these criteria to evaluate each provider:',
       },
       {
         type: 'ul',
@@ -226,59 +188,41 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'callout',
-        text: 'Always confirm levy eligibility before signing any agreement. Even a registered provider can run non-claimable courses.',
+        text: 'Before you sign, confirm with the provider which HRD Corp scheme the course falls under and what the grant application needs.',
       },
       {
         type: 'ul',
         items: [
-          '"Is this specific course approved under HRD Corp — and which scheme (SBL, SBL-Khas, etc.)?"',
-          '"What is the maximum claimable amount per participant?"',
-          '"Does the course require HRD Corp pre-approval before we start?"',
-          '"What documentation will you provide for our eTRiS claim submission?"',
+          '"Which HRD Corp scheme does this course fall under: HCC or SBL?"',
+          '"Will you provide the quotation, training schedule and trainer profile we need for the grant application?"',
+          '"Are your trainers HRD Corp accredited?"',
+          '"What documents will you provide after training for the claim?"',
           '"What is your typical class size, and do you offer private group delivery?"',
           '"What happens if a participant needs to cancel?"',
         ],
       },
       {
         type: 'h2',
-        text: 'Browse all HRDF-registered training providers',
+        text: 'Browse training providers in Malaysia',
       },
       {
         type: 'p',
-        text: 'Stop guessing and start comparing. FindTraining.com lists all HRDF-registered training providers in Malaysia — searchable by category, state, and delivery method.',
+        text: 'Search training providers in Malaysia on FindTraining.com by category, state, and delivery method.',
       },
     ],
   },
   {
     slug: 'best-it-training-providers-malaysia-2026',
-    title: 'Best IT Training Providers in Malaysia 2026 (HRDF-Claimable)',
+    title: 'Best IT Training Providers in Malaysia 2026 (HRDF Guide)',
     description:
-      'Top IT and technology training providers in Malaysia with HRD Corp registration — all eligible for levy claims in 2026.',
+      'How to choose IT and technology training providers in Malaysia, and how to fund the training from the HRD Corp levy.',
     publishedAt: '2026-03-15',
     readingTimeMinutes: 6,
     category: 'Training Guide',
     content: [
       {
         type: 'p',
-        text: 'Technology training is now the single largest category of HRDF levy claims in Malaysia. As companies race to upskill employees in cloud computing, data analytics, cybersecurity, and AI, the demand for HRD Corp-registered IT training providers has never been higher. This guide helps HR and L&D managers find the right providers — and make the most of their levy budget.',
-      },
-      {
-        type: 'h2',
-        text: 'Why IT training is the fastest-growing HRDF category',
-      },
-      {
-        type: 'p',
-        text: 'The Malaysian government has made digital economy transformation a centrepiece of its economic strategy, and the training market reflects this. HRDF levy claims for IT-related courses have grown significantly year on year, driven by:',
-      },
-      {
-        type: 'ul',
-        items: [
-          'Mandatory digital upskilling requirements in banking, insurance, and financial services',
-          'Government incentives tied to MyDigital initiative milestones',
-          'The rapid adoption of cloud infrastructure across sectors',
-          'Growing demand for data literacy at every level of the workforce',
-          'Cybersecurity requirements under PDPA compliance programmes',
-        ],
+        text: 'As companies upskill employees in cloud computing, data analytics, cybersecurity, and AI, HR and L&D managers need IT training providers they can trust. This guide covers what to look for and how to fund the training from the HRD Corp levy.',
       },
       {
         type: 'h2',
@@ -286,7 +230,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'IT training has a much wider quality range than other HRDF categories. A compliance training provider can often rely on standardised content, but IT training needs to stay current with fast-moving vendor ecosystems. Key quality signals:',
+        text: 'IT training has a wide quality range. A compliance training provider can often rely on standardised content, but IT training needs to stay current with fast-moving vendor ecosystems. Key quality signals:',
       },
       {
         type: 'ul',
@@ -308,7 +252,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Cybersecurity is now a board-level concern, and HRDF levy claims for security training have risen sharply following PDPA enforcement and Bank Negara cybersecurity guidelines. Look for providers offering CompTIA Security+, Certified Ethical Hacker (CEH), CISSP, or ISO 27001 lead implementer courses. The best providers run simulated attack environments ("cyber ranges") rather than classroom theory alone.',
+        text: 'Cybersecurity is now a board-level concern. Look for providers offering CompTIA Security+, Certified Ethical Hacker (CEH), CISSP, or ISO 27001 lead implementer courses. The best providers run simulated attack environments ("cyber ranges") rather than classroom theory alone.',
       },
       {
         type: 'h3',
@@ -316,7 +260,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Microsoft Azure, Amazon Web Services, and Google Cloud Platform certifications are in high demand across all sectors. Prioritise providers who are official authorised training partners (ATPs) for these platforms — this ensures content is current, trainers are certified, and exam vouchers are included. AWS Certified Solutions Architect and Azure Administrator AZ-104 are the most-claimed courses in this category.',
+        text: 'Microsoft Azure, Amazon Web Services, and Google Cloud Platform certifications are in high demand across all sectors. Prioritise providers who are official authorised training partners (ATPs) for these platforms — this ensures content is current, trainers are certified, and exam vouchers are included.',
       },
       {
         type: 'h3',
@@ -355,17 +299,16 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'callout',
-        text: 'Plan your IT training calendar at least 12 months ahead. HRD Corp levy balances can lapse — use them intentionally rather than scrambling at year end.',
+        text: 'Plan your IT training calendar at least 12 months ahead and use your levy balance intentionally rather than scrambling at year end.',
       },
       {
         type: 'ul',
         items: [
           'Plan a 12-month training roadmap at the start of the financial year to avoid end-of-year scrambles',
           'Batch employees into group cohorts to reduce per-head cost and increase levy efficiency',
-          'Use the SBL-Khas scheme where possible — it offers higher claim limits for strategic courses',
           'Stack certifications: foundation → associate → professional (e.g. AZ-900 → AZ-104 → AZ-305)',
           'Negotiate in-house delivery for teams of 8 or more — most IT providers offer this and it reduces levy spend per participant',
-          'Keep records meticulously: attendance, invoice, and certificate — HRD Corp audits are real',
+          'Keep records: attendance, invoice and certificates; claims are due within six months of the training end date',
         ],
       },
       {
@@ -374,7 +317,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Browse IT and technology training providers on FindTraining.com — all HRDF-registered, all eligible for levy claims. Filter by certification type, delivery method, and state.',
+        text: 'Browse IT and technology training providers on FindTraining.com and filter by delivery method and state. Ask each provider which HRD Corp scheme its course falls under.',
       },
     ],
   },
@@ -389,171 +332,94 @@ export const articles: ResourceArticle[] = [
     content: [
       {
         type: 'p',
-        text: 'The eTRiS portal (etris.hrdcorp.gov.my) is where every HRDF levy claim lives or dies. It is the official channel for submitting training claims, checking your levy balance, and tracking reimbursements. Yet many HR managers find it unintuitive — missing a field or uploading the wrong document can delay or kill a claim. This step-by-step guide walks you through the entire process.',
+        text: 'Training funded from the HRD Corp levy starts with a grant application in HRD Corp\'s e-TRiS system and ends with a claim. This guide covers the steps and deadlines HRD Corp publishes for its two main schemes.',
       },
       {
         type: 'h2',
-        text: 'Before you start: what you need to have ready',
+        text: 'Step 1: Pick the scheme',
       },
       {
         type: 'ul',
         items: [
-          'Your company\'s eTRiS login credentials (Training Coordinator or HR Manager role)',
-          'The HRD Corp registration number of your chosen training provider',
-          'The course name and HRD Corp course code (get this from your provider)',
-          'List of employee names and IC numbers who will attend',
-          'Estimated training fees and dates',
-          'Sufficient levy balance — check this first under "Levy Account" in eTRiS',
+          'HRD Corp Claimable Courses (HCC) — the main scheme. The provider must be HRD Corp registered. You make no advance payment; HRD Corp pays the provider after it approves the claim. In e-TRiS the scheme code reads "HRD Corp Claimable Courses: Skim Bantuan Latihan Khas".',
+          'Skim Bantuan Latihan (SBL) — for internal trainers, vendors, associations, NGOs, government bodies, overseas providers and providers with an exemption. You pay the provider, then claim reimbursement.',
+          'Other HRD Corp schemes exist; see the schemes listed on hrdcorp.gov.my.',
         ],
+      },
+      {
+        type: 'h2',
+        text: 'Step 2: Apply for the grant before training starts',
+      },
+      {
+        type: 'p',
+        text: 'Both schemes require the application before the training start date. For HCC, have these ready: the quotation or invoice, the training schedule or course content, and the trainer profile.',
+      },
+      {
+        type: 'ul',
+        items: [
+          'HCC in-house training: from 15 June 2026, training can start 14 days after grant approval and must start within 90 calendar days after that.',
+          'HCC public training: from 15 June to 31 December 2026, training can start 3 days after grant approval and must start within 90 calendar days after that. From 1 January 2027 the 14-day rule applies again.',
+          'SBL: training must start within six months of the grant application.',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'Step 3: Run the training',
+      },
+      {
+        type: 'p',
+        text: 'HCC funds in-house or public training of at least four hours. SBL in-house training takes 2 to 40 participants and public training 1 to 9. Trainees must attend at least 75% of the training hours; allowances are prorated by attendance.',
+      },
+      {
+        type: 'h2',
+        text: 'Step 4: Submit the claim within six months',
+      },
+      {
+        type: 'p',
+        text: 'For both schemes, claims must be submitted within six months of the training completion date. When the training provider submits the claim, it needs its invoice to HRD Corp, the Joint Declaration 14 form (JD14), the attendance form T3 and, for online training, a system-generated attendance report. For SBL, you submit the receipt and invoice for the training fees, plus any travel receipts.',
+      },
+      {
+        type: 'h2',
+        text: 'Step 5: Payment',
+      },
+      {
+        type: 'p',
+        text: 'HRD Corp pays the approved amount or the actual cost, whichever is lower. Under HCC the payment goes to the training provider; under SBL it reimburses you.',
       },
       {
         type: 'callout',
-        text: 'Always confirm your levy balance before booking training. Claims cannot exceed your available levy balance. If your balance is low, consider voluntary top-ups under the SBL scheme.',
-      },
-      {
-        type: 'h2',
-        text: 'Step 1: Log in and navigate to New Claim',
-      },
-      {
-        type: 'p',
-        text: 'Go to etris.hrdcorp.gov.my and log in with your employer account. From the dashboard, click "Employer" in the top navigation, then select "Training Grant Application". This is where all new claim submissions begin — not under the "Payments" section, which is a common navigation mistake.',
-      },
-      {
-        type: 'h2',
-        text: 'Step 2: Select the right grant scheme',
-      },
-      {
-        type: 'p',
-        text: 'HRD Corp offers several grant schemes, each with different rules and claim limits. Selecting the wrong one is the most common reason claims are rejected:',
-      },
-      {
-        type: 'ul',
-        items: [
-          'SBL (Skim Bantuan Latihan) — standard levy-claimable training, reimbursement after training',
-          'SBL-Khas — higher-priority scheme for strategic or digital economy courses, higher claim limits',
-          'PROLUS — for unemployed graduates and retrenched workers, usually not applicable for active employees',
-          'IBL (Industry-Based Learning) — structured on-the-job training within a company',
-          'HRDF e-LATiH — for approved online and e-learning programmes',
-        ],
-      },
-      {
-        type: 'p',
-        text: 'Ask your training provider which scheme the course is listed under before you start. SBL-Khas is the most generous and covers AI, cybersecurity, cloud, and leadership programmes.',
-      },
-      {
-        type: 'h2',
-        text: 'Step 3: Fill in the training programme details',
-      },
-      {
-        type: 'p',
-        text: 'Enter the course details exactly as they appear on the provider\'s HRD Corp approval letter. Mismatches — even minor ones like abbreviated names — trigger manual reviews. Required fields include:',
-      },
-      {
-        type: 'ul',
-        items: [
-          'Programme title (must match exactly as registered with HRD Corp)',
-          'Training provider name and HRD Corp registration number',
-          'Training dates and venue (for in-person) or platform name (for e-learning)',
-          'Number of training days and total hours',
-          'Training fees per participant (excluding GST/SST if not applicable)',
-        ],
-      },
-      {
-        type: 'h2',
-        text: 'Step 4: Add employee participants',
-      },
-      {
-        type: 'p',
-        text: 'You must list every employee who will attend the training. Each participant requires their full name as per IC, IC number, designation, and monthly salary. eTRiS automatically validates that employees are active in your payroll records. If someone was recently hired and not yet reflected, contact HRD Corp to update your employee roster before submitting.',
-      },
-      {
-        type: 'callout',
-        text: 'Only Malaysian employees count toward claimable headcount. Expatriates on work passes are excluded from both the levy calculation and claim eligibility.',
-      },
-      {
-        type: 'h2',
-        text: 'Step 5: Upload supporting documents',
-      },
-      {
-        type: 'p',
-        text: 'Pre-training documents required at the point of application include the training provider\'s quotation or invoice (proforma), the course outline or brochure, and confirmation of the training schedule. Keep the originals — you will need them again post-training.',
-      },
-      {
-        type: 'h2',
-        text: 'Step 6: Submit and await pre-approval (SBL-Khas)',
-      },
-      {
-        type: 'p',
-        text: 'Under SBL-Khas, HRD Corp must approve your claim before training begins. Submit at least two weeks before the training start date. You will receive an approval or rejection email from HRD Corp. SBL claims can typically be submitted before or after training, but pre-submission is always safer.',
-      },
-      {
-        type: 'h2',
-        text: 'Step 7: Post-training claim submission',
-      },
-      {
-        type: 'p',
-        text: 'After training is completed, you must submit the following within 30 days (60 days for some schemes):',
-      },
-      {
-        type: 'ul',
-        items: [
-          'Signed attendance sheet with employee names and daily sign-off',
-          'Original tax invoice from the training provider',
-          'Copies of completion certificates for all participants',
-          'Proof of payment if you have already paid the provider',
-          'Post-training report or evaluation form (required for SBL-Khas)',
-        ],
-      },
-      {
-        type: 'h2',
-        text: 'Step 8: Track claim status and receive payment',
-      },
-      {
-        type: 'p',
-        text: 'Log in to eTRiS and navigate to "Grant Application Status" to monitor your claim. Processing typically takes 14 to 30 working days. Once approved, payment is transferred directly to the training provider. If you have already paid the provider, reimbursement is credited to your company\'s bank account on file.',
-      },
-      {
-        type: 'callout',
-        text: 'If your claim is rejected, eTRiS shows a rejection reason. The most common reasons are missing documents, expired provider registration, or training dates that do not match. Rectify and resubmit — most rejections are fixable.',
-      },
-      {
-        type: 'h2',
-        text: 'Find HRDF-registered providers for your next claim',
-      },
-      {
-        type: 'p',
-        text: 'Before your next eTRiS submission, use FindTraining.com to verify a provider\'s HRD Corp registration status and find courses by category, scheme, and delivery method.',
+        text: 'HRD Corp\'s rules change. Check the scheme pages on hrdcorp.gov.my before each application.',
       },
     ],
   },
   {
     slug: 'hrdf-approved-soft-skills-training-malaysia',
-    title: 'Top HRDF-Approved Soft Skills Training Programmes in Malaysia (2026)',
+    title: 'HRDF Soft Skills Training Programmes in Malaysia (2026)',
     description:
-      'Leadership, communication, and team-building programmes that qualify for HRD Corp levy claims. How to find them and what to look for.',
+      'Leadership, communication, and team-building programmes in Malaysia, how to fund them from the HRD Corp levy, and what to look for.',
     publishedAt: '2026-04-05',
     readingTimeMinutes: 6,
     category: 'Training Guide',
     content: [
       {
         type: 'p',
-        text: 'Soft skills training is the second-largest category of HRDF levy claims after IT training — and for good reason. Technical skills get people hired; communication, leadership, and critical thinking skills determine how far they go. This guide covers the most sought-after soft skills programmes in Malaysia and how to find HRDF-approved options worth spending your levy on.',
+        text: 'Technical skills get people hired; communication, leadership, and critical thinking skills determine how far they go. This guide covers the most sought-after soft skills programmes in Malaysia and how to fund them from your levy.',
       },
       {
         type: 'h2',
-        text: 'Why soft skills training qualifies for HRDF levy',
+        text: 'Can soft skills training be funded from the levy?',
       },
       {
         type: 'p',
-        text: 'Many employers assume HRDF levy can only be claimed for hard skills like IT, engineering, or compliance training. This is a costly misconception. HRD Corp explicitly covers soft skills programmes — leadership, communication, emotional intelligence, presentation skills, negotiation, time management, and more — provided they are delivered by a registered provider and are workplace-relevant.',
+        text: 'HRD Corp describes its main scheme, HRD Corp Claimable Courses (HCC), as funding the retraining and upskilling of employees in line with the company\'s operational and business needs. The topic is not limited to technical subjects; what matters is that the training meets the scheme\'s conditions.',
       },
       {
         type: 'callout',
-        text: 'The key test for HRDF eligibility is not the topic — it is whether the training is workplace-relevant and delivered by an HRD Corp-registered provider. Most professional soft skills programmes meet this bar.',
+        text: 'For HCC: an HRD Corp registered provider, accredited trainers, at least four hours of training, and a grant application before training starts.',
       },
       {
         type: 'h2',
-        text: 'Most claimed soft skills categories in Malaysia',
+        text: 'Common soft skills categories',
       },
       {
         type: 'ul',
@@ -574,7 +440,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Leadership development is the most levied soft skills category because the business case is clearest. Promoted technical experts who lack management skills cost companies far more in turnover and poor decisions than the cost of training. Look for programmes that cover coaching skills for managers, feedback frameworks, and situational leadership — not just theory-heavy MBA-lite content.',
+        text: 'Leadership development often has the clearest business case. Promoted technical experts who lack management skills cost companies far more in turnover and poor decisions than the cost of training. Look for programmes that cover coaching skills for managers, feedback frameworks, and situational leadership — not just theory-heavy MBA-lite content.',
       },
       {
         type: 'p',
@@ -590,7 +456,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Business writing programmes are particularly high-ROI for organisations where email and report quality visibly affects client relationships. Claimable under SBL and SBL-Khas.',
+        text: 'Business writing programmes are particularly high-ROI for organisations where email and report quality visibly affects client relationships.',
       },
       {
         type: 'h2',
@@ -625,7 +491,7 @@ export const articles: ResourceArticle[] = [
           'Ask what behaviour change looks like 90 days after the programme',
           'Check whether the programme is customised to your industry context or generic',
           'Ask for two or three client references you can actually call',
-          'Confirm the course is listed under the provider\'s HRD Corp registration — not all programmes from a registered provider are claimable',
+          'Confirm with the provider which HRD Corp scheme the course falls under before you apply',
         ],
       },
       {
@@ -634,7 +500,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Most soft skills programmes qualify under SBL (Skim Bantuan Latihan). Leadership and communication programmes for managers and above often qualify under SBL-Khas, which has higher per-participant claim limits. When in doubt, ask the provider — they deal with eTRiS claims daily and know exactly which scheme applies.',
+        text: 'With an HRD Corp registered provider, the main scheme is HRD Corp Claimable Courses (HCC). With an internal trainer or a provider that is not registered, Skim Bantuan Latihan (SBL) may apply. Ask the provider which scheme its course falls under before you apply.',
       },
       {
         type: 'h2',
@@ -642,7 +508,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'FindTraining.com lists HRDF-registered training providers who specialise in soft skills, leadership, and professional development — all eligible for levy claims.',
+        text: 'FindTraining.com lists training providers in Malaysia who specialise in soft skills, leadership, and professional development.',
       },
     ],
   },
@@ -665,7 +531,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Yes — sales training is fully eligible for HRD Corp levy claims, provided it is delivered by a registered provider and the course is approved. This includes B2B sales methodology training, key account management, negotiation, retail sales, telemarketing, and sales leadership programmes. The levy rate is 1% of monthly wages for companies with 10 or more Malaysian employees (0.5% for smaller voluntary registrants).',
+        text: 'Sales training can be funded from the levy if it meets the conditions of the scheme you use. Under HRD Corp Claimable Courses (HCC), that means an HRD Corp registered provider, accredited trainers, at least four hours of training, and a grant application before training starts. The levy itself is 1% of monthly wages for employers with 10 or more Malaysian employees, or 0.5% for employers with 5 to 9 who register.',
       },
       {
         type: 'h2',
@@ -716,7 +582,7 @@ export const articles: ResourceArticle[] = [
           '"Can the content be customised to our actual customer types and competitive environment?"',
           '"What post-training reinforcement options do you offer?"',
           '"Can you share a case study from a company similar to ours?"',
-          '"Is this course registered under your HRD Corp licence — and which claim scheme does it fall under?"',
+          '"Which HRD Corp scheme does this course fall under: HCC or SBL?"',
           '"What is the trainer\'s background? Have they actually sold professionally, or only trained?"',
         ],
       },
@@ -735,11 +601,10 @@ export const articles: ResourceArticle[] = [
       {
         type: 'ul',
         items: [
-          'Sales training falls under SBL for most programmes — reimbursement after training is completed',
-          'Structured multi-day programmes are more easily approved than half-day workshops',
-          'In-house delivery for groups of 8+ is the most cost-effective structure for levy claims',
-          'Confirm the specific course code is registered before committing to a provider',
-          'Keep the training schedule fixed — changes after eTRiS submission require re-approval',
+          'HCC funds in-house or public training of at least four hours, with an HRD Corp registered provider',
+          'SBL in-house training takes 2 to 40 participants; public training 1 to 9',
+          'Apply for the grant in e-TRiS before the training starts',
+          'Submit the claim within six months of the training end date',
         ],
       },
       {
@@ -748,92 +613,54 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Browse FindTraining.com to find HRDF-registered sales training providers in Malaysia — filterable by delivery method, industry focus, and state.',
+        text: 'Browse sales training providers in Malaysia on FindTraining.com, filterable by delivery method and state.',
       },
     ],
   },
   {
     slug: 'hrdf-levy-vs-hrd-corp-explained',
-    title: 'HRDF vs HRD Corp: What Changed and What It Means for Employers',
+    title: 'HRDF vs HRD Corp: What It Means for Employers',
     description:
-      'HRDF became HRD Corp in 2021. This guide explains what changed, what stayed the same, and how it affects your training levy and claims.',
+      'How the names HRDF and HRD Corp relate, and the levy and grant rules employers follow today.',
     publishedAt: '2026-04-05',
     readingTimeMinutes: 5,
     category: 'HR Compliance',
     content: [
       {
         type: 'p',
-        text: 'If you have been dealing with Malaysia\'s training levy system for more than a few years, you will have noticed the branding shift from HRDF to HRD Corp. It has caused persistent confusion — some HR managers still file under "HRDF" while others use "HRD Corp," and many are unsure whether the rules changed. This guide clears it up once and for all.',
+        text: 'Employers and training providers still say "HRDF" when they mean HRD Corp. This guide explains how the two names relate and what the rules are today.',
       },
       {
         type: 'h2',
-        text: 'What is HRDF?',
+        text: 'Same levy, newer name',
       },
       {
         type: 'p',
-        text: 'HRDF stands for Human Resource Development Fund. It was the name of both the fund itself and the statutory body that administered it — officially registered as Perbadanan Pembangunan Sumber Manusia Berhad (PSMB) under the Ministry of Human Resources. The fund was established under the Pembangunan Sumber Manusia Berhad Act 2001 and made levy contributions mandatory for employers in covered sectors.',
+        text: 'HRDF stands for Human Resources Development Fund, the name used for the levy system in HRD Corp\'s own earlier circulars. HRD Corp (Pembangunan Sumber Manusia Berhad) is the name the body uses today. The levy is still collected under the Pembangunan Sumber Manusia Berhad (PSMB) Act 2001.',
       },
       {
         type: 'h2',
-        text: 'What is HRD Corp?',
-      },
-      {
-        type: 'p',
-        text: 'HRD Corp — Human Resource Development Corporation — is the new trading name for the same statutory body (PSMB). The rebrand was announced and took effect in 2021 as part of a broader modernisation effort under the Malaysia Budget 2021 announcement. The legal entity, the act, the levy system, and the claims portal are all unchanged.',
-      },
-      {
-        type: 'callout',
-        text: 'HRDF = HRD Corp. Same body, same fund, same act, same portal. The rebrand was cosmetic. Your levy obligations and claim rights are identical.',
-      },
-      {
-        type: 'h2',
-        text: 'What actually changed in 2021',
-      },
-      {
-        type: 'p',
-        text: 'While the rebrand itself was cosmetic, 2021 did bring some substantive changes that employers should know about:',
+        text: 'Who must register',
       },
       {
         type: 'ul',
         items: [
-          'Expanded sector coverage — more industries are now mandatory registrants under the PSMB (Amendment) Act 2021',
-          'Gig economy inclusion — platform workers and certain freelancers are now eligible to access levy-funded training',
-          'Foreign-owned companies — companies with foreign ownership above certain thresholds must now register if they meet the employee threshold',
-          'New grant schemes — SBL-Khas was expanded to cover more digital economy and strategic skills categories',
-          'Employer training plan submission — HRD Corp now encourages (and for some schemes, requires) annual training plans submitted via eTRiS',
+          '10 or more Malaysian employees in a covered industry: registration compulsory, levy 1% of monthly wages',
+          '5 to 9 Malaysian employees in a covered industry: registration optional, levy 0.5% if you register',
+          'Covered industries are listed in the First Schedule of the PSMB Act 2001; the list was widened from 1 March 2021',
+          'Federal and state government, local councils and statutory bodies are not covered',
         ],
       },
       {
         type: 'h2',
-        text: 'Who must register — and has this changed?',
+        text: 'The two main schemes today',
       },
       {
-        type: 'p',
-        text: 'The basic registration threshold is unchanged: employers in covered sectors with 10 or more Malaysian employees must register and pay the 1% levy. Employers with 5 to 9 employees may register voluntarily at 0.5%. The post-2021 change is that more sectors now fall under the covered categories — check the updated Second Schedule of the Act if you are in agriculture, education, or healthcare, which were historically excluded.',
-      },
-      {
-        type: 'h2',
-        text: 'The eTRiS portal: same system, new name',
-      },
-      {
-        type: 'p',
-        text: 'The claims portal previously referenced as the "HRDF portal" is now branded as eTRiS (e-Training Information System) at etris.hrdcorp.gov.my. If you have bookmarked old HRDF portal URLs, these now redirect to the HRD Corp domain. Your login credentials, levy balance, and claim history carry over — there was no re-registration required.',
-      },
-      {
-        type: 'h2',
-        text: 'Do training providers need to re-register as "HRD Corp" providers?',
-      },
-      {
-        type: 'p',
-        text: 'No. Training providers who were HRDF-registered remained registered under HRD Corp automatically. Their provider registration numbers are the same. Courses approved under HRDF remain claimable under HRD Corp. New providers register through the same eTRiS portal under the new HRD Corp branding.',
-      },
-      {
-        type: 'h2',
-        text: 'Why "HRDF" is still widely used',
-      },
-      {
-        type: 'p',
-        text: 'Despite the official rebrand, "HRDF" remains the dominant term in job postings, HR job descriptions, training provider marketing, and Google searches across Malaysia. This is normal for established institutional brands — people use the name they learned first. For practical purposes, the two terms are interchangeable. When communicating with HRD Corp officially, use "HRD Corp." In everyday HR conversations, either term is understood.',
+        type: 'ul',
+        items: [
+          'HRD Corp Claimable Courses (HCC): HRD Corp registered provider, no advance payment by the employer, HRD Corp pays the provider after approving the claim',
+          'Skim Bantuan Latihan (SBL): allows internal trainers, vendors, overseas providers and other non-registered providers; the employer pays, then claims reimbursement',
+        ],
       },
       {
         type: 'h2',
@@ -842,21 +669,11 @@ export const articles: ResourceArticle[] = [
       {
         type: 'ul',
         items: [
-          'HRDF and HRD Corp are the same body — the rebrand happened in 2021',
-          'Your levy rate, payment deadlines, and claims process are unchanged',
-          'More sectors now face mandatory registration post-2021 — verify if you are newly covered',
-          'eTRiS is the correct portal — etris.hrdcorp.gov.my',
-          'Your old provider relationships and course approvals remain valid',
-          'SBL-Khas has expanded scope — check if your planned training now qualifies',
+          'HRDF and HRD Corp refer to the same levy system',
+          'Grant applications and claims are made in HRD Corp\'s e-TRiS system',
+          'Apply before training starts; claim within six months of the training end date',
+          'Check HRD Corp\'s scheme pages before each application, as the rules change',
         ],
-      },
-      {
-        type: 'h2',
-        text: 'Find HRD Corp registered training providers',
-      },
-      {
-        type: 'p',
-        text: 'Whether you call it HRDF or HRD Corp, FindTraining.com lists every registered training provider in Malaysia so you can find claimable courses faster.',
       },
     ],
   },
@@ -871,7 +688,7 @@ export const articles: ResourceArticle[] = [
     content: [
       {
         type: 'p',
-        text: 'Most HR managers in Malaysia leave training budget planning to the last quarter — and end up scrambling to spend unallocated levy before it lapses or rushing low-quality training through eTRiS just to hit utilisation targets. A structured annual training budget, built around HRD Corp levy strategy, eliminates this cycle. Here is how to do it properly.',
+        text: 'Training budgets left to the last quarter end up rushed. A structured annual training budget, built around how the HRD Corp levy works, avoids that. Here is a practical way to do it.',
       },
       {
         type: 'h2',
@@ -879,16 +696,15 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Before you plan a single programme, know your numbers. Log into eTRiS and check your current levy balance and your average monthly contribution. This tells you your annual training "budget" from HRD Corp before any top-up from your own budget.',
+        text: 'Before you plan a single programme, know your numbers: your monthly levy and what you have already committed to training.',
       },
       {
         type: 'ul',
         items: [
-          'Monthly levy = 1% of total monthly wages for Malaysian employees (0.5% if voluntary registrant)',
-          'Annual levy accumulation = monthly levy × 12 (assuming payroll stays constant)',
-          'Current balance = accumulated contributions minus claims already approved',
-          'Unutilised levy does not roll forward indefinitely — HRD Corp can recoup unclaimed balances',
-          'Your own training budget (outside levy) should be planned separately but coordinated with levy usage',
+          'Monthly levy = (wages or basic salaries + fixed allowances of Malaysian employees) × 1%, or × 0.5% for employers with 5 to 9 Malaysian employees who register',
+          'Yearly levy = monthly levy × 12 (if payroll stays constant)',
+          'HRD Corp pays the approved amount or the actual cost, whichever is lower, within its cost limits',
+          'Your own training budget (outside the levy) should be planned separately but alongside levy-funded training',
         ],
       },
       {
@@ -914,7 +730,7 @@ export const articles: ResourceArticle[] = [
       {
         type: 'ul',
         items: [
-          'Tier 1 — Mandatory & compliance: safety training, HRDF-required courses, regulatory certifications. Book first, ring-fence budget.',
+          'Tier 1 — Mandatory & compliance: safety training and regulatory certifications. Book first, ring-fence budget.',
           'Tier 2 — Strategic capability: digital skills, leadership development, technical upskilling tied to business strategy. Allocate the bulk of levy here.',
           'Tier 3 — Nice-to-have: team building, general professional development, exploratory courses. Fund only if budget remains after Tiers 1 and 2.',
         ],
@@ -925,15 +741,13 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Different courses qualify under different HRD Corp schemes, which affects how much you can claim and when reimbursement arrives. Map each programme to its scheme before committing:',
+        text: 'The scheme decides who pays the provider and which deadlines apply. Map each programme to its scheme before committing:',
       },
       {
         type: 'ul',
         items: [
-          'SBL — standard reimbursement after training, suitable for most courses',
-          'SBL-Khas — higher claim limits for strategic digital and leadership programmes, requires pre-approval',
-          'HRDF e-LATiH — for online and e-learning programmes listed on the platform',
-          'IBL — for structured on-the-job training within your own organisation',
+          'HRD Corp Claimable Courses (HCC) — HRD Corp registered provider; no advance payment; HRD Corp pays the provider after approving the claim',
+          'Skim Bantuan Latihan (SBL) — internal trainers, vendors, overseas and other non-registered providers; you pay, then claim reimbursement',
         ],
       },
       {
@@ -975,12 +789,12 @@ export const articles: ResourceArticle[] = [
       {
         type: 'ul',
         items: [
-          'Planning training without checking eTRiS levy balance first — leading to over-budgeting',
-          'Booking training with unregistered providers, then discovering it is not claimable',
-          'Submitting SBL-Khas claims after training starts — pre-approval is required',
+          'Planning training without checking your levy position first — leading to over-budgeting',
+          'Booking a provider without checking which HRD Corp scheme the course falls under',
+          'Applying for the grant after training has started — applications must be made before',
           'Allocating most levy to one department while others have urgent skill gaps',
-          'No training plan submitted to HRD Corp — some schemes require an annual plan for faster approval',
-          'Failing to keep attendance sheets and certificates — claims fail at document upload',
+          'Missing the six-month claim deadline after training ends',
+          'Failing to keep attendance records — trainees must attend at least 75% of training hours',
         ],
       },
       {
@@ -989,7 +803,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Use FindTraining.com to identify HRD Corp-registered providers for every training category in your annual plan — from compliance to leadership to digital skills. Use the HRDF levy calculator to estimate your annual levy contribution.',
+        text: 'Use FindTraining.com to find training providers for every category in your annual plan — from compliance to leadership to digital skills. Use the HRDF levy calculator to estimate your annual levy contribution.',
       },
     ],
   },
@@ -1264,7 +1078,7 @@ export const articles: ResourceArticle[] = [
     content: [
       {
         type: 'p',
-        text: 'Most HR managers in Malaysia have a procurement playbook for office supplies but no equivalent for training providers. The result is that the choice tends to default to whoever Patrick from finance worked with two years ago. This guide gives you a seven-step framework you can use on every training procurement — from levy-claimable HRD Corp courses through to leadership development engagements.',
+        text: 'Most HR managers in Malaysia have a procurement playbook for office supplies but no equivalent for training providers. The result is that the choice tends to default to whoever someone in the company worked with before. This guide gives you a seven-step framework you can use on every training procurement — from levy-claimable HRD Corp courses through to leadership development engagements.',
       },
       {
         type: 'h2',
@@ -1280,7 +1094,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'For levy-claimable training, the provider must be HRD Corp-registered and the course must be approved on the eTRiS system. Both conditions are necessary — provider registration alone does not guarantee that a specific course is claimable. Always ask for the eTRiS course code in writing before signing.',
+        text: 'For HRD Corp Claimable Courses (HCC), the main levy scheme, the provider must be HRD Corp registered and its trainers accredited. Skim Bantuan Latihan (SBL) allows some non-registered providers. Ask the provider in writing which scheme the course falls under before signing.',
       },
       {
         type: 'h2',
@@ -1288,7 +1102,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'A shortlist of three to five gives you enough comparison without burning weeks on procurement. Use category and state filters on findtraining.com to surface candidates. For specialist categories — for example sales training or technical certifications — the eligible pool is small enough that five is realistic. For generic categories like soft skills, narrow the shortlist using "delivery method" and "HRDF-verified" filters.',
+        text: 'A shortlist of three to five gives you enough comparison without burning weeks on procurement. Use category and state filters on findtraining.com to surface candidates. For specialist categories — for example sales training or technical certifications — the eligible pool is small enough that five is realistic. For generic categories like soft skills, narrow the shortlist using the delivery method filter.',
       },
       {
         type: 'h2',
@@ -1300,7 +1114,7 @@ export const articles: ResourceArticle[] = [
           'A course outline with hour-by-hour breakdown',
           'Trainer CVs (not just company bio)',
           'Three references from clients who ran the same course in the last 12 months',
-          'eTRiS course code (for HRDF-claimable courses)',
+          'Which HRD Corp scheme the course falls under (HCC or SBL)',
           'Pricing per pax + per cohort + minimum cohort size — itemised',
         ],
       },
@@ -1314,7 +1128,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Build a simple weighted scoresheet: 40% trainer fit (relevant experience to your outcome), 25% delivery method fit (in-person / hybrid / virtual matching your team\'s reality), 20% references (do they describe outcomes or content?), 15% price. Avoid scoring price > 25% — the cheapest training delivers no outcome change, and the levy reimbursement neutralises a lot of the price spread anyway.',
+        text: 'Build a simple weighted scoresheet: 40% trainer fit (relevant experience to your outcome), 25% delivery method fit (in-person / hybrid / virtual matching your team\'s reality), 20% references (do they describe outcomes or content?), 15% price. Avoid scoring price above 25% — the cheapest training rarely delivers outcome change.',
       },
       {
         type: 'h2',
@@ -1338,7 +1152,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Use findtraining.com to build the Step-3 shortlist — filter by category, state, delivery method, and HRDF status, then send the same Step-4 question set to each provider. The directory is free for buyers; we earn from the provider side when they upgrade their listing.',
+        text: 'Use findtraining.com to build the Step-3 shortlist — filter by category, state, and delivery method, then send the same Step-4 question set to each provider. The directory is free for buyers; we earn from the provider side when they upgrade their listing.',
       },
     ],
   },
@@ -1346,7 +1160,7 @@ export const articles: ResourceArticle[] = [
     slug: 'corporate-training-cost-malaysia-2026',
     title: 'How Much Does Corporate Training Cost in Malaysia? A 2026 Buyer\'s Guide',
     description:
-      'Realistic price ranges for HRDF-claimable corporate training in Malaysia — by category, delivery method, and engagement size. Plus what drives the spread.',
+      'Typical price ranges for corporate training in Malaysia — by category, delivery method, and engagement size. Plus what drives the spread.',
     publishedAt: '2026-05-23',
     readingTimeMinutes: 6,
     category: 'Buyer Guide',
@@ -1357,7 +1171,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'callout',
-        text: 'These ranges are observed market values, not official rates. The HRD Corp levy reimburses most of these costs for registered employers — see /tools/hrdf-calculator for your annual levy estimate.',
+        text: 'These ranges are observed market values, not HRD Corp rates. HRD Corp pays the approved amount or the actual cost, whichever is lower, within its cost limits — see /tools/hrdf-calculator for your yearly levy estimate.',
       },
       {
         type: 'h2',
@@ -1422,7 +1236,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'For HRD Corp-registered employers, claimable training is reimbursed against your levy contribution. The headline price you pay the provider is the same; the levy claim is filed separately through eTRiS post-delivery. Net cost to the employer is the levy not yet reimbursed plus any non-claimable elements (e.g. T&E above the eligible cap).',
+        text: 'Under HRD Corp Claimable Courses (HCC), you make no advance payment: HRD Corp pays the provider after it approves the claim. Under Skim Bantuan Latihan (SBL), you pay the provider and claim reimbursement within six months of the training end date. In both, HRD Corp pays the approved amount or the actual cost, whichever is lower, so costs above its limits stay with you.',
       },
       {
         type: 'h2',
@@ -1430,7 +1244,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Use findtraining.com to identify three to five providers in your category, ask each for an itemised quote against the same scope, and compare like for like. The HRDF levy calculator at /tools/hrdf-calculator gives you the upper envelope of what your employer can spend reimbursable.',
+        text: 'Use findtraining.com to identify three to five providers in your category, ask each for an itemised quote against the same scope, and compare like for like. The HRDF levy calculator at /tools/hrdf-calculator estimates your yearly levy.',
       },
     ],
   },
@@ -1508,7 +1322,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Sales: findtraining.com/categories/sales-marketing. Leadership: findtraining.com/categories/leadership-management. Both lists are filterable by state, delivery method, and HRDF-claimable status. For combined sales-and-leadership engagements ("salesforce effectiveness", "revenue enablement"), search for those phrases.',
+        text: 'Sales: findtraining.com/categories/sales-marketing. Leadership: findtraining.com/categories/leadership-management. Both lists are filterable by state and delivery method. For combined sales-and-leadership engagements ("salesforce effectiveness", "revenue enablement"), search for those phrases.',
       },
     ],
   },
@@ -1567,7 +1381,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'For HRDF-registered employers, this is the metric finance directors actually ask about: of the annual levy contribution, what percentage is being claimed back through training? Levy utilisation below 60% is wasted; above 90% is exemplary. Track quarterly and report against the annual levy contribution estimate (see /tools/hrdf-calculator).',
+        text: 'For HRDF-registered employers, this is the metric finance directors actually ask about: of the annual levy contribution, what percentage is being claimed back through training? Track quarterly and report against the annual levy contribution estimate (see /tools/hrdf-calculator).',
       },
       {
         type: 'h2',

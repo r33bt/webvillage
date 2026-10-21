@@ -120,10 +120,10 @@ export default function ResourcesPage() {
         <div className="mt-12 rounded-xl bg-blue-50 border border-blue-100 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h2 className="text-base font-semibold text-gray-900 mb-1">
-              Ready to find HRDF-registered training providers?
+              Ready to find training providers?
             </h2>
             <p className="text-sm text-gray-600">
-              Browse Malaysia&apos;s most complete directory of HRD Corp-approved training companies.
+              Browse training companies in Malaysia by category and state.
             </p>
           </div>
           <Link

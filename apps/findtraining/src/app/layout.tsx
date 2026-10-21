@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: '%s | FindTraining.com',
   },
   description:
-    'Find training providers in Malaysia, Singapore, the UK, Australia, and the US. Browse HRDF-registered, SkillsFuture-eligible, and accredited corporate training providers.',
+    'Find training providers in Malaysia, Singapore, the UK, Australia, and the US. Compare corporate training providers by category, location, and delivery method.',
   keywords: [
     'training providers',
     'HRDF training Malaysia',
@@ -137,9 +137,6 @@ export default function RootLayout({
                   <Link href="/terms" className="hover:text-gray-700 transition-colors">
                     Terms
                   </Link>
-                  <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-medium px-2.5 py-1 rounded-full border border-blue-100">
-                    Official Sources · 5 Countries
-                  </span>
                 </div>
               </div>
             </div>

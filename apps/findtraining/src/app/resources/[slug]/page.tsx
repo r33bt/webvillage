@@ -94,11 +94,11 @@ function renderSection(section: Section, index: number) {
 const ctaLinks: Record<string, { href: string; label: string }> = {
   'what-is-hrd-corp-levy': {
     href: '/providers',
-    label: 'Browse HRDF-registered training providers',
+    label: 'Browse training providers in Malaysia',
   },
   'how-to-find-hrdf-training-provider': {
     href: '/providers',
-    label: 'Browse all HRDF-registered training providers',
+    label: 'Browse training providers in Malaysia',
   },
   'best-it-training-providers-malaysia-2026': {
     href: '/categories/it-training',
@@ -106,7 +106,7 @@ const ctaLinks: Record<string, { href: string; label: string }> = {
   },
   'how-to-submit-hrdf-claim-etris': {
     href: '/providers',
-    label: 'Find HRDF-registered training providers',
+    label: 'Find training providers in Malaysia',
   },
   'hrdf-approved-soft-skills-training-malaysia': {
     href: '/categories/soft-skills',
@@ -118,7 +118,7 @@ const ctaLinks: Record<string, { href: string; label: string }> = {
   },
   'hrdf-levy-vs-hrd-corp-explained': {
     href: '/providers',
-    label: 'Browse all HRD Corp registered providers',
+    label: 'Browse training providers in Malaysia',
   },
   'training-budget-planning-malaysia': {
     href: '/tools/hrdf-calculator',
@@ -205,8 +205,8 @@ export default function ArticlePage({ params }: Props) {
         <div className="mt-12 rounded-xl bg-blue-50 border border-blue-100 p-6">
           <h2 className="text-base font-semibold text-gray-900 mb-2">{cta.label}</h2>
           <p className="text-sm text-gray-600 mb-4">
-            FindTraining.com lists every HRDF-registered training provider in Malaysia — searchable
-            by category, state, and delivery method.
+            FindTraining.com lists training providers in Malaysia, searchable by category, state,
+            and delivery method.
           </p>
           <Link
             href={cta.href}

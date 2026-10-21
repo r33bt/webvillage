@@ -242,12 +242,17 @@ export default async function CountryPage({ countryCode }: { countryCode: string
         </div>
       </section>
 
-      {/* ── [6] Featured Providers ──────────────────────────────────────── */}
+      {/* ── [6] Sponsored providers (paid placement, always labelled) ───── */}
       {featured.length > 0 ? (
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">Featured Providers</h2>
+              <div>
+                <p className="inline-block mb-2 text-base font-semibold uppercase tracking-wide text-gray-700 bg-white border border-gray-300 rounded px-2 py-0.5">
+                  Sponsored
+                </p>
+                <h2 className="text-2xl font-bold text-gray-900">Sponsored providers</h2>
+              </div>
               <Link
                 href={`/search?country=${config.code}`}
                 className="text-brand-blue font-medium hover:underline text-sm"
@@ -296,7 +301,7 @@ export default async function CountryPage({ countryCode }: { countryCode: string
             <h2 className="text-2xl font-bold text-gray-900 mb-3">Claim Your Profile</h2>
             <p className="text-gray-600 mb-8 max-w-xl mx-auto">
               Your training company may already be listed. Claim your profile to add courses, contact
-              details, and appear as a featured provider.
+              details and your courses.
             </p>
             {foundingOpen && (
               <p className="text-xs font-semibold uppercase tracking-wide text-brand-blue mb-3">
@@ -406,9 +411,7 @@ export default async function CountryPage({ countryCode }: { countryCode: string
               <p className="font-semibold text-gray-700 mb-1">Training Providers</p>
               <p className="text-sm text-gray-500">
                 {config.name}
-                {config.regulatoryBody
-                  ? `'s most complete ${config.regulatoryBody.acronym} directory`
-                  : ' training directory'}
+                {' training directory'}
               </p>
             </div>
             <div>

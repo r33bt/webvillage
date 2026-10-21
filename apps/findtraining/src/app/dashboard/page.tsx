@@ -40,14 +40,14 @@ const TIER_BADGE: Record<Tier, TierBadgeConfig> = {
     bgColor: '#EFF6FF',
     textColor: '#1D4ED8',
     borderColor: '#BFDBFE',
-    tagline: 'Starter listing — enhanced visibility and contact details',
+    tagline: 'Starter listing — contact details and enquiries',
   },
   pro: {
     label: 'Pro',
     bgColor: '#F5F3FF',
     textColor: '#6D28D9',
     borderColor: '#DDD6FE',
-    tagline: 'Pro listing — maximum visibility, analytics, and priority support',
+    tagline: 'Pro listing — sponsored placement, analytics, and priority support',
   },
   free: {
     label: 'Free',
@@ -238,7 +238,7 @@ export default async function DashboardPage() {
             <div>
               <p className="text-sm font-semibold text-blue-900">Upgrade your listing</p>
               <p className="text-sm text-blue-700 mt-0.5 leading-relaxed">
-                Get top placement, a verified badge, and your contact details visible to HR managers.
+                Show your contact details to HR managers and add your courses.
               </p>
             </div>
           </div>

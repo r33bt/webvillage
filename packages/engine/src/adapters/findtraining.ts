@@ -14,7 +14,7 @@ import type {
   FtClaim,
   SearchFilters,
 } from '../types/ft'
-import { PAGE_SIZE, TIER_ORDER } from '../types/ft'
+import { PAGE_SIZE } from '../types/ft'
 
 // ── Service client (bypasses RLS) ─────────────────────────────────────────────
 function createFtServiceClient() {
@@ -97,8 +97,10 @@ export async function searchProviders(
   }
   if (filters.country_code) query = query.eq('country_code', filters.country_code)
 
+  // Normal order is by name only. Paid tier and the featured flag never change
+  // the order of search results; paid placements are shown separately and
+  // labelled "Sponsored" (see getFeaturedProviders / CountryPage).
   query = query
-    .order('featured', { ascending: false })
     .order('name', { ascending: true })
     .range(from, to)
 
@@ -111,14 +113,6 @@ export async function searchProviders(
     const { ft_provider_categories: _ignored, ...rest } = row
     void _ignored
     return { ...rest, category_names } as FtProviderWithCategories
-  })
-
-  providers.sort((a, b) => {
-    const ta = TIER_ORDER[a.tier] ?? 0
-    const tb = TIER_ORDER[b.tier] ?? 0
-    if (tb !== ta) return tb - ta
-    if (b.featured !== a.featured) return b.featured ? 1 : -1
-    return a.name.localeCompare(b.name)
   })
 
   return { providers, total: count ?? 0 }
@@ -440,7 +434,7 @@ export async function getRelatedProviders(
     .overlaps('categories', categories)
     .neq('id', providerId)
     .not('profile_status', 'in', '("removed","opted_out")')
-    .order('tier', { ascending: false })
+    .order('name', { ascending: true })
     .limit(limit)
   if (error) {
     console.error('[getRelatedProviders]', error.message)

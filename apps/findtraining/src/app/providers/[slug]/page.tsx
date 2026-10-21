@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const providerLabel = catLabel
     ? `a ${catLabel} training provider`
     : provider.country_code === 'MY'
-      ? 'an HRDF-registered training provider'
+      ? 'a training provider in Malaysia'
       : 'a training provider'
   const locationLabel = provider.state ? `${provider.state}, ${countryName}` : countryName
 
@@ -138,7 +138,7 @@ export default async function ProviderPage({ params }: Props) {
   const isVerified = provider.profile_status === 'claimed' || provider.profile_status === 'active'
   const countryName = COUNTRY_CONFIGS[provider.country_code]?.name ?? 'Malaysia'
   const fallbackDescription = provider.country_code === 'MY'
-    ? 'HRDF-registered training provider in Malaysia.'
+    ? 'Training provider in Malaysia.'
     : `Training provider in ${countryName}.`
 
   const breadcrumbSchema = {

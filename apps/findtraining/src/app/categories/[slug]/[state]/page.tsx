@@ -90,13 +90,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${category.name} Training Providers in ${stateName}`,
-    description: `Find HRDF-registered ${category.name} training providers in ${stateName}, Malaysia. Browse approved providers offering levy-claimable courses.`,
+    description: `Find ${category.name} training providers in ${stateName}, Malaysia, and compare them by delivery method.`,
     alternates: {
       canonical: `https://findtraining.com/categories/${slug}/${state}`,
     },
     openGraph: {
       title: `${category.name} Training Providers in ${stateName}`,
-      description: `HRDF-registered ${category.name} providers in ${stateName}, Malaysia.`,
+      description: `${category.name} training providers in ${stateName}, Malaysia.`,
       type: 'website',
       locale: 'en_MY',
       siteName: 'FindTraining',
@@ -141,7 +141,7 @@ export default async function CategoryStatePage({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: `${category.name} Training Providers in ${stateName}`,
-    description: `HRDF-registered ${category.name} training providers in ${stateName}, Malaysia`,
+    description: `${category.name} training providers in ${stateName}, Malaysia`,
     numberOfItems: total,
     itemListElement: providers.slice(0, 20).map((p, index) => ({
       '@type': 'ListItem',
@@ -217,7 +217,7 @@ export default async function CategoryStatePage({ params }: PageProps) {
           )}
           <p className="text-sm text-gray-500">
             <span className="font-semibold text-gray-800">{total.toLocaleString()}</span>{' '}
-            HRDF-registered {category.name.toLowerCase()} provider{total !== 1 ? 's' : ''} in{' '}
+            {category.name.toLowerCase()} provider{total !== 1 ? 's' : ''} in{' '}
             {stateName}
           </p>
         </header>

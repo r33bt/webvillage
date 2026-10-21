@@ -47,7 +47,7 @@ const TIERS: Tier[] = [
     name: 'Pro',
     price: 'RM 800',
     period: '/mo',
-    blurb: 'Featured placement, unlimited courses, analytics.',
+    blurb: 'Sponsored placement, unlimited courses, analytics.',
     ctaLabel: 'Choose Pro',
     ctaHref: '/claim-profile',
   },
@@ -68,8 +68,7 @@ const FEATURES: FeatureRow[] = [
   { label: 'Enquiry form on your profile', free: false, starter: true, pro: true },
   { label: 'Email notification when an HR manager enquires', free: false, starter: true, pro: true },
   { label: 'Course / service listings', free: false, starter: 'Up to 5', pro: 'Unlimited' },
-  { label: 'Featured placement at top of category', free: false, starter: false, pro: true },
-  { label: 'HRDF-verified badge', free: false, starter: true, pro: true },
+  { label: 'Sponsored placement (labelled, shown apart from search results)', free: false, starter: false, pro: true },
   { label: 'Analytics — views, clicks, search rankings', free: false, starter: 'Basic', pro: 'Full' },
   { label: 'Priority support', free: false, starter: false, pro: true },
 ]
@@ -114,7 +113,7 @@ export default async function PricingPage() {
                 Founding offer: RM 100/mo — locked for life
               </p>
               <p className="text-sm text-gray-600">
-                {slotsLeft} of {total} slots remaining. First 50 providers only.
+                {slotsLeft} of {total} slots remaining.
               </p>
             </div>
             <Link
@@ -215,8 +214,8 @@ export default async function PricingPage() {
             <div>
               <p className="font-semibold text-gray-900 mb-1">Do I need to pay to be listed?</p>
               <p className="text-sm text-gray-600">
-                No. Every training provider sourced from official government registries is already
-                indexed. You can claim your free profile without paying.
+                No. Many training providers are already listed from public registries. You can
+                claim your free profile without paying.
               </p>
             </div>
             <div>
@@ -229,7 +228,7 @@ export default async function PricingPage() {
             <div>
               <p className="font-semibold text-gray-900 mb-1">What&rsquo;s the difference between Founding and Starter?</p>
               <p className="text-sm text-gray-600">
-                Same feature set. Founding members lock RM 100/mo for life. Once 50 founding slots are
+                Same feature set. Founding members lock RM 100/mo for life. Once all {total} founding slots are
                 claimed, the price for new providers becomes RM 300/mo (Starter).
               </p>
             </div>
