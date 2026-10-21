@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import CountryPage from '@/components/CountryPage'
 
 export const metadata: Metadata = {
-  title: 'Find HRDF-Registered Training Providers in Malaysia',
+  title: 'Find Training Providers in Malaysia & Check Your HRDF Levy',
   description:
     'Find training providers in Malaysia by category and state, and calculate your HRD Corp levy.',
   alternates: { canonical: 'https://findtraining.com/my' },

@@ -1160,7 +1160,7 @@ export const articles: ResourceArticle[] = [
     slug: 'corporate-training-cost-malaysia-2026',
     title: 'How Much Does Corporate Training Cost in Malaysia? A 2026 Buyer\'s Guide',
     description:
-      'Realistic price ranges for HRDF-claimable corporate training in Malaysia — by category, delivery method, and engagement size. Plus what drives the spread.',
+      'Typical price ranges for corporate training in Malaysia — by category, delivery method, and engagement size. Plus what drives the spread.',
     publishedAt: '2026-05-23',
     readingTimeMinutes: 6,
     category: 'Buyer Guide',

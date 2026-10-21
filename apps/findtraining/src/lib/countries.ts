@@ -45,7 +45,7 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     name: 'Malaysia',
     flag: '🇲🇾',
     currency: 'RM',
-    heroHeadline: 'Find HRDF-Registered Training Providers in Malaysia',
+    heroHeadline: 'Find Training Providers in Malaysia',
     heroSubline:
       'Browse training providers for courses, certifications, and professional development across Malaysia.',
     regulatoryBody: {
