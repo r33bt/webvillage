@@ -20,13 +20,13 @@ const COUNTRY_OPTIONS: Record<string, { label: string; flag: string }> = {
 
 export const metadata: Metadata = {
   title: 'HRDF Training Providers Malaysia | Browse All Providers',
-  description: "Browse Malaysia's most complete directory of HRDF-registered training providers. Filter by category, state, country, or delivery method.",
+  description: "Browse training providers in Malaysia and beyond. Filter by category, state, country, or delivery method.",
   alternates: {
     canonical: 'https://findtraining.com/providers',
   },
   openGraph: {
     title: 'HRDF Training Providers Malaysia | Browse All Providers',
-    description: "Browse Malaysia's most complete directory of HRDF-registered training providers. Filter by category, state, country, or delivery method.",
+    description: "Browse training providers in Malaysia and beyond. Filter by category, state, country, or delivery method.",
     url: 'https://findtraining.com/providers',
     siteName: 'FindTraining Malaysia',
     type: 'website',
@@ -57,7 +57,7 @@ export default async function ProvidersPage({
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'HRDF Training Providers Malaysia',
-    description: "Malaysia's most complete directory of HRDF-registered training providers.",
+    description: "Training providers in Malaysia and beyond.",
     url: 'https://findtraining.com/providers',
     numberOfItems: total,
     breadcrumb: {
@@ -161,12 +161,12 @@ export default async function ProvidersPage({
 
       {providers.length > 0 ? (
         <>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
             {providers.map((provider: FtProviderWithCategories) => (
               <Link
                 key={provider.id}
                 href={`/providers/${provider.slug}`}
-                className="block bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow"
+                className="block min-w-0 bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start gap-3">
                   {provider.logo_url && (
@@ -192,7 +192,7 @@ export default async function ProvidersPage({
                   </div>
                 </div>
                 {provider.description && (
-                  <p className="mt-3 text-sm text-gray-600 line-clamp-2">{provider.description}</p>
+                  <p className="mt-3 text-sm text-gray-600 line-clamp-2 break-words">{provider.description}</p>
                 )}
                 {provider.category_names.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1">

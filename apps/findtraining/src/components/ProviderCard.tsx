@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { MapPin, ArrowRight, Star, Sparkles } from 'lucide-react'
+import { MapPin, ArrowRight, Sparkles } from 'lucide-react'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
 import { HRDFBadge } from './HRDFBadge'
 
@@ -22,7 +22,7 @@ const COUNTRY_FLAGS: Record<string, string> = {
 }
 
 export function ProviderCard({ provider }: ProviderCardProps) {
-  const { name, slug, state, region, hrdf_status, tier, featured, category_names, country_code } = provider
+  const { name, slug, state, region, hrdf_status, tier, category_names, country_code } = provider
   const tierBadge = TIER_LABELS[tier]
   const displayCategories = (category_names ?? []).slice(0, 3)
   const isHrdf = hrdf_status === 'registered'
@@ -39,14 +39,6 @@ export function ProviderCard({ provider }: ProviderCardProps) {
           {countryFlag && (
             <span className="text-xs text-gray-500 whitespace-nowrap" title={country_code}>
               {countryFlag} {country_code}
-            </span>
-          )}
-          {featured && (
-            <span title="Featured">
-              <Star
-                className="w-4 h-4 text-amber-400 fill-amber-400"
-                aria-label="Featured provider"
-              />
             </span>
           )}
         </div>

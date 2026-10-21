@@ -69,7 +69,6 @@ const FEATURES: FeatureRow[] = [
   { label: 'Email notification when an HR manager enquires', free: false, starter: true, pro: true },
   { label: 'Course / service listings', free: false, starter: 'Up to 5', pro: 'Unlimited' },
   { label: 'Sponsored placement (labelled, shown apart from search results)', free: false, starter: false, pro: true },
-  { label: 'HRDF-verified badge', free: false, starter: true, pro: true },
   { label: 'Analytics — views, clicks, search rankings', free: false, starter: 'Basic', pro: 'Full' },
   { label: 'Priority support', free: false, starter: false, pro: true },
 ]
@@ -114,7 +113,7 @@ export default async function PricingPage() {
                 Founding offer: RM 100/mo — locked for life
               </p>
               <p className="text-sm text-gray-600">
-                {slotsLeft} of {total} slots remaining. First 50 providers only.
+                {slotsLeft} of {total} slots remaining.
               </p>
             </div>
             <Link
@@ -229,7 +228,7 @@ export default async function PricingPage() {
             <div>
               <p className="font-semibold text-gray-900 mb-1">What&rsquo;s the difference between Founding and Starter?</p>
               <p className="text-sm text-gray-600">
-                Same feature set. Founding members lock RM 100/mo for life. Once 50 founding slots are
+                Same feature set. Founding members lock RM 100/mo for life. Once all {total} founding slots are
                 claimed, the price for new providers becomes RM 300/mo (Starter).
               </p>
             </div>

@@ -54,8 +54,8 @@ export default async function ClaimProfilePage({
             Claim or list your training company
           </h1>
           <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
-            FindTraining indexes 5,690+ training providers across Malaysia, Singapore, the UK,
-            Australia, and the US. Find your company and claim it, or add a new listing.
+            FindTraining lists training providers in Malaysia, Singapore, the UK, Australia, and
+            the US. Find your company and claim it, or add a new listing.
           </p>
         </div>
       </section>
@@ -156,10 +156,6 @@ export default async function ClaimProfilePage({
                 </div>
               </div>
               <ul className="space-y-2 mb-5">
-                <li className="flex items-start gap-2 text-sm text-gray-700">
-                  <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: '#0F6FEC' }} />
-                  Top placement in search results above free listings
-                </li>
                 <li className="flex items-start gap-2 text-sm text-gray-700">
                   <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: '#0F6FEC' }} />
                   Direct contact button — buyers reach you, not us

@@ -28,7 +28,7 @@ const CATEGORY_ICONS: Record<string, React.ElementType> = {
 export const metadata: Metadata = {
   title: 'FindTraining.com — Find Training Providers Worldwide',
   description:
-    'Find training providers in Malaysia, Singapore, the UK, Australia, and the United States. Browse HRDF-registered, SkillsFuture-eligible, and accredited corporate training providers.',
+    'Find training providers in Malaysia, Singapore, the UK, Australia, and the United States. Compare corporate training providers by category, location, and delivery method.',
   alternates: { canonical: 'https://findtraining.com' },
   openGraph: {
     url: 'https://findtraining.com',
@@ -80,12 +80,9 @@ export default async function GlobalHomePage() {
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Find the Right Training. Anywhere.
           </h1>
-          <p className="text-xl text-gray-300 mb-2">
+          <p className="text-xl text-gray-300 mb-8">
             Browse {stats.total.toLocaleString()}+ training providers across Malaysia, Singapore,
             the UK, Australia, and the US.
-          </p>
-          <p className="text-sm text-gray-400 mb-10">
-            HRDF-registered · SkillsFuture-eligible · ISP-accredited · ASQA-registered
           </p>
 
           {/* Global search */}
@@ -187,7 +184,7 @@ export default async function GlobalHomePage() {
           <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl font-bold text-gray-900 mb-3 text-center">Browse by Training Category</h2>
             <p className="text-gray-500 text-center mb-10 text-sm">
-              HRDF-claimable categories from IT and leadership to safety and finance.
+              Training categories from IT and leadership to safety and finance.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {topCategories.map((cat) => {
@@ -280,12 +277,12 @@ export default async function GlobalHomePage() {
             <div>
               <p className="text-3xl font-bold text-gray-900 mb-1">{stats.total.toLocaleString()}+</p>
               <p className="font-semibold text-gray-700 mb-1">Training Providers</p>
-              <p className="text-sm text-gray-500">Across 5 countries</p>
+              <p className="text-sm text-gray-500">Across {countries.length} countries</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">5</p>
+              <p className="text-3xl font-bold text-gray-900 mb-1">{countries.length}</p>
               <p className="font-semibold text-gray-700 mb-1">Countries</p>
-              <p className="text-sm text-gray-500">Malaysia · Singapore · UK · Australia · US</p>
+              <p className="text-sm text-gray-500">{countries.map((c) => c.name).join(' · ')}</p>
             </div>
             <div>
               <p className="text-3xl font-bold text-gray-900 mb-1">Public</p>

@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { Star, CheckCircle2, GraduationCap, BookOpen, Inbox, Lock, Mail, MessageSquare, ShieldCheck } from 'lucide-react'
+import { Star, CheckCircle2, GraduationCap, BookOpen, Inbox, Lock, Mail, MessageSquare } from 'lucide-react'
 import { getFoundingMemberCount } from '@webvillage/engine/adapters/findtraining'
 import { FoundingFormCard, FaqSection } from './FoundingForm'
 
@@ -8,22 +8,21 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Founding Member — List Your Training Company',
-  description: "Malaysia's HRDF training directory is live — 5,690 providers listed. Founding slots at RM 100/mo locked for life. 50 slots only.",
+  description: "List your training company on FindTraining, Malaysia's HRDF training directory. Founding slots at RM 100/mo, locked for life.",
   alternates: { canonical: 'https://findtraining.com/founding' },
   openGraph: {
     title: 'Founding Member — List Your Training Company on FindTraining',
-    description: "Malaysia's HRDF training directory is live — 5,690 providers listed. Get found by HR managers at RM 100/mo, locked for life.",
+    description: "List your training company on FindTraining. Get found by HR managers at RM 100/mo, locked for life.",
     url: 'https://findtraining.com/founding',
   },
   robots: { index: false },
 }
 
 const SPECIFIC_BENEFITS = [
-  'Profile visible on Malaysia\'s most complete HRDF training directory',
+  'Full profile on FindTraining\'s Malaysia training directory',
   'Direct contact button on your listing — buyers reach you, not us',
   'Add up to 5 courses or services with full details',
   'Dashboard inbox — email notification when an HR manager submits an enquiry',
-  'HRDF-verified badge displayed on your public profile',
   'Priority support — real responses, not a ticket queue',
   'Rate locked for life — RM 100/mo, never increases',
 ]
@@ -65,7 +64,7 @@ const NEXT_STEPS = [
   {
     step: '3',
     title: 'Get found by HR teams',
-    detail: 'Your listing goes live, appearing above free providers in your category and state. HR managers find you, click your contact button, and reach you directly.',
+    detail: 'Your full listing goes live. HR managers find you, click your contact button, and reach you directly.',
   },
 ]
 
@@ -85,14 +84,14 @@ export default async function FoundingPage() {
           <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-wide uppercase">
             {isFull
               ? 'Founding programme is full'
-              : 'Only 50 founding member slots available — first-come, first-served'}
+              : `${TOTAL_SLOTS} founding member slots, first-come, first-served`}
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
             Claim Your Founding Member Slot<br className="hidden sm:block" /> — Now Live &amp; Taking Applications.
           </h1>
           <p className="text-blue-100 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
             FindTraining is Malaysia&apos;s HRDF training directory — built for HR managers who need to find
-            the right provider fast. The first 50 providers get in at RM&nbsp;100/mo, locked for life.
+            the right provider fast. The first {TOTAL_SLOTS} providers get in at RM&nbsp;100/mo, locked for life.
             After that, it&apos;s RM&nbsp;300/mo minimum.
           </p>
 
@@ -116,7 +115,7 @@ export default async function FoundingPage() {
                 />
               </div>
               {foundingCount === 0 && (
-                <p className="text-blue-200 text-xs mt-2 text-center">Fewer than 50 slots remain. Be the first founding member in your category.</p>
+                <p className="text-blue-200 text-xs mt-2 text-center">Be the first founding member in your category.</p>
               )}
             </div>
           )}
@@ -129,7 +128,7 @@ export default async function FoundingPage() {
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">What one closed deal pays for</h2>
             <p className="text-gray-500 text-sm max-w-xl mx-auto">
-              RM&nbsp;100/mo is RM&nbsp;1,200/year. Most HRDF-claimable corporate engagements cover the year many times over.
+              RM&nbsp;100/mo is RM&nbsp;1,200/year.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -188,11 +187,11 @@ export default async function FoundingPage() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="font-semibold text-gray-700 truncate">Your Company Name</p>
-                    <p className="text-xs text-gray-400">Selangor · HRDF-registered</p>
+                    <p className="text-xs text-gray-400">Selangor</p>
                   </div>
                 </div>
                 <p className="text-sm text-gray-500 line-clamp-2 mb-4">
-                  HRDF-registered training provider in Malaysia.
+                  Training provider in Malaysia.
                 </p>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-xs text-gray-400 bg-gray-50 rounded px-3 py-2">
@@ -227,14 +226,14 @@ export default async function FoundingPage() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="font-semibold text-gray-900 truncate">Your Company Name</p>
-                    <p className="text-xs text-gray-600">Selangor · HRDF-registered</p>
+                    <p className="text-xs text-gray-600">Selangor</p>
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-wide text-white px-1.5 py-0.5 rounded" style={{ backgroundColor: '#0F6FEC' }}>
                     Founding
                   </span>
                 </div>
                 <p className="text-sm text-gray-700 mb-4">
-                  Sales & leadership programmes for Malaysian SMEs. HRD Corp claimable. 15+ years training corporate teams across KL and Penang.
+                  Your description, courses and contact details, written by you.
                 </p>
                 <div className="space-y-2 mb-3">
                   <div className="flex items-center gap-2 text-xs font-medium text-gray-700 bg-white rounded px-3 py-2 border border-gray-100">
@@ -258,10 +257,6 @@ export default async function FoundingPage() {
                     <MessageSquare className="w-3.5 h-3.5" style={{ color: '#0F6FEC' }} aria-hidden="true" />
                     Request a quote
                   </button>
-                </div>
-                <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#0F6FEC' }}>
-                  <ShieldCheck className="w-3 h-3" aria-hidden="true" />
-                  HRDF-verified
                 </div>
               </div>
               <p className="text-xs mt-4 text-center font-medium" style={{ color: '#0F6FEC' }}>
@@ -289,10 +284,9 @@ export default async function FoundingPage() {
               </div>
               <div className="text-center mt-2">
                 <p className="text-3xl font-bold text-gray-900 mt-4">RM 100<span className="text-base font-normal text-gray-500">/mo</span></p>
-                <p className="text-xs font-semibold mt-1" style={{ color: '#0F6FEC' }}>Locked for life — first 50 only</p>
+                <p className="text-xs font-semibold mt-1" style={{ color: '#0F6FEC' }}>Locked for life — first {TOTAL_SLOTS} only</p>
               </div>
               <ul className="mt-4 space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-700"><CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: '#0F6FEC' }} /> Top placement in search</li>
                 <li className="flex items-center gap-2 text-sm text-gray-700"><CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: '#0F6FEC' }} /> Founding Member badge</li>
                 <li className="flex items-center gap-2 text-sm text-gray-700"><CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: '#0F6FEC' }} /> 5 course listings</li>
                 <li className="flex items-center gap-2 text-sm text-gray-700"><CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: '#0F6FEC' }} /> Lead notifications</li>
@@ -308,7 +302,6 @@ export default async function FoundingPage() {
                 <p className="text-xs text-gray-400 mt-1">After launch — non-founding</p>
               </div>
               <ul className="mt-4 space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-400"><CheckCircle2 className="w-4 h-4 flex-shrink-0 text-gray-300" /> Standard placement</li>
                 <li className="flex items-center gap-2 text-sm text-gray-400"><CheckCircle2 className="w-4 h-4 flex-shrink-0 text-gray-300" /> No founding badge</li>
                 <li className="flex items-center gap-2 text-sm text-gray-400"><CheckCircle2 className="w-4 h-4 flex-shrink-0 text-gray-300" /> 5 course listings</li>
                 <li className="flex items-center gap-2 text-sm text-gray-400"><CheckCircle2 className="w-4 h-4 flex-shrink-0 text-gray-300" /> Lead notifications</li>
