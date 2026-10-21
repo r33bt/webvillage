@@ -20,7 +20,7 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
       'On-site, virtual live, and self-paced e-learning delivery options',
       'Suitable for technical staff, IT departments, and non-technical managers undergoing digital upskilling',
     ],
-    learnMoreSlug: 'best-it-training-providers-malaysia-2026',
+    learnMoreSlug: 'best-it-training-providers-malaysia',
   },
 
   'leadership-management': {

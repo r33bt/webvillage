@@ -100,7 +100,7 @@ const ctaLinks: Record<string, { href: string; label: string }> = {
     href: '/providers',
     label: 'Browse training providers in Malaysia',
   },
-  'best-it-training-providers-malaysia-2026': {
+  'best-it-training-providers-malaysia': {
     href: '/categories/it-training',
     label: 'Find IT training providers in Malaysia',
   },

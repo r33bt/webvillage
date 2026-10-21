@@ -212,7 +212,7 @@ export const articles: ResourceArticle[] = [
     ],
   },
   {
-    slug: 'best-it-training-providers-malaysia-2026',
+    slug: 'best-it-training-providers-malaysia',
     title: 'Best IT Training Providers in Malaysia (HRDF Guide)',
     description:
       'How to choose IT and technology training providers in Malaysia, and how to fund the training from the HRD Corp levy.',
@@ -1157,7 +1157,7 @@ export const articles: ResourceArticle[] = [
     ],
   },
   {
-    slug: 'corporate-training-cost-malaysia-2026',
+    slug: 'corporate-training-cost-malaysia',
     title: "What Drives Corporate Training Cost in Malaysia: A Buyer's Guide",
     description:
       'What makes corporate training prices differ in Malaysia, the extra costs to ask about, and how to compare quotes like for like.',
