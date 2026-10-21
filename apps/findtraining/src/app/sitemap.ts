@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { createClient } from '@supabase/supabase-js'
+import { fetchAllPages } from '@/lib/fetch-all-pages'
 
 const BASE_URL = 'https://findtraining.com'
 
@@ -14,12 +15,22 @@ function getServiceClient() {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = getServiceClient()
 
-  const [{ data: providers }, { data: categories }] = await Promise.all([
-    supabase
-      .from('ft_providers')
-      .select('slug, updated_at')
-      .not('profile_status', 'in', '("removed","opted_out")')
-      .order('updated_at', { ascending: false }),
+  // FT-GAP-30: paged, or the sitemap stops at the first 1,000 providers. `id` breaks updated_at ties
+  // so pages do not overlap or skip rows.
+  const [providers, { data: categories }] = await Promise.all([
+    fetchAllPages<{ slug: string; updated_at: string | null }>((from, to) =>
+      supabase
+        .from('ft_providers')
+        .select('slug, updated_at')
+        .not('profile_status', 'in', '("removed","opted_out")')
+        .order('updated_at', { ascending: false })
+        .order('id', { ascending: true })
+        .range(from, to),
+    ).catch((err: unknown) => {
+      // Same as before paging: on a query error the sitemap still renders, without provider URLs.
+      console.error('sitemap providers:', err instanceof Error ? err.message : err)
+      return [] as Array<{ slug: string; updated_at: string | null }>
+    }),
     supabase
       .from('ft_categories')
       .select('slug, updated_at')
@@ -61,7 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: c.updated_at ? new Date(c.updated_at) : new Date(),
   }))
 
-  const providerPages: MetadataRoute.Sitemap = (providers ?? []).map((p) => ({
+  const providerPages: MetadataRoute.Sitemap = providers.map((p) => ({
     url: `${BASE_URL}/providers/${p.slug}`,
     changeFrequency: 'weekly' as const,
     priority: 0.7,
