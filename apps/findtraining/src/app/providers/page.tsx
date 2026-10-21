@@ -116,11 +116,9 @@ export default async function ProvidersPage({
         </span>
         <span className="text-gray-300 hidden sm:inline">·</span>
         <span>
-          <strong className="text-[#0F6FEC] text-xl font-bold">{availableCountries.length}</strong>{' '}
+          <strong className="text-[#0F6FEC] text-xl font-bold">{availableCountries.filter((c) => COUNTRY_OPTIONS[c]).length}</strong>{' '}
           countries
         </span>
-        <span className="text-gray-300 hidden sm:inline">·</span>
-        <span className="text-gray-400">Updated daily</span>
       </div>
 
       {/* Country filter */}
