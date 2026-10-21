@@ -34,15 +34,14 @@ export default async function AboutPage() {
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-gray-900 mb-3">What we do</h2>
           <p className="text-gray-600 leading-relaxed mb-4">
-            FindTraining.com is a directory for HR managers, L&amp;D teams, and employers across
-            Malaysia. We index every training provider registered with HRD Corp — the national
-            body that administers the Human Resources Development (HRD) levy — and surface them
-            in a searchable, filterable format that the official eTRiS portal does not offer.
+            FindTraining.com is an independent directory for HR managers, L&amp;D teams, and
+            employers across Malaysia. It lists training providers, including providers on HRD
+            Corp&apos;s register, in a searchable, filterable format that the eTRiS portal does
+            not offer.
           </p>
           <p className="text-gray-600 leading-relaxed">
-            Every listing is cross-referenced against HRD Corp&apos;s public registry. When you
-            find a provider on FindTraining, you can be confident they are legitimate and
-            registered for HRDF levy claims.
+            Registration status changes. Before you book, confirm a provider&apos;s HRD Corp
+            registration with the provider or with HRD Corp.
           </p>
         </section>
 
@@ -76,8 +75,7 @@ export default async function AboutPage() {
           <h2 className="text-xl font-semibold text-gray-900 mb-3">For training providers</h2>
           <p className="text-gray-600 leading-relaxed mb-4">
             Your company is already listed if you are registered with HRD Corp. Claim your
-            profile to update your description, add contact details, and gain priority placement
-            in search results.
+            profile to update your description and add contact details.
           </p>
           <Link
             href="/founding"

@@ -80,7 +80,7 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
       },
       {
         q: 'How do I find HRDF-registered training providers?',
-        a: 'Search FindTraining by category, state, or keyword. Every Malaysian listing on this page is cross-referenced against the official HRD Corp registry.',
+        a: 'Search FindTraining by category, state, or keyword. Before you book, confirm the provider\'s HRD Corp registration with the provider or with HRD Corp.',
       },
       {
         q: 'How do I claim my HRD Corp levy?',

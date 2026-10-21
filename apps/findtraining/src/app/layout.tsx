@@ -137,9 +137,6 @@ export default function RootLayout({
                   <Link href="/terms" className="hover:text-gray-700 transition-colors">
                     Terms
                   </Link>
-                  <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-medium px-2.5 py-1 rounded-full border border-blue-100">
-                    Official Sources · 5 Countries
-                  </span>
                 </div>
               </div>
             </div>

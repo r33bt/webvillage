@@ -119,7 +119,6 @@ export const articles: ResourceArticle[] = [
         items: [
           'Not registering with HRD Corp after reaching 10 employees (penalties apply)',
           'Missing the monthly payment deadline of the 15th',
-          'Leaving levy balances unclaimed for years — accumulated balances can expire',
           'Booking training with unregistered providers and assuming it is claimable',
           'Failing to submit claims before training starts when pre-approval is required',
           'Not appointing a dedicated Training Coordinator in the company',
@@ -189,7 +188,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'FindTraining.com is built specifically for the discovery problem. Every provider in our directory is cross-referenced against the HRD Corp registry, so you can be confident that any provider you find here is legitimately registered for levy claims.',
+        text: 'FindTraining.com is built for the discovery problem: search providers by category, state and delivery method in one place. Registration status changes, so confirm a provider's HRD Corp registration with the provider or with HRD Corp before you book.',
       },
       {
         type: 'ul',
@@ -355,7 +354,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'callout',
-        text: 'Plan your IT training calendar at least 12 months ahead. HRD Corp levy balances can lapse — use them intentionally rather than scrambling at year end.',
+        text: 'Plan your IT training calendar at least 12 months ahead and use your levy balance intentionally rather than scrambling at year end.',
       },
       {
         type: 'ul',
@@ -429,11 +428,9 @@ export const articles: ResourceArticle[] = [
       {
         type: 'ul',
         items: [
-          'SBL (Skim Bantuan Latihan) — standard levy-claimable training, reimbursement after training',
-          'SBL-Khas — higher-priority scheme for strategic or digital economy courses, higher claim limits',
-          'PROLUS — for unemployed graduates and retrenched workers, usually not applicable for active employees',
-          'IBL (Industry-Based Learning) — structured on-the-job training within a company',
-          'HRDF e-LATiH — for approved online and e-learning programmes',
+          'HRD Corp Claimable Courses (HCC) — the main scheme: training with an HRD Corp registered provider, no upfront payment, HRD Corp pays the provider after approving the claim. In eTRiS the scheme code reads "HRD Corp Claimable Courses: Skim Bantuan Latihan Khas"',
+          'SBL (Skim Bantuan Latihan) — for training outside registered providers, such as internal trainers or overseas providers: the employer pays, then claims reimbursement',
+          'Other HRD Corp schemes exist; see the schemes listed on hrdcorp.gov.my',
         ],
       },
       {
@@ -871,7 +868,7 @@ export const articles: ResourceArticle[] = [
     content: [
       {
         type: 'p',
-        text: 'Most HR managers in Malaysia leave training budget planning to the last quarter — and end up scrambling to spend unallocated levy before it lapses or rushing low-quality training through eTRiS just to hit utilisation targets. A structured annual training budget, built around HRD Corp levy strategy, eliminates this cycle. Here is how to do it properly.',
+        text: 'Most HR managers in Malaysia leave training budget planning to the last quarter — and end up scrambling to spend unallocated levy or rushing low-quality training through eTRiS just to hit utilisation targets. A structured annual training budget, built around HRD Corp levy strategy, eliminates this cycle. Here is how to do it properly.',
       },
       {
         type: 'h2',
@@ -887,7 +884,6 @@ export const articles: ResourceArticle[] = [
           'Monthly levy = 1% of total monthly wages for Malaysian employees (0.5% if voluntary registrant)',
           'Annual levy accumulation = monthly levy × 12 (assuming payroll stays constant)',
           'Current balance = accumulated contributions minus claims already approved',
-          'Unutilised levy does not roll forward indefinitely — HRD Corp can recoup unclaimed balances',
           'Your own training budget (outside levy) should be planned separately but coordinated with levy usage',
         ],
       },
