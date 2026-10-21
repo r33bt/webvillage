@@ -95,7 +95,8 @@ export async function searchProviders(
       }
     }
   }
-  if (filters.country_code) query = query.eq('country_code', filters.country_code)
+  // country_code is stored upper case (MY, AU); ?country=au must match too
+  if (filters.country_code) query = query.eq('country_code', filters.country_code.trim().toUpperCase())
 
   // Normal order is by name only. Paid tier and the featured flag never change
   // the order of search results; paid placements are shown separately and
