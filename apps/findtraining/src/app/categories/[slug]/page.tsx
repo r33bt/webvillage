@@ -35,12 +35,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return { title: 'Category Not Found' }
 
   return {
-    title: `${category.name} Training Providers Malaysia | HRDF Claimable`,
-    description: `Browse HRDF-registered ${category.name} training providers in Malaysia. All courses HRDF levy claimable.`,
+    title: `${category.name} Training Providers Malaysia`,
+    description: `Browse ${category.name} training providers in Malaysia by state and delivery method.`,
     alternates: { canonical: `https://findtraining.com/categories/${slug}` },
     openGraph: {
-      title: `${category.name} Training Providers Malaysia | HRDF Claimable`,
-      description: `Browse HRDF-registered ${category.name} training providers in Malaysia. All courses HRDF levy claimable.`,
+      title: `${category.name} Training Providers Malaysia`,
+      description: `Browse ${category.name} training providers in Malaysia by state and delivery method.`,
       images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
     },
   }
@@ -236,7 +236,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           countryCode="MY"
           sourceLabel="category-page"
           heading={`Get new ${category.name} providers in your inbox`}
-          subheading="One short email when new HRDF-claimable providers in this category go live. Unsubscribe any time."
+          subheading="One short email when new providers in this category go live. Unsubscribe any time."
         />
       </div>
     </div>

@@ -13,9 +13,9 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   'it-training': {
     headline: 'HRDF-Registered IT & Technology Training Providers in Malaysia',
     intro:
-      'IT and technology training covers everything from software development and cybersecurity to cloud infrastructure and data analytics. These courses equip Malaysian employees with in-demand technical skills that drive digital transformation. All providers on FindTraining are HRDF-registered, so your organisation can claim the full course fee against your HRD levy.',
+      'IT and technology training covers everything from software development and cybersecurity to cloud infrastructure and data analytics. These courses equip Malaysian employees with in-demand technical skills that drive digital transformation. Ask each provider whether a specific course is approved for HRD Corp claims before you book.',
     keyPoints: [
-      'Microsoft, CompTIA, Cisco, and AWS certifications eligible for HRDF claims',
+      'Microsoft, CompTIA, Cisco, and AWS certification preparation',
       'Courses available in cloud computing, cybersecurity, data science, and AI',
       'On-site, virtual live, and self-paced e-learning delivery options',
       'Suitable for technical staff, IT departments, and non-technical managers undergoing digital upskilling',
@@ -24,14 +24,14 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'leadership-management': {
-    headline: 'HRDF-Claimable Leadership & Management Training Providers in Malaysia',
+    headline: 'Leadership & Management Training Providers in Malaysia',
     intro:
       'Leadership and management training develops the strategic thinking, people management, and decision-making capabilities that organisations need to grow. From first-time manager programmes to C-suite executive development, Malaysian HR teams rely on HRDF-registered providers to build a stronger leadership pipeline.',
     keyPoints: [
       'Programmes from supervisory skills to senior executive coaching',
       'Topics include strategic planning, change management, and high-performance team building',
       'Many providers offer blended cohort learning with in-company customisation',
-      'HRDF SBL-Khas claimable — ideal for targeted leadership succession planning',
+      'Suited to targeted leadership succession planning',
     ],
   },
 
@@ -43,7 +43,7 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
       'Covers Employment Act 1955 updates, PCB/payroll compliance, and IR procedures',
       'Talent acquisition, competency-based interviewing, and onboarding best practices',
       'Performance management, KPI design, and 360-degree feedback methodologies',
-      'HRDF levy administration and SBL-Khas claim process workshops available',
+      'Workshops on levy administration and the claim process',
     ],
   },
 
@@ -60,7 +60,7 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'safety-health': {
-    headline: 'HRDF-Claimable Safety & Health (NIOSH) Training Providers in Malaysia',
+    headline: 'Safety & Health (NIOSH) Training Providers in Malaysia',
     intro:
       'Occupational safety and health training is both a legal requirement and a critical investment for Malaysian employers under the Occupational Safety and Health Act 1994. Certified NIOSH trainers and DOSH-accredited providers offer everything from Green Book certification to HIRARC facilitation — all HRDF claimable.',
     keyPoints: [
@@ -85,7 +85,7 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'customer-service': {
-    headline: 'HRDF-Claimable Customer Service Training Providers in Malaysia',
+    headline: 'Customer Service Training Providers in Malaysia',
     intro:
       'Customer service training builds the communication, empathy, and problem-solving skills that separate average service from exceptional experiences. Malaysian HR teams use HRDF-registered providers to upskill frontline staff, call centre agents, and service managers in handling complaints, building rapport, and driving customer loyalty.',
     keyPoints: [
@@ -110,7 +110,7 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'compliance-legal': {
-    headline: 'HRDF-Claimable Compliance & Legal Training Providers in Malaysia',
+    headline: 'Compliance & Legal Training Providers in Malaysia',
     intro:
       'Compliance and legal training helps Malaysian businesses stay on the right side of an increasingly complex regulatory landscape. From PDPA data protection and AML obligations to corporate governance and employment law, HRDF-registered providers deliver targeted training that reduces organisational risk.',
     keyPoints: [
@@ -134,7 +134,7 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'hospitality-tourism': {
-    headline: 'HRDF-Claimable Hospitality & Tourism Training Providers in Malaysia',
+    headline: 'Hospitality & Tourism Training Providers in Malaysia',
     intro:
       'Hospitality and tourism training prepares Malaysian hotel, F&B, and travel industry professionals for service excellence in a globally competitive market. HRDF-registered providers offer practical skills development across front office operations, food and beverage service, tour guiding, and hospitality management.',
     keyPoints: [
@@ -158,7 +158,7 @@ export const categoryDescriptions: Record<string, CategoryDescription> = {
   },
 
   'manufacturing': {
-    headline: 'HRDF-Claimable Manufacturing & Quality Training Providers in Malaysia',
+    headline: 'Manufacturing & Quality Training Providers in Malaysia',
     intro:
       'Manufacturing and quality training helps Malaysian production teams reduce waste, maintain certifications, and continuously improve processes. From ISO certification support to lean and Six Sigma implementation, HRDF-registered providers equip shop floor and management personnel with skills that directly impact output quality and operational efficiency.',
     keyPoints: [

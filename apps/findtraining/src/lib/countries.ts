@@ -47,7 +47,7 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     currency: 'RM',
     heroHeadline: 'Find HRDF-Registered Training Providers in Malaysia',
     heroSubline:
-      'Browse levy-claimable courses, certifications, and professional development programmes across all 16 states.',
+      'Browse courses, certifications, and professional development programmes across all 16 states.',
     regulatoryBody: {
       name: 'Human Resource Development Corporation',
       shortName: 'HRD Corp',

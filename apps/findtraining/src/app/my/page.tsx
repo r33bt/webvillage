@@ -4,7 +4,7 @@ import CountryPage from '@/components/CountryPage'
 export const metadata: Metadata = {
   title: 'Find HRDF-Registered Training Providers in Malaysia',
   description:
-    'Find HRDF-registered training providers in Malaysia. Search thousands of providers by category and state. Calculate your HRD Corp levy and find levy-claimable training courses.',
+    'Find HRDF-registered training providers in Malaysia. Search thousands of providers by category and state. Calculate your HRD Corp levy and find training courses.',
   alternates: { canonical: 'https://findtraining.com/my' },
   openGraph: {
     url: 'https://findtraining.com/my',

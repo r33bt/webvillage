@@ -142,7 +142,7 @@ export default function HRDFCalculator() {
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
             style={{ backgroundColor: '#0F6FEC' }}
           >
-            Find HRDF-claimable training
+            Find training providers
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"

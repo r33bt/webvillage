@@ -90,7 +90,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${category.name} Training Providers in ${stateName}`,
-    description: `Find HRDF-registered ${category.name} training providers in ${stateName}, Malaysia. Browse approved providers offering levy-claimable courses.`,
+    description: `Find ${category.name} training providers in ${stateName}, Malaysia.`,
     alternates: {
       canonical: `https://findtraining.com/categories/${slug}/${state}`,
     },

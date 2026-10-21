@@ -9,7 +9,7 @@ import { getAllCategories } from '@webvillage/engine/adapters/findtraining'
 import type { FtCategory } from '@webvillage/engine/types/ft'
 
 export const metadata: Metadata = {
-  title: 'Training Categories — HRDF Claimable Courses Malaysia',
+  title: 'Training Categories in Malaysia',
   description: 'Browse all HRDF-registered training categories in Malaysia — IT, Leadership, Safety, Finance, HR and more.',
   alternates: { canonical: 'https://findtraining.com/categories' },
 }
@@ -56,8 +56,8 @@ export default async function CategoriesPage() {
       <header className="mb-10">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Training Categories</h1>
         <p className="text-gray-600 text-base">
-          Browse {categories.length} categories of HRDF-registered training providers in Malaysia.
-          All courses are HRD Corp levy claimable.
+          Browse {categories.length} categories of training providers in Malaysia.
+          Confirm with each provider that a course is approved for HRD Corp claims before you book.
         </p>
       </header>
 

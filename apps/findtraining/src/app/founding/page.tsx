@@ -129,7 +129,7 @@ export default async function FoundingPage() {
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">What one closed deal pays for</h2>
             <p className="text-gray-500 text-sm max-w-xl mx-auto">
-              RM&nbsp;100/mo is RM&nbsp;1,200/year. Most HRDF-claimable corporate engagements cover the year many times over.
+              RM&nbsp;100/mo is RM&nbsp;1,200/year. One new corporate client can cover that.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -234,7 +234,7 @@ export default async function FoundingPage() {
                   </span>
                 </div>
                 <p className="text-sm text-gray-700 mb-4">
-                  Sales & leadership programmes for Malaysian SMEs. HRD Corp claimable. 15+ years training corporate teams across KL and Penang.
+                  Sales & leadership programmes for Malaysian SMEs. 15+ years training corporate teams across KL and Penang.
                 </p>
                 <div className="space-y-2 mb-3">
                   <div className="flex items-center gap-2 text-xs font-medium text-gray-700 bg-white rounded px-3 py-2 border border-gray-100">

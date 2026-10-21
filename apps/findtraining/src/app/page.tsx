@@ -187,7 +187,7 @@ export default async function GlobalHomePage() {
           <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl font-bold text-gray-900 mb-3 text-center">Browse by Training Category</h2>
             <p className="text-gray-500 text-center mb-10 text-sm">
-              HRDF-claimable categories from IT and leadership to safety and finance.
+              Categories from IT and leadership to safety and finance.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {topCategories.map((cat) => {
