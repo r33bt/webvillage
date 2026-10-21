@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { searchProviders, getDistinctCountries } from '@webvillage/engine/adapters/findtraining'
+import { publicDescription } from '@/lib/provider-description'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
 
 // Strip Firecrawl markdown formatting from names: **Name**\\\nDescription → Name
@@ -161,12 +162,12 @@ export default async function ProvidersPage({
 
       {providers.length > 0 ? (
         <>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
             {providers.map((provider: FtProviderWithCategories) => (
               <Link
                 key={provider.id}
                 href={`/providers/${provider.slug}`}
-                className="block bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow"
+                className="block min-w-0 bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start gap-3">
                   {provider.logo_url && (
@@ -191,10 +192,10 @@ export default async function ProvidersPage({
                     )}
                   </div>
                 </div>
-                {provider.description && (
+                {publicDescription(provider.description, provider.claimed) && (
                   <div className="mt-3">
-                    <p className="text-sm font-semibold text-gray-700">From the provider</p>
-                    <p className="text-sm text-gray-600 line-clamp-2">{provider.description}</p>
+                    {provider.claimed && <p className="text-sm font-semibold text-gray-700">From the provider</p>}
+                    <p className="text-sm text-gray-600 line-clamp-2 break-words">{publicDescription(provider.description, provider.claimed)}</p>
                   </div>
                 )}
                 {provider.category_names.length > 0 && (
