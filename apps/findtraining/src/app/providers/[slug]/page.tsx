@@ -145,7 +145,7 @@ export default async function ProviderPage({ params }: Props) {
     ? 'Training provider in Malaysia.'
     : `Training provider in ${countryName}.`
 
-  const aboutText = publicDescription(provider.description, provider.claimed)
+  const aboutText = publicDescription(provider.description, isOwnerWrittenDescription(provider))
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',

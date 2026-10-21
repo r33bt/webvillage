@@ -1,6 +1,8 @@
-// Descriptions on unclaimed listings were seeded by the directory, not written by the provider.
-// Scheme claims ("claimable under SBL/SBL-Khas", "eligible for levy claims") in that text are not
-// ours to make, so they are removed before the text is shown anywhere (page, cards, structured data).
+// Descriptions were seeded by the directory, not written by the provider, unless the owner of a
+// claimed profile has saved the text themselves (`description_edited_by_owner`). Claiming alone does
+// not change the text. Scheme claims ("claimable under SBL/SBL-Khas", "eligible for levy claims") in
+// seeded text are not ours to make, so they are removed before the text is shown anywhere (page,
+// cards, structured data). Only owner-written text passes through unchanged.
 
 // A sentence that still carries a scheme claim after the inline qualifier is removed is dropped.
 // `claima` also catches seeded text that was cut off mid-word ("HRD Corp claima").
@@ -17,10 +19,14 @@ const INLINE_QUALIFIER =
 // "Sdn." (as in "Sdn. Bhd."), honorifics or e.g./i.e., which would leave a dangling fragment.
 const SENTENCE_BREAK = /(?<=[.!?])(?<!\b(?:Sdn|Dr|Mr|Mrs|Ms|No|St|vs|e\.g|i\.e)\.)\s+(?=[A-Z0-9"“‘(])/
 
-/** Description text safe to show publicly: unchanged for claimed profiles, scheme claims removed otherwise. */
-export function publicDescription(description: string | null | undefined, claimed: boolean): string | null {
+/**
+ * Description text safe to show publicly: unchanged when the owner wrote it (pass
+ * `isOwnerWrittenDescription(provider)`), scheme claims removed otherwise, including on claimed
+ * profiles whose text is still the seeded one.
+ */
+export function publicDescription(description: string | null | undefined, ownerWritten: boolean): string | null {
   if (!description) return null
-  if (claimed) return description
+  if (ownerWritten) return description
   const kept = description
     .replace(INLINE_QUALIFIER, '')
     .split(SENTENCE_BREAK)

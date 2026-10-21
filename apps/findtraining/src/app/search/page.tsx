@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { publicDescription } from '@/lib/provider-description'
+import { isOwnerWrittenDescription, publicDescription } from '@/lib/provider-description'
 import { searchProviders, getAllCategories } from '@webvillage/engine/adapters/findtraining'
 import type { FtProviderWithCategories, FtCategory } from '@webvillage/engine/types/ft'
 
@@ -108,8 +108,8 @@ export default async function SearchPage({
                       </span>
                     )}
                   </div>
-                  {publicDescription(provider.description, provider.claimed) && (
-                    <p className="mt-2 text-sm text-gray-600 line-clamp-2">{publicDescription(provider.description, provider.claimed)}</p>
+                  {publicDescription(provider.description, isOwnerWrittenDescription(provider)) && (
+                    <p className="mt-2 text-sm text-gray-600 line-clamp-2">{publicDescription(provider.description, isOwnerWrittenDescription(provider))}</p>
                   )}
                 </Link>
               ))}

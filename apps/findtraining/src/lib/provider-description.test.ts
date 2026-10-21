@@ -56,9 +56,29 @@ describe('publicDescription', () => {
     expect(publicDescription(text, false)).toBe(text)
   })
 
-  it('passes a claimed provider description through unchanged', () => {
+  it('passes an owner-written description through unchanged', () => {
     const text = 'We are HRD Corp claimable. SBL-Khas eligible. HRDF claimable training.'
     expect(publicDescription(text, true)).toBe(text)
+  })
+
+  it('cleans a claimed profile whose description is still the seeded text', () => {
+    const text = 'We run leadership courses. All courses are HRDF claimable.'
+    const claimedUnedited = { claimed: true, description_edited_by_owner: false }
+    expect(publicDescription(text, isOwnerWrittenDescription(claimedUnedited))).toBe('We run leadership courses.')
+  })
+
+  it('cleans a claimed profile when the flag column is missing (migration not applied)', () => {
+    const text = 'We offer HRD Corp claimable training in Kuala Lumpur. Eligible for levy claims.'
+    expect(publicDescription(text, isOwnerWrittenDescription({ claimed: true }))).toBe(
+      'We offer training in Kuala Lumpur.',
+    )
+  })
+
+  it('passes the text through only for a claimed profile whose owner saved it', () => {
+    const text = 'All courses are HRDF claimable.'
+    expect(publicDescription(text, isOwnerWrittenDescription({ claimed: true, description_edited_by_owner: true }))).toBe(text)
+    // Flag set on an unclaimed row (should not happen) still does not bypass cleaning.
+    expect(publicDescription(text, isOwnerWrittenDescription({ claimed: false, description_edited_by_owner: true }))).toBeNull()
   })
 })
 

@@ -190,10 +190,10 @@ export default async function ProvidersPage({
                     )}
                   </div>
                 </div>
-                {publicDescription(provider.description, provider.claimed) && (
+                {publicDescription(provider.description, isOwnerWrittenDescription(provider)) && (
                   <div className="mt-3">
                     {isOwnerWrittenDescription(provider) && <p className="text-sm font-semibold text-gray-700">From the provider</p>}
-                    <p className="text-sm text-gray-600 line-clamp-2 break-words">{publicDescription(provider.description, provider.claimed)}</p>
+                    <p className="text-sm text-gray-600 line-clamp-2 break-words">{publicDescription(provider.description, isOwnerWrittenDescription(provider))}</p>
                   </div>
                 )}
                 {provider.category_names.length > 0 && (
