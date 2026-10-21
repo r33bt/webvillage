@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: '%s | FindTraining.com',
   },
   description:
-    'Find training providers in Malaysia, Singapore, the UK, Australia, and the US. Browse HRDF-registered, SkillsFuture-eligible, and accredited corporate training providers.',
+    'Find training providers in Malaysia, Singapore, the UK, Australia, and the US. Compare corporate training providers by category, location, and delivery method.',
   keywords: [
     'training providers',
     'HRDF training Malaysia',

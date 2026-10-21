@@ -24,11 +24,11 @@ export default function PrivacyPage() {
 
         <div className="prose prose-gray prose-sm sm:prose-base max-w-none">
           <h2>1. Who We Are</h2>
-          <p>FindTraining.com is a directory of HRDF-registered training providers in Malaysia. Our purpose is to make it easier for employers and individuals to find, compare, and contact accredited training providers.</p>
+          <p>FindTraining.com is a directory of training providers in Malaysia and other countries. Our purpose is to make it easier for employers and individuals to find, compare, and contact training providers.</p>
 
           <h2>2. Data We Hold</h2>
           <h3>2.1 Training Provider Listings</h3>
-          <p>We maintain a database of HRDF-registered training providers sourced from HRD Corp&apos;s public registry. For each provider we hold: company name, state, contact details (where publicly available), HRDF registration number, and training categories. This data is held under legitimate interest (public registry information) and the right to list public business information.</p>
+          <p>We maintain a database of training providers sourced from public registries and directories. For each provider we hold: company name, state, contact details (where publicly available), registration details where published, and training categories. This data is held under legitimate interest (public registry information) and the right to list public business information.</p>
 
           <h3>2.2 Claim Submissions</h3>
           <p>When a provider representative submits a claim form, we collect: name, business email, phone (optional). This data is used solely for verification and is not shared with third parties.</p>

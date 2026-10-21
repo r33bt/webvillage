@@ -411,9 +411,7 @@ export default async function CountryPage({ countryCode }: { countryCode: string
               <p className="font-semibold text-gray-700 mb-1">Training Providers</p>
               <p className="text-sm text-gray-500">
                 {config.name}
-                {config.regulatoryBody
-                  ? `'s most complete ${config.regulatoryBody.acronym} directory`
-                  : ' training directory'}
+                {' training directory'}
               </p>
             </div>
             <div>
