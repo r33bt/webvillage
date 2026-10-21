@@ -7,27 +7,11 @@ import type { FtCategory, FtProvider } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS, getOtherCountries } from '@/lib/countries'
 import type { CountryConfig } from '@/lib/countries'
 import { BuyerSignup } from '@/components/BuyerSignup'
+import { getRegions, regionsWithProviders, REGION_LABELS } from '@/lib/regions'
 
-// Malaysian states for the Browse by State section
-const MY_STATES = [
-  'Selangor',
-  'Kuala Lumpur',
-  'Johor',
-  'Penang',
-  'Perak',
-  'Sabah',
-  'Sarawak',
-  'Negeri Sembilan',
-  'Pahang',
-  'Kedah',
-  'Melaka',
-  'Kelantan',
-  'Terengganu',
-  'Perlis',
-  'Putrajaya',
-  'Labuan',
-]
-
+// FT-GAP-6: the Browse-by-Region section (MY states, GB nations, AU states and territories)
+// lists only regions with at least one provider, matched through the normalisation map in
+// lib/regions, so "NSW" and "New South Wales" count as one region.
 export default async function CountryPage({ countryCode }: { countryCode: string }) {
   const config: CountryConfig | undefined = COUNTRY_CONFIGS[countryCode]
   if (!config) return null
@@ -63,8 +47,14 @@ export default async function CountryPage({ countryCode }: { countryCode: string
     ],
   }
 
-  const regionsLabel = config.hasStateData
-    ? `${stats.states.length} states`
+  const hasRegionList = getRegions(countryCode).length > 0
+  const activeRegions = hasRegionList ? regionsWithProviders(countryCode, stats.states) : []
+  const regionLabel = REGION_LABELS[countryCode]
+  const regionCount = hasRegionList ? activeRegions.length : stats.states.length
+  const regionsLabel = hasRegionList
+    ? activeRegions.length > 0
+      ? `${activeRegions.length} ${regionLabel?.plural ?? 'regions'}`
+      : null
     : stats.states.length > 0
       ? `${stats.states.length} regions`
       : null
@@ -189,19 +179,19 @@ export default async function CountryPage({ countryCode }: { countryCode: string
         </section>
       )}
 
-      {/* ── [4] Browse by State (MY only) ───────────────────────────────── */}
-      {config.hasStateData && (
+      {/* ── [4] Browse by Region (regions with providers only) ─────────── */}
+      {activeRegions.length > 0 && (
         <section className="py-12 px-4 bg-gray-50 border-t border-gray-100">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Browse by State</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-6">{regionLabel?.browse ?? 'Browse by Region'}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-              {MY_STATES.map((state) => (
+              {activeRegions.map((region) => (
                 <Link
-                  key={state}
-                  href={`/search?country=${config.code}&state=${encodeURIComponent(state)}`}
+                  key={region.slug}
+                  href={`/search?country=${config.code}&state=${encodeURIComponent(region.name)}`}
                   className="block px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:border-brand-blue hover:text-brand-blue transition-all text-center"
                 >
-                  {state}
+                  {region.name}
                 </Link>
               ))}
             </div>
@@ -422,13 +412,12 @@ export default async function CountryPage({ countryCode }: { countryCode: string
             <div>
               {regionsLabel ? (
                 <>
-                  <p className="text-3xl font-bold text-gray-900 mb-1">{stats.states.length}</p>
+                  <p className="text-3xl font-bold text-gray-900 mb-1">{regionCount}</p>
                   <p className="font-semibold text-gray-700 mb-1">
-                    {config.hasStateData ? 'States Covered' : 'Regions Covered'}
+                    {regionLabel ? `${regionLabel.plural[0].toUpperCase()}${regionLabel.plural.slice(1)} with providers` : 'Regions Covered'}
                   </p>
                   <p className="text-sm text-gray-500">
-                    Providers across all {config.name}{' '}
-                    {config.hasStateData ? 'states and territories' : 'regions'}
+                    {config.name}
                   </p>
                 </>
               ) : (

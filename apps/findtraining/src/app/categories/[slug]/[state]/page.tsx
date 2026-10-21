@@ -2,34 +2,58 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { SearchX, MapPin, ArrowLeft } from 'lucide-react'
-import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/adapters/findtraining'
+import { getCategoryBySlug, getCountryStats, getProvidersByCategory } from '@webvillage/engine/adapters/findtraining'
 import { ProviderCard } from '@/components/ProviderCard'
 import { BuyerSignup } from '@/components/BuyerSignup'
+import type { Region } from '@/lib/regions'
+import { getRegionBySlug, getRegions, regionsWithProviders, stateMatchForms, storedFormsForRegion } from '@/lib/regions'
 
 // ---------------------------------------------------------------------------
-// State slug ↔ display name map
+// Regions (FT-GAP-6): MY states, GB nations, AU states and territories.
+// Slugs are unique across countries, so /categories/[slug]/[state] needs no country segment.
 // ---------------------------------------------------------------------------
 
-const STATE_MAP: Record<string, string> = {
-  johor: 'Johor',
-  kedah: 'Kedah',
-  kelantan: 'Kelantan',
-  'kuala-lumpur': 'Kuala Lumpur',
-  labuan: 'Labuan',
-  melaka: 'Melaka',
-  'negeri-sembilan': 'Negeri Sembilan',
-  pahang: 'Pahang',
-  penang: 'Penang',
-  perak: 'Perak',
-  perlis: 'Perlis',
-  putrajaya: 'Putrajaya',
-  sabah: 'Sabah',
-  sarawak: 'Sarawak',
-  selangor: 'Selangor',
-  terengganu: 'Terengganu',
+const COUNTRY_INFO: Record<string, { name: string; locale: string }> = {
+  MY: { name: 'Malaysia', locale: 'en_MY' },
+  GB: { name: 'the UK', locale: 'en_GB' },
+  AU: { name: 'Australia', locale: 'en_AU' },
 }
 
-const ALL_STATE_SLUGS = Object.keys(STATE_MAP)
+type RegionData = {
+  region: Region
+  country: { name: string; locale: string }
+  forms: string[]
+  /** Regions of the same country with at least one provider, for cross-links. */
+  activeRegions: Region[]
+}
+
+// Stored `state` values differ by import ("NSW", "New South Wales"), so the page matches every
+// stored form that normalises to the region. MY keeps its old behaviour (always renders, matched
+// at least by name, no country filter); a GB or AU region with no provider at all is a 404, not an
+// empty page.
+async function loadRegion(regionSlug: string): Promise<RegionData | null> {
+  const region = getRegionBySlug(regionSlug)
+  if (!region) return null
+  const country = COUNTRY_INFO[region.countryCode]
+  if (!country) return null
+  const isMY = region.countryCode === 'MY'
+  const stats = await getCountryStats(region.countryCode)
+  const stored = storedFormsForRegion(region, stats.states)
+  if (!isMY && stored.length === 0) return null
+  return {
+    region,
+    country,
+    forms: stateMatchForms(region, stats.states),
+    activeRegions: regionsWithProviders(region.countryCode, stats.states),
+  }
+}
+
+function providerFilters(data: RegionData) {
+  return {
+    stateIn: data.forms,
+    country_code: data.region.countryCode === 'MY' ? undefined : data.region.countryCode,
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Static params
@@ -52,9 +76,11 @@ export async function generateStaticParams(): Promise<{ slug: string; state: str
     'manufacturing',
   ]
 
+  // Only MY states are prebuilt, as before. GB and AU region pages render on demand, because which
+  // of them exist depends on the stored `state` values at request time.
   const params: { slug: string; state: string }[] = []
   for (const slug of CATEGORY_SLUGS) {
-    for (const state of ALL_STATE_SLUGS) {
+    for (const { slug: state } of getRegions('MY')) {
       params.push({ slug, state })
     }
   }
@@ -77,12 +103,14 @@ const MIN_INDEXABLE_PROVIDERS = 10
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug, state } = await params
 
-  const stateName = STATE_MAP[state]
-  if (!stateName) return { title: 'Not Found' }
+  const data = await loadRegion(state)
+  if (!data) return { title: 'Not Found' }
+  const stateName = data.region.name
+  const countryName = data.country.name
 
   const [category, { total }] = await Promise.all([
     getCategoryBySlug(slug),
-    getProvidersByCategory(slug, { state: stateName }),
+    getProvidersByCategory(slug, providerFilters(data)),
   ])
   if (!category) return { title: 'Not Found' }
 
@@ -90,15 +118,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${category.name} Training Providers in ${stateName}`,
-    description: `Find ${category.name} training providers in ${stateName}, Malaysia, and compare them by delivery method.`,
+    description: `Find ${category.name} training providers in ${stateName}, ${countryName}, and compare them by delivery method.`,
     alternates: {
       canonical: `https://findtraining.com/categories/${slug}/${state}`,
     },
     openGraph: {
       title: `${category.name} Training Providers in ${stateName}`,
-      description: `${category.name} training providers in ${stateName}, Malaysia.`,
+      description: `${category.name} training providers in ${stateName}, ${countryName}.`,
       type: 'website',
-      locale: 'en_MY',
+      locale: data.country.locale,
       siteName: 'FindTraining',
     },
     robots: isThin ? { index: false, follow: true } : undefined,
@@ -112,12 +140,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function CategoryStatePage({ params }: PageProps) {
   const { slug, state } = await params
 
-  const stateName = STATE_MAP[state]
-  if (!stateName) notFound()
+  const data = await loadRegion(state)
+  if (!data) notFound()
+  const stateName = data.region.name
+  const countryName = data.country.name
+  const countryCode = data.region.countryCode
 
   const [category, { providers, total }] = await Promise.all([
     getCategoryBySlug(slug),
-    getProvidersByCategory(slug, { state: stateName }),
+    getProvidersByCategory(slug, providerFilters(data)),
   ])
 
   if (!category) notFound()
@@ -141,7 +172,7 @@ export default async function CategoryStatePage({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: `${category.name} Training Providers in ${stateName}`,
-    description: `${category.name} training providers in ${stateName}, Malaysia`,
+    description: `${category.name} training providers in ${stateName}, ${countryName}`,
     numberOfItems: total,
     itemListElement: providers.slice(0, 20).map((p, index) => ({
       '@type': 'ListItem',
@@ -155,7 +186,7 @@ export default async function CategoryStatePage({ params }: PageProps) {
               address: {
                 '@type': 'PostalAddress',
                 addressRegion: p.state,
-                addressCountry: 'MY',
+                addressCountry: countryCode,
               },
             }
           : {}),
@@ -163,7 +194,9 @@ export default async function CategoryStatePage({ params }: PageProps) {
     })),
   }
 
-  const otherStateLinks = ALL_STATE_SLUGS.filter((s) => s !== state).slice(0, 8)
+  // Cross-links only to regions that have providers (MY falls back to its full list).
+  const linkable = data.activeRegions.length > 0 || countryCode !== 'MY' ? data.activeRegions : getRegions('MY')
+  const otherStateLinks = linkable.filter((r) => r.slug !== data.region.slug).slice(0, 8)
 
   return (
     <>
@@ -207,7 +240,7 @@ export default async function CategoryStatePage({ params }: PageProps) {
         <header className="mb-8">
           <div className="flex items-center gap-2 text-sm text-[#0F6FEC] mb-3">
             <MapPin className="w-4 h-4" aria-hidden="true" />
-            <span className="font-medium">{stateName}, Malaysia</span>
+            <span className="font-medium">{stateName}, {countryName}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
             {category.name} Training in {stateName}
@@ -243,10 +276,9 @@ export default async function CategoryStatePage({ params }: PageProps) {
         {/* Thin set notice */}
         {isThinSet && providers.length > 0 && (
           <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-            <span className="font-medium">Limited coverage in {stateName} for this category.</span>{' '}
-            Showing {total} provider{total !== 1 ? 's' : ''}. For a fuller set,{' '}
+            Showing {total} provider{total !== 1 ? 's' : ''} in {stateName}.{' '}
             <Link href={`/categories/${slug}`} className="underline font-medium hover:text-amber-700">
-              browse {category.name} across all of Malaysia
+              Browse all {category.name} providers
             </Link>.
           </div>
         )}
@@ -262,11 +294,10 @@ export default async function CategoryStatePage({ params }: PageProps) {
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <SearchX className="w-12 h-12 text-gray-300 mb-4" aria-hidden="true" />
             <h2 className="text-lg font-semibold text-gray-800 mb-1">
-              No providers found in {stateName} yet
+              No {category.name.toLowerCase()} providers listed in {stateName}
             </h2>
             <p className="text-gray-500 text-sm max-w-sm mb-4">
-              We don&apos;t have any {category.name.toLowerCase()} training providers listed for{' '}
-              {stateName} at the moment. Try browsing all {category.name} providers across Malaysia.
+              Browse all {category.name} providers instead.
             </p>
             <Link
               href={`/categories/${slug}`}
@@ -283,7 +314,7 @@ export default async function CategoryStatePage({ params }: PageProps) {
           <BuyerSignup
             categorySlug={slug}
             stateSlug={state}
-            countryCode="MY"
+            countryCode={countryCode}
             sourceLabel="category-state-page"
             heading={`New ${category.name} providers in ${stateName}?`}
             subheading={`We'll email you when a new ${category.name.toLowerCase()} provider lists in ${stateName}.`}
@@ -293,23 +324,23 @@ export default async function CategoryStatePage({ params }: PageProps) {
         {/* Other states cross-links */}
         <section className="border-t border-gray-100 pt-8 mt-4">
           <h2 className="text-sm font-semibold text-gray-700 mb-3">
-            {category.name} Training Providers by State
+            {category.name} Training Providers by {countryCode === 'GB' ? 'Nation' : countryCode === 'AU' ? 'State or Territory' : 'State'}
           </h2>
           <div className="flex flex-wrap gap-2">
-            {otherStateLinks.map((s) => (
+            {otherStateLinks.map((r) => (
               <Link
-                key={s}
-                href={`/categories/${slug}/${s}`}
+                key={r.slug}
+                href={`/categories/${slug}/${r.slug}`}
                 className="px-3 py-1.5 bg-gray-100 text-gray-700 text-xs font-medium rounded-full hover:bg-blue-50 hover:text-[#0F6FEC] transition-colors"
               >
-                {STATE_MAP[s]}
+                {r.name}
               </Link>
             ))}
             <Link
               href={`/categories/${slug}`}
               className="px-3 py-1.5 bg-[#0F6FEC] bg-opacity-10 text-[#0F6FEC] text-xs font-medium rounded-full hover:bg-opacity-20 transition-colors"
             >
-              All Malaysia →
+              {countryCode === 'MY' ? 'All Malaysia' : `All ${category.name}`} →
             </Link>
           </div>
         </section>

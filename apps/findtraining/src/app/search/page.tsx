@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { searchProviders, getAllCategories } from '@webvillage/engine/adapters/findtraining'
 import type { FtProviderWithCategories, FtCategory } from '@webvillage/engine/types/ft'
+import { regionForState, stateMatchForms } from '@/lib/regions'
 
 function cleanName(name: string): string {
   const m = name.match(/^\*\*(.*?)\*\*/)
@@ -21,10 +22,14 @@ export default async function SearchPage({
   const { q, category, state, country, page: pageStr } = params
   const page = Number(pageStr ?? 1)
   const hasFilters = Boolean(q || category || state || country)
+  // FT-GAP-6: a known region (from the country hub) matches all its stored spellings
+  // ("NSW", "New South Wales"); any other state value keeps the exact, case-insensitive match.
+  const region = country && state ? regionForState(country, state) : undefined
+  const stateIn = region ? stateMatchForms(region, [state!]) : undefined
 
   const [result, categories] = await Promise.all([
     hasFilters
-      ? searchProviders({ query: q, category, state, country_code: country, page })
+      ? searchProviders({ query: q, category, state: region ? undefined : state, stateIn, country_code: country, page })
       : Promise.resolve({ providers: [], total: 0 }),
     getAllCategories(),
   ])

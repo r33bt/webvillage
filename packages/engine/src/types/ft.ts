@@ -94,6 +94,9 @@ export interface SearchFilters {
   query?: string
   page?: number
   country_code?: string
+  /** FT-GAP-6: match `state` case-insensitively against any of these forms (a region's name,
+   *  aliases and stored spellings). Used instead of `state` for region pages and filters. */
+  stateIn?: string[]
 }
 
 export const PAGE_SIZE = 24

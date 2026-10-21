@@ -152,7 +152,8 @@ export async function searchProviders(
   const to = from + PAGE_SIZE - 1
 
   const { clean: cleanQuery, tokens } = searchTokens(filters.query)
-  if (tokens.length > 0) {
+  // The ranked RPC takes one state value, so a multi-form region filter uses the name-sorted query.
+  if (tokens.length > 0 && !filters.stateIn?.length) {
     const ranked = await rankedSearch(supabase, filters, cleanQuery, from)
     if (ranked) return ranked
   }
@@ -168,6 +169,14 @@ export async function searchProviders(
 
   if (filters.category)    query = query.eq('ft_provider_categories.ft_categories.slug', filters.category)
   if (filters.state)       query = query.ilike('state', filters.state)
+  if (filters.stateIn?.length) {
+    // Case-insensitive exact match on any form. Forms with LIKE wildcards or quotes are dropped;
+    // the rest are double-quoted so dots, commas and brackets do not break the or() syntax.
+    const forms = filters.stateIn.filter((f) => f.trim() && !/[%_*"\\]/.test(f))
+    query = forms.length
+      ? query.or(forms.map((f) => `state.ilike."${f}"`).join(','))
+      : query.is('id', null) // no usable form: match nothing (id is never null)
+  }
   if (filters.delivery)    query = query.contains('delivery_methods', [filters.delivery])
   // Fallback / no-query path: the original name-sorted match.
   if (tokens.length > 0) {
@@ -225,12 +234,24 @@ export async function getCountryStats(countryCode: string): Promise<{ total: num
       .select('*', { count: 'exact', head: true })
       .eq('country_code', countryCode)
       .not('profile_status', 'in', '("removed","opted_out")'),
-    supabase
-      .from('ft_providers')
-      .select('state')
-      .eq('country_code', countryCode)
-      .not('profile_status', 'in', '("removed","opted_out")')
-      .not('state', 'is', null),
+    // FT-GAP-6: paged, so states held only by rows past the first 1,000 are not dropped.
+    (async () => {
+      const PAGE = 1000
+      const rows: Array<{ state: string | null }> = []
+      for (let from = 0; ; from += PAGE) {
+        const { data, error } = await supabase
+          .from('ft_providers')
+          .select('state')
+          .eq('country_code', countryCode)
+          .not('profile_status', 'in', '("removed","opted_out")')
+          .not('state', 'is', null)
+          .order('id', { ascending: true })
+          .range(from, from + PAGE - 1)
+        if (error) return { data: null, error }
+        rows.push(...((data ?? []) as Array<{ state: string | null }>))
+        if (!data || data.length < PAGE) return { data: rows, error: null }
+      }
+    })(),
   ])
   if (countRes.error) throw new Error(`getCountryStats(total): ${countRes.error.message}`)
   if (stateRes.error) throw new Error(`getCountryStats(states): ${stateRes.error.message}`)
