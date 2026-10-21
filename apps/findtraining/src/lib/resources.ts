@@ -59,7 +59,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'callout',
-        text: 'Tip: If you have between 5 and 9 employees, voluntary registration is often worth it — you get full access to HRDF-claimable training at a lower contribution rate.',
+        text: 'Tip: If you have between 5 and 9 employees, voluntary registration is often worth it — you can apply for HRD Corp financial assistance at a lower contribution rate.',
       },
       {
         type: 'h2',
@@ -135,7 +135,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'FindTraining.com indexes every HRDF-registered training provider in Malaysia so you can find claimable courses faster than the eTRiS portal allows. Search by category, state, or delivery method.',
+        text: 'FindTraining.com indexes every HRDF-registered training provider in Malaysia so you can compare providers. Search by category, state, or delivery method.',
       },
     ],
   },
@@ -143,7 +143,7 @@ export const articles: ResourceArticle[] = [
     slug: 'how-to-find-hrdf-training-provider',
     title: 'How to Find an HRDF-Registered Training Provider in Malaysia',
     description:
-      'Step-by-step guide to finding and vetting HRDF-registered training providers in Malaysia for levy-claimable courses.',
+      'Step-by-step guide to finding and vetting HRDF-registered training providers in Malaysia.',
     publishedAt: '2026-03-08',
     readingTimeMinutes: 4,
     category: 'Training Guide',
@@ -251,7 +251,7 @@ export const articles: ResourceArticle[] = [
   },
   {
     slug: 'best-it-training-providers-malaysia-2026',
-    title: 'Best IT Training Providers in Malaysia 2026 (HRDF-Claimable)',
+    title: 'Best IT Training Providers in Malaysia 2026',
     description:
       'Top IT and technology training providers in Malaysia with HRD Corp registration — all eligible for levy claims in 2026.',
     publishedAt: '2026-03-15',
@@ -590,7 +590,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Business writing programmes are particularly high-ROI for organisations where email and report quality visibly affects client relationships. Claimable under SBL and SBL-Khas.',
+        text: 'Business writing programmes are particularly high-ROI for organisations where email and report quality visibly affects client relationships.',
       },
       {
         type: 'h2',
@@ -634,7 +634,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Most soft skills programmes qualify under SBL (Skim Bantuan Latihan). Leadership and communication programmes for managers and above often qualify under SBL-Khas, which has higher per-participant claim limits. When in doubt, ask the provider — they deal with eTRiS claims daily and know exactly which scheme applies.',
+        text: 'Which HRD Corp scheme applies to a soft skills course depends on the programme. When in doubt, ask the provider — they deal with eTRiS claims daily and know exactly which scheme applies.',
       },
       {
         type: 'h2',
@@ -735,7 +735,7 @@ export const articles: ResourceArticle[] = [
       {
         type: 'ul',
         items: [
-          'Sales training falls under SBL for most programmes — reimbursement after training is completed',
+          'Ask which HRD Corp scheme the programme is approved under, and whether the claim is paid after training',
           'Structured multi-day programmes are more easily approved than half-day workshops',
           'In-house delivery for groups of 8+ is the most cost-effective structure for levy claims',
           'Confirm the specific course code is registered before committing to a provider',
@@ -856,7 +856,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Whether you call it HRDF or HRD Corp, FindTraining.com lists every registered training provider in Malaysia so you can find claimable courses faster.',
+        text: 'Whether you call it HRDF or HRD Corp, FindTraining.com lists every registered training provider in Malaysia so you can compare providers.',
       },
     ],
   },
@@ -1344,93 +1344,85 @@ export const articles: ResourceArticle[] = [
   },
   {
     slug: 'corporate-training-cost-malaysia-2026',
-    title: 'How Much Does Corporate Training Cost in Malaysia? A 2026 Buyer\'s Guide',
+    title: "What Drives Corporate Training Cost in Malaysia: A Buyer's Guide",
     description:
-      'Realistic price ranges for HRDF-claimable corporate training in Malaysia — by category, delivery method, and engagement size. Plus what drives the spread.',
+      'What makes corporate training prices differ in Malaysia, the extra costs to ask about, and how to compare quotes like for like.',
     publishedAt: '2026-05-23',
-    readingTimeMinutes: 6,
+    readingTimeMinutes: 4,
     category: 'Buyer Guide',
     content: [
       {
         type: 'p',
-        text: 'Pricing for corporate training in Malaysia is opaque because providers usually only quote on RFP. This guide gives you typical ranges so you can recognise an outlier — too high or too low — when one lands in your inbox. All figures are 2026 market observations, expressed as RM and per cohort unless stated otherwise.',
-      },
-      {
-        type: 'callout',
-        text: 'These ranges are observed market values, not official rates. The HRD Corp levy reimburses most of these costs for registered employers — see /tools/hrdf-calculator for your annual levy estimate.',
+        text: 'Providers in Malaysia usually quote on request, so there is no single price list to check against. This guide covers what moves a quote up or down and what to ask, so you can compare offers on the same scope.',
       },
       {
         type: 'h2',
-        text: 'Per-pax pricing — soft skills and short courses',
+        text: 'Open course or in-house',
       },
       {
         type: 'p',
-        text: 'For one or two-day open-enrolment courses in Kuala Lumpur — communication skills, time management, presentation skills, basic leadership — typical per-pax pricing is RM 700 to RM 1,800. The wider end of the spread is for branded methodologies (e.g. Crucial Conversations, Situational Leadership) where the licence fee inflates the price.',
+        text: 'An open-enrolment course is priced per person. An in-house course for a closed group is usually priced per day or as one programme fee. As your group grows, in-house delivery tends to become the better deal. Ask for both quotes when you have more than a handful of attendees.',
       },
       {
         type: 'h2',
-        text: 'Per-cohort pricing — in-house delivery',
-      },
-      {
-        type: 'p',
-        text: 'In-house delivery for a closed cohort of 12 to 20 participants is usually the better deal once you have more than 8 attendees. Typical day-rates in 2026:',
+        text: 'What moves the price',
       },
       {
         type: 'ul',
         items: [
-          'Soft skills / communication / general leadership — RM 4,500 to RM 8,000 per day',
-          'Sales training — RM 6,000 to RM 14,000 per day (higher for branded methodologies)',
-          'Technical / IT certifications — RM 5,500 to RM 12,000 per day depending on vendor exam fees',
-          'Senior leadership / executive coaching — RM 8,000 to RM 25,000 per day for experienced trainers',
-          'Compliance / safety mandatory — RM 3,500 to RM 6,500 per day',
+          'Topic: technical and vendor-certified courses, compliance and safety courses, and senior leadership coaching are each priced differently from general soft skills',
+          'Trainer: experience, credentials and whether the trainer is local or travelling in',
+          'Branded methodologies: a licensed programme usually adds licence and workbook fees',
+          'Group size and number of days',
+          'Location: on-site, hotel venue or virtual',
         ],
       },
       {
         type: 'h2',
-        text: 'Multi-day and multi-cohort engagements',
+        text: 'Multi-day and repeat bookings',
       },
       {
         type: 'p',
-        text: 'For programmes of 4+ days or 3+ cohorts within a quarter, providers typically discount 10–20% off the headline day rate. Some negotiate a single fixed programme fee instead of day-rate billing. If you are buying training as a recurring commitment, ask for a framework agreement with locked rates for 12 months.',
+        text: 'If you plan several days or several cohorts, ask whether the provider offers a package price or a lower day rate. For a recurring need, ask about a framework agreement with rates fixed for a set period.',
       },
       {
         type: 'h2',
-        text: 'Hidden costs to ask about up front',
+        text: 'Extra costs to ask about up front',
       },
       {
         type: 'ul',
         items: [
-          'Materials — branded methodology workbooks, assessment licences, certification fees',
-          'Venue — included or excluded; for off-site, hotel meeting rooms in KL range RM 1,200 to RM 3,500 per day for groups of 20',
-          'F&B — typically RM 60 to RM 120 per pax per day at hotel venues',
-          'Trainer travel — for trainings outside KL or for non-local trainers',
-          'Post-training assessments / coaching follow-ups',
-          'Cancellation policy — usually 14–21 day window before full charge',
+          'Materials: workbooks, assessment licences, certification and exam fees',
+          'Venue: included or excluded, and who books it',
+          'Food and drink for participants',
+          "Trainer travel and accommodation, for training outside the trainer's home city",
+          'Post-training assessments or coaching follow-ups',
+          'Cancellation and rescheduling terms',
         ],
       },
       {
         type: 'h2',
-        text: 'Virtual vs. in-person',
+        text: 'Virtual or in person',
       },
       {
         type: 'p',
-        text: 'Virtual delivery typically reduces price by 25–40% — no venue, no F&B, lower trainer day rate (no travel/time-on-the-road). For genuine learning outcomes, virtual works well for technical and content-heavy programmes but underperforms for behavioural / soft-skills outcomes where peer practice in the room is part of the value.',
+        text: 'Virtual delivery removes venue, food and travel costs, so ask what the quote looks like both ways. It suits technical and content-heavy programmes well. Behavioural and soft-skills programmes often work better in the room, where participants practise with each other.',
       },
       {
         type: 'h2',
-        text: 'How HRD Corp levy claims affect net cost',
+        text: 'Levy claims and net cost',
       },
       {
         type: 'p',
-        text: 'For HRD Corp-registered employers, claimable training is reimbursed against your levy contribution. The headline price you pay the provider is the same; the levy claim is filed separately through eTRiS post-delivery. Net cost to the employer is the levy not yet reimbursed plus any non-claimable elements (e.g. T&E above the eligible cap).',
+        text: "If you are an HRD Corp-registered employer, you may be able to apply for financial assistance against your levy. Whether a given course and cost item is covered depends on the scheme and HRD Corp's current terms, so check the HRD Corp website and ask the provider which scheme the course is approved under before you book.",
       },
       {
         type: 'h2',
-        text: 'How FindTraining helps',
+        text: 'Comparing quotes',
       },
       {
         type: 'p',
-        text: 'Use findtraining.com to identify three to five providers in your category, ask each for an itemised quote against the same scope, and compare like for like. The HRDF levy calculator at /tools/hrdf-calculator gives you the upper envelope of what your employer can spend reimbursable.',
+        text: 'Shortlist three to five providers in your category, send each the same scope, and ask for an itemised quote. Compare the totals only after the same items are in or out of each one. The HRDF levy calculator at /tools/hrdf-calculator gives an estimate of your annual levy.',
       },
     ],
   },
@@ -1508,7 +1500,7 @@ export const articles: ResourceArticle[] = [
       },
       {
         type: 'p',
-        text: 'Sales: findtraining.com/categories/sales-marketing. Leadership: findtraining.com/categories/leadership-management. Both lists are filterable by state, delivery method, and HRDF-claimable status. For combined sales-and-leadership engagements ("salesforce effectiveness", "revenue enablement"), search for those phrases.',
+        text: 'Sales: findtraining.com/categories/sales-marketing. Leadership: findtraining.com/categories/leadership-management. Both lists are filterable by state and delivery method. For combined sales-and-leadership engagements ("salesforce effectiveness", "revenue enablement"), search for those phrases.',
       },
     ],
   },
