@@ -46,7 +46,6 @@ function TrainingRoom() {
         <rect x="146" y="276" width="44" height="34" rx="5" fill={TEAL_LIGHT} />
         <rect x="210" y="276" width="36" height="34" rx="5" fill={BLUE} stroke={BLUE_DARK} />
         <path d="M128 293h14M138 288l5 5-5 5M192 293h14M202 288l5 5-5 5" />
-        <path d="M232 340l-10 6M222 346l3 4" stroke={BLUE} />
 
         {/* desk */}
         <rect x="280" y="400" width="342" height="14" rx="3" fill="#fff" />
@@ -79,7 +78,7 @@ function TrainingRoom() {
 
 const HUBS = ['MY', 'SG', 'GB', 'AU', 'US']
   .map((code) => COUNTRY_CONFIGS[code])
-  .filter(Boolean)
+  .filter((c) => c && c.regulatoryBody)
 
 export function HeroArt() {
   return (
@@ -92,17 +91,17 @@ export function HeroArt() {
       <TrainingRoom />
 
       {/* Fragment: the country hubs and their training bodies (from lib/countries.ts) */}
-      <div className="absolute bottom-5 left-5 hidden rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:block">
+      <div className="absolute left-5 top-5 hidden rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm sm:block">
         <p className="flex items-center gap-2 text-sm font-semibold text-brand-ink">
-          <Search className="h-4 w-4 text-brand-blue" aria-hidden="true" /> Country hubs
+          <Search className="h-4 w-4 text-brand-blue" aria-hidden="true" /> Training bodies by country
         </p>
-        <ul className="mt-2 space-y-1.5">
+        <ul className="mt-2 grid grid-cols-2 gap-x-5 gap-y-1.5">
           {HUBS.map((c) => (
             <li key={c.code} className="flex items-center gap-2 text-sm text-gray-700">
               <span className="inline-flex h-6 w-9 items-center justify-center rounded bg-brand-mist text-xs font-bold text-brand-ink">
                 {c.code}
               </span>
-              {c.regulatoryBody ? c.regulatoryBody.shortName : c.name}
+              {c.regulatoryBody?.shortName}
             </li>
           ))}
         </ul>

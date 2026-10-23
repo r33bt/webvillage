@@ -4,11 +4,11 @@
   "verdict": "PASS",
   "fails": [],
   "visuals": 9,
-  "heroFrac": 0.39,
+  "heroFrac": 0.38,
   "list": [
     {
       "kind": "spot",
-      "w": 700,
+      "w": 681,
       "h": 640,
       "top": 121,
       "fold": true,
@@ -16,7 +16,7 @@
     },
     {
       "kind": "spot",
-      "w": 564,
+      "w": 596,
       "h": 180,
       "top": 1151,
       "fold": false,
@@ -24,7 +24,7 @@
     },
     {
       "kind": "spot",
-      "w": 564,
+      "w": 596,
       "h": 180,
       "top": 1151,
       "fold": false,
@@ -32,7 +32,7 @@
     },
     {
       "kind": "spot",
-      "w": 369,
+      "w": 390,
       "h": 180,
       "top": 1493,
       "fold": false,
@@ -40,7 +40,7 @@
     },
     {
       "kind": "spot",
-      "w": 369,
+      "w": 390,
       "h": 180,
       "top": 1493,
       "fold": false,
@@ -48,7 +48,7 @@
     },
     {
       "kind": "spot",
-      "w": 369,
+      "w": 390,
       "h": 180,
       "top": 1493,
       "fold": false,
@@ -56,28 +56,28 @@
     },
     {
       "kind": "spot",
-      "w": 366,
-      "h": 215,
-      "top": 2047,
+      "w": 387,
+      "h": 228,
+      "top": 2071,
       "fold": false,
       "label": ""
     },
     {
       "kind": "spot",
-      "w": 366,
-      "h": 215,
-      "top": 2047,
+      "w": 387,
+      "h": 228,
+      "top": 2071,
       "fold": false,
       "label": ""
     },
     {
       "kind": "fragment",
-      "w": 366,
+      "w": 387,
       "h": 190,
-      "top": 2047,
+      "top": 2071,
       "fold": false,
       "label": ""
     }
   ],
-  "at": "2026-10-23T23:25:09.403Z"
+  "at": "2026-10-23T23:38:15.325Z"
 }

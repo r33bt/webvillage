@@ -78,8 +78,8 @@ export default async function GlobalHomePage() {
       />
 
       {/* ── Hero (VISUAL-KIT.md homepage plan step 1) ─────────────────── */}
-      <section className="bg-white px-4 pb-12 pt-6 sm:pt-14 lg:pb-16">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12">
+      <section className="bg-white pb-12 pt-6 sm:pt-14 lg:pb-16">
+        <div className="ft-container grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-teal-dark">
               Corporate training directory
@@ -117,8 +117,8 @@ export default async function GlobalHomePage() {
       </section>
 
       {/* ── Free HRDF Tools strip ──────────────────────────────────────── */}
-      <section className="py-6 px-4 bg-white border-b border-gray-100">
-        <div className="max-w-5xl mx-auto">
+      <section className="py-6 bg-white border-b border-gray-100">
+        <div className="ft-container">
           <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
             <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 sm:mr-2 flex-shrink-0">
               Free HRDF Tools
@@ -148,8 +148,8 @@ export default async function GlobalHomePage() {
       </section>
 
       {/* ── Country Cards ───────────────────────────────────────────────── */}
-      <section className="bg-white px-4 py-16">
-        <div className="mx-auto max-w-6xl">
+      <section className="bg-white py-16">
+        <div className="ft-container">
           <h2 className="ft-blocks ft-blocks-center text-center font-display text-3xl font-bold text-brand-ink sm:text-4xl">
             Browse by country
           </h2>
@@ -172,10 +172,12 @@ export default async function GlobalHomePage() {
                   <h3 className="font-display text-2xl font-bold text-brand-ink group-hover:text-brand-blue">
                     {country.name}
                   </h3>
-                  {country.regulatoryBody && (
+                  {country.regulatoryBody ? (
                     <p className="mt-1 text-base text-gray-700">
                       {country.regulatoryBody.shortName} · {country.regulatoryBody.levyName}
                     </p>
+                  ) : (
+                    <p className="mt-1 line-clamp-2 text-base text-gray-700">{country.heroSubline}</p>
                   )}
                   <p className="mt-auto pt-4 text-base font-semibold text-brand-blue group-hover:underline">
                     Browse {country.name} providers →
@@ -189,8 +191,8 @@ export default async function GlobalHomePage() {
 
       {/* ── Browse by Category ──────────────────────────────────────────── */}
       {topCategories.length > 0 && (
-        <section className="py-16 px-4 bg-gray-50 border-t border-gray-100">
-          <div className="max-w-5xl mx-auto">
+        <section className="py-16 bg-gray-50 border-t border-gray-100">
+          <div className="ft-container">
             <h2 className="text-2xl font-bold text-gray-900 mb-3 text-center">Browse by Training Category</h2>
             <p className="text-gray-500 text-center mb-10 text-sm">
               Training categories from IT and leadership to safety and finance.
@@ -227,8 +229,8 @@ export default async function GlobalHomePage() {
       )}
 
       {/* ── Why FindTraining ────────────────────────────────────────────── */}
-      <section className="border-t border-gray-100 bg-brand-mist px-4 py-16">
-        <div className="mx-auto max-w-6xl">
+      <section className="border-t border-gray-100 bg-brand-mist py-16">
+        <div className="ft-container">
           <h2 className="ft-blocks ft-blocks-center text-center font-display text-3xl font-bold text-brand-ink sm:text-4xl">
             Why HR teams use FindTraining
           </h2>
@@ -263,14 +265,15 @@ export default async function GlobalHomePage() {
       </section>
 
       {/* ── Provider CTA ────────────────────────────────────────────────── */}
-      <section className="py-16 px-4 bg-brand-blue text-white text-center">
+      <section className="py-16 bg-brand-blue text-white text-center">
+        <div className="ft-container">
         <div className="max-w-2xl mx-auto">
           {foundingOpen && (
             <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
               {foundingSlotsLeft} of {founding.total} founding slots remaining
             </span>
           )}
-          <h2 className="text-3xl font-bold mb-4">Are You a Training Provider?</h2>
+          <h2 className="text-3xl font-bold mb-4">Are you a training provider?</h2>
           <p className="text-blue-100 mb-8">
             {foundingOpen
               ? `List your programmes and reach HR managers across Malaysia, Singapore, the UK, Australia, and the US. First ${founding.total} providers lock RM 100/mo for life.`
@@ -283,12 +286,13 @@ export default async function GlobalHomePage() {
             {foundingOpen ? 'Become a Founding Member' : 'List Your Company'}
           </Link>
         </div>
+        </div>
       </section>
 
       {/* ── Global Trust Signals ────────────────────────────────────────── */}
-      <section className="py-14 px-4 bg-white border-t border-gray-100">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="ft-container">
+          <div className="grid grid-cols-1 gap-8 text-center sm:auto-cols-fr sm:grid-flow-col">
             {stats && (
               <div>
                 <p className="text-3xl font-bold text-gray-900 mb-1">{stats.total.toLocaleString()}+</p>
