@@ -62,13 +62,14 @@ export default async function GlobalHomePage() {
   const [stats, categories, founding] = await Promise.all([
     getProviderStats().catch(() => null),
     getAllCategories().catch(() => [] as FtCategory[]),
-    getFoundingMemberCount().catch(() => ({ taken: 0, total: 50 })),
+    // Pat 2026-10-23: if the count can't be read, show the offer with no number.
+    getFoundingMemberCount().catch(() => null),
   ])
 
   const countries = COUNTRY_ORDER.map((code) => COUNTRY_CONFIGS[code]).filter(Boolean)
   const topCategories = categories.slice(0, 8)
-  const foundingOpen = founding.taken < founding.total
-  const foundingSlotsLeft = founding.total - founding.taken
+  const foundingOpen = founding ? founding.taken < founding.total : true
+  const foundingSlotsLeft = founding ? founding.total - founding.taken : null
 
   return (
     <>
@@ -268,7 +269,7 @@ export default async function GlobalHomePage() {
       <section className="py-16 bg-brand-blue text-white text-center">
         <div className="ft-container">
         <div className="max-w-2xl mx-auto">
-          {foundingOpen && (
+          {foundingOpen && founding && (
             <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
               {foundingSlotsLeft} of {founding.total} founding slots remaining
             </span>
@@ -276,7 +277,7 @@ export default async function GlobalHomePage() {
           <h2 className="text-3xl font-bold mb-4">Are you a training provider?</h2>
           <p className="text-blue-100 mb-8">
             {foundingOpen
-              ? `List your programmes and reach HR managers across Malaysia, Singapore, the UK, Australia, and the US. First ${founding.total} providers lock RM 100/mo for life.`
+              ? `List your programmes and reach HR managers across Malaysia, Singapore, the UK, Australia, and the US. ${founding ? `First ${founding.total} providers` : 'Founding providers'} lock RM 100/mo for life.`
               : 'List your programmes and reach HR managers across Malaysia, Singapore, the UK, Australia, and the US.'}
           </p>
           <Link

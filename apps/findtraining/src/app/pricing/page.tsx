@@ -84,9 +84,11 @@ function Cell({ value }: { value: boolean | string }) {
 }
 
 export default async function PricingPage() {
-  const { taken, total } = await getFoundingMemberCount().catch(() => ({ taken: 0, total: 50 }))
-  const foundingOpen = taken < total
-  const slotsLeft = total - taken
+  // Pat 2026-10-23: if the count can't be read, show the offer with no number.
+  const founding = await getFoundingMemberCount().catch(() => null)
+  const foundingOpen = founding ? founding.taken < founding.total : true
+  const slotsLeft = founding ? founding.total - founding.taken : null
+  const total = founding?.total ?? null
 
   return (
     <>
@@ -112,9 +114,11 @@ export default async function PricingPage() {
               <p className="font-semibold text-gray-900">
                 Founding offer: RM 100/mo — locked for life
               </p>
-              <p className="text-sm text-gray-600">
-                {slotsLeft} of {total} slots remaining.
-              </p>
+              {founding && (
+                <p className="text-sm text-gray-600">
+                  {slotsLeft} of {total} slots remaining.
+                </p>
+              )}
             </div>
             <Link
               href="/founding"
@@ -228,7 +232,7 @@ export default async function PricingPage() {
             <div>
               <p className="font-semibold text-gray-900 mb-1">What&rsquo;s the difference between Founding and Starter?</p>
               <p className="text-sm text-gray-600">
-                Same feature set. Founding members lock RM 100/mo for life. Once all {total} founding slots are
+                Same feature set. Founding members lock RM 100/mo for life. Once all{total !== null ? ` ${total}` : ''} founding slots are
                 claimed, the price for new providers becomes RM 300/mo (Starter).
               </p>
             </div>

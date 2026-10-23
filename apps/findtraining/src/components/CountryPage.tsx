@@ -38,12 +38,13 @@ export default async function CountryPage({ countryCode }: { countryCode: string
     getFeaturedProviders(6, countryCode),
     getCountryStats(countryCode),
     getCategoryCountsByCountry(countryCode),
-    getFoundingMemberCount().catch(() => ({ taken: 0, total: 50 })),
+    // Pat 2026-10-23: if the count can't be read, show the offer with no number.
+    getFoundingMemberCount().catch(() => null),
   ])
 
   const otherCountries = getOtherCountries(countryCode)
-  const foundingOpen = founding.taken < founding.total
-  const foundingSlotsLeft = founding.total - founding.taken
+  const foundingOpen = founding ? founding.taken < founding.total : true
+  const foundingSlotsLeft = founding ? founding.total - founding.taken : null
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -300,7 +301,7 @@ export default async function CountryPage({ countryCode }: { countryCode: string
               Your training company may already be listed. Claim your profile to add courses, contact
               details and your courses.
             </p>
-            {foundingOpen && (
+            {foundingOpen && founding && (
               <p className="text-xs font-semibold uppercase tracking-wide text-brand-blue mb-3">
                 {foundingSlotsLeft} of {founding.total} founding slots remaining
               </p>
@@ -376,7 +377,7 @@ export default async function CountryPage({ countryCode }: { countryCode: string
       {/* ── [9] Provider CTA ────────────────────────────────────────────── */}
       <section className="py-16 px-4 bg-brand-blue text-white text-center">
         <div className="max-w-2xl mx-auto">
-          {foundingOpen && (
+          {foundingOpen && founding && (
             <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
               {foundingSlotsLeft} of {founding.total} founding slots remaining
             </span>
@@ -387,7 +388,9 @@ export default async function CountryPage({ countryCode }: { countryCode: string
           </p>
           <p className="text-blue-200 text-sm mb-8">
             {foundingOpen
-              ? `Founding members lock RM 100/mo for life. After ${founding.total} slots: ${config.pricingCTA.currency}${config.pricingCTA.starterRange}.`
+              ? founding
+                ? `Founding members lock RM 100/mo for life. After ${founding.total} slots: ${config.pricingCTA.currency}${config.pricingCTA.starterRange}.`
+                : 'Founding members lock RM 100/mo for life.'
               : `From ${config.pricingCTA.currency}${config.pricingCTA.starterRange} · Cancel anytime`}
           </p>
           <Link

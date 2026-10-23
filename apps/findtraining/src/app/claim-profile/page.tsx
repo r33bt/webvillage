@@ -34,13 +34,14 @@ export default async function ClaimProfilePage({
     hasQuery
       ? searchProviders({ query: q!.trim(), page: 1 })
       : Promise.resolve({ providers: [], total: 0 }),
-    getFoundingMemberCount().catch(() => ({ taken: 0, total: 50 })),
+    // Pat 2026-10-23: if the count can't be read, show the offer with no number.
+    getFoundingMemberCount().catch(() => null),
   ])
 
   const providers = searchResult.providers.slice(0, 10)
   const total = searchResult.total
-  const foundingOpen = foundingStatus.taken < foundingStatus.total
-  const slotsLeft = foundingStatus.total - foundingStatus.taken
+  const foundingOpen = foundingStatus ? foundingStatus.taken < foundingStatus.total : true
+  const slotsLeft = foundingStatus ? foundingStatus.total - foundingStatus.taken : null
 
   return (
     <>
@@ -151,7 +152,7 @@ export default async function ClaimProfilePage({
                 <div>
                   <p className="font-semibold text-gray-900">Founding Member — RM 100/mo</p>
                   <p className="text-xs text-gray-500">
-                    {slotsLeft} of {foundingStatus.total} slots remaining · price locked for life
+                    {foundingStatus ? `${slotsLeft} of ${foundingStatus.total} slots remaining · ` : ''}price locked for life
                   </p>
                 </div>
               </div>
@@ -183,7 +184,7 @@ export default async function ClaimProfilePage({
             <div className="bg-white rounded-2xl border border-gray-200 p-6 text-center">
               <p className="font-semibold text-gray-900 mb-2">Founding programme is full</p>
               <p className="text-sm text-gray-600 mb-5">
-                All {foundingStatus.total} founding slots are claimed. Join the waitlist for Starter listings at RM 300/mo.
+                All {foundingStatus?.total} founding slots are claimed. Join the waitlist for Starter listings at RM 300/mo.
               </p>
               <a
                 href="mailto:hello@findtraining.com?subject=FindTraining%20Waitlist"
