@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { CountryChip } from '@/components/CountryChip'
 import { ProviderMark } from '@/components/ProviderMark'
 import type { Metadata } from 'next'
 import { searchProviders, getDistinctCountries } from '@webvillage/engine/adapters/findtraining'
@@ -10,13 +11,13 @@ function cleanName(name: string): string {
   return m ? m[1].trim() : name
 }
 
-const COUNTRY_OPTIONS: Record<string, { label: string; flag: string }> = {
-  MY: { label: 'Malaysia', flag: '🇲🇾' },
-  SG: { label: 'Singapore', flag: '🇸🇬' },
-  GB: { label: 'United Kingdom', flag: '🇬🇧' },
-  AU: { label: 'Australia', flag: '🇦🇺' },
-  US: { label: 'United States', flag: '🇺🇸' },
-  ZZ: { label: 'International', flag: '🌍' },
+const COUNTRY_OPTIONS: Record<string, { label: string }> = {
+  MY: { label: 'Malaysia' },
+  SG: { label: 'Singapore' },
+  GB: { label: 'United Kingdom' },
+  AU: { label: 'Australia' },
+  US: { label: 'United States' },
+  ZZ: { label: 'International' },
 }
 
 export const metadata: Metadata = {
@@ -144,13 +145,13 @@ export default async function ProvidersPage({
                 <Link
                   key={code}
                   href={countryHref(code)}
-                  className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border transition-colors ${
                     activeCountry === code
                       ? 'bg-[#0F6FEC] text-white border-[#0F6FEC]'
                       : 'bg-white text-gray-700 border-gray-200 hover:border-[#0F6FEC]'
                   }`}
                 >
-                  {opt.flag} {opt.label}
+                  <CountryChip code={code} tone={activeCountry === code ? 'active' : 'light'} /> {opt.label}
                 </Link>
               )
             })}
@@ -174,9 +175,7 @@ export default async function ProvidersPage({
                     <div className="flex items-start justify-between gap-1">
                       <h2 className="font-semibold text-gray-900 truncate text-sm">{cleanName(provider.name)}</h2>
                       {provider.country_code && provider.country_code !== 'MY' && COUNTRY_OPTIONS[provider.country_code] && (
-                        <span className="text-xs text-gray-500 flex-shrink-0 whitespace-nowrap">
-                          {COUNTRY_OPTIONS[provider.country_code].flag} {provider.country_code}
-                        </span>
+                        <CountryChip code={provider.country_code} className="flex-shrink-0" />
                       )}
                     </div>
                     {provider.state && (

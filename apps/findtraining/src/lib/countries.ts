@@ -26,7 +26,6 @@ export type CountryConfig = {
   code: string
   slug: string
   name: string
-  flag: string
   currency: string
   heroHeadline: string
   heroSubline: string
@@ -43,7 +42,6 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     code: 'MY',
     slug: 'my',
     name: 'Malaysia',
-    flag: '🇲🇾',
     currency: 'RM',
     heroHeadline: 'Find Training Providers in Malaysia',
     heroSubline:
@@ -103,7 +101,6 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     code: 'SG',
     slug: 'sg',
     name: 'Singapore',
-    flag: '🇸🇬',
     currency: 'S$',
     heroHeadline: 'Find Training Providers in Singapore',
     heroSubline:
@@ -150,7 +147,6 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     code: 'GB',
     slug: 'gb',
     name: 'United Kingdom',
-    flag: '🇬🇧',
     currency: '£',
     heroHeadline: 'Find Sales Training Providers in the United Kingdom',
     heroSubline:
@@ -197,7 +193,6 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     code: 'AU',
     slug: 'au',
     name: 'Australia',
-    flag: '🇦🇺',
     currency: 'A$',
     heroHeadline: 'Find Training Providers in Australia',
     heroSubline:
@@ -244,7 +239,6 @@ export const COUNTRY_CONFIGS: Record<string, CountryConfig> = {
     code: 'US',
     slug: 'us',
     name: 'United States',
-    flag: '🇺🇸',
     currency: '$',
     heroHeadline: 'Find Sales Training Providers in the United States',
     heroSubline:

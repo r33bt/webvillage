@@ -6,6 +6,7 @@ import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/ad
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
 import { categoryDescriptions } from '@/lib/category-descriptions'
 import { BuyerSignup } from '@/components/BuyerSignup'
+import { CategoryHeroVisual } from '@/components/category/CategoryHeroVisual'
 
 function cleanName(name: string): string {
   const m = name.match(/^\*\*(.*?)\*\*/)
@@ -117,11 +118,18 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         </ol>
       </nav>
 
-      <header className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{category.name} Training Providers</h1>
-        <p className="text-gray-600">
-          {total.toLocaleString()} {category.name.toLowerCase()} providers in Malaysia.
-        </p>
+      <header className="mb-10 grid grid-cols-1 items-center gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-12">
+        <div>
+          <h1 className="ft-blocks font-display text-4xl font-bold leading-tight tracking-tight text-brand-ink sm:text-5xl">
+            {category.name} Training Providers
+          </h1>
+          <p className="mt-5 text-lg text-gray-700">
+            {total.toLocaleString()} {category.name.toLowerCase()} providers in Malaysia.
+          </p>
+        </div>
+        <div className="order-first lg:order-none">
+          <CategoryHeroVisual slug={slug} name={category.name} />
+        </div>
       </header>
 
       {categoryDescriptions[slug] && (

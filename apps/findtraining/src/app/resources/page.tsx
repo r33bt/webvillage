@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Clock, BookOpen } from 'lucide-react'
 import { articles } from '@/lib/resources'
+import { GuideCover } from '@/components/resources/GuideCover'
 
 export const metadata: Metadata = {
   title: 'Resources — HRDF & HRD Corp Training Guides',
@@ -24,15 +25,6 @@ function formatDate(iso: string): string {
   })
 }
 
-const categoryColours: Record<string, string> = {
-  'HR Compliance': 'bg-purple-100 text-purple-700',
-  'Training Guide': 'bg-blue-100 text-blue-700',
-}
-
-function categoryClass(cat: string): string {
-  return categoryColours[cat] ?? 'bg-gray-100 text-gray-700'
-}
-
 export default function ResourcesPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
@@ -49,13 +41,13 @@ export default function ResourcesPage() {
   }
 
   return (
-    <div className="py-12 px-4">
+    <div className="py-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
 
-      <div className="max-w-4xl mx-auto">
+      <div className="ft-container">
         {/* Breadcrumb */}
         <nav className="text-xs text-gray-500 mb-8 flex items-center gap-1.5" aria-label="Breadcrumb">
           <Link href="/" className="hover:text-gray-700 transition-colors">Home</Link>
@@ -65,8 +57,8 @@ export default function ResourcesPage() {
 
         {/* Header */}
         <div className="mb-10">
-          <h1 className="text-3xl font-bold text-gray-900 mb-3">HRDF &amp; Training Resources</h1>
-          <p className="text-base text-gray-600 leading-relaxed">
+          <h1 className="ft-blocks font-display text-4xl font-bold tracking-tight text-brand-ink sm:text-5xl">HRDF &amp; Training Resources</h1>
+          <p className="mt-5 max-w-3xl text-lg text-gray-700 leading-relaxed">
             Guides, calculators, and insights for HR managers and training buyers in Malaysia.
             Everything you need to navigate the HRD Corp levy and find the right training providers.
           </p>
@@ -78,27 +70,23 @@ export default function ResourcesPage() {
             <Link
               key={article.slug}
               href={`/resources/${article.slug}`}
-              className="group block rounded-xl border border-gray-100 bg-white p-5 hover:border-blue-200 hover:shadow-md transition-all"
+              className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white hover:border-brand-blue hover:shadow-md transition-all"
             >
-              {/* Category badge */}
-              <span
-                className={`inline-block text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 ${categoryClass(article.category)}`}
-              >
-                {article.category}
-              </span>
+              <GuideCover slug={article.slug} category={article.category} />
+              <div className="flex flex-1 flex-col p-5">
 
               {/* Title */}
-              <h2 className="text-base font-semibold text-gray-900 leading-snug mb-2 group-hover:text-[#0F6FEC] transition-colors">
+              <h2 className="font-display text-xl font-bold text-brand-ink leading-snug mb-2 group-hover:text-brand-blue transition-colors">
                 {article.title}
               </h2>
 
               {/* Description */}
-              <p className="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-3">
+              <p className="text-base text-gray-700 leading-relaxed mb-4 line-clamp-3">
                 {article.description}
               </p>
 
               {/* Meta row */}
-              <div className="flex items-center justify-between text-xs text-gray-400">
+              <div className="mt-auto flex items-center justify-between text-sm text-gray-600">
                 <div className="flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>{article.readingTimeMinutes} min read</span>
@@ -111,6 +99,7 @@ export default function ResourcesPage() {
                 <BookOpen className="w-4 h-4" aria-hidden="true" />
                 <span>Read article</span>
                 <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+              </div>
               </div>
             </Link>
           ))}

@@ -2,6 +2,7 @@
 // Each country's page.tsx passes its countryCode; this component fetches data + renders.
 
 import Link from 'next/link'
+import { CountryChip } from '@/components/CountryChip'
 import { ProviderMark } from '@/components/ProviderMark'
 import { getAllCategories, getFeaturedProviders, getCountryStats, getCategoryCountsByCountry, getFoundingMemberCount } from '@webvillage/engine/adapters/findtraining'
 import type { FtCategory, FtProvider } from '@webvillage/engine/types/ft'
@@ -87,7 +88,7 @@ export default async function CountryPage({ countryCode }: { countryCode: string
         <div className="max-w-4xl mx-auto text-center">
           {/* Country pill */}
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-sm font-medium mb-6">
-            <span>{config.flag}</span>
+            <CountryChip code={config.code} tone="dark" />
             <span>{config.name}</span>
           </div>
 
@@ -125,8 +126,8 @@ export default async function CountryPage({ countryCode }: { countryCode: string
             {otherCountries.map((c, i) => (
               <span key={c.code}>
                 {i > 0 && <span className="mx-1.5">·</span>}
-                <Link href={`/${c.slug}`} className="text-gray-400 hover:text-white transition-colors">
-                  {c.flag} {c.name}
+                <Link href={`/${c.slug}`} className="inline-flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors">
+                  <CountryChip code={c.code} tone="dark" /> {c.name}
                 </Link>
               </span>
             ))}
