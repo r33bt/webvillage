@@ -7,6 +7,7 @@ import type { FtCourse, FtProvider } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS } from '@/lib/countries'
 import { ContactLinks } from './ContactLinks'
 import { EnquiryForm } from '@/components/EnquiryForm'
+import { ProviderMark } from '@/components/ProviderMark'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -181,8 +182,15 @@ export default async function ProviderPage({ params }: Props) {
         </nav>
 
         {/* Header */}
-        <header className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight mb-2">{provider.name}</h1>
+        <header className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7">
+          <ProviderMark
+            name={provider.name}
+            logoUrl={provider.logo_url}
+            variant="tile"
+            className="w-full rounded-xl border border-gray-200 sm:w-64 sm:flex-shrink-0"
+          />
+          <div className="min-w-0">
+          <h1 className="font-display text-3xl sm:text-4xl font-bold text-brand-ink leading-tight mb-3">{provider.name}</h1>
           <div className="flex flex-wrap items-center gap-2 mb-3">
             {provider.hrdf_status === 'registered' && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-[#00C48C]/10 text-[#00C48C]">
@@ -203,6 +211,7 @@ export default async function ProviderPage({ params }: Props) {
                 <MapPin className="w-3.5 h-3.5" aria-hidden="true" /> {provider.state}
               </span>
             )}
+          </div>
           </div>
         </header>
 
@@ -407,21 +416,16 @@ export default async function ProviderPage({ params }: Props) {
                   <Link
                     key={rel.id}
                     href={`/providers/${rel.slug}`}
-                    className="block bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow"
+                    className="block overflow-hidden bg-white border border-gray-200 rounded-xl hover:shadow-md transition-shadow"
                   >
+                    <ProviderMark name={rel.name} logoUrl={rel.logo_url} className="border-b border-gray-100" />
+                    <div className="p-4">
                     <div className="flex items-center gap-3 mb-2">
-                      {rel.logo_url && (
-                        <img
-                          src={rel.logo_url}
-                          alt=""
-                          className="w-8 h-8 rounded object-contain flex-shrink-0"
-                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                        />
-                      )}
                       <p className="text-sm font-semibold text-gray-900 line-clamp-2 leading-snug">{rel.name}</p>
                     </div>
                     {rel.state && <p className="text-xs text-gray-400">{rel.state}</p>}
                     {catLabel && <p className="text-xs text-blue-600 mt-1">{catLabel}</p>}
+                    </div>
                   </Link>
                 )
               })}

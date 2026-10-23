@@ -2,6 +2,7 @@
 // Each country's page.tsx passes its countryCode; this component fetches data + renders.
 
 import Link from 'next/link'
+import { ProviderMark } from '@/components/ProviderMark'
 import { getAllCategories, getFeaturedProviders, getCountryStats, getCategoryCountsByCountry, getFoundingMemberCount } from '@webvillage/engine/adapters/findtraining'
 import type { FtCategory, FtProvider } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS, getOtherCountries } from '@/lib/countries'
@@ -265,16 +266,11 @@ export default async function CountryPage({ countryCode }: { countryCode: string
                 <Link
                   key={provider.id}
                   href={`/providers/${provider.slug}`}
-                  className="block bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow"
+                  className="block overflow-hidden bg-white rounded-xl border border-gray-200 hover:shadow-md transition-shadow"
                 >
+                  <ProviderMark name={provider.name} logoUrl={provider.logo_url} className="border-b border-gray-100" />
+                  <div className="p-5">
                   <div className="flex items-start gap-3">
-                    {provider.logo_url && (
-                      <img
-                        src={provider.logo_url}
-                        alt=""
-                        className="w-12 h-12 rounded object-contain flex-shrink-0"
-                      />
-                    )}
                     <div className="min-w-0">
                       <h3 className="font-semibold text-gray-900 truncate">{provider.name}</h3>
                       {provider.state && (
@@ -290,6 +286,7 @@ export default async function CountryPage({ countryCode }: { countryCode: string
                   {provider.description && (
                     <p className="mt-3 text-sm text-gray-600 line-clamp-2">{provider.description}</p>
                   )}
+                  </div>
                 </Link>
               ))}
             </div>

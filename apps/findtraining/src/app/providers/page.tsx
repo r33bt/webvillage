@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ProviderMark } from '@/components/ProviderMark'
 import type { Metadata } from 'next'
 import { searchProviders, getDistinctCountries } from '@webvillage/engine/adapters/findtraining'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
@@ -164,17 +165,11 @@ export default async function ProvidersPage({
               <Link
                 key={provider.id}
                 href={`/providers/${provider.slug}`}
-                className="block min-w-0 bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow"
+                className="block min-w-0 overflow-hidden bg-white rounded-xl border border-gray-200 hover:shadow-md transition-shadow"
               >
+                <ProviderMark name={cleanName(provider.name)} logoUrl={provider.logo_url} className="border-b border-gray-100" />
+                <div className="p-5">
                 <div className="flex items-start gap-3">
-                  {provider.logo_url && (
-                    <img
-                      src={provider.logo_url}
-                      alt={cleanName(provider.name)}
-                      className="w-12 h-12 rounded object-contain flex-shrink-0"
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                    />
-                  )}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-1">
                       <h2 className="font-semibold text-gray-900 truncate text-sm">{cleanName(provider.name)}</h2>
@@ -201,6 +196,7 @@ export default async function ProvidersPage({
                     ))}
                   </div>
                 )}
+                </div>
               </Link>
             ))}
           </div>

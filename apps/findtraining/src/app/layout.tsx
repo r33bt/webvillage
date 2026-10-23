@@ -3,7 +3,17 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { GraduationCap } from 'lucide-react'
 import { MobileMenu } from '@/components/MobileMenu'
+import { Inter, Bricolage_Grotesque } from 'next/font/google'
 import './globals.css'
+
+// Visual kit A1: Bricolage Grotesque for display, Inter (the documented brand face) for body.
+const sans = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
+const display = Bricolage_Grotesque({
+  subsets: ['latin'],
+  weight: ['600', '700', '800'],
+  variable: '--font-display',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://findtraining.com'),
@@ -45,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${sans.variable} ${display.variable}`}>
       <body>
         {process.env.NEXT_PUBLIC_GA4_ID && (
           <>
