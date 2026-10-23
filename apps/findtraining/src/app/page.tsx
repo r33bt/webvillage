@@ -94,7 +94,7 @@ export default async function GlobalHomePage() {
             </p>
 
             {/* Global search */}
-            <form action="/search" method="GET" className="mt-7 flex gap-2">
+            <form action="/search" method="GET" className="mt-7 flex flex-col gap-2 sm:flex-row">
               <input
                 name="q"
                 type="search"
