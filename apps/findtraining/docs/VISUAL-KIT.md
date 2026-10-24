@@ -1,6 +1,6 @@
 # FindTraining — Visual Kit
 
-**Status:** approved (agent, pattern) · 2026-10-23 · branch `claude/visual-findtraining-2026-10-23` · density homepage PASS on the dev server (9 visuals, hero 39% at 1280, 38% at 375)
+**Status:** built · 2026-10-23 · branches `claude/visual-findtraining-2026-10-23` (kit, homepage, listing images) and `claude/visual-findtraining-inner-2026-10-23` (category hero, guide covers, country chips) · density PASS: homepage 9 visuals, hero 38% at 1280 and 375; /resources 15 visuals
 **Extends, does not replace:** `211-findtraining/docs/brand-guidelines.md` (colours, Inter), `tailwind.config.ts` brand tokens, `src/app/globals.css`.
 **Specimen:** `docs/visual-kit/findtraining-kit-specimen.png` (source `kit-specimen.html`, built from the rendered components).
 **Why now:** the live homepage measured 0 visuals, hero 0% at both widths (2026-10-17 and again 2026-10-23). Listing cards had a 48px logo only when `logo_url` was set, so most cards were text only.
@@ -21,7 +21,7 @@
 | A4 | Brand accent | `brand-teal #00C48C` for fills in drawings and the motif (< 5% of pixels); `brand-teal-dark #00916A` for accent text (eyebrows). |
 | A5 | Contrast band | The existing blue provider CTA band. No dark surfaces. |
 | A6 | Motif | **Session blocks of a course timetable.** Three rounded bars (long blue, mid teal, short dark blue) under display headings (`.ft-blocks`) and on item tiles, and a faint 48px timetable grid behind panels (`.ft-timetable`). The wall timetable in the hero drawing is where it comes from. |
-| A7 | Icon family | **Lucide** (already in the repo). No new emoji added. (Existing country-flag emoji in filters and card corners are untouched; listed under open items.) |
+| A7 | Icon family | **Lucide** (already in the repo). Country flag emoji are replaced by the kit's country chip (`components/CountryChip.tsx`: the code in a rounded chip; `ZZ` reads INTL). No emoji anywhere in the UI. |
 | A8 | Photo grade | None yet (no photos on the site). When category photos land: neutral, slightly cool, no filters on faces, text on photo over a bottom gradient to `brand-ink` at 70%. |
 | A9 | Illustration style | **Ink line** in `brand-ink #0F172A`, 2–2.5px rounded strokes, flat fills from the brand tints, blue and teal. Objects and buildings only: no people, no robots, no lightbulbs, no figures or data on drawn charts. |
 | A10 | Card system | `rounded-xl`, 1px `gray-200` border, image band on top (`ProviderMark`, 128px), one hover shadow. |
@@ -34,8 +34,10 @@
 | Homepage | B2/B4 hero art (`components/home/HeroArt.tsx`), landmark spot per country hub (`CountryArt.tsx`), two spots + a search fragment in "Why" (`WhyArt.tsx`) | ≥ 35% hero, ≥ 4 visuals |
 | Listing card (all lists) | `ProviderMark` band: the provider's own logo on white, else the monogram tile | every card has an item image |
 | Provider profile | `ProviderMark` tile beside the name; related cards carry the band | ≥ 1 item image |
-| Category / country hubs | listing cards with bands (above); a category hero is the next step | every card visual |
-| Guides (`/resources`) | people-life recipe: designed cover + 1 visual per ~400 words. Not done in this run. | 1 per 400 words |
+| Category page | `CategoryHeroVisual`: the photo at `public/images/categories/<slug>.jpg` once it exists (kit bottom gradient), until then the category's ink-line spot (`components/category/CategoryArt.tsx`, 13 categories + a generic course drawing); listing cards with bands | hero visual + every card visual |
+| Country hubs | listing cards with bands | every card visual |
+| Guides index (`/resources`) | `GuideCover` on every card: kit panel, the guide's category, a subject drawing chosen per guide | every card visual |
+| Guide article (`/resources/[slug]`) | people-life recipe: designed cover + 1 visual per ~400 words. Not done yet. | 1 per 400 words |
 | Legal / utility | exempt | — |
 
 ## Sourcing and honesty

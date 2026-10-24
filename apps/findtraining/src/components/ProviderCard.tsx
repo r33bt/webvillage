@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { CountryChip } from '@/components/CountryChip'
 import { ProviderMark } from '@/components/ProviderMark'
 import { MapPin, ArrowRight, Sparkles } from 'lucide-react'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
@@ -14,20 +15,13 @@ const TIER_LABELS: Record<string, { label: string; className: string } | undefin
   starter: { label: 'Starter', className: 'bg-gray-100 text-gray-700' },
 }
 
-const COUNTRY_FLAGS: Record<string, string> = {
-  SG: '🇸🇬',
-  GB: '🇬🇧',
-  AU: '🇦🇺',
-  US: '🇺🇸',
-  ZZ: '🌍',
-}
 
 export function ProviderCard({ provider }: ProviderCardProps) {
   const { name, slug, state, region, hrdf_status, tier, category_names, country_code } = provider
   const tierBadge = TIER_LABELS[tier]
   const displayCategories = (category_names ?? []).slice(0, 3)
   const isHrdf = hrdf_status === 'registered'
-  const countryFlag = country_code && country_code !== 'MY' ? COUNTRY_FLAGS[country_code] : null
+  const showCountry = Boolean(country_code && country_code !== 'MY')
 
   return (
     <article className="flex flex-col overflow-hidden bg-white border border-gray-200 rounded-xl hover:border-[#0F6FEC] hover:shadow-md transition-all duration-150">
@@ -39,11 +33,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
           {name}
         </h3>
         <div className="flex items-center gap-1.5 flex-shrink-0">
-          {countryFlag && (
-            <span className="text-xs text-gray-500 whitespace-nowrap" title={country_code}>
-              {countryFlag} {country_code}
-            </span>
-          )}
+          {showCountry && <CountryChip code={country_code} />}
         </div>
       </div>
 

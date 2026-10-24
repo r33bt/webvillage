@@ -29,10 +29,11 @@ export function providerInitials(name: string): string {
 
 // Three kit tints; the pick is stable per name so a provider keeps its colour everywhere.
 const TINTS = [
-  { bg: 'bg-brand-blue-light', bar1: 'bg-brand-blue', bar2: 'bg-brand-teal', ink: 'text-brand-ink' },
-  { bg: 'bg-brand-teal-light', bar1: 'bg-brand-teal-dark', bar2: 'bg-brand-blue', ink: 'text-brand-ink' },
-  { bg: 'bg-brand-mist', bar1: 'bg-brand-blue-dark', bar2: 'bg-brand-teal', ink: 'text-brand-ink' },
+  { bg: '#EBF3FE', bar1: '#0F6FEC', bar2: '#00C48C' },
+  { bg: '#E0FBF4', bar1: '#00916A', bar2: '#0F6FEC' },
+  { bg: '#F1F5F9', bar1: '#0A52B8', bar2: '#00C48C' },
 ] as const
+const INK = '#0F172A'
 
 function tintFor(name: string) {
   let h = 0
@@ -55,12 +56,11 @@ export function ProviderMark({ name, logoUrl, variant = 'band', className = '' }
 
   if (showLogo) {
     return (
-      <div
-        data-visual="cover"
-        className={`relative flex items-center justify-center overflow-hidden bg-white ${size} ${className}`}
-      >
+      <div className={`relative flex items-center justify-center overflow-hidden bg-white ${size} ${className}`}>
+        {/* The logo itself is the item image; it counts as a visual only when it is large enough. */}
         {/* eslint-disable-next-line @next/next/no-img-element -- provider-supplied URLs on any host */}
         <img
+          data-visual="cover"
           src={logoUrl as string}
           alt={`${name} logo`}
           loading="lazy"
@@ -72,24 +72,37 @@ export function ProviderMark({ name, logoUrl, variant = 'band', className = '' }
   }
 
   const tint = tintFor(name)
+  const [w, h] = variant === 'tile' ? [256, 176] : [360, 128]
+  const cell = 32
   return (
-    <div
-      data-visual="cover"
-      aria-hidden="true"
-      className={`ft-timetable relative flex items-center justify-center overflow-hidden ${tint.bg} ${size} ${className}`}
-    >
-      <span
-        className={`font-display font-extrabold leading-none tracking-tight ${tint.ink} ${
-          variant === 'tile' ? 'text-6xl' : 'text-5xl'
-        }`}
-      >
-        {providerInitials(name)}
-      </span>
-      <span className="absolute left-4 bottom-4 flex items-center gap-1.5">
-        <span className={`block h-2 w-9 rounded-full ${tint.bar1}`} />
-        <span className={`block h-2 w-5 rounded-full ${tint.bar2}`} />
-        <span className="block h-2 w-2.5 rounded-full bg-brand-ink/70" />
-      </span>
+    <div data-visual="cover" aria-hidden="true" className={`relative overflow-hidden ${size} ${className}`}>
+      <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full">
+        <rect width={w} height={h} fill={tint.bg} />
+        <g stroke="#0F6FEC" strokeOpacity="0.08" strokeWidth="1">
+          {Array.from({ length: Math.ceil(w / cell) }, (_, i) => (
+            <path key={`v${i}`} d={`M${(i + 1) * cell} 0V${h}`} />
+          ))}
+          {Array.from({ length: Math.ceil(h / cell) }, (_, i) => (
+            <path key={`h${i}`} d={`M0 ${(i + 1) * cell}H${w}`} />
+          ))}
+        </g>
+        <text
+          x={w / 2}
+          y={h / 2}
+          textAnchor="middle"
+          dominantBaseline="central"
+          fill={INK}
+          className="font-display"
+          fontWeight="800"
+          fontSize={variant === 'tile' ? 64 : 50}
+          letterSpacing="-1"
+        >
+          {providerInitials(name)}
+        </text>
+        <rect x="16" y={h - 24} width="36" height="8" rx="4" fill={tint.bar1} />
+        <rect x="58" y={h - 24} width="20" height="8" rx="4" fill={tint.bar2} />
+        <rect x="84" y={h - 24} width="10" height="8" rx="4" fill={INK} fillOpacity="0.7" />
+      </svg>
     </div>
   )
 }

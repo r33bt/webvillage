@@ -1,0 +1,131 @@
+{
+  "url": "http://localhost:3305/resources",
+  "type": "content",
+  "verdict": "PASS",
+  "fails": [],
+  "visuals": 15,
+  "heroFrac": 0.07,
+  "list": [
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 343,
+      "fold": true,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 343,
+      "fold": true,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 343,
+      "fold": true,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 840,
+      "fold": true,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 840,
+      "fold": true,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 840,
+      "fold": true,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 1337,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 1337,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 1337,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 1861,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 1861,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 1861,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 2385,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 2385,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "cover",
+      "w": 387,
+      "h": 218,
+      "top": 2385,
+      "fold": false,
+      "label": ""
+    }
+  ],
+  "at": "2026-10-24T00:41:54.772Z"
+}
