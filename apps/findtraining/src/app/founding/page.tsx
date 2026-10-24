@@ -69,12 +69,14 @@ const NEXT_STEPS = [
 ]
 
 export default async function FoundingPage() {
-  const { taken: foundingCount, total: TOTAL_SLOTS } = await getFoundingMemberCount().catch(
-    () => ({ taken: 0, total: 50 })
-  )
-  const isFull = foundingCount >= TOTAL_SLOTS
+  // Pat 2026-10-23: if the count can't be read, show the offer with no number.
+  const founding = await getFoundingMemberCount().catch(() => null)
+  const known = founding !== null
+  const foundingCount = founding?.taken ?? 0
+  const TOTAL_SLOTS = founding?.total ?? 0
+  const isFull = known && foundingCount >= TOTAL_SLOTS
   const slotsLeft = TOTAL_SLOTS - foundingCount
-  const pctFilled = Math.round((foundingCount / TOTAL_SLOTS) * 100)
+  const pctFilled = known && TOTAL_SLOTS > 0 ? Math.round((foundingCount / TOTAL_SLOTS) * 100) : 0
 
   return (
     <>
@@ -84,18 +86,20 @@ export default async function FoundingPage() {
           <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-wide uppercase">
             {isFull
               ? 'Founding programme is full'
-              : `${TOTAL_SLOTS} founding member slots, first-come, first-served`}
+              : known
+                ? `${TOTAL_SLOTS} founding member slots, first-come, first-served`
+                : 'Founding member slots, first-come, first-served'}
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
             Claim Your Founding Member Slot<br className="hidden sm:block" /> — Now Live &amp; Taking Applications.
           </h1>
           <p className="text-blue-100 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
             FindTraining is Malaysia&apos;s HRDF training directory — built for HR managers who need to find
-            the right provider fast. The first {TOTAL_SLOTS} providers get in at RM&nbsp;100/mo, locked for life.
+            the right provider fast. {known ? `The first ${TOTAL_SLOTS} providers` : 'Founding providers'} get in at RM&nbsp;100/mo, locked for life.
             After that, it&apos;s RM&nbsp;300/mo minimum.
           </p>
 
-          {!isFull && (
+          {known && !isFull && (
             <div className="mt-8 max-w-sm mx-auto">
               <div className="flex items-center justify-between text-xs font-medium mb-2">
                 <span className="text-white/80">{foundingCount} of {TOTAL_SLOTS} slots claimed</span>
@@ -284,7 +288,7 @@ export default async function FoundingPage() {
               </div>
               <div className="text-center mt-2">
                 <p className="text-3xl font-bold text-gray-900 mt-4">RM 100<span className="text-base font-normal text-gray-500">/mo</span></p>
-                <p className="text-xs font-semibold mt-1" style={{ color: '#0F6FEC' }}>Locked for life — first {TOTAL_SLOTS} only</p>
+                <p className="text-xs font-semibold mt-1" style={{ color: '#0F6FEC' }}>Locked for life{known ? ` — first ${TOTAL_SLOTS} only` : ''}</p>
               </div>
               <ul className="mt-4 space-y-2">
                 <li className="flex items-center gap-2 text-sm text-gray-700"><CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: '#0F6FEC' }} /> Founding Member badge</li>
@@ -439,7 +443,7 @@ export default async function FoundingPage() {
               </a>
             </div>
           ) : (
-            <FoundingFormCard foundingCount={foundingCount} totalSlots={TOTAL_SLOTS} />
+            <FoundingFormCard foundingCount={known ? foundingCount : null} totalSlots={known ? TOTAL_SLOTS : null} />
           )}
         </div>
       </section>

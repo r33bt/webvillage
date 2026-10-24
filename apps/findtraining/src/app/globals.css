@@ -13,3 +13,49 @@
     @apply bg-white text-gray-900 antialiased;
   }
 }
+
+/* ── Visual kit (docs/VISUAL-KIT.md) ─────────────────────────────────────────
+   Motif: the session blocks of a course timetable. Three slot bars under display
+   headings and on item tiles; a faint timetable grid behind hero and tile panels. */
+:root {
+  --brand-blue-dark: #0A52B8;
+  --brand-teal-dark: #00916A;
+  --brand-ink: #0F172A;
+  --brand-mist: #F1F5F9;
+  --brand-blue-light: #EBF3FE;
+  --brand-teal-light: #E0FBF4;
+}
+
+@layer components {
+  /* One container for header, homepage sections and footer */
+  .ft-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .ft-blocks {
+    position: relative;
+    padding-bottom: 0.9rem;
+  }
+  .ft-blocks::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 5.25rem;
+    height: 0.4rem;
+    background:
+      linear-gradient(var(--brand-blue), var(--brand-blue)) 0 0 / 2.5rem 100% no-repeat,
+      linear-gradient(var(--brand-teal), var(--brand-teal)) 2.85rem 0 / 1.4rem 100% no-repeat,
+      linear-gradient(var(--brand-blue-dark), var(--brand-blue-dark)) 4.6rem 0 / 0.65rem 100% no-repeat;
+    border-radius: 999px;
+  }
+  .ft-blocks-center::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .ft-timetable {
+    background-image:
+      linear-gradient(to right, rgb(15 111 236 / 0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(15 111 236 / 0.07) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}

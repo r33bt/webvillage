@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ProviderMark } from '@/components/ProviderMark'
 import { searchProviders, getAllCategories } from '@webvillage/engine/adapters/findtraining'
 import type { FtProviderWithCategories, FtCategory } from '@webvillage/engine/types/ft'
 
@@ -91,12 +92,11 @@ export default async function SearchPage({
                 <Link
                   key={provider.id}
                   href={`/providers/${provider.slug}`}
-                  className="block bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow"
+                  className="block overflow-hidden bg-white rounded-xl border border-gray-200 hover:shadow-md transition-shadow sm:flex"
                 >
+                  <ProviderMark name={cleanName(provider.name)} logoUrl={provider.logo_url} className="border-b border-gray-100 sm:w-56 sm:flex-shrink-0 sm:border-b-0 sm:border-r" />
+                  <div className="min-w-0 flex-1 p-4">
                   <div className="flex items-start gap-3">
-                    {provider.logo_url && (
-                      <img src={provider.logo_url} alt="" className="w-10 h-10 rounded object-contain flex-shrink-0" />
-                    )}
                     <div>
                       <h2 className="font-semibold text-gray-900 text-sm">{cleanName(provider.name)}</h2>
                       <p className="text-xs text-gray-500">{provider.state}</p>
@@ -110,6 +110,7 @@ export default async function SearchPage({
                   {provider.description && (
                     <p className="mt-2 text-sm text-gray-600 line-clamp-2">{provider.description}</p>
                   )}
+                  </div>
                 </Link>
               ))}
             </div>

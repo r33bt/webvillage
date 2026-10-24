@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ProviderMark } from '@/components/ProviderMark'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getCategoryBySlug, getProvidersByCategory } from '@webvillage/engine/adapters/findtraining'
@@ -192,12 +193,11 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                   <Link
                     key={provider.id}
                     href={`/providers/${provider.slug}`}
-                    className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-[#0F6FEC] transition-all"
+                    className="block overflow-hidden bg-white rounded-xl border border-gray-200 hover:shadow-md hover:border-[#0F6FEC] transition-all"
                   >
+                    <ProviderMark name={cleanName(provider.name)} logoUrl={provider.logo_url} className="border-b border-gray-100" />
+                    <div className="p-5">
                     <div className="flex items-start gap-3">
-                      {provider.logo_url && (
-                        <img src={provider.logo_url} alt="" className="w-12 h-12 rounded object-contain flex-shrink-0" />
-                      )}
                       <div>
                         <h2 className="font-semibold text-gray-900">{cleanName(provider.name)}</h2>
                         {provider.state && <p className="text-sm text-gray-500">{provider.state}</p>}
@@ -206,6 +206,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                     {provider.description && (
                       <p className="mt-3 text-sm text-gray-600 line-clamp-2">{provider.description}</p>
                     )}
+                    </div>
                   </Link>
                 ))}
               </div>

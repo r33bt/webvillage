@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ProviderMark } from '@/components/ProviderMark'
 import { MapPin, ArrowRight, Sparkles } from 'lucide-react'
 import type { FtProviderWithCategories } from '@webvillage/engine/types/ft'
 import { HRDFBadge } from './HRDFBadge'
@@ -29,7 +30,9 @@ export function ProviderCard({ provider }: ProviderCardProps) {
   const countryFlag = country_code && country_code !== 'MY' ? COUNTRY_FLAGS[country_code] : null
 
   return (
-    <article className="flex flex-col bg-white border border-gray-200 rounded-xl p-5 hover:border-[#0F6FEC] hover:shadow-md transition-all duration-150">
+    <article className="flex flex-col overflow-hidden bg-white border border-gray-200 rounded-xl hover:border-[#0F6FEC] hover:shadow-md transition-all duration-150">
+      <ProviderMark name={name} logoUrl={provider.logo_url} className="border-b border-gray-100" />
+      <div className="flex flex-1 flex-col p-5">
       {/* Header row */}
       <div className="flex items-start justify-between gap-2 mb-3">
         <h3 className="font-semibold text-gray-900 text-sm leading-snug line-clamp-2 flex-1">
@@ -90,6 +93,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
           View Profile
           <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
         </Link>
+      </div>
       </div>
     </article>
   )

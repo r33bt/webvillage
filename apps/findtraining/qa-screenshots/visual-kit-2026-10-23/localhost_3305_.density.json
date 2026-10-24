@@ -1,0 +1,83 @@
+{
+  "url": "http://localhost:3305/",
+  "type": "home",
+  "verdict": "PASS",
+  "fails": [],
+  "visuals": 9,
+  "heroFrac": 0.38,
+  "list": [
+    {
+      "kind": "spot",
+      "w": 681,
+      "h": 640,
+      "top": 121,
+      "fold": true,
+      "label": "Drawing of a training room: a flipchart, a course playing on"
+    },
+    {
+      "kind": "spot",
+      "w": 596,
+      "h": 180,
+      "top": 1151,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "spot",
+      "w": 596,
+      "h": 180,
+      "top": 1151,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "spot",
+      "w": 390,
+      "h": 180,
+      "top": 1493,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "spot",
+      "w": 390,
+      "h": 180,
+      "top": 1493,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "spot",
+      "w": 390,
+      "h": 180,
+      "top": 1493,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "spot",
+      "w": 387,
+      "h": 228,
+      "top": 2071,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "spot",
+      "w": 387,
+      "h": 228,
+      "top": 2071,
+      "fold": false,
+      "label": ""
+    },
+    {
+      "kind": "fragment",
+      "w": 387,
+      "h": 190,
+      "top": 2071,
+      "fold": false,
+      "label": ""
+    }
+  ],
+  "at": "2026-10-23T23:38:15.325Z"
+}

@@ -57,7 +57,7 @@ export function FaqSection() {
   )
 }
 
-export function FoundingFormCard({ foundingCount, totalSlots }: { foundingCount: number; totalSlots: number }) {
+export function FoundingFormCard({ foundingCount, totalSlots }: { foundingCount: number | null; totalSlots: number | null }) {
   const [form, setForm] = useState<FormState>({ company_name: '', name: '', email: '', phone: '' })
   const [status, setStatus] = useState<SubmitStatus>('idle')
   const [errorMsg, setErrorMsg] = useState('')
@@ -100,12 +100,14 @@ export function FoundingFormCard({ foundingCount, totalSlots }: { foundingCount:
     )
   }
 
-  const slotsLeft = totalSlots - foundingCount
+  const slotsLeft = foundingCount !== null && totalSlots !== null ? totalSlots - foundingCount : null
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 sm:p-8">
       <div className="text-center mb-6">
-        <p className="text-sm font-semibold text-amber-600 mb-1">{slotsLeft} of {totalSlots} founding slots remaining</p>
+        {slotsLeft !== null && (
+          <p className="text-sm font-semibold text-amber-600 mb-1">{slotsLeft} of {totalSlots} founding slots remaining</p>
+        )}
         <h2 className="text-xl font-bold text-gray-900">Reserve Your Founding Slot</h2>
         <p className="text-sm text-gray-500 mt-1">RM 100/mo locked for life — no payment until confirmed</p>
       </div>
