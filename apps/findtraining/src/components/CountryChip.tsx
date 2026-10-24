@@ -19,7 +19,7 @@ export function CountryChip({ code, tone = 'light', className = '' }: CountryChi
         : 'bg-brand-mist text-brand-ink'
   return (
     <span
-      className={`inline-flex h-5 min-w-[2rem] items-center justify-center rounded px-1.5 text-[11px] font-bold leading-none tracking-wide ${toneClass} ${className}`}
+      className={`inline-flex h-6 min-w-[2.25rem] items-center justify-center rounded px-1.5 text-xs font-bold leading-none tracking-wide ${toneClass} ${className}`}
     >
       {label}
     </span>

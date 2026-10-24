@@ -130,7 +130,7 @@ export default async function ProvidersPage({
           <div className="flex flex-wrap gap-2">
             <Link
               href={countryHref(null)}
-              className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${
+              className={`inline-flex min-h-[44px] items-center px-3 py-1.5 rounded-full text-sm border transition-colors sm:min-h-0 ${
                 activeCountry === null
                   ? 'bg-[#0F6FEC] text-white border-[#0F6FEC]'
                   : 'bg-white text-gray-700 border-gray-200 hover:border-[#0F6FEC]'
@@ -145,7 +145,7 @@ export default async function ProvidersPage({
                 <Link
                   key={code}
                   href={countryHref(code)}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border transition-colors ${
+                  className={`inline-flex min-h-[44px] items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border transition-colors sm:min-h-0 ${
                     activeCountry === code
                       ? 'bg-[#0F6FEC] text-white border-[#0F6FEC]'
                       : 'bg-white text-gray-700 border-gray-200 hover:border-[#0F6FEC]'

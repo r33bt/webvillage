@@ -71,8 +71,9 @@ const ART: Record<string, () => JSX.Element> = {
       <path d="M120 20l30 50M200 20l-30 50" stroke={BLUE} strokeWidth="3" />
       <rect x="120" y="70" width="80" height="104" rx="10" fill="#fff" />
       <rect x="146" y="64" width="28" height="12" rx="4" fill={BLUE_LIGHT} />
-      <circle cx="160" cy="108" r="16" fill={TEAL_LIGHT} />
-      <path d="M138 140h44M144 154h32" />
+      <rect x="136" y="92" width="48" height="22" rx="4" fill={TEAL_LIGHT} />
+      <path d="M136 128h48M136 140h36" />
+      <path d="M138 156v10M144 156v10M152 156v10M156 156v10M164 156v10M170 156v10M178 156v10" strokeWidth="2" />
       <path d="M44 120h56v64H44z" fill={BLUE_LIGHT} />
       <path d="M44 120l10-12h24l6 12" fill="#fff" />
       <path d="M232 110h48v74h-48z" fill="#fff" />

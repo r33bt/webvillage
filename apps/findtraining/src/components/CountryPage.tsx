@@ -126,7 +126,7 @@ export default async function CountryPage({ countryCode }: { countryCode: string
             {otherCountries.map((c, i) => (
               <span key={c.code}>
                 {i > 0 && <span className="mx-1.5">·</span>}
-                <Link href={`/${c.slug}`} className="inline-flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors">
+                <Link href={`/${c.slug}`} className="inline-flex min-h-[44px] items-center gap-1.5 text-gray-400 hover:text-white transition-colors sm:min-h-0">
                   <CountryChip code={c.code} tone="dark" /> {c.name}
                 </Link>
               </span>
