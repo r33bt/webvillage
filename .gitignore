@@ -35,3 +35,6 @@ pnpm-debug.log*
 
 # Supabase local CLI artifacts
 supabase/.temp/
+
+# Local-only identity guard patterns (see apps/brandhacker/scripts/identity-check.mjs)
+apps/brandhacker/scripts/identity-patterns.local.json

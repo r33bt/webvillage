@@ -276,7 +276,7 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
           <p className="text-emerald-700">&#10003; Content + planning + audit schema (Phase B)</p>
           <p className="text-emerald-700">&#10003; Voice profile editor (this page)</p>
           <p className="text-emerald-700">&#10003; Banned-phrases canon (58 phrases)</p>
-          <p className="text-emerald-700">&#10003; Templates library (15 WV canon + 6 V22 overrides)</p>
+          <p className="text-emerald-700">&#10003; Templates library (15 WV canon + 6 brand overrides)</p>
           <p className="text-emerald-700">&#10003; Draft generation API (Sonnet 4.6) + 5-pillar scoring (Haiku 4.5)</p>
           <p className="text-emerald-700">&#10003; Drafts UI (list + detail + new + regen + status overrides)</p>
           <p className="text-emerald-700">&#10003; Visual substrate (Ideogram v3 + brand asset uploads + signed URLs)</p>
