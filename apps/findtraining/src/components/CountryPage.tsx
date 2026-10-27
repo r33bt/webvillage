@@ -9,6 +9,7 @@ import type { FtCategory, FtProvider } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS, getOtherCountries } from '@/lib/countries'
 import type { CountryConfig } from '@/lib/countries'
 import { BuyerSignup } from '@/components/BuyerSignup'
+import { cohortAForCountry } from '@/lib/indexing-cohorts'
 
 // Malaysian states for the Browse by State section
 const MY_STATES = [
@@ -44,6 +45,14 @@ export default async function CountryPage({ countryCode }: { countryCode: string
   ])
 
   const otherCountries = getOtherCountries(countryCode)
+
+  // Cohort A listings (verified registry details), grouped by state, linked straight from the hub.
+  const listingsByState = new Map<string, { slug: string; name: string }[]>()
+  for (const e of cohortAForCountry(countryCode)) {
+    const key = e.state ?? 'Other'
+    listingsByState.set(key, [...(listingsByState.get(key) ?? []), { slug: e.slug, name: e.name }])
+  }
+  const listingGroups = Array.from(listingsByState.entries()).sort(([a], [b]) => a.localeCompare(b))
   const foundingOpen = founding ? founding.taken < founding.total : true
   const foundingSlotsLeft = founding ? founding.total - founding.taken : null
 
@@ -206,6 +215,31 @@ export default async function CountryPage({ countryCode }: { countryCode: string
                 >
                   {state}
                 </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── [4b] Providers with verified registry details (Cohort A) ───── */}
+      {listingGroups.length > 0 && (
+        <section className="py-12 px-4 bg-white border-t border-gray-100">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-xl font-bold text-gray-900 mb-6">Providers with verified registry details</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
+              {listingGroups.map(([state, items]) => (
+                <div key={state}>
+                  <h3 className="text-sm font-semibold text-gray-900 mb-2">{state}</h3>
+                  <ul className="space-y-1">
+                    {items.map((item) => (
+                      <li key={item.slug}>
+                        <Link href={`/providers/${item.slug}`} className="text-sm text-brand-blue hover:underline">
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
             </div>
           </div>

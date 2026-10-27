@@ -443,6 +443,75 @@ export async function getRelatedProviders(
   return (data ?? []) as FtProvider[]
 }
 
+/**
+ * Topical related providers: same country, same category and the same state/region,
+ * taken from the alphabetical neighbours of this provider (so each page links to a
+ * different set instead of the same first few names). `preferSlugs` (for example the
+ * strongest listings) are placed first when they match the same country and region.
+ * If the region has too few matches the region filter is dropped, never the category.
+ */
+export async function getTopicalRelatedProviders(
+  provider: Pick<FtProvider, 'id' | 'name' | 'country_code' | 'state' | 'categories'>,
+  opts: { limit?: number; preferSlugs?: string[] } = {}
+): Promise<FtProvider[]> {
+  const limit = opts.limit ?? 6
+  const cats = (provider.categories ?? []).filter(Boolean)
+  const supabase = await createFtClient()
+
+  const base = (withState: boolean) => {
+    let q = supabase
+      .from('ft_providers')
+      .select('*')
+      .eq('country_code', provider.country_code)
+      .neq('id', provider.id)
+      .not('profile_status', 'in', '("removed","opted_out")')
+    if (withState && provider.state) q = q.eq('state', provider.state)
+    if (cats.length > 0) q = q.overlaps('categories', cats)
+    return q
+  }
+
+  const gather = async (withState: boolean): Promise<FtProvider[]> => {
+    const prefer = (opts.preferSlugs ?? []).filter(Boolean).slice(0, 50)
+    const [pref, prev, next] = await Promise.all([
+      prefer.length > 0 ? base(withState).in('slug', prefer).order('slug', { ascending: true }).limit(2) : Promise.resolve({ data: [], error: null }),
+      base(withState).lt('name', provider.name).order('name', { ascending: false }).limit(limit),
+      base(withState).gt('name', provider.name).order('name', { ascending: true }).limit(limit),
+    ])
+    for (const r of [pref, prev, next]) {
+      if (r.error) console.error('[getTopicalRelatedProviders]', r.error.message)
+    }
+    const out: FtProvider[] = []
+    const seen = new Set<string>()
+    const push = (row: FtProvider | undefined) => {
+      if (row && !seen.has(row.id) && out.length < limit) {
+        seen.add(row.id)
+        out.push(row)
+      }
+    }
+    ;((pref.data ?? []) as FtProvider[]).forEach(push)
+    const before = (prev.data ?? []) as FtProvider[]
+    const after = (next.data ?? []) as FtProvider[]
+    for (let i = 0; i < limit; i++) {
+      push(before[i])
+      push(after[i])
+    }
+    return out
+  }
+
+  try {
+    let result = await gather(true)
+    if (result.length < limit && provider.state) {
+      const wider = await gather(false)
+      const seen = new Set(result.map((r) => r.id))
+      for (const row of wider) if (!seen.has(row.id) && result.length < limit) result.push(row)
+    }
+    return result
+  } catch (e) {
+    console.error('[getTopicalRelatedProviders]', e instanceof Error ? e.message : e)
+    return []
+  }
+}
+
 export async function getDistinctCountries(): Promise<string[]> {
   const supabase = await createFtClient()
   const { data, error } = await supabase

@@ -2,12 +2,14 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight, CheckCircle2, MapPin, Sparkles, CheckCircle } from 'lucide-react'
-import { getProviderBySlug, getCoursesByProvider, getRelatedProviders } from '@webvillage/engine/adapters/findtraining'
+import { getProviderBySlug, getCoursesByProvider, getTopicalRelatedProviders } from '@webvillage/engine/adapters/findtraining'
 import type { FtCourse, FtProvider } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS } from '@/lib/countries'
 import { ContactLinks } from './ContactLinks'
 import { EnquiryForm } from '@/components/EnquiryForm'
 import { ProviderMark } from '@/components/ProviderMark'
+import { cohortAForCountry, isProviderIndexable } from '@/lib/indexing-cohorts'
+import { buildProviderFacts, buildProviderSummary, countryName as countryNameOf, providerKindPhrase, stateLabel, uniqueByCompany } from '@/lib/provider-facts'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -58,27 +60,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const provider = await getProviderBySlug(slug)
   if (!provider) return { title: 'Provider Not Found' }
 
-  const catLabel = provider.categories?.[0]
-    ? provider.categories[0].split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
-    : null
-  const countryName = COUNTRY_CONFIGS[provider.country_code]?.name ?? 'Malaysia'
-  const providerLabel = catLabel
-    ? `a ${catLabel} training provider`
-    : provider.country_code === 'MY'
-      ? 'a training provider in Malaysia'
-      : 'a training provider'
-  const locationLabel = provider.state ? `${provider.state}, ${countryName}` : countryName
+  const countryName = countryNameOf(provider.country_code)
+  const kind = providerKindPhrase(provider.categories)
+  const place = stateLabel(provider.country_code, provider.state)
+  const locationLabel = place ? `${place}, ${countryName}` : countryName
 
   return {
     title: provider.name,
-    description: `Find and contact ${provider.name}, ${providerLabel} in ${locationLabel}.`,
+    description: `Find and contact ${provider.name}, ${kind} in ${locationLabel}.`,
     openGraph: {
       title: `${provider.name} | FindTraining`,
-      description: `${catLabel ?? providerLabel}${provider.state ? ` in ${provider.state}, ${countryName}` : ` in ${countryName}`}. Find courses and contact details.`,
+      description: `${kind.charAt(0).toUpperCase()}${kind.slice(1)} in ${locationLabel}. Find courses and contact details.`,
       url: `https://findtraining.com/providers/${slug}`,
       images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
     },
     alternates: { canonical: `https://findtraining.com/providers/${slug}` },
+    // Indexing experiment: Cohort B pages are noindex,follow (src/config/indexing.ts).
+    ...(isProviderIndexable(slug) ? {} : { robots: { index: false, follow: true } }),
   }
 }
 
@@ -125,7 +123,17 @@ export default async function ProviderPage({ params }: Props) {
     courses = []
   }
   try {
-    related = await getRelatedProviders(provider.id, provider.categories ?? [])
+    // Same country, category and region; strongest (Cohort A) listings first.
+    // Fetch extra, then keep one card per company: duplicate rows of the same
+    // company (MY -1..-5 slugs) have different ids, so the id check alone let the
+    // page's own company and repeated names through (desk check 2026-10-27).
+    const candidates = await getTopicalRelatedProviders(provider, {
+      limit: 18,
+      preferSlugs: cohortAForCountry(provider.country_code)
+        .filter((e) => e.state && e.state === (provider.state ?? provider.region))
+        .map((e) => e.slug),
+    })
+    related = uniqueByCompany(provider.name, candidates, 6)
   } catch {
     related = []
   }
@@ -137,10 +145,12 @@ export default async function ProviderPage({ params }: Props) {
   const showUnclaimedEnquiryForm = !provider.claimed
   const tierBadge = TIER_BADGES[provider.tier] ?? TIER_BADGES.free
   const isVerified = provider.profile_status === 'claimed' || provider.profile_status === 'active'
-  const countryName = COUNTRY_CONFIGS[provider.country_code]?.name ?? 'Malaysia'
-  const fallbackDescription = provider.country_code === 'MY'
-    ? 'Training provider in Malaysia.'
-    : `Training provider in ${countryName}.`
+  const facts = buildProviderFacts(provider)
+  const aboutText = provider.description ?? buildProviderSummary(provider, provider.name)
+  const currency = COUNTRY_CONFIGS[provider.country_code]?.currency ?? 'RM'
+  const registryUrl = facts.find((f) => f.key.endsWith('-source'))?.href
+  const identifiers = facts.filter((f) => f.identifier).map((f) => ({ '@type': 'PropertyValue', name: f.label, value: f.value }))
+  const placeName = stateLabel(provider.country_code, provider.state) ?? provider.region
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -152,15 +162,29 @@ export default async function ProviderPage({ params }: Props) {
     ],
   }
 
+  // JSON-LD repeats only what the page shows: name, website, description/summary, location,
+  // registry identifiers, the registry link, and contact details only where the page shows them.
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'EducationalOrganization',
     name: provider.name,
-    description: provider.description ?? fallbackDescription,
+    ...(aboutText ? { description: aboutText } : {}),
     ...(showContactInfo && provider.email ? { email: provider.email } : {}),
     ...(showContactInfo && provider.phone ? { telephone: provider.phone } : {}),
     ...(provider.website ? { url: provider.website.startsWith('http') ? provider.website : `https://${provider.website}` } : {}),
-    ...(provider.state ? { address: { '@type': 'PostalAddress', addressRegion: provider.state, addressCountry: provider.country_code || 'MY' } } : {}),
+    ...(placeName || provider.address || provider.city
+      ? {
+          address: {
+            '@type': 'PostalAddress',
+            ...(provider.address ? { streetAddress: provider.address } : {}),
+            ...(provider.city ? { addressLocality: provider.city } : {}),
+            ...(placeName ? { addressRegion: placeName } : {}),
+            addressCountry: provider.country_code,
+          },
+        }
+      : {}),
+    ...(identifiers.length > 0 ? { identifier: identifiers } : {}),
+    ...(registryUrl ? { sameAs: [registryUrl] } : {}),
     ...(provider.logo_url ? { image: provider.logo_url } : {}),
   }
 
@@ -218,24 +242,36 @@ export default async function ProviderPage({ params }: Props) {
         {/* Two-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
+            {/* Verified facts: only fields the record holds */}
+            {facts.length > 0 && (
+              <section className="bg-white border border-gray-200 rounded-xl p-6">
+                <h2 className="text-base font-semibold text-gray-900 mb-3">Provider details</h2>
+                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+                  {facts.map((f) => (
+                    <div key={f.key} className="min-w-0">
+                      <dt className="text-xs font-medium text-gray-500">{f.label}</dt>
+                      <dd className="text-gray-900 break-words">
+                        {f.href ? (
+                          <a href={f.href} target="_blank" rel="noopener noreferrer" className="text-[#0F6FEC] hover:underline">
+                            {f.value}
+                          </a>
+                        ) : (
+                          f.value
+                        )}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </section>
+            )}
+
             {/* About */}
-            <section className="bg-white border border-gray-200 rounded-xl p-6">
-              <h2 className="text-base font-semibold text-gray-900 mb-3">About</h2>
-              {provider.description ? (
-                <p className="text-gray-600 text-sm leading-relaxed">{provider.description}</p>
-              ) : provider.claimed ? (
-                <p className="text-gray-400 text-sm italic">No description added yet.</p>
-              ) : (
-                <>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-2">
-                    {fallbackDescription}
-                  </p>
-                  <Link href={`/claim/${provider.slug}`} className="inline-flex items-center gap-1 text-xs text-[#0F6FEC] hover:underline">
-                    Own this listing? Add your profile description <ArrowRight className="w-3 h-3" aria-hidden="true" />
-                  </Link>
-                </>
-              )}
-            </section>
+            {aboutText ? (
+              <section className="bg-white border border-gray-200 rounded-xl p-6">
+                <h2 className="text-base font-semibold text-gray-900 mb-3">About</h2>
+                <p className="text-gray-600 text-sm leading-relaxed">{aboutText}</p>
+              </section>
+            ) : null}
 
             {/* Categories */}
             {(() => {
@@ -311,21 +347,6 @@ export default async function ProviderPage({ params }: Props) {
                 </div>
               </section>
             )}
-
-            {/* Location */}
-            {(provider.state || provider.region) && (
-              <section className="bg-white border border-gray-200 rounded-xl p-6">
-                <h2 className="text-base font-semibold text-gray-900 mb-3">Location</h2>
-                <div className="flex flex-wrap gap-2">
-                  {provider.state && (
-                    <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">{provider.state}</span>
-                  )}
-                  {provider.region && provider.region !== provider.state && (
-                    <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">{provider.region}</span>
-                  )}
-                </div>
-              </section>
-            )}
           </div>
 
           {/* Sidebar */}
@@ -361,11 +382,11 @@ export default async function ProviderPage({ params }: Props) {
 
 
             {showEnquiryForm && (
-              <EnquiryForm providerId={provider.id} providerName={provider.name} />
+              <EnquiryForm providerId={provider.id} providerName={provider.name} currency={currency} />
             )}
 
             {showUnclaimedEnquiryForm && (
-              <EnquiryForm providerId={provider.id} providerName={provider.name} mode="unclaimed" />
+              <EnquiryForm providerId={provider.id} providerName={provider.name} mode="unclaimed" currency={currency} />
             )}
 
             {showEnquiryTeaser && (
@@ -406,7 +427,7 @@ export default async function ProviderPage({ params }: Props) {
         {related.length > 0 && (
           <section className="mt-10">
             <h2 className="text-base font-semibold text-gray-900 mb-4">Also in this category</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {related.map((rel) => {
                 const firstMappedCat = rel.categories?.find((c) => CATEGORY_SLUG_MAP[c])
                 const catLabel = firstMappedCat

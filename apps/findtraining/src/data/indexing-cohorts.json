@@ -1,0 +1,1308 @@
+{
+  "schemaVersion": 1,
+  "status": "generated",
+  "generatedAt": "2026-10-27",
+  "note": "Written by scripts/indexing-cohorts.ts. Do not edit by hand; re-run the script.",
+  "counts": {
+    "population": 10153,
+    "eligibleUnique": 8177,
+    "A": 150,
+    "C": 60,
+    "B": 9943
+  },
+  "shortfalls": {},
+  "A": [
+    {
+      "slug": "1training-worklife-management-sdn-bhd-2",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "1Training Worklife Management Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "360digitmg",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "360DigiTMG",
+      "score": 4
+    },
+    {
+      "slug": "3e-training-education-sdn-bhd-1",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "3E Training & Education Sdn. Bhd.",
+      "score": 4
+    },
+    {
+      "slug": "academy-of-safety-and-emergency-care-sdn-bhd-asec",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Academy of Safety and Emergency Care Sdn. Bhd. (ASEC)",
+      "score": 4
+    },
+    {
+      "slug": "access-ideas-m-sdn-bhd-1",
+      "country": "MY",
+      "state": "Putrajaya",
+      "name": "Access Ideas (M) Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "accordia-training-and-development-sdn-bhd-1",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Accordia Training and Development Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "accordia-training-development-sdn-bhd-2",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Accordia Training & Development Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "ace-biznez-services-team-building-hrdf-training-company-1",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Ace Biznez Services (Team building & HRDF training company)",
+      "score": 4
+    },
+    {
+      "slug": "aisling-group",
+      "country": "MY",
+      "state": "Wilayah Persekutuan",
+      "name": "Aisling Group \\",
+      "score": 4
+    },
+    {
+      "slug": "apu-corporate-training",
+      "country": "MY",
+      "state": "Wilayah Persekutuan Kuala Lumpur",
+      "name": "APU Corporate Training",
+      "score": 4
+    },
+    {
+      "slug": "arcnet-training-development-sdn-bhd-1",
+      "country": "MY",
+      "state": "Wilayah Persekutuan",
+      "name": "ArcNet Training & Development Sdn. Bhd.",
+      "score": 4
+    },
+    {
+      "slug": "asia-bigwave-training-malaysia",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Asia Bigwave Training Malaysia",
+      "score": 4
+    },
+    {
+      "slug": "asiaworks-malaysia-sdn-bhd",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "AsiaWorks Malaysia Sdn. Bhd",
+      "score": 4
+    },
+    {
+      "slug": "atcen-sdn-bhd",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "ATCEN Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "avidity-international",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "Avidity International",
+      "score": 4
+    },
+    {
+      "slug": "beyond-image-global-image-consultant",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Beyond Image Global (Image Consultant \\",
+      "score": 4
+    },
+    {
+      "slug": "bloomskillz-training-academy",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "BloomSkillz Training Academy",
+      "score": 4
+    },
+    {
+      "slug": "braver-strides-hrdcorpetris",
+      "country": "MY",
+      "state": null,
+      "name": "Braver Strides",
+      "score": 4
+    },
+    {
+      "slug": "bumi-safety-academy-bista",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "BUMI SAFETY ACADEMY (BISTA) \\",
+      "score": 4
+    },
+    {
+      "slug": "caa-cosmetology-aesthetic-academy-top-1-beauty-academy-malaysia-1",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "CAA Cosmetology Aesthetic Academy - Top 1 Beauty Academy Malaysia",
+      "score": 4
+    },
+    {
+      "slug": "cad-training-centre-hrdf-claimable-training",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "CAD Training Centre - Hrdf Claimable Training",
+      "score": 4
+    },
+    {
+      "slug": "cedr-corporate-consulting-sdn-bhd",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Cedr Corporate Consulting Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "comfori-sdn-bhd-3",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Comfori Sdn. Bhd. —",
+      "score": 4
+    },
+    {
+      "slug": "compass-mind-asia-hrdc-approved-training-provider",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Compass Mind Asia HRDC Approved Training Provider",
+      "score": 4
+    },
+    {
+      "slug": "core-apex-training-1",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Core Apex Training",
+      "score": 4
+    },
+    {
+      "slug": "cornerstone-corporate-training-consultancy",
+      "country": "MY",
+      "state": "Johor",
+      "name": "Cornerstone Corporate Training & Consultancy",
+      "score": 4
+    },
+    {
+      "slug": "corporate-learning-solutions-sdn-bhd-3",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "CORPORATE LEARNING SOLUTIONS SDN. BHD.",
+      "score": 4
+    },
+    {
+      "slug": "corporatetraining-my",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "CorporateTraining.my",
+      "score": 4
+    },
+    {
+      "slug": "cpt-training-development-sdn-bhd",
+      "country": "MY",
+      "state": "Pulau Pinang",
+      "name": "CPT Training Development Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "crossurvive-sdn-bhd",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Crossurvive Sdn Bhd —",
+      "score": 4
+    },
+    {
+      "slug": "cybersecurity-malaysia",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "CyberSecurity Malaysia",
+      "score": 4
+    },
+    {
+      "slug": "dynamic-resource-training-consultancy-plt-1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "Dynamic Resource Training & Consultancy PLT",
+      "score": 4
+    },
+    {
+      "slug": "edu-bay",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "Edu Bay",
+      "score": 4
+    },
+    {
+      "slug": "efficient-frontier-consulting",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "Efficient Frontier Consulting",
+      "score": 4
+    },
+    {
+      "slug": "elite-career-centre-sdn-bhd-elitecc-training-centre",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Elite Career Centre Sdn Bhd (EliteCC Training Centre)",
+      "score": 4
+    },
+    {
+      "slug": "elite-essential-sdn-bhd-corporate-training-malaysia",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Elite Essential Sdn Bhd • Corporate Training Malaysia",
+      "score": 4
+    },
+    {
+      "slug": "elite-indigo-hrdf-training-provider",
+      "country": "MY",
+      "state": "Penang",
+      "name": "Elite Indigo - HRDF Training Provider",
+      "score": 4
+    },
+    {
+      "slug": "engage-corporate-training-consultancy-sdn-bhd",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "Engage Corporate Training & Consultancy Sdn. Bhd",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-1-accelerate-sdn-bhd-1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "ETRIS Verified Kuala Lumpur Last verified: 12 Mar 2026 1 Accelerate Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-dynamic-resource-train-1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "ETRIS Verified Kuala Lumpur Last verified: 12 Mar 2026 Dynamic Resource Training and Consultancy PLT",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-efficient-frontier-con-1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "ETRIS Verified Kuala Lumpur Last verified: 12 Mar 2026 Efficient Frontier Consulting Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-exceed-excellence-sdn--1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "ETRIS Verified Kuala Lumpur Last verified: 12 Mar 2026 Exceed Excellence Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-excel-minds-consultanc-1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "ETRIS Verified Kuala Lumpur Last verified: 12 Mar 2026 Excel Minds Consultancy Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-hrd-academy-sdn-bhd-1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "ETRIS Verified Kuala Lumpur Last verified: 12 Mar 2026 HRD Academy Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-lighthouse-consulting--1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "ETRIS Verified Kuala Lumpur Last verified: 12 Mar 2026 Lighthouse Consulting Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-max-gaya-sdn-bhd-1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "ETRIS Verified Kuala Lumpur Last verified: 12 Mar 2026 Max Gaya Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-nexperts-academy-sdn-b-1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "ETRIS Verified Kuala Lumpur Last verified: 12 Mar 2026 Nexperts Academy Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-sh-retail-academy-sdn--1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "ETRIS Verified Kuala Lumpur Last verified: 12 Mar 2026 SH Retail Academy Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-top-build-team-global-1",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "ETRIS Verified Kuala Lumpur Last verified: 12 Mar 2026 Top Build Team Global",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-selangor-last-verified-12-mar-2026-asia-camp-sdn-bhd-1",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "ETRIS Verified Selangor Last verified: 12 Mar 2026 Asia Camp Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "etris-verified-selangor-last-verified-12-mar-2026-bsi-services-malaysia-sdn--1",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "ETRIS Verified Selangor Last verified: 12 Mar 2026 BSI Services Malaysia Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "exceed-excellence",
+      "country": "MY",
+      "state": "Kuala Lumpur",
+      "name": "Exceed Excellence",
+      "score": 4
+    },
+    {
+      "slug": "excel-academy-1",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Excel Academy",
+      "score": 4
+    },
+    {
+      "slug": "global-master-training-consultancy-sdn-bhd",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Global Master Training & Consultancy Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "greenonetics-malaysia",
+      "country": "MY",
+      "state": "Wilayah Persekutuan",
+      "name": "GreenoNetics Malaysia —",
+      "score": 4
+    },
+    {
+      "slug": "hr-corporate-solutions-i-hrd-corp-approved-training-provider-1",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "HR Corporate Solutions I HRD Corp Approved Training Provider",
+      "score": 4
+    },
+    {
+      "slug": "hrd-corp-claimable-training-provider-johor-1",
+      "country": "MY",
+      "state": "Johor",
+      "name": "HRD Corp Claimable Training Provider Johor",
+      "score": 4
+    },
+    {
+      "slug": "imtc",
+      "country": "MY",
+      "state": "Federal Territory of Kuala Lumpur",
+      "name": "IMTC —",
+      "score": 4
+    },
+    {
+      "slug": "info-trek-sdn-bhd-1",
+      "country": "MY",
+      "state": "Selangor",
+      "name": "Info Trek Sdn Bhd",
+      "score": 4
+    },
+    {
+      "slug": "inpsyful-hrdcorpetris",
+      "country": "MY",
+      "state": null,
+      "name": "Inpsyful",
+      "score": 4
+    },
+    {
+      "slug": "1-aaa-barmax-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "1-AAA BARMAX PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "121-training-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "121 Training Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "1aaa-training-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "1AAA Training Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "4-up-skilling-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "4 UP SKILLING PTY. LTD.",
+      "score": 11
+    },
+    {
+      "slug": "5-star-online-training-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "5 Star Online Training Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "a-and-m-global-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "A AND M GLOBAL PTY. LTD.",
+      "score": 11
+    },
+    {
+      "slug": "a-bliss-clinic-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "ACT",
+      "name": "A BLISS CLINIC PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "a-h-f-b-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "A H F B Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "a2b-training-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "WA",
+      "name": "A2B Training PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "aaa-safety-training-consultancy-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "WA",
+      "name": "AAA Safety Training & Consultancy Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "aaa-training-and-tuition-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "AAA Training and Tuition Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "aakira-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "Aakira Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "aamc-training-group-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "AAMC Training Group Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "aapa-victoria-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "AAPA Victoria Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "ab-quality-homes-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "AB Quality Homes Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "ab2-institute-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "AB2 Institute Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "abbi-educational-services-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "SA",
+      "name": "ABBI Educational Services Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "abc-licence-training-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "ABC LICENCE TRAINING PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "ablecare-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "Ablecare Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "aboard-training-australia-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "ABOARD TRAINING AUSTRALIA PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "aboriginal-centre-for-the-performing-arts-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "ABORIGINAL CENTRE FOR THE PERFORMING ARTS PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "aboriginal-enterprises-australia-training-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NT",
+      "name": "ABORIGINAL ENTERPRISES AUSTRALIA TRAINING PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "aboriginal-health-council-of-western-australia-au-traininggovau",
+      "country": "AU",
+      "state": "WA",
+      "name": "Aboriginal Health Council of Western Australia",
+      "score": 11
+    },
+    {
+      "slug": "aboriginal-health-medical-research-council-of-nsw-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "Aboriginal Health & Medical Research Council of NSW",
+      "score": 11
+    },
+    {
+      "slug": "abs-institute-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "WA",
+      "name": "ABS Institute Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "absolute-education-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "Absolute Education Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "absolute-forklift-training-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "Absolute Forklift Training Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "absorb-training-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "Absorb Training Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "abv-training-consulting-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "WA",
+      "name": "ABV Training & Consulting Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "aca-sydney-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "ACA Sydney Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "academia-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "Academia Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "academic-vocational-training-pty-limited-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "Academic & Vocational Training Pty Limited",
+      "score": 11
+    },
+    {
+      "slug": "academies-australasia-hair-beauty-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "Academies Australasia Hair & Beauty Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "academies-australasia-institute-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "Academies Australasia Institute Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "academies-australasia-polytechnic-pty-limited-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "Academies Australasia Polytechnic Pty Limited",
+      "score": 11
+    },
+    {
+      "slug": "academy-of-career-training-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "Academy of Career Training Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "academy-of-fitness-business-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "Academy of Fitness Business Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "academy-of-interactive-technology-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "ACADEMY OF INTERACTIVE TECHNOLOGY PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "academy-of-makeup-and-hair-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "Academy of Makeup and Hair Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "academy-of-mental-health-and-counselling-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "Academy of Mental Health and Counselling Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "academy-of-surfing-instructors-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "Academy of Surfing Instructors Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "acbd-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "ACBD PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "acbt-education-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "ACBT Education Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "accell-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "Accell Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "access-all-areas-training-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "WA",
+      "name": "Access All Areas Training Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "access-community-enterprises-limited-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "Access Community Enterprises Limited",
+      "score": 11
+    },
+    {
+      "slug": "access-industries-for-the-disabled-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "Access Industries for the Disabled Ltd",
+      "score": 11
+    },
+    {
+      "slug": "access-recognised-training-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "ACT",
+      "name": "Access Recognised Training Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "access-unlimited-international-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "WA",
+      "name": "Access Unlimited International Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "accomplish-training-australia-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "ACCOMPLISH TRAINING AUSTRALIA PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "accredited-education-training-australia-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "Accredited Education & Training Australia Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "accredited-training-licensing-assessment-services-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "Accredited Training, Licensing & Assessment Services Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "ace-community-colleges-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "ACE Community Colleges Ltd",
+      "score": 11
+    },
+    {
+      "slug": "ace-forklift-assessing-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "ACE Forklift Assessing Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "ace-institute-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "SA",
+      "name": "ACE INSTITUTE PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "ace-sports-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "QLD",
+      "name": "ACE SPORTS PTY LTD",
+      "score": 11
+    },
+    {
+      "slug": "acg-global-australasia-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "ACG Global Australasia Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "achieveability-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "Achieveability Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "acknowledge-education-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "VIC",
+      "name": "Acknowledge Education Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "acmuse-australia-pty-ltd-au-traininggovau",
+      "country": "AU",
+      "state": "NSW",
+      "name": "ACMUSE Australia Pty Ltd",
+      "score": 11
+    },
+    {
+      "slug": "acuity-academy-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "ACUITY ACADEMY PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "addison-institute-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "ADDISON INSTITUTE PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "adept-academy-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "ADEPT ACADEMY PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "aestheticar-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "AESTHETICAR PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "aetos-training-academy-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "AETOS TRAINING ACADEMY PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "art-loft-llp-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "ART LOFT LLP",
+      "score": 3
+    },
+    {
+      "slug": "ascendo-academy-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "ASCENDO ACADEMY PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "ascensus-institute-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "ASCENSUS INSTITUTE PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "asian-international-college-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "ASIAN INTERNATIONAL COLLEGE PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "ask-training-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "@ASK TRAINING PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "associates-consulting-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "ASSOCIATES CONSULTING PTE LTD",
+      "score": 3
+    },
+    {
+      "slug": "assure-academy-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "ASSURE ACADEMY PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "at-sunrice-globalchef-academy-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "AT-SUNRICE GLOBALCHEF ACADEMY PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "august-international-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "AUGUST INTERNATIONAL PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "avanta-global-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "AVANTA GLOBAL PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "axis-training-solutions-sdn-bhd",
+      "country": "SG",
+      "state": "Central Region",
+      "name": "Axis Training Solutions Sdn Bhd",
+      "score": 3
+    },
+    {
+      "slug": "beauty-forever-learning-hub-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "BEAUTY FOREVER LEARNING HUB PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "bells-institute-of-higher-learning-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "BELLS INSTITUTE OF HIGHER LEARNING PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "caretech168-llp-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "CARETECH168 LLP",
+      "score": 3
+    },
+    {
+      "slug": "carrie-academy-international-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "CARRIE ACADEMY INTERNATIONAL PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "cccs-international-learning-institute-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "CCCS INTERNATIONAL LEARNING INSTITUTE PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "ccis-singapore-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "CCIS SINGAPORE PTE LTD",
+      "score": 3
+    },
+    {
+      "slug": "chelsea-academia-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "CHELSEA ACADEMIA PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "chua-chu-kang-community-club-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "Chua Chu Kang Community Club",
+      "score": 3
+    },
+    {
+      "slug": "clickacademy-asia-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "CLICKACADEMY ASIA PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "compas-management-consulting-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "COMPAS MANAGEMENT CONSULTING PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "cosem-safety-security-services-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "COSEM SAFETY & SECURITY SERVICES PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "eduquest-international-institute-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "EDUQUEST INTERNATIONAL INSTITUTE PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "emergencies-first-aid-rescue-pte-ltd-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "EMERGENCIES FIRST AID & RESCUE PTE. LTD.",
+      "score": 3
+    },
+    {
+      "slug": "environiche-llp-sg-skillsfuturesg",
+      "country": "SG",
+      "state": "",
+      "name": "ENVIRONICHE LLP",
+      "score": 3
+    }
+  ],
+  "C": [
+    {
+      "slug": "alif-education-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "academy-of-entrepreneurs-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "academy-of-global-business-training-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "ambassador-college-of-australia-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "australian-civil-mining-training-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "australian-dance-institute-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "australia-moreton-education-group-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "australian-pacific-services-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "101-education-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "airhygiene-training-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "alana-kaye-group-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "applied-vocational-training-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "australian-professional-skills-institute-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "academy-of-the-northern-territory-tech-skills-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "afic-schools-victoria-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "assist-first-aid-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "aminya-natural-therapies-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "australian-college-of-technology-and-business-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "australian-institute-of-management-education-and-training-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "archer-institute-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "australian-competencies-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "australian-academy-of-legal-education-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "atc-work-smart-inc-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "australian-learning-group-pty-ltd-au-traininggovau",
+      "country": "AU"
+    },
+    {
+      "slug": "excel-total-solution-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "a2tech-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-marcus-evans-malaysia--1",
+      "country": "MY"
+    },
+    {
+      "slug": "creative-dreams-international-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "enda-food-industries-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "agensi-pekerjaan-dan-latihan-finders-group",
+      "country": "MY"
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-trainocate-holdings-sd-1",
+      "country": "MY"
+    },
+    {
+      "slug": "3dtech-solutions-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "abiz-advisory-academy-plt",
+      "country": "MY"
+    },
+    {
+      "slug": "betapuru-digital-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "green-insight-training-development-plt",
+      "country": "MY"
+    },
+    {
+      "slug": "ernst-young-tax-consultants-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "etris-verified-kuala-lumpur-last-verified-12-mar-2026-learndirect-training-a-1",
+      "country": "MY"
+    },
+    {
+      "slug": "advanced-professional-training-consultancy",
+      "country": "MY"
+    },
+    {
+      "slug": "c-y-solution-advisory-plt",
+      "country": "MY"
+    },
+    {
+      "slug": "eduworld-academy-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "ckm-advisory-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "hrd-corp-training-providers-in-penang",
+      "country": "MY"
+    },
+    {
+      "slug": "expitris-worldwide-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "eagle-i-hr-and-wills-consultants-plt",
+      "country": "MY"
+    },
+    {
+      "slug": "innoviz-learning-asia-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "agensi-pekerjaan-stratton-ashwood-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "eprfect-creative-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "city-advance-skill-academy-sdn-bhd",
+      "country": "MY"
+    },
+    {
+      "slug": "advent-links-sauc-education-centre-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    },
+    {
+      "slug": "ab-maximus-co-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    },
+    {
+      "slug": "atd-solution-s-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    },
+    {
+      "slug": "aventis-graduate-school-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    },
+    {
+      "slug": "adepco-consultants-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    },
+    {
+      "slug": "auto-maxima-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    },
+    {
+      "slug": "absolute-kinetics-consultancy-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    },
+    {
+      "slug": "arise-services-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    },
+    {
+      "slug": "certis-cisco-security-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    },
+    {
+      "slug": "bespoke-solution-training-consultancy-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    },
+    {
+      "slug": "cyberquote-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    },
+    {
+      "slug": "aat-training-hub-pte-ltd-skillsfuture-sg-deep",
+      "country": "SG"
+    }
+  ]
+}

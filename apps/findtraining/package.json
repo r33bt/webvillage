@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start -p 3211",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test scripts/indexing-cohorts.test.ts",
+    "cohorts": "node --experimental-strip-types scripts/indexing-cohorts.ts"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^0.5.0",

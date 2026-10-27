@@ -3,22 +3,27 @@
 import { useState } from 'react'
 import { Send, CheckCircle2, Loader2 } from 'lucide-react'
 
-const BUDGET_OPTIONS = [
-  { value: '', label: 'Select budget range (optional)' },
-  { value: 'Under RM 5,000', label: 'Under RM 5,000' },
-  { value: 'RM 5,000 – 20,000', label: 'RM 5,000 – 20,000' },
-  { value: 'RM 20,000 – 50,000', label: 'RM 20,000 – 50,000' },
-  { value: 'RM 50,000+', label: 'RM 50,000+' },
-  { value: 'To be discussed', label: 'To be discussed' },
-]
+// Budget bands in the provider's own currency symbol (RM, A$, S$, £, $).
+function budgetOptions(currency: string) {
+  return [
+    { value: '', label: 'Select budget range (optional)' },
+    { value: `Under ${currency} 5,000`, label: `Under ${currency} 5,000` },
+    { value: `${currency} 5,000 – 20,000`, label: `${currency} 5,000 – 20,000` },
+    { value: `${currency} 20,000 – 50,000`, label: `${currency} 20,000 – 50,000` },
+    { value: `${currency} 50,000+`, label: `${currency} 50,000+` },
+    { value: 'To be discussed', label: 'To be discussed' },
+  ]
+}
 
 interface Props {
   providerId: string
   providerName: string
   mode?: 'claimed' | 'unclaimed'
+  /** Currency symbol for the budget options; defaults to RM. */
+  currency?: string
 }
 
-export function EnquiryForm({ providerId, providerName, mode = 'claimed' }: Props) {
+export function EnquiryForm({ providerId, providerName, mode = 'claimed', currency = 'RM' }: Props) {
   const isUnclaimed = mode === 'unclaimed'
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -178,7 +183,7 @@ export function EnquiryForm({ providerId, providerName, mode = 'claimed' }: Prop
               Budget
             </label>
             <select id="eq-budget" name="budget_range" className={inputClass}>
-              {BUDGET_OPTIONS.map((o) => (
+              {budgetOptions(currency).map((o) => (
                 <option key={o.value} value={o.value}>
                   {o.label}
                 </option>
