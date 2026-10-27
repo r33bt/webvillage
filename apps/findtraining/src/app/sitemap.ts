@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { createClient } from '@supabase/supabase-js'
+import { isProviderIndexable } from '@/lib/indexing-cohorts'
 
 const BASE_URL = 'https://findtraining.com'
 
@@ -61,7 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: c.updated_at ? new Date(c.updated_at) : new Date(),
   }))
 
-  const providerPages: MetadataRoute.Sitemap = (providers ?? []).map((p) => ({
+  const providerPages: MetadataRoute.Sitemap = (providers ?? []).filter((p) => isProviderIndexable(p.slug)).map((p) => ({
     url: `${BASE_URL}/providers/${p.slug}`,
     changeFrequency: 'weekly' as const,
     priority: 0.7,

@@ -8,6 +8,7 @@ import { COUNTRY_CONFIGS } from '@/lib/countries'
 import { ContactLinks } from './ContactLinks'
 import { EnquiryForm } from '@/components/EnquiryForm'
 import { ProviderMark } from '@/components/ProviderMark'
+import { isProviderIndexable } from '@/lib/indexing-cohorts'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -79,6 +80,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
     },
     alternates: { canonical: `https://findtraining.com/providers/${slug}` },
+    // Indexing experiment: Cohort B pages are noindex,follow (src/config/indexing.ts).
+    ...(isProviderIndexable(slug) ? {} : { robots: { index: false, follow: true } }),
   }
 }
 
