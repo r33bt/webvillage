@@ -20,19 +20,34 @@ const COUNTRY_OPTIONS: Record<string, { label: string }> = {
   ZZ: { label: 'International' },
 }
 
-export const metadata: Metadata = {
-  title: 'HRDF Training Providers Malaysia | Browse All Providers',
-  description: "Browse training providers in Malaysia and beyond. Filter by category, state, country, or delivery method.",
-  alternates: {
-    canonical: 'https://findtraining.com/providers',
-  },
-  openGraph: {
-    title: 'HRDF Training Providers Malaysia | Browse All Providers',
-    description: "Browse training providers in Malaysia and beyond. Filter by category, state, country, or delivery method.",
-    url: 'https://findtraining.com/providers',
-    siteName: 'FindTraining Malaysia',
-    type: 'website',
-  },
+const BASE_TITLE = 'HRDF Training Providers Malaysia | Browse All Providers'
+const BASE_DESCRIPTION = 'Browse training providers in Malaysia and beyond. Filter by category, state, country, or delivery method.'
+
+// Paginated list pages (?page=N, no filters) canonicalise to themselves so Google can
+// follow them to the provider pages. Filtered views keep canonicalising to the base list.
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; state?: string; delivery?: string; country?: string }>
+}): Promise<Metadata> {
+  const sp = await searchParams
+  const n = Number.parseInt(sp.page ?? '1', 10)
+  const filtered = Boolean(sp.state || sp.delivery || sp.country)
+  const paged = !filtered && Number.isInteger(n) && n > 1
+  const url = paged ? `https://findtraining.com/providers?page=${n}` : 'https://findtraining.com/providers'
+  const title = paged ? `${BASE_TITLE} (Page ${n})` : BASE_TITLE
+  return {
+    title,
+    description: BASE_DESCRIPTION,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description: BASE_DESCRIPTION,
+      url,
+      siteName: 'FindTraining Malaysia',
+      type: 'website',
+    },
+  }
 }
 
 export default async function ProvidersPage({
