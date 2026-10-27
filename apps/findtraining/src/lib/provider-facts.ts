@@ -186,6 +186,23 @@ export function normalizedProviderName(name: string): string {
 }
 
 /**
+ * At most `limit` rows, one per company, never the page's own company. Duplicate rows of
+ * one company carry different ids, so an id check alone repeats names.
+ */
+export function uniqueByCompany<T extends { name: string }>(ownName: string, rows: readonly T[], limit: number): T[] {
+  const seen = new Set([normalizedProviderName(ownName)])
+  const out: T[] = []
+  for (const row of rows) {
+    const key = normalizedProviderName(row.name)
+    if (seen.has(key)) continue
+    seen.add(key)
+    out.push(row)
+    if (out.length === limit) break
+  }
+  return out
+}
+
+/**
  * One sentence built only from verified facts, for pages with no written description.
  * Returns null when the row does not support a sentence (nothing is guessed).
  */

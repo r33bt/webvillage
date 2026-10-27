@@ -2,7 +2,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { selectCohorts, type Row } from './indexing-cohorts.ts'
-import { buildProviderFacts, humanizeCategory, primaryCategoryLabel, formatRegistryDate } from '../src/lib/provider-facts.ts'
+import { buildProviderFacts, humanizeCategory, primaryCategoryLabel, formatRegistryDate, uniqueByCompany } from '../src/lib/provider-facts.ts'
 
 function row(slug: string, country: string, extra: Partial<Row> = {}, name = slug): Row {
   return {
@@ -96,4 +96,19 @@ test('provider kind phrase never doubles "training" or leaks underscores', async
     'Acme Pty Ltd is a registered training organisation in New South Wales, Australia, registered from 27 Nov 2021 until 26 Nov 2028.',
   )
   assert.equal(buildProviderSummary({ ...base, raw_data: { status: 'Current (suspended)' } }, 'X'), null)
+})
+
+test('related providers: one card per company, never the page\'s own company', () => {
+  const rows = [
+    { name: '1Training Worklife Management Sdn Bhd' },
+    { name: 'Asia Bigwave Sdn Bhd' },
+    { name: 'Asia Bigwave' },
+    { name: 'Elite Essential Sdn. Bhd.' },
+    { name: 'Elite Essential' },
+    { name: 'Elite Essential Bhd' },
+    { name: 'Zen Skills' },
+  ]
+  const out = uniqueByCompany('1Training Worklife Management', rows, 6).map((r) => r.name)
+  assert.deepEqual(out, ['Asia Bigwave Sdn Bhd', 'Elite Essential Sdn. Bhd.', 'Zen Skills'])
+  assert.equal(uniqueByCompany('x', rows, 2).length, 2)
 })

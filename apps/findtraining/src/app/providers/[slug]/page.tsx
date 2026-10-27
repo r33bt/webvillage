@@ -9,7 +9,7 @@ import { ContactLinks } from './ContactLinks'
 import { EnquiryForm } from '@/components/EnquiryForm'
 import { ProviderMark } from '@/components/ProviderMark'
 import { cohortAForCountry, isProviderIndexable } from '@/lib/indexing-cohorts'
-import { buildProviderFacts, buildProviderSummary, countryName as countryNameOf, providerKindPhrase, stateLabel } from '@/lib/provider-facts'
+import { buildProviderFacts, buildProviderSummary, countryName as countryNameOf, providerKindPhrase, stateLabel, uniqueByCompany } from '@/lib/provider-facts'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -124,12 +124,16 @@ export default async function ProviderPage({ params }: Props) {
   }
   try {
     // Same country, category and region; strongest (Cohort A) listings first.
-    related = await getTopicalRelatedProviders(provider, {
-      limit: 6,
+    // Fetch extra, then keep one card per company: duplicate rows of the same
+    // company (MY -1..-5 slugs) have different ids, so the id check alone let the
+    // page's own company and repeated names through (desk check 2026-10-27).
+    const candidates = await getTopicalRelatedProviders(provider, {
+      limit: 18,
       preferSlugs: cohortAForCountry(provider.country_code)
         .filter((e) => e.state && e.state === (provider.state ?? provider.region))
         .map((e) => e.slug),
     })
+    related = uniqueByCompany(provider.name, candidates, 6)
   } catch {
     related = []
   }
