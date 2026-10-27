@@ -83,3 +83,17 @@ test('facts: only present fields, no enum leaks', () => {
   assert.deepEqual(f.map((x) => x.label), ['Registration status', 'ABN', 'Location'])
   assert.equal(f[2].value, 'New South Wales')
 })
+
+test('provider kind phrase never doubles "training" or leaks underscores', async () => {
+  const { providerKindPhrase, buildProviderSummary } = await import('../src/lib/provider-facts.ts')
+  assert.equal(providerKindPhrase(['vocational_training']), 'a vocational training provider')
+  assert.equal(providerKindPhrase(['it_technology']), 'an IT technology training provider')
+  assert.equal(providerKindPhrase(['general_training']), 'a training provider')
+  assert.equal(providerKindPhrase([]), 'a training provider')
+  const base = { country_code: 'AU', state: 'NSW', region: null, address: null, city: null, ssm_number: null, registration_date: null, hrdf_status: 'active' }
+  assert.equal(
+    buildProviderSummary({ ...base, raw_data: { status: 'Current', registration_start: '2021-11-27', registration_end: '2028-11-26' } }, 'Acme Pty Ltd'),
+    'Acme Pty Ltd is a registered training organisation in New South Wales, Australia, registered from 27 Nov 2021 until 26 Nov 2028.',
+  )
+  assert.equal(buildProviderSummary({ ...base, raw_data: { status: 'Current (suspended)' } }, 'X'), null)
+})

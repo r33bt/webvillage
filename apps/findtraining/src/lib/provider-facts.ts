@@ -13,6 +13,8 @@ export type ProviderFact = {
   value: string
   /** Optional https link attached to the value (a registry record). */
   href?: string
+  /** True for registry identifiers (ABN, HRD Corp number, UEN...), repeated in JSON-LD. */
+  identifier?: boolean
 }
 
 const AU_STATES: Record<string, string> = {
@@ -49,10 +51,20 @@ export function humanizeCategory(raw: string): string {
   return spaced.charAt(0).toUpperCase() + spaced.slice(1)
 }
 
-/** First category worth showing, as lower-case words ("vocational training"), or null. */
+/** First category worth showing, as words ("vocational training", "IT technology"), or null. */
 export function primaryCategoryLabel(categories: string[] | null | undefined): string | null {
   const first = (categories ?? []).find((c) => c && !GENERIC_CATEGORIES.has(c.toLowerCase()))
-  return first ? humanizeCategory(first).toLowerCase() : null
+  if (!first) return null
+  return humanizeCategory(first)
+    .toLowerCase()
+    .replace(/\b(it|hr)\b/g, (m) => m.toUpperCase())
+}
+
+/** "a vocational training provider", "an IT technology training provider", "a training provider". */
+export function providerKindPhrase(categories: string[] | null | undefined): string {
+  const cat = primaryCategoryLabel(categories)
+  const noun = !cat ? 'training provider' : /training$/.test(cat) ? `${cat} provider` : `${cat} training provider`
+  return `${/^([aeiou]|IT\b|HR\b)/.test(noun) ? 'an' : 'a'} ${noun}`
 }
 
 /** Full state name for display (AU stores abbreviations). */
@@ -108,8 +120,8 @@ export function buildProviderFacts(p: FactSource): ProviderFact[] {
   const raw = rawObj(p)
   const country = (p.country_code ?? '').toUpperCase()
   const facts: ProviderFact[] = []
-  const add = (key: string, label: string, value: string | null, href?: string | null) => {
-    if (value) facts.push({ key, label, value, ...(href ? { href } : {}) })
+  const add = (key: string, label: string, value: string | null, href?: string | null, identifier = false) => {
+    if (value) facts.push({ key, label, value, ...(href ? { href } : {}), ...(identifier ? { identifier } : {}) })
   }
   const sourceUrl = httpsUrl(raw.source_url)
 
@@ -117,8 +129,8 @@ export function buildProviderFacts(p: FactSource): ProviderFact[] {
     add('au-status', 'Registration status', str(raw.status))
     add('au-regulator', 'Regulator', str(raw.regulatory_body))
     add('au-rto-type', 'RTO type', str(raw.rto_type))
-    add('au-org-code', 'Organisation code', str(raw.organisation_code))
-    add('au-abn', 'ABN', str(raw.abn))
+    add('au-org-code', 'Organisation code', str(raw.organisation_code), null, true)
+    add('au-abn', 'ABN', str(raw.abn), null, true)
     add('au-reg-start', 'Registered from', formatRegistryDate(raw.registration_start))
     add('au-reg-end', 'Registration ends', formatRegistryDate(raw.registration_end))
     add('au-business-names', 'Business names', str(raw.business_names))
@@ -129,19 +141,21 @@ export function buildProviderFacts(p: FactSource): ProviderFact[] {
       'HRD Corp status',
       p.hrdf_status === 'registered' ? 'Registered training provider' : null,
     )
-    add('my-hrdc-no', 'HRD Corp registration no.', str(raw.registration_no))
-    add('my-ssm', 'Company number (SSM)', str(p.ssm_number))
+    add('my-hrdc-no', 'HRD Corp registration no.', str(raw.registration_no), null, true)
+    add('my-ssm', 'Company number (SSM)', str(p.ssm_number), null, true)
     add('my-reg-date', 'Registered since', formatRegistryDate(p.registration_date))
     add('my-specialisation', 'Specialisation', str(raw.specialisation))
     add('my-source', 'Source', sourceUrl ? 'HRD Corp eTRIS register' : null, sourceUrl)
   } else if (country === 'SG') {
     const extra = raw.extra && typeof raw.extra === 'object' ? (raw.extra as Record<string, unknown>) : {}
-    add('sg-uen', 'UEN', str(extra.uen))
+    add('sg-uen', 'UEN', str(extra.uen), null, true)
     add('sg-source', 'Source', sourceUrl ? 'SkillsFuture Singapore listing' : null, sourceUrl)
   }
 
   // Location: one fact built from what is present.
-  const place = [str(p.address), str(p.city), stateLabel(country, str(p.state) ?? str(p.region))]
+  const stateName = stateLabel(country, str(p.state))
+  const regionName = str(p.region)
+  const place = [str(p.address), str(p.city), stateName ?? regionName, stateName ? regionName : null]
     .filter((v, i, a): v is string => Boolean(v) && a.indexOf(v) === i)
   if (place.length > 0) add('location', 'Location', place.join(', '))
 
@@ -169,4 +183,33 @@ export function normalizedProviderName(name: string): string {
     n = n.replace(suffix, '').trim()
   }
   return n
+}
+
+/**
+ * One sentence built only from verified facts, for pages with no written description.
+ * Returns null when the row does not support a sentence (nothing is guessed).
+ */
+export function buildProviderSummary(p: FactSource, name: string): string | null {
+  const raw = rawObj(p)
+  const country = (p.country_code ?? '').toUpperCase()
+  const state = stateLabel(country, str(p.state))
+  if (country === 'AU') {
+    if (str(raw.status) !== 'Current') return null
+    const from = formatRegistryDate(raw.registration_start)
+    const to = formatRegistryDate(raw.registration_end)
+    return (
+      `${name} is a registered training organisation${state ? ` in ${state}` : ''}, Australia` +
+      `${from ? `, registered from ${from}` : ''}${to ? `${from ? ' until' : ', registered until'} ${to}` : ''}.`
+    )
+  }
+  if (country === 'MY') {
+    if (p.hrdf_status !== 'registered') return null
+    return `${name} is an HRD Corp registered training provider${state ? ` in ${state}` : ''}, Malaysia.`
+  }
+  if (country === 'SG') {
+    const extra = raw.extra && typeof raw.extra === 'object' ? (raw.extra as Record<string, unknown>) : {}
+    if (!str(extra.uen) || !httpsUrl(raw.source_url)) return null
+    return `${name} is a training provider listed with SkillsFuture Singapore${str(p.region) ? ` in the ${str(p.region)} region` : ''}.`
+  }
+  return null
 }
