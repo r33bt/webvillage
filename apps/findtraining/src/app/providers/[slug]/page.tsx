@@ -2,13 +2,13 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight, CheckCircle2, MapPin, Sparkles, CheckCircle } from 'lucide-react'
-import { getProviderBySlug, getCoursesByProvider, getRelatedProviders } from '@webvillage/engine/adapters/findtraining'
+import { getProviderBySlug, getCoursesByProvider, getTopicalRelatedProviders } from '@webvillage/engine/adapters/findtraining'
 import type { FtCourse, FtProvider } from '@webvillage/engine/types/ft'
 import { COUNTRY_CONFIGS } from '@/lib/countries'
 import { ContactLinks } from './ContactLinks'
 import { EnquiryForm } from '@/components/EnquiryForm'
 import { ProviderMark } from '@/components/ProviderMark'
-import { isProviderIndexable } from '@/lib/indexing-cohorts'
+import { cohortAForCountry, isProviderIndexable } from '@/lib/indexing-cohorts'
 import { buildProviderFacts, buildProviderSummary, countryName as countryNameOf, providerKindPhrase, stateLabel } from '@/lib/provider-facts'
 
 interface Props {
@@ -123,7 +123,13 @@ export default async function ProviderPage({ params }: Props) {
     courses = []
   }
   try {
-    related = await getRelatedProviders(provider.id, provider.categories ?? [])
+    // Same country, category and region; strongest (Cohort A) listings first.
+    related = await getTopicalRelatedProviders(provider, {
+      limit: 6,
+      preferSlugs: cohortAForCountry(provider.country_code)
+        .filter((e) => e.state && e.state === (provider.state ?? provider.region))
+        .map((e) => e.slug),
+    })
   } catch {
     related = []
   }
@@ -417,7 +423,7 @@ export default async function ProviderPage({ params }: Props) {
         {related.length > 0 && (
           <section className="mt-10">
             <h2 className="text-base font-semibold text-gray-900 mb-4">Also in this category</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {related.map((rel) => {
                 const firstMappedCat = rel.categories?.find((c) => CATEGORY_SLUG_MAP[c])
                 const catLabel = firstMappedCat
