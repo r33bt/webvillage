@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "status": "placeholder",
+  "generatedAt": null,
+  "note": "Placeholder. The desk fills this by running scripts/indexing-cohorts.ts (see scripts/README-indexing-cohorts.md). While status is not 'generated' and A is empty, the cohort gate is inert: every provider page stays indexable and the sitemap behaves as before.",
+  "counts": { "A": 0, "C": 0 },
+  "A": [],
+  "C": []
+}

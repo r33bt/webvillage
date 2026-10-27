@@ -28,6 +28,12 @@ export interface FtProvider {
   claimed: boolean
   regulatory_body_id: string | null
   site_id?: number | null
+  // Optional registry fields: present on rows read with select('*'), absent elsewhere.
+  address?: string | null
+  city?: string | null
+  ssm_number?: string | null
+  registration_date?: string | null
+  raw_data?: Record<string, unknown> | null
   created_at: string
   updated_at: string
 }
