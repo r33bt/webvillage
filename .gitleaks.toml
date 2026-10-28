@@ -1,0 +1,20 @@
+# Secret scan config (hub rule .claude/rules/output-redaction.md). Extends the gitleaks defaults.
+# Install as .gitleaks.toml at the repo root.
+title = "portfolio secret scan"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "References and placeholders, not values"
+regexTarget = "line"
+regexes = [
+  # 1Password references (.env.op and docs): op://vault/item/field
+  '''op://[\w .()\-]+/[\w .()\-]+(/[\w .()\-]+)*''',
+  # Redaction placeholders written by the strip runs
+  '''<redacted:[^>]*>''',
+]
+paths = [
+  '''(^|/)\.env\.op$''',
+  '''(^|/)\.env\.example$''',
+]
